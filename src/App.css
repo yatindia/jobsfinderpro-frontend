@@ -1,0 +1,19 @@
+.App {
+  height: 100%;
+  background-color: #fef8f5;
+}
+
+.appAside {
+  width: calc(100% - 800px);
+  background-color: #fef8f5;
+}
+
+.appForm {
+  width: 800px;
+  margin-top: 5%;
+  margin-right: 10px;
+  border: solid rgba(204, 204, 204, 0.411);
+  background-color: #fef8f5;
+  padding: 25px 40px;
+  overflow: auto;
+}

@@ -1,0 +1,17 @@
+.top-company img{max-width:40px}
+.company-btn{
+    color:#2196f3;
+    background-color:rgba(33,150,243,0.1);
+    font-size:12px;
+    padding:4px 10px;
+    border-radius:5px;
+}
+
+.company a{
+    text-decoration: none;
+}
+
+.imglogo{
+    width: 100px;
+    height: fit-content;
+}
