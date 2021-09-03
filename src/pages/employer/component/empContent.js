@@ -1,9 +1,8 @@
 import React,{useState,useEffect} from "react";
 import axios from 'axios'
+import { API_URL } from "../../../components/utils";
 
 import { resizeFile} from "../../../components/utils";
-
-const API_URL= 'http://212.71.239.166:5300' 
 
 function EmpContent() {
 
@@ -20,21 +19,21 @@ function EmpContent() {
         }
     }
 
-    const imageUpload=()=>{
+    const imageUpload= async ()=>{
         const formData = new FormData();
-        formData.append('profile',imgData);
+        formData.append("profile", imgData);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
             }
         };
         console.log(formData)
-        axios.post(API_URL+"/account/uploaddp",formData,config)
-            .then((response) => {
-                console.log(response);
-            }).catch((error) => {
-                console.log(error);
-        });
+        try {
+            const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
+            console.log(res);
+          } catch (ex) {
+            console.log(ex);
+          }
     }
 
 useEffect(() => {

@@ -1,9 +1,9 @@
 export const validating =(values)=>{
 
-if(!values.fname){
+if(!values.firstName){
    return{error:"*Please enter your First name.", valid:false}
 }
-if(!values.lname){
+if(!values.lastName){
     return{error:"*Please enter your Last name.", valid:false}
 }
 if(!values.password){
@@ -18,15 +18,14 @@ if(values.password !== values.cpassword){
 if(!values.email){
     return{error:"*Please enter your E-mail.", valid:false}
 }
+
 if (typeof values.email !== "undefined") {
           
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     if (!pattern.test(values.email)) {
       return{error:"*Please enter valid E-mail.", valid:false}
     }
-  }
-if(!values.mobile){
-    return{error:"*Please enter your Mobile.", valid:false}
 }
+
 return {error:"All are valid.", valid:true}
 }

@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import { Form,Col,Row,Button} from "react-bootstrap";
+import axios from 'axios'
 
+import { API_URL } from "../../components/utils";
 import TabView from "../../components/tabView";
 import { validating } from "./validating";
 import DialogBox from '../../components/dialogBox'
@@ -9,21 +11,19 @@ export default function Register() {
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
   const [inputs, setInputs] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     password: "",
     cpassword: "",
     email: "",
-    mobile: "",
     type:'seeker'
   })
   const [employer, setEmployer] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     password: "",
     cpassword: "",
     email: "",
-    mobile: "",
     type:'employer'
   })
 
@@ -32,7 +32,10 @@ export default function Register() {
     setEmployer({...employer,[e.target.name]: e.target.value})
   }
 
-  const seekerSubmit = (event) => {
+  const dialogClose=()=>{ setDialogShow(false)}
+
+  // ----- Job Seeker Login ----
+  const seekerSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -42,14 +45,24 @@ export default function Register() {
       const erro = validating(inputs)
       if(erro.valid===true){
         document.getElementById("err_message").innerText = ""
-        setDialogShow(true)
-        console.log(inputs)
+        try {
+          const res = await axios.post(API_URL+"/account/signup",inputs)
+          console.log(res);
+          if(res.data.error===false){
+            setDialogShow(true)
+          }else{
+            document.getElementById("err_message").innerText = res.data.Message._message
+          }
+        } catch (ex) {
+          console.log(ex);
+        }
       }else{
         document.getElementById("err_message").innerText = erro.error
       }
   };
 
-  const employerSubmit = (event) => {
+   // ----- Employer Login ----
+  const employerSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -59,16 +72,21 @@ export default function Register() {
       const erro = validating(employer)
       if(erro.valid===true){
         document.getElementById("err_message").innerText = ""
-        setDialogShow(true)
-        console.log(employer)
+        try {
+          const res = await axios.post(API_URL+"/account/signup",employer)
+          console.log(res);
+          if(res.data.error===false){
+            setDialogShow(true)
+          }else{
+            document.getElementById("err_message").innerText = res.data.Message._message
+          }
+        } catch (ex) {
+          console.log(ex);
+        }
       }else{
         document.getElementById("err_message").innerText = erro.error
       }
   };
-
-  const dialogClose=()=>{
-    setDialogShow(false)
-  }
 
 
   return (<>
@@ -84,14 +102,14 @@ export default function Register() {
                   <Form.Label className="formFieldLabel">First name</Form.Label>
                   <Form.Control
                     className="formFieldInput " required type="text" placeholder="First name" 
-                    name="fname" value={inputs.fname} onChange={changeHandle}
+                    name="firstName" value={inputs.firstName} onChange={changeHandle}
                   />
                 </Form.Group>
                 <Form.Group as={Col} md="6"  controlId="validationCustom02" className="formField">
                   <Form.Label className="formFieldLabel">Last name</Form.Label>
                   <Form.Control
                     className="formFieldInput " required type="text" placeholder="Last name"
-                    name="lname" value={inputs.lname} onChange={changeHandle}
+                    name="lastName" value={inputs.lastName} onChange={changeHandle}
                   />
                 </Form.Group>
               </Row>
@@ -117,13 +135,6 @@ export default function Register() {
                   <Form.Control
                     className="formFieldInput " required type="email" placeholder="E-mail"
                     name="email" value={inputs.email} onChange={changeHandle}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom06" className="formField">
-                  <Form.Label className="formFieldLabel">Mobile Number</Form.Label>
-                  <Form.Control
-                    className="formFieldInput " required type="tel" placeholder="Mobile with Country code"
-                    name="mobile" value={inputs.mobile} onChange={changeHandle}
                   />
                 </Form.Group>
               </Row>
@@ -160,14 +171,14 @@ export default function Register() {
                   <Form.Label className="formFieldLabel">First name</Form.Label>
                   <Form.Control
                     className="formFieldInput " required type="text" placeholder="First name" 
-                    name="fname" value={employer.fname} onChange={changeHandle}
+                    name="firstName" value={employer.firstName} onChange={changeHandle}
                   />
                 </Form.Group>
                 <Form.Group as={Col} md="6" controlId="validationCustom02" className="formField">
                   <Form.Label className="formFieldLabel">Last name</Form.Label>
                   <Form.Control
                     className="formFieldInput " required type="text" placeholder="Last name"
-                    name="lname" value={employer.lname} onChange={changeHandle}
+                    name="lastName" value={employer.lastName} onChange={changeHandle}
                   />
                 </Form.Group>
               </Row>
@@ -193,13 +204,6 @@ export default function Register() {
                   <Form.Control
                     className="formFieldInput " required type="email" placeholder="E-mail"
                     name="email" value={employer.email} onChange={changeHandle}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom06" className="formField">
-                  <Form.Label className="formFieldLabel">Mobile Number</Form.Label>
-                  <Form.Control
-                    className="formFieldInput " required type="text" placeholder="Mobile with Country code"
-                    name="mobile" value={employer.mobile} onChange={changeHandle}
                   />
                 </Form.Group>
               </Row>
