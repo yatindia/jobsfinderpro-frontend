@@ -27,12 +27,18 @@ function EmpContent() {
                 'content-type': 'multipart/form-data',
             }
         };
-        console.log(formData)
+        // console.log(formData)
+        // for(var pair of formData.entries()) {
+        //     console.log(`${pair[0]}: ${pair[1]}`);
+        //   }
+        document.getElementById("message").innerText = "Loading.."
         try {
             const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
             console.log(res);
+            document.getElementById("message").innerText = res.request.status
           } catch (ex) {
             console.log(ex);
+            document.getElementById("message").innerText = ex
           }
     }
 
@@ -54,6 +60,7 @@ useEffect(() => {
                     <h5><small>Company Logo</small></h5>
                     {imgBtn?<input type="file" name="profileImage" className="text-primary" placeholder={localStorage.getItem('Cmpny_Logo')} accept="image/*" onChange={onImageChange}/>:
                      <button className="btn btn-outline-info" onClick={imageUpload}>Upload</button>}
+                     <p className="text-danger m-2" id="message"></p>
                   </div>
                 </div>
             </div>

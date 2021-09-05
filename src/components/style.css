@@ -116,6 +116,7 @@ color: #eb5d1e;
     font-family: "Raleway", sans-serif;
     font-weight: 500;
     font-size: 16px;
+    text-decoration: none!important;
     letter-spacing: 1px;
     display: inline-block;
     padding: 8px 28px;

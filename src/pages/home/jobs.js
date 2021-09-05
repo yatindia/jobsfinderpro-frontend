@@ -23,7 +23,8 @@ function Jobs({items}){
             const position = view.position
             const level = view.level
             const contract = view.contract
-            const info = company + position + level + contract
+            const languages = view.languages
+            const info = company + position + level + contract + languages
             return info.trim().toLowerCase().includes(e.trim().toLowerCase())
         });
         setBank(filteredUsers)

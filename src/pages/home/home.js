@@ -14,10 +14,10 @@ export default class Home extends Component {
                 <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
                     <h1>Bettter digital experience with Ninestars</h1>
                     <h2>We are team of talented designers making websites with Bootstrap</h2>
-                    <a href="about" className="btn-get-started scrollto">Get Started</a>
+                    <a href="/login"className="btn-get-started scrollto">Get Started</a>
                 </div>
                 <div className="col-lg-6 order-1 order-lg-2 welcome-img">
-                    <img src={welo} className="img-fluid animated" alt=""/> 
+                    <img src={welo} className="img-fluid animated" alt="ff"/> 
                 </div>
             </div>
             <div className="row d-flex justify-content-center">

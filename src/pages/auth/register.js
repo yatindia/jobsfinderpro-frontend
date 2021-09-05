@@ -51,7 +51,7 @@ export default function Register() {
           if(res.data.error===false){
             setDialogShow(true)
           }else{
-            document.getElementById("err_message").innerText = res.data.Message._message
+            document.getElementById("err_message").innerText = res.data.message
           }
         } catch (ex) {
           console.log(ex);
@@ -78,7 +78,7 @@ export default function Register() {
           if(res.data.error===false){
             setDialogShow(true)
           }else{
-            document.getElementById("err_message").innerText = res.data.Message._message
+            document.getElementById("err_message").innerText = res.data.message
           }
         } catch (ex) {
           console.log(ex);
@@ -175,9 +175,9 @@ export default function Register() {
                   />
                 </Form.Group>
                 <Form.Group as={Col} md="6" controlId="validationCustom02" className="formField">
-                  <Form.Label className="formFieldLabel">Last name</Form.Label>
+                  <Form.Label className="formFieldLabel">Last Name / Company Name</Form.Label>
                   <Form.Control
-                    className="formFieldInput " required type="text" placeholder="Last name"
+                    className="formFieldInput " required type="text" placeholder="Last Name / Company Name"
                     name="lastName" value={employer.lastName} onChange={changeHandle}
                   />
                 </Form.Group>
