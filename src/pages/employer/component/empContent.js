@@ -2,19 +2,21 @@ import React,{useState,useEffect} from "react";
 import axios from 'axios'
 import { API_URL } from "../../../components/utils";
 
-import { resizeFile} from "../../../components/utils";
+import { resizeFile,dataURIToBlob} from "../../../components/utils";
 
 function EmpContent() {
 
     const [imgData, setImgData] = useState(null);
+    const [imgShow, setImgShow] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
 
     const onImageChange=async (e)=>{
         if (e.target.files[0]) {
             const file = e.target.files[0];
             const image = await resizeFile(file);
-            //const newFile = dataURIToBlob(image);
-            setImgData(image)
+            const newFile = dataURIToBlob(image);
+            setImgShow(image)
+            setImgData(newFile)
             setImgBtn(false)
         }
     }
@@ -34,10 +36,10 @@ function EmpContent() {
         document.getElementById("message").innerText = "Loading.."
         try {
             const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
-            console.log(res);
-            document.getElementById("message").innerText = res.request.status
+            //console.log(res);
+            document.getElementById("message").innerText = res.data.message
           } catch (ex) {
-            console.log(ex);
+           // console.log(ex);
             document.getElementById("message").innerText = ex
           }
     }
@@ -54,13 +56,13 @@ useEffect(() => {
                 <div className="mb-3 row form-group">
                   <div className="col-lg-3 img-circle">
                         {imgBtn?<img src={localStorage.getItem('Cmpny_Logo')} className="shadow" alt="Logo"/>:
-                        <img src={imgData} className="shadow" alt="Logo"/>}
+                        <img src={imgShow} className="shadow" alt="Logo"/>}
                     </div>
                   <div className="col-lg-8 mt-4">
                     <h5><small>Company Logo</small></h5>
                     {imgBtn?<input type="file" name="profileImage" className="text-primary" placeholder={localStorage.getItem('Cmpny_Logo')} accept="image/*" onChange={onImageChange}/>:
                      <button className="btn btn-outline-info" onClick={imageUpload}>Upload</button>}
-                     <p className="text-danger m-2" id="message"></p>
+                     <p className="text-primary m-2" id="message"></p>
                   </div>
                 </div>
             </div>

@@ -88,11 +88,11 @@ const onImageChange=async (e)=>{
                         <textarea className="form-control" rows="4" defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!"></textarea>
                     </div>
                 </div>
-                <div className="col-md-3">
-                    <div className="form-group">
+                <div className="col-md-6">
+                    <div className="form-group p-2">
                         <p className="form-group text-primary">Kiran resume.pdf</p>
                         <label>Resume Update</label>
-                        <input type="file" className=" form-control" accept="application/pdf"/>
+                        <input type="file" className="form-control" accept="application/pdf"/>
                     </div>
                 </div>
             </div>

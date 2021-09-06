@@ -6,7 +6,7 @@ export const API_URL = 'http://127.0.0.1:5300'
 export const resizeFile = (file) =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
-      file,500,500,"PNG",100,0,
+      file,500,500,"JPEG",100,0,
       (uri) => {
         resolve(uri);
       },

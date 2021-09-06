@@ -51,7 +51,7 @@ export default function Register() {
           if(res.data.error===false){
             setDialogShow(true)
           }else{
-            document.getElementById("err_message").innerText = res.data.message
+            document.getElementById("err_message").innerText = res.data.error
           }
         } catch (ex) {
           console.log(ex);

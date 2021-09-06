@@ -14,7 +14,7 @@ import { validateMail } from "./validating";
 const Login =()=> {
 
   const [dialogShow, setDialogShow] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [btnVerify, setBtnVerify] = useState(false);
   const [errs,setErr] = useState('')
   const history = useHistory();
   const [inputs, setInputs] = useState({
@@ -22,27 +22,27 @@ const Login =()=> {
     email: "",
   })
 
-  const handleSubmit=(e) =>{
-    e.preventDefault();
-    if(inputs.email==="" || inputs.password===""){
-     setErr("** Enter the valid credentials")
-    }
-    else if (inputs.email==="prsnthmailbox@gmail.com" && inputs.password==="prs"){
-      const userDetails = {job_email: inputs.email, Role_Type: "seeker"}
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      history.push('/users/dashboard');
-      window.location.reload()
-    }
-    else if (inputs.email==="bungalowarch3d@gmail.com" && inputs.password==="prs"){
-      const userDetails = {job_email: inputs.email, Role_Type: "employer"}
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-        history.push('/employers/dashboard');
-        window.location.reload()
-   }  
-    else{
-      setErr("** Login Failed")
-    }
-  }
+  // const handleSubmit=(e) =>{
+  //   e.preventDefault();
+  //   if(inputs.email==="" || inputs.password===""){
+  //    setErr("** Enter the valid credentials")
+  //   }
+  //   else if (inputs.email==="prsnthmailbox@gmail.com" && inputs.password==="prs"){
+  //     const userDetails = {job_email: inputs.email, Role_Type: "seeker"}
+  //     localStorage.setItem('userDetails', JSON.stringify(userDetails));
+  //     history.push('/users/dashboard');
+  //     window.location.reload()
+  //   }
+  //   else if (inputs.email==="bungalowarch3d@gmail.com" && inputs.password==="prs"){
+  //     const userDetails = {job_email: inputs.email, Role_Type: "employer"}
+  //     localStorage.setItem('userDetails', JSON.stringify(userDetails));
+  //       history.push('/employers/dashboard');
+  //       window.location.reload()
+  //  }  
+  //   else{
+  //     setErr("** Login Failed")
+  //   }
+  // }
 
     const changeHandle = e => {
       setInputs({...inputs,[e.target.name]: e.target.value})
@@ -51,36 +51,51 @@ const Login =()=> {
     // -----Login function----
     const validateemail = validateMail(inputs)
 
-    // const handleSubmit= async(e) =>{
-    //   e.preventDefault();
-    //   if(validateemail.valid===false){
-    //     setErr("**"+ validateemail.error)
-    //   }else if(!inputs.password){setErr("**Enter the Password"); setConfirm(true)}
+    const handleSubmit= async(e) =>{
+      e.preventDefault();
+      if(validateemail.valid===false){
+        setErr("**"+ validateemail.error)
+      }
+      else if(!inputs.password){setErr("**Enter the Password"); setBtnVerify(true)}
+      else{
+      try {
+        const res = await axios.post(API_URL+"/account/login",inputs)
+        if(res.data.error===false){
+          const userDetails = {job_email: inputs.email, Role_Type: res.data.type}
+          localStorage.setItem('userDetails', JSON.stringify(userDetails));
+            if(res.data.type === "employer"){
+              history.push('/employers/dashboard');
+              window.location.reload()
+            }
+            else if(res.data.type === "seeker"){
+              history.push('/users/dashboard');
+              window.location.reload()
+            }
+            else{window.location.reload()}
 
-    //   else{
-    //   try {
-    //     const res = await axios.post(API_URL+"/account/login",inputs)
-    //     console.log(res);
-    //     if(res.data.error===false){
-    //       setErr(res.data.Message)
-    //       setConfirm(false)
-    //     }else{
-    //       setErr(res.data.Message)
-    //     }
-    //   } catch (ex) {
-    //     setErr(ex)
-    //   }
-    //   }
-    // }
+          setBtnVerify(false)
+        }else{
+          setErr(res.data.Message)
+        }
+      } catch (ex) {
+        setErr(ex)
+      }
+      }
+    }
 
 // -----Reset Password function----
- const forgetPassword=(e)=>{
-    e.preventDefault();
+ const forgetPassword=async(e)=>{
     if(!inputs.email){
      setErr('*Enter the E-mail') }
     else{
-      setErr('')
-      setDialogShow(true)}
+      try {
+        const response = await axios.post(API_URL+"/account/recoverPassword",inputs.email)
+        setDialogShow(true)
+        console.log(response)
+      } catch (error) {
+        console.error()
+      }
+    }
   }
 
 // -----Resent Confirmation function----
@@ -136,9 +151,9 @@ const Login =()=> {
 
                 <div className="formField">
                   <button className="btn formFieldButton effect" onClick={handleSubmit}>Sign In</button>
-                  {confirm === false ? 
+                  {btnVerify === false ? 
                     <button className=" m-2 btn btn-outline-secondary" onClick={forgetPassword}> <small>Forget Password</small></button> :""}
-                  {confirm === true ? 
+                  {btnVerify === true ? 
                   <button className=" m-2 btn btn-outline-secondary" onClick={verifyMail}> <small>Verify E-mail</small></button>:""}
                 </div>
                 
