@@ -2,10 +2,11 @@ import React,{useState} from "react";
 
 const Fetcher=({...props})=>{
 
-    const [search, setSearch] = useState({
-        jobs: "",
-        location: "",
-    })
+  const [search, setSearch] = useState({
+      jobs: "",
+      location: "",
+  })
+  const getdata = props.location.search || {}
 
     const changeHandle = (e) => {
         setSearch({...search,[e.target.name]: e.target.value})
@@ -14,6 +15,8 @@ const Fetcher=({...props})=>{
     const handleSubmit=()=>{
         props.getSearch(search)
     }
+
+    console.log(getdata)
 
 return (<>
          <div className="container justify-content-center">

@@ -30,7 +30,7 @@ export default class NavBar extends Component{
     render(){
         return(
             <>         
-            <Navbar expand="lg" className="navbar shadow rounded-lg">
+            <Navbar expand="lg" className="navbar shadow rounded-lg mt-3">
                 <Form className="container-fluid">
                     <Navbar.Brand><a className="navbar-brand" href="/">LOGO</a>  </Navbar.Brand>
                 <Navbar.Toggle  aria-controls = "navbar_toggle"/>

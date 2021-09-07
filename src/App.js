@@ -10,6 +10,8 @@ import NavBar from "./components/navBar";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Footer from "./components/footer";
+import Fetcher from "./pages/jobList/fetcher";
+import FindJobs from "./pages/jobList/findJob";
 
 class App extends Component {
   render() {
@@ -17,11 +19,13 @@ class App extends Component {
       <Router>
         <NavBar></NavBar>
         <Switch>
-            <Route exact path="/" component={Lander}/>
+            <Route active exact path="/" component={Lander}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/users/dashboard" component={UserLander}/>
             <Route exact path="/employers/dashboard" component={EmpLander}/>
+            <Route exact path="/search" component={Fetcher}/>
+            <Route exact path="/jobs" component={FindJobs}/>
             <Redirect to ='/'/>
           </Switch>
           <Footer></Footer>

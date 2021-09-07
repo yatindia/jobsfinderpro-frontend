@@ -1,12 +1,13 @@
+
 import React, {useEffect, useState } from "react";
 import './style.css'
-import { useHistory } from "react-router-dom";
 
 import welo from '../components/asserts/hero-img.svg'
 import TopHiring from "./home/topHire";
 import Trending from "./home/trending";
-
+import FindJobs from "./jobList/findJob";
 import data from '../components/asserts/data.json'
+import Fetcher from "./jobList/fetcher";
 
 
 const Lander =()=> {
@@ -14,32 +15,31 @@ const Lander =()=> {
   const [search, setSearch] = useState({
     jobs: "",
     location: "",})
-  const [getter,setGetter] = useState({})
-
-  const history = useHistory();
-
-
-  const changeHandle = (e) => {
-      setSearch({...search,[e.target.name]: e.target.value})
-  }
-
-  useEffect(()=>{
-  })
+  const [active, setactive] = useState('top')
+  const [getter, setGetter] = useState('')
 
 
-  const handleSubmit=()=>{
-      if(search.jobs === "" && search.location === ""){
-        history.push({pathname:'/search',search: '?='});
-      }else if(search.jobs !== "" || search.location!==''){
-        history.push({pathname:'/jobs' ,keyword:search});
-      }
-      else {
-        return null
-      }
-  }
+const changeHandle = (e) => {
+    setSearch({...search,[e.target.name]: e.target.value})
+}
+
+useEffect(()=>{
+})
+
+
+const handleSubmit=()=>{
+    if(search.jobs === "" && search.location === ""){
+      setactive("job")
+    }else if(search.jobs !== "" ){
+      setactive("list")
+    }
+    else {
+      return null
+    }
+}
 
     return (<>
-    {/* {active === "top" ? */}
+    {active === "top" ?
     <div>
       <section id="welcome" className="d-flex align-items-center">
         <div className="container">
@@ -55,7 +55,7 @@ const Lander =()=> {
             </div>
 
 
-            <div className="">
+            <div className="container-flex">
             <div className="row d-flex justify-content-center">
                 <div className="col-lg">
                     <div className="row">
@@ -95,9 +95,16 @@ const Lander =()=> {
     <TopHiring></TopHiring>
     <Trending getSearch={setGetter}></Trending>
     </div>
-    {/* :""} */}
+    :""}
+{console.log(getter)}
+    {active === "job" ?<div className ="m-4">
+        <Fetcher></Fetcher>
+    </div>:""}
 
-  </>);
+    {active === "list" ?<div className ="m-4">
+        <FindJobs keywords={search}></FindJobs>
+    </div>:""}
+    </>);
 }
 
 export default Lander;
