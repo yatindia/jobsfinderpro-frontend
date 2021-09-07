@@ -1,60 +1,46 @@
-import React,{useEffect,useState} from "react";
+import React,{useState} from "react";
 
-const Selector=({items, ...props})=>{
+const Selector=({...props})=>{
 
-    const [skill,setSkill]=useState([])
+    const [search, setSearch] = useState({
+        jobs: "",
+        location: "",
+    })
 
-    useEffect(() => {
-        const fetchdata =async()=>{
-            const stateinfa = items.map((data)=>(
-                {
-                    location: data.location, 
-                } 
-                ));
-            setSkill(stateinfa)
-        }  
-        fetchdata()
-      },[items]);
-
-      const handleChange=(e)=>{
-        if (e === ""){
-            return null
-        }else{
-        props.getSelectedSkill(e)
-        }
+    const changeHandle = (e) => {
+        setSearch({...search,[e.target.name]: e.target.value})
     }
     
+    const handleSubmit=()=>{
+        props.getSearch(search)
+    }
 
 return (<>
-         <form className="align-items-center ">
-          <div className="row ">
+         <div className="container-flex">
+          <div className="row d-flex justify-content-center">
               <div className="col-lg">
                   <div className="row">
                        <div className="col-lg col-md col-sm p-1 input-group">
-                      <input className="form-control selector border"  type="text" onChange={(e) => handleChange(e.target.value)} placeholder="Job Search" list="browsers"/>
-                      {skill.length > 0 ? (
-                                <datalist id = "browsers">
-                                {skill.map((res,i)=>(<option key={i} value={res.location}>{res.location}</option>))}
-                                </datalist>):null} 
+                      <input className="form-control selector border"  type="text" name="jobs"
+                        onChange={changeHandle}  placeholder="Company, Title, Keywords " list="browsers"/>
+                        <span className="input-group-append">
+                            <div className="input-group-text"><i className="fa fa-search text-info"></i></div>
+                        </span>
                       </div> 
-
                       <div className="col-lg col-md col-sm p-1 input-group">
-                      <input className="form-control selector border"  type="text" placeholder="Loaction" list="browsers1"/>
-                          <datalist id = "browsers1">
-                          <option value="Chennai">Chennai</option>
-                          <option value="TVM">TVM</option>
-                          <option value="EKM">EKM</option>
-                          <option value="BNG">BNG</option>
-                          </datalist>
+                      <input className="form-control selector border"  type="text" name="location"
+                        onChange={changeHandle} placeholder="Job Location" list="browsers1"/>
+                        <span className="input-group-append">
+                            <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
+                        </span>
                       </div>
-
-                      <div className="col-md col-sm p-1 input-group">
-                      <button className="btn btn-success " type="submit">Search</button>
+                      <div className="col-sm-2 mt-1">
+                        <button className="btn btn-findJob form-control" onClick={handleSubmit}>Find Jobs</button>
                       </div>
                   </div>
               </div>
             </div>
-          </form> 
+          </div> 
 
   </>);
 

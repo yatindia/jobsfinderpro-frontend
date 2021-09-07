@@ -112,22 +112,20 @@ color: #eb5d1e;
     font-size: 24px;
   }
   
-  #welcome .btn-get-started {
+  #welcome .btn-findJob {
     font-family: "Raleway", sans-serif;
     font-weight: 500;
     font-size: 16px;
     text-decoration: none!important;
     letter-spacing: 1px;
     display: inline-block;
-    padding: 8px 28px;
     border-radius: 3px;
     transition: 0.5s;
-    margin: 10px;
     color: #fff;
     background: #eb5d1e;
   }
   
-  #welcome .btn-get-started:hover {
+  #welcome .btn-findJob:hover {
     background: #ef7f4d;
   }
   
@@ -200,6 +198,7 @@ color: #eb5d1e;
   #footer .footer-top {
     padding: 30px;
     background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1) !important;
   }
   
   #footer .footer-top h4 {

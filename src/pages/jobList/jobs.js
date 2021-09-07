@@ -2,8 +2,9 @@ import React,{useEffect,useState} from "react";
 import {Row, Col, Modal} from 'react-bootstrap'
 
 import ApplyBtn from "../../components/applyBtn";
+import items from '../../components/asserts/data.json'
 
-function Jobs({items}){
+function Jobs(){
     const [bank, setBank] = useState([]);
     const [position,setPosition]=useState([])
     const [show, setShow] = useState(false);
@@ -11,7 +12,7 @@ function Jobs({items}){
 
     useEffect(() => {
         setBank(items)
-      },[items]);
+      },[]);
 
     const handleChange=(e)=>{
         if (e === ""){
@@ -56,7 +57,7 @@ function Jobs({items}){
             </Col>
         </Row>
 
-        <form className="container-flex ">
+        <form className="container ">
           <div className="row d-flex justify-content-center">
               <div className="col-lg">
                   <div className="row">
@@ -79,7 +80,7 @@ function Jobs({items}){
           </form> 
        
          {bank.length > 0 ? (
-          <div className="container-flex">
+          <div className="container">
             {bank.map((items,key)=>(
             <div className="row d-flex justify-content-center " key={key}>
                 <div className="col-md mt-2 pt-s border">

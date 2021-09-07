@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import "./App.css";
+import './components/style.css'
 
 import Lander from "./pages/mainLander";
-import UserAuth from "./pages/jobSeeker/userAuth";
-import EmpAuth from "./pages/employer/empAuth";
 import UserLander from './pages/jobSeeker/userLander'
 import EmpLander from './pages/employer/empLander'
 import NavBar from "./components/navBar";
@@ -19,12 +18,11 @@ class App extends Component {
         <NavBar></NavBar>
         <Switch>
             <Route exact path="/" component={Lander}/>
-            <Route path="/login" component={Login} exact/>
-            <Route path="/register" component={Register} exact/>
-            <Route exact path="/users" component={UserAuth}/>
-            <Route path="/users/dashboard" component={UserLander}  />
-            <Route exact path="/employers" component={EmpAuth}  />
-            <Route path="/employers/dashboard" component={EmpLander}  />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/users/dashboard" component={UserLander}/>
+            <Route exact path="/employers/dashboard" component={EmpLander}/>
+            <Redirect to ='/'/>
           </Switch>
           <Footer></Footer>
       </Router>

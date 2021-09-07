@@ -10,14 +10,14 @@ export default class NavBar extends Component{
     }
     
     componentDidMount() {
-        const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-        if(!userDetils){
+        const userDetails = JSON.parse(localStorage.getItem( 'userDetails'));
+        if(!userDetails){
             return null
         } 
-        else if(userDetils.Role_Type === "employer"){
+        else if(userDetails.Role_Type === "employer"){
             this.setState({islogEmp: true}); 
         }
-        else if(userDetils.Role_Type === "seeker"){
+        else if(userDetails.Role_Type === "seeker"){
             this.setState({islogged: true}); 
         }
     }

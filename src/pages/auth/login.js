@@ -22,28 +22,6 @@ const Login =()=> {
     email: "",
   })
 
-  // const handleSubmit=(e) =>{
-  //   e.preventDefault();
-  //   if(inputs.email==="" || inputs.password===""){
-  //    setErr("** Enter the valid credentials")
-  //   }
-  //   else if (inputs.email==="prsnthmailbox@gmail.com" && inputs.password==="prs"){
-  //     const userDetails = {job_email: inputs.email, Role_Type: "seeker"}
-  //     localStorage.setItem('userDetails', JSON.stringify(userDetails));
-  //     history.push('/users/dashboard');
-  //     window.location.reload()
-  //   }
-  //   else if (inputs.email==="bungalowarch3d@gmail.com" && inputs.password==="prs"){
-  //     const userDetails = {job_email: inputs.email, Role_Type: "employer"}
-  //     localStorage.setItem('userDetails', JSON.stringify(userDetails));
-  //       history.push('/employers/dashboard');
-  //       window.location.reload()
-  //  }  
-  //   else{
-  //     setErr("** Login Failed")
-  //   }
-  // }
-
     const changeHandle = e => {
       setInputs({...inputs,[e.target.name]: e.target.value})
     }
@@ -54,14 +32,14 @@ const Login =()=> {
     const handleSubmit= async(e) =>{
       e.preventDefault();
       if(validateemail.valid===false){
-        setErr("**"+ validateemail.error)
+        setErr("*"+ validateemail.error)
       }
-      else if(!inputs.password){setErr("**Enter the Password"); setBtnVerify(true)}
+      else if(!inputs.password){setErr("**Enter the Password");}
       else{
       try {
         const res = await axios.post(API_URL+"/account/login",inputs)
         if(res.data.error===false){
-          const userDetails = {job_email: inputs.email, Role_Type: res.data.type}
+          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, Auth_token:res.data.authToken}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
             if(res.data.type === "employer"){
               history.push('/employers/dashboard');
@@ -74,7 +52,12 @@ const Login =()=> {
             else{window.location.reload()}
 
           setBtnVerify(false)
-        }else{
+        }else if(res.data.error===true && res.data.Message==="Please confirm your verification e-mail"){
+          setBtnVerify(true)
+          setErr(res.data.Message)
+        }
+        else{
+          setBtnVerify(false)
           setErr(res.data.Message)
         }
       } catch (ex) {
@@ -84,27 +67,40 @@ const Login =()=> {
     }
 
 // -----Reset Password function----
- const forgetPassword=async(e)=>{
+ const forgetPassword=async()=>{
     if(!inputs.email){
      setErr('*Enter the E-mail') }
     else{
       try {
-        const response = await axios.post(API_URL+"/account/recoverPassword",inputs.email)
-        setDialogShow(true)
-        console.log(response)
+        const res = await axios.post(API_URL+"/account/recoverPassword",inputs.email)
+        console.log(res)
+        if(res.data.error===false){
+          setDialogShow(true)
+        }
+        else{setErr(res.data.Message)}
       } catch (error) {
-        console.error()
+        console.log(error)
       }
     }
   }
 
 // -----Resent Confirmation function----
-  const verifyMail=(e)=>{
+  const verifyMail=async (e)=>{
     e.preventDefault();
     if(!inputs.email){
      setErr('*Enter the E-mail') }
     else{
-      setErr('')}
+      try {
+        const res = await axios.post(`${API_URL}/account/reconfirm/${inputs.email}`)
+        console.log(res)
+        if(res.data.error===false){
+          setDialogShow(true)
+        }
+        else{setErr(res.data.Message)}
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   const dialogClose=()=>{
