@@ -8,7 +8,7 @@ export default class TopHiring extends Component {
     return (<>
             <div className="container mt-5">
                 <div className="text-center">
-                    <h4 className="mb-0">Top Hiring Companies</h4>
+                    <h4 className="mb-0 text-secondary">Top Hiring Companies</h4>
                 </div>
                 <div className="row company mt-3">
                     <div className="col-lg-4 col-md-6 mb-2">

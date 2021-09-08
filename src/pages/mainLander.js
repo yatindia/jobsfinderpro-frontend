@@ -29,9 +29,9 @@ const Lander =()=> {
 
   const handleSubmit=()=>{
       if(search.jobs === "" && search.location === ""){
-        history.push({pathname:'/search',search: '?='});
+        history.push({pathname:'/search',search:''});
       }else if(search.jobs !== "" || search.location!==''){
-        history.push({pathname:'/jobs' ,keyword:search});
+        history.push({pathname:'/jobs',keyword:search});
       }
       else {
         return null
@@ -92,11 +92,12 @@ const Lander =()=> {
             </div>
         </div>
     </section>
-    <TopHiring></TopHiring>
-    <Trending getSearch={setGetter}></Trending>
+    <div>
+      <TopHiring></TopHiring>
+      <Trending getSearch={setGetter}></Trending>
     </div>
-    {/* :""} */}
-
+  </div>
+  {/* :""} */}
   </>);
 }
 

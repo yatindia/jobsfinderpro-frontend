@@ -9,8 +9,7 @@ function FindJobs ({...props}) {
         location: "",})
 
     const getdata = props.location.keyword || ''
-    console.log(getdata)
-
+console.log(props)
 // ---On mount function -----
     useEffect(()=>{
         const job = getdata.jobs
@@ -94,35 +93,35 @@ function FindJobs ({...props}) {
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
                 {/* ------Sidebar--------- */}
 				<div id="sidebar"> 
-					<div className="profile-tab-nav border-right ">
-						<div className="nav flex-column nav-pills mb-4"   aria-orientation="vertical">
-							<a className="nav-link " href="/users/dashboard" >
-								<i className="fa fa-home text-center mr-1"></i> 
-								Home
-							</a>
-							<a className="nav-link" href="/users/dashboard/profile" >
-								<i className="fa fa-key text-center mr-1"></i> 
-								Update Profile
-							</a>
-							<a className="nav-link"  href="/users/dashboard/myjobs" >
-								<i className="fa fa-user text-center mr-1"></i> 
-								My Jobs
-							</a>
-							<a className="nav-link"  href="/" >
-								<i className="fa fa-sign-out text-center mr-1"></i> 
-								Logout
-							</a>
+					<div className="border-right sidebar-tabs">
+                            <h5 className="text-secondary m-2 text-center">Hot Links</h5>
+						<div className="mb-4 sidebar-pills nav flex-column"  aria-orientation="vertical">
+                            <h5 className=" sub-title ">Levels</h5>
+                            <select className=" sub-tab ">
+                                <option  value="">Select..</option>
+                                {Array.from(new Set(data.map(item=>item.level))).map((level,i)=>(<option key={i} value={level}>{level}</option>))}
+                            </select>
+                            <h5 className=" sub-title ">Location</h5>
+                            <select className=" sub-tab ">
+                                <option  value="">Select..</option>
+                                {Array.from(new Set(data.map(item=>item.location))).map((location,i)=>(<option key={i} value={location}>{location}</option>))}
+                            </select>
+                            <h5 className=" sub-title ">Contract</h5>
+                            <select className=" sub-tab ">
+                                <option  value="">Select..</option>
+                                {Array.from(new Set(data.map(item=>item.contract))).map((contract,i)=>(<option key={i} value={contract}>{contract}</option>))}
+                            </select>
 						</div>
 					</div>
 				</div>
                 {/* ------Content--------- */}
 				<div className="tab-content p-2 md-5">
-					<div className="container "> <h5>Search Results:-</h5></div>
+					<div className="container "> <h5 className="text-secondary">Search Results:-</h5></div>
 						{filterData.length > 0 ? (
 						  <div className="container border-2 mb-4">
-							{filterData.map((items,key)=>(
-							<div className="row d-flex justify-content-center " key={key}>
-								<div className="col-md mt-2 pt-s border">
+							{filterData.map((items,i)=>(
+							<div className="row d-flex justify-content-center ">
+								<div className="col-md mt-2 pt-s border" key={i}>
 									<div className="row z-depth-3">
 										<div className="col-sm-3 bg-info rounded-left">
 											<div className="card-block text-center text-white">
