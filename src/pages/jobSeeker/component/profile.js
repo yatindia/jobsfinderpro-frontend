@@ -1,12 +1,14 @@
 import React,{useState} from "react";
 
 import { resizeFile} from "../../../components/utils";
+import category from '../../../components/asserts/category.json'
 
 
 function UserProfile() {
 
     const [imgData, setImgData] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
+    const [cate, setCat] = useState(true);
 
 const onImageChange=async (e)=>{
     // if (e.target.files[0]) {
@@ -27,6 +29,19 @@ const onImageChange=async (e)=>{
     }
 }
 
+const categoryChange =(e)=>{
+    if(e==='Select..' || e ===''){
+        setCat('')
+    }else{
+        try {
+            let subData = require('../../../components/asserts/subCategory/'+e+'.json');
+            setCat(subData)
+        } catch (error) {
+            setCat('')
+            console.log(error)
+        }
+    }
+}
 
     return (<>
     <div className="tab-content p-1 p-md-1">
@@ -72,14 +87,23 @@ const onImageChange=async (e)=>{
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Company</label>
-                        <input type="text" className="form-control" defaultValue="Kiran Workspace"/>
+                        <label>Category</label>
+                        <div className="app_dropdown">
+                            <select className="form-control selector border" onChange={(e) => categoryChange(e.target.value)}>
+                                <option>Select..</option>
+                                {category.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Designation</label>
-                        <input type="text" className="form-control" defaultValue="UI Developer"/>
+                        <label>Sub Category</label>
+                        <input className="form-control selector border"  type="text" name="location"  list="subcate" placeholder="Select.."/>
+                          {cate.length > 0 ? (
+                           <datalist id = "subcate">
+                                {cate.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
+                                </datalist>):null}
                     </div>
                 </div>
                 <div className="col-md-12">

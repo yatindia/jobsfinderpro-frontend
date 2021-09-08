@@ -1,34 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import category from '../../../components/asserts/category.json'
 
-class PostJobs extends Component {
-  constructor() {
-    super();
+const PostJobs =()=> {
 
-    this.state = {
-      email: "",
-      password: ""
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
+    const [cate, setCat] = useState(true);
 
 
-  handleSubmit(event) {
+  const categoryChange =(e)=>{
+    if(e==='Select..' || e ===''){
+        setCat('')
+    }else{
+        try {
+            let subData = require('../../../components/asserts/subCategory/'+e+'.json');
+            setCat(subData)
+        } catch (error) {
+            setCat('')
+            console.log(error)
+        }
+    }
+}
 
-  }
-
-  render() {
     return (<>
       <div className="container-fluid">
       <div className=" page-content">
@@ -45,18 +36,23 @@ class PostJobs extends Component {
                                 <input type="text" className="form-control" placeholder="Human Resource Manager"/>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
-                                <label>Job Category</label>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Category</label>
+                                <select className="form-control selector border" onChange={(e) => categoryChange(e.target.value)} placeholder="Select..">
+                                <option>Select..</option>
+                                    {category.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
+                                </select>
                             </div>
-                            <div className="col-sm-6 input-group">
-                                <input className="form-control selector border" type="text" placeholder="Select a category" list="category"/>
-                                <datalist id = "category">
-                                    <option>Full Time</option>
-                                    <option>Part Time</option>
-                                    <option>Freelance</option>
-                                    <option>Contract</option>
-                                </datalist>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Sub Category</label>
+                                <input className="form-control selector border"  type="text" name="location"  list="subcate" placeholder="Select.."/>
+                                {cate.length > 0 ? (
+                                <datalist id = "subcate">
+                                        {cate.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
+                                        </datalist>):null}
                             </div>
                         </div>
                         <div className="row mt-3">
@@ -159,6 +155,5 @@ class PostJobs extends Component {
     </div>
     </>);
   }
-}
 
 export default PostJobs;

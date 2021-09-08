@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "./App.css";
 import './components/style.css'
 
@@ -22,11 +22,10 @@ class App extends Component {
             <Route active exact path="/" component={Lander}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/users/dashboard" component={UserLander}/>
-            <Route exact path="/employers/dashboard" component={EmpLander}/>
+            <Route  path="/users/dashboard" component={UserLander}/>
+            <Route  path="/employers/dashboard" component={EmpLander}/>
             <Route exact path="/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
-            <Redirect to ='/'/>
           </Switch>
           <Footer></Footer>
       </Router>

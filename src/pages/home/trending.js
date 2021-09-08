@@ -1,10 +1,10 @@
-import React,{useState} from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import './style.css'
 
 import data from '../../components/asserts/data.json'
 
-const Trending=({...props})=>{
+const Trending=()=>{
 
     // const [search, setSearch] = useState({
     //     jobs: "",
