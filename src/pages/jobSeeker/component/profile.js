@@ -99,11 +99,12 @@ const categoryChange =(e)=>{
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Sub Category</label>
-                        <input className="form-control selector border"  type="text" name="location"  list="subcate" placeholder="Select.."/>
-                          {cate.length > 0 ? (
-                           <datalist id = "subcate">
+                        <div className="app_dropdown">
+                        {cate.length > 0 ? (
+                            <select className="form-control selector border">
                                 {cate.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
-                                </datalist>):null}
+                            </select>):<select className="form-control selector border"><option>Select..</option></select>}
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-12">

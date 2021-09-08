@@ -25,73 +25,60 @@ const PostJobs =()=> {
       <div className=" page-content">
         <div className="container">
         <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
-                    <div className="section">
-                        <div className="row">
-                            <div className="col-sm-3">
-                            <label>Title for the job</label>
-                            </div>
-                            <div className="col-sm-9 form-group">
+                    <div className="section row">
+                        <div className="col-md-10 col-sm">
+                            <label>Job Title</label>
+                            <div className=" form-group">
                                 <input type="text" className="form-control" placeholder="Human Resource Manager"/>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
+                        <div className="col-md-6 col-sm">
                                 <label>Category</label>
+                            <div className="form-group">
                                 <select className="form-control selector border" onChange={(e) => categoryChange(e.target.value)} placeholder="Select..">
                                 <option>Select..</option>
                                     {category.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
                                 </select>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 col-sm">
                             <div className="form-group">
                                 <label>Sub Category</label>
-                                <input className="form-control selector border"  type="text" name="location"  list="subcate" placeholder="Select.."/>
+                                <div className="app_dropdown">
                                 {cate.length > 0 ? (
-                                <datalist id = "subcate">
+                                    <select className="form-control selector border">
                                         {cate.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
-                                        </datalist>):null}
+                                    </select>):<select className="form-control selector border"><option>Select..</option></select>}
+                                </div>
                             </div>
                         </div>
-                        <div className="row mt-3">
-                            <div className="col-sm-3">
+                        <div className="col-md-6 col-sm">
                             <label>Job Location</label>
-                            </div>
-                            <div className="col-sm-9 form-group">
+                            <div className="form-group">
                                 <div className="form-group">
-                                    <textarea type="text" className="form-control" placeholder="Address"/>
+                                    <input type="text" className="form-control" placeholder="Location"/>
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
+                        <div className="col-md-6 col-sm">
                             <label>Salary Information</label>
-                            </div>
-                            <div className="col-sm-9 form-group">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <input type="text" className="form-control" placeholder="50000$"/>
-                                    </div>
-                                </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control" placeholder="50000$"/>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
-                                <label>Application Deadline</label>
-                            </div>
-                            <div className="col-sm-3 form-group">
+                        <div className="col-md-6 col-sm">
+                            <label>Application Deadline</label>
+                            <div className="form-group">
                                 <div className="calendar">
                                 <input type="date" className="form-control" />
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
+                        <div className="col-md-6 col-sm">
                             <label>Exprience Level</label>
-                            </div>
-                            <div className="col-sm-6 input-group">
+                            <div className="input-group">
                                 <input className="form-control selector border" type="text" placeholder="Select a Level" list="level"/>
                                 <datalist id = "level">
                                     <option>Entry Level</option>
@@ -106,15 +93,15 @@ const PostJobs =()=> {
 
                 <div className="section mt-3">
                     <div className="row">
-                        <div className="col-sm-3">
+                        <div className="col-sm-3 ">
                         <label>Skills Required</label>
                         </div>
-                        <div className="col-sm-6 form-group">
+                        <div className="col-sm-6 form-group ">
                             <textarea type="text" className="form-control" placeholder="Write about the Skill requirements"/>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-3">
+                        <div className="col-sm-3 col-md">
                         <label>Job Summary</label>
                         </div>
                         <div className="col-sm-9 form-group">
@@ -122,19 +109,11 @@ const PostJobs =()=> {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-3">
-                        <label>Key Responsibilities:</label>
+                        <div className="col-sm-3 col-md">
+                        <label>Job Discription:</label>
                         </div>
                         <div className="col-sm-9 form-group">
                             <textarea type="text" className="form-control" placeholder="Write few lines about the Job Responsibilities"/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">
-                        <label>Minimum Requirements:</label>
-                        </div>
-                        <div className="col-sm-9 form-group">
-                            <textarea type="text" className="form-control" placeholder="Write few lines about the Job Requirements"/>
                         </div>
                     </div>
                 </div>
@@ -144,8 +123,7 @@ const PostJobs =()=> {
                             You agree to our <a href="none">Terms of Use</a> and <a href="none">Privacy Policy</a> and acknowledge that you are the rightful owner of this item and using Trade to find a genuine buyer.
                     </label>
                     <div className="buttons">
-                        <a href="none" className="btn btn-primary mr-3">Post Your Job</a>
-                        <a href="none" className="btn btn-secondary">Cancle</a>
+                        <a href="none" className="btn btn-findJob mr-3">Post Job</a>
                     </div>
                 </div>
             </div>

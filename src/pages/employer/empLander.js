@@ -6,6 +6,7 @@ import EmpContent from "./component/empContent";
 import PostJobs from "./component/postJob";
 import Jobs from "./component/jobs";
 import Applied from "./component/applied";
+import Search from "./component/search";
 
 class EmpLander extends Component {
 
@@ -55,6 +56,10 @@ handleLogout(){
 								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Posted Jobs
 							</a>
+              					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/search" role="tab" aria-controls="security" aria-selected="false">
+								<i className="fa fa-search text-center mr-1"></i> 
+								Search
+							</a>
               					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/applied" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-check-square-o text-center mr-1"></i> 
 								Interested
@@ -73,6 +78,7 @@ handleLogout(){
 					{/* <Route exact path="/employers/dashboard/profile" component={EmpProfile}/> */}
 					<Route exact path="/employers/dashboard/newjobs" component={PostJobs}/>
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
+					<Route exact path="/employers/dashboard/search" component={Search}/>
 					<Route exact path="/employers/dashboard/applied" component={Applied}/>
 				</Switch>
 				</div>

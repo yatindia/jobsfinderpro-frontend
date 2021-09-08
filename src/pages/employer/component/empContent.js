@@ -61,7 +61,7 @@ useEffect(() => {
                   <div className="col-lg-8 mt-4">
                     <h5><small>Company Logo</small></h5>
                     {imgBtn?<input type="file" name="profileImage" className="text-primary" placeholder={localStorage.getItem('Cmpny_Logo')} accept="image/*" onChange={onImageChange}/>:
-                     <button className="btn btn-outline-info" onClick={imageUpload}>Upload</button>}
+                     <button className="btn btn-findJob" onClick={imageUpload}>Upload</button>}
                      <p className="text-primary m-2" id="message"></p>
                   </div>
                 </div>
@@ -117,8 +117,7 @@ useEffect(() => {
                 </div>
             </div>
             <div>
-                <button className="btn btn-outline-primary m-2">Update</button>
-                <button className="btn btn-light m-2">Cancel</button>
+                <button className="btn btn-findJob m-2">Update</button>
             </div>
         </div>
     </div>

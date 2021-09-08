@@ -64,8 +64,8 @@ return (<>
             </div>
         </div>
         <div className="row">
-            <button className="btn btn-primary">Update</button>
-            <button className="btn btn-light">Cancel</button>
+            <button className="btn btn-findJob">Update</button>
+            <button className="btn btn-findJob">Cancel</button>
         </div>
     </div>
 </>);
