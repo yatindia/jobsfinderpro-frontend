@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Modal} from 'react-bootstrap';
 
-import DynamicInput from './inputs';
+import DynamicInput from './dynamicInputs';
 import { resizeFile} from "../../../components/utils";
 import category from '../../../components/asserts/category.json'
 
@@ -12,6 +12,9 @@ const Registration = ({show, title, dialogClose}) => {
     const [imgBtn, setImgBtn] = useState(true);
     const [cate, setCat] = useState(true);
     const [skills, setSkills] =useState([])
+    const [edu, setEdu] =useState([])
+    const [lang, setLang] =useState([])
+    const [project, setProject] =useState([])
 
 
 
@@ -132,7 +135,7 @@ const categoryChange =(e)=>{
                                         <label>Skills</label>
                                         <div className="">
                                         <DynamicInput get={setSkills}></DynamicInput>
-                                        {/* <p>{(JSON.stringify(skills, null, 2))}</p> */}
+                                        <p>{(JSON.stringify(skills))}</p> 
                                         </div>
                                     </div>
                                 </div>
@@ -140,8 +143,8 @@ const categoryChange =(e)=>{
                                     <div className="form-group">
                                         <label>Educations</label>
                                         <div className="">
-                                        <DynamicInput get={setSkills}></DynamicInput>
-                                         <p>{(JSON.stringify(skills, null, 2))}</p> 
+                                        <DynamicInput get={setEdu}></DynamicInput>
+                                         <p>{(JSON.stringify(edu, null, 2))}</p> 
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +194,8 @@ const categoryChange =(e)=>{
                                     <div className="form-group">
                                         <label>Language</label>
                                         <div className="">
-                                        <DynamicInput get={setSkills}></DynamicInput>
+                                        <DynamicInput get={setLang}></DynamicInput>
+                                        <p>{(JSON.stringify(lang))}</p> 
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +203,8 @@ const categoryChange =(e)=>{
                                     <div className="form-group">
                                         <label>Projects</label>
                                         <div className="">
-                                        <DynamicInput get={setSkills}></DynamicInput>
+                                        <DynamicInput get={setProject}></DynamicInput> 
+                                        <p>{(JSON.stringify(project))}</p> 
                                         </div>
                                     </div>
                                 </div>
@@ -214,8 +219,7 @@ const categoryChange =(e)=>{
                                 </div>
                             </div>
                             <div>
-                                <button className="btn btn-outline-primary m-2">Update</button>
-                                <button className="btn btn-light m-2">Cancel</button>
+                                <button className="btn btn-findJob m-2">Update</button>
                             </div>
                         </div>
                     </div>

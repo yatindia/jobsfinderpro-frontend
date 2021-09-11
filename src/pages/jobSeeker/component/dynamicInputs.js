@@ -3,18 +3,20 @@ import React, { useState } from "react";
 
 const DynamicInput = (props) => {
 
-  const [item, setitem] = useState([{vals:''}]);
+  const [item, setitem] = useState([]);
 
   const inputChange = (index,event) => {
     const values = [...item];
-    values[index].vals = event.target.value
-    setitem(values)
-    props.get(values)
+    values[index] = event.target.value
+    if(values!==""){
+      setitem(values)
+      props.get(values)
+    } 
   }
 
   const addInputs = () => {
-    const values = [...item];
-    values.push({vals:''})
+    const values = [...item,""];
+    values.push()
     setitem(values);
   };
 
@@ -37,15 +39,15 @@ const DynamicInput = (props) => {
               <div className="col-sm-3" key={i}>
                 <div className="form-group d-flex">
                   <input type="text" name="vals" className="form-control"
-                  value={data.vals||''} onChange={event => inputChange(i,event)}/>
-                  <button  className="btn btn-danger" onClick={(e)=>removeInput(i,e)}>X</button>
+                  value={data} onChange={event => inputChange(i,event)}/>
+                  <button  className="btn btn-outline-danger" onClick={(e)=>removeInput(i,e)}>X</button>
                 </div>
             </div>
          </> )
         })
       }
-      <div className="form-group">
-        <button className="btn btn-primary" onClick={addInputs}>+</button>
+      <div className="form-group col">
+        <button className="btn btn-findJob" onClick={addInputs}>+</button>
     </div> 
 </div>
   )

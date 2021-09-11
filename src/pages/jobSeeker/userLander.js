@@ -1,39 +1,47 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, {useEffect,useState} from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 
 import UserProfile from "./component/profile";
 import UserContent from "./component/userContent";
 import MyJobs from "./component/myJobs";
+import Registration from "./component/register";
 
+function  UserLander () {
 
-class UserLander extends Component {
+	const [dialogShow, setDialogShow] = useState(false);
+	const history = useHistory()
 
-	constructor(){
-		super();
-		this.handleLogout = this.handleLogout.bind(this);
-	}
 	
-	componentDidMount() {
+	useEffect(() =>{
 		const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
         if(!userDetils){
-			this.props.history.push('/')
-        } else if(userDetils.Role_Type === "seeker") {
-			return null 
-        }
-    }
+			history.push('/')
+        } else if(userDetils.Role_Type === "seeker"){
+			if(userDetils.Profile === "False") {
+				setDialogShow(true)
+			}
+			else{
+				history.push('/users/dashboard');
+            	window.location.reload()
+			}
+		}
+    },[history])
 	
-handleLogout(){
+const handleLogout=()=>{
 	localStorage.removeItem('userDetails')
-	this.props.history.push('/')
+	history.push('/')
 	window.location.reload()
 }
+const dialogClose=()=>{
+    setDialogShow(false)
+  }
 
 
-  render() {
     return (<>
     <section className="py-5 my-5">
 		<div className="container-fluid">
+		<Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
 				<div id="sidebar">
 					<div className="profile-tab-nav border-right ">
@@ -56,7 +64,7 @@ handleLogout(){
 								<i className="fa fa-user text-center mr-1"></i> 
 								My Jobs
 							</a>
-							<a className="nav-link"  onClick={this.handleLogout} href="/" >
+							<a className="nav-link"  onClick={handleLogout} href="/" >
 								<i className="fa fa-sign-out text-center mr-1"></i> 
 								Logout
 							</a>
@@ -75,6 +83,5 @@ handleLogout(){
 	</section>
     </>);
   }
-}
 
 export default UserLander;
