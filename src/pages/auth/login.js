@@ -39,7 +39,7 @@ const Login =()=> {
       try {
         const res = await axios.post(API_URL+"/account/login",inputs)
         if(res.data.error===false){
-          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, Auth_token:res.data.authToken}
+          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, Auth_token:res.data.authToken, Profile:'False'}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
             if(res.data.type === "employer"){
               history.push('/employers/dashboard');

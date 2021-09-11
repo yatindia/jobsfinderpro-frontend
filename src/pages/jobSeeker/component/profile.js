@@ -1,7 +1,9 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 
 import { resizeFile} from "../../../components/utils";
 import category from '../../../components/asserts/category.json'
+import DynamicInput from "./inputs";
+import Registration from "./register";
 
 
 function UserProfile() {
@@ -9,17 +11,12 @@ function UserProfile() {
     const [imgData, setImgData] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
     const [cate, setCat] = useState(true);
+    const [skills, setSkills] =useState([])
+    const [dialogShow, setDialogShow] = useState(false);
+
+
 
 const onImageChange=async (e)=>{
-    // if (e.target.files[0]) {
-    //     console.log("picture: ", e.target.files);
-    //     const reader = new FileReader();
-    //     reader.addEventListener("load", () => {
-    //       setImgData(reader.result);
-    //       setImgBtn(false)
-    //     });
-    //     reader.readAsDataURL(e.target.files[0]);
-    //   }
     if (e.target.files[0]) {
         const file = e.target.files[0];
         const image = await resizeFile(file);
@@ -43,7 +40,24 @@ const categoryChange =(e)=>{
     }
 }
 
+useEffect(()=>{
+    const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
+        if(!userDetils){
+			this.props.history.push('/')
+        } else if(userDetils.Profile === "False") {
+			setDialogShow(true)
+        }
+},[])
+
+const dialogClose=()=>{
+    setDialogShow(false)
+  }
+
+
     return (<>
+    <div className="container">
+    <Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
+    </div>
     <div className="tab-content p-1 p-md-1">
         <div className="tab-pane fade show active border-bottom p-3">
             <h3 className="mb-4">Profile Update</h3>
@@ -104,6 +118,15 @@ const categoryChange =(e)=>{
                             <select className="form-control selector border">
                                 {cate.map((items,i)=>(<option key={i} value={items}> {items}</option>))}
                             </select>):<select className="form-control selector border"><option>Select..</option></select>}
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Skills</label>
+                        <div className="">
+                        <DynamicInput get={setSkills}></DynamicInput>
+                        <p>{(JSON.stringify(skills, null, 2))}</p>
                         </div>
                     </div>
                 </div>

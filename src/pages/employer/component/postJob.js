@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import category from '../../../components/asserts/category.json'
+
 
 const PostJobs =()=> {
 
-    const [cate, setCat] = useState(true);
+const [cate, setCat] = useState(true);
+const [inputs, setInputs] = useState({
+    jobName: "",
+    jobLoc: "",
+    jobSal: "",
+    })
 
 
-  const categoryChange =(e)=>{
-    if(e==='Select..' || e ===''){
+const categoryChange =(e)=>{
+if(e==='Select..' || e ===''){
+    setCat('')
+}else{
+    try {
+        let subData = require('../../../components/asserts/subCategory/'+e+'.json');
+        setCat(subData)
+    } catch (error) {
         setCat('')
-    }else{
-        try {
-            let subData = require('../../../components/asserts/subCategory/'+e+'.json');
-            setCat(subData)
-        } catch (error) {
-            setCat('')
-            console.log(error)
-        }
+        console.log(error)
     }
 }
+}
+
+const changeHandle = e => {
+    setInputs({...inputs,[e.target.name]: e.target.value})
+  }
+
+  useEffect(()=>{
+  })
 
     return (<>
       <div className="container-fluid">
@@ -31,7 +44,8 @@ const PostJobs =()=> {
                         <div className="col-md-10 col-sm">
                             <label>Job Title</label>
                             <div className=" form-group">
-                                <input type="text" className="form-control" placeholder="Human Resource Manager"/>
+                                <input type="text" className="form-control" placeholder="Human Resource Manager" name="jobName" 
+                                    value={inputs.jobName} onChange={changeHandle}/>
                             </div>
                         </div>
                         <div className="col-md-6 col-sm">
@@ -58,14 +72,16 @@ const PostJobs =()=> {
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Location"/>
+                                    <input type="text" className="form-control" placeholder="Location" name="jobLoc" 
+                                        value={inputs.jobLoc} onChange={changeHandle}/>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6 col-sm">
                             <label>Salary Information</label>
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="50000$"/>
+                                <input type="text" className="form-control" placeholder="50000$" name="jobSal" 
+                                    value={inputs.jobSal} onChange={changeHandle}/>
                             </div>
                         </div>
                         <div className="col-md-6 col-sm">

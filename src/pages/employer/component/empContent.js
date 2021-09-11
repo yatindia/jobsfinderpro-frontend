@@ -49,7 +49,7 @@ useEffect(() => {
 });
 
     return (<>
-    <div className="tab-content p-1 p-md-1" id="v-pills-tabContent">
+    <div className="tab-content" id="v-pills-tabContent">
         <div className="tab-pane fade show active border-bottom p-3" id="account" role="tabpanel" aria-labelledby="account-tab">
             <h3 className="mb-4">Company Profile</h3>
             <div className="mb-3">
@@ -101,12 +101,6 @@ useEffect(() => {
                     <div className="form-group">
                         <label>Website</label>
                         <input type="text" className="form-control" defaultValue="www.accenture.com"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Designation</label>
-                        <input type="text" className="form-control" defaultValue="Frontend, Backend, AI"/>
                     </div>
                 </div>
                 <div className="col-md-12">

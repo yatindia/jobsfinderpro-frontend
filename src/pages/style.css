@@ -281,3 +281,9 @@
   .app_dropdown select option {
     padding: 30px;
   }
+
+
+  .modal-dialog {
+    max-width: 80%;
+    margin: 1.75rem auto;
+}

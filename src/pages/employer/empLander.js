@@ -45,8 +45,8 @@ handleLogout(){
 						</div>
 						<div className="nav flex-column nav-pills mb-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 							<a className="nav-link" id="account-tab" data-toggle="pill" href="/employers/dashboard" role="tab" aria-controls="account" aria-selected="true">
-								<i className="fa fa-home text-center mr-1"></i> 
-								Account
+								<i className="fa fa-house text-center mr-1"></i> 
+								Dashboard
 							</a>
 							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/newjobs" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-check text-center mr-1"></i> 
