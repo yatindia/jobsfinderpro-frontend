@@ -10,6 +10,8 @@ function EmpContent() {
     const [imgShow, setImgShow] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
 
+    const userDp = localStorage.getItem('userDp');
+
     const onImageChange=async (e)=>{
         if (e.target.files[0]) {
             const file = e.target.files[0];
@@ -17,13 +19,21 @@ function EmpContent() {
             const newFile = dataURIToBlob(image);
             setImgShow(image)
             setImgData(newFile)
+            localStorage.setItem("userDp",  image);
             setImgBtn(false)
         }
     }
 
     const imageUpload= async ()=>{
+        let imageData = ''
+		if(!userDp){
+			imageData = imgData
+		}else {
+			const newFile = dataURIToBlob(userDp);
+			imageData = newFile
+		}
         const formData = new FormData();
-        formData.append("profile", imgData);
+        formData.append("profile", imageData);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -53,17 +63,20 @@ useEffect(() => {
         <div className="tab-pane fade show active border-bottom p-3" id="account" role="tabpanel" aria-labelledby="account-tab">
             <h3 className="mb-4">Company Profile</h3>
             <div className="mb-3">
-                <div className="mb-3 row form-group">
-                  <div className="col-lg-3 img-circle">
-                        {imgBtn?<img src={localStorage.getItem('Cmpny_Logo')} className="shadow" alt="Logo"/>:
-                        <img src={imgShow} className="shadow" alt="Logo"/>}
+                <div className="d-flex flex-column align-items-center text-center">
+                    <div className="row img-circle">
+                    {imgBtn?<img src={userDp || imgShow}  className="shadow" alt="Logo"/>:
+                        <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                     </div>
-                  <div className="col-lg-8 mt-4">
-                    <h5><small>Company Logo</small></h5>
-                    {imgBtn?<input type="file" name="profileImage" className="text-primary" placeholder={localStorage.getItem('Cmpny_Logo')} accept="image/*" onChange={onImageChange}/>:
-                     <button className="btn btn-findJob" onClick={imageUpload}>Upload</button>}
-                     <p className="text-primary m-2" id="message"></p>
-                  </div>
+                    <div className="col mt-4">
+                        <div className="dragBox" >Pick Logo
+                            <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
+                        </div>
+                        <div>
+                            <button className="row dragBox m-2" onClick={imageUpload}>Upload</button>
+                            <label className="row text-danger" id="message">**First Upload Dp...</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="row">

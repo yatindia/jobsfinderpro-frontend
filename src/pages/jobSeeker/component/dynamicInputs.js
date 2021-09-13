@@ -14,6 +14,7 @@ const DynamicInput = (props) => {
     } 
   }
 
+
   const addInputs = () => {
     const values = [...item,""];
     values.push()
@@ -39,7 +40,7 @@ const DynamicInput = (props) => {
               <div className="col-sm-3" key={i}>
                 <div className="form-group d-flex">
                   <input type="text" name="vals" className="form-control"
-                  value={data} onChange={event => inputChange(i,event)}/>
+                  value={data} onChange={event => inputChange(i,event)} list="dataset"/>
                   <button  className="btn btn-outline-danger" onClick={(e)=>removeInput(i,e)}>X</button>
                 </div>
             </div>

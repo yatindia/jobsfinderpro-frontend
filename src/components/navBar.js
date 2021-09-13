@@ -42,7 +42,6 @@ export default class NavBar extends Component{
                         {this.state.islogged === true ?  
                             <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                                 <NavDropdown.Item href="/users/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
-                                <NavDropdown.Item href="/users/dashboard/profile" id="nav-dropdown-item"><i className="fa fa-key"></i>  Profile</NavDropdown.Item>
                                 <NavDropdown.Item href="/users/dashboard/myjobs" id="nav-dropdown-item"><i className="fa fa-briefcase"></i>  My Jobs</NavDropdown.Item>
                                 <NavDropdown.Item onClick={this.handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                             </NavDropdown> :""}

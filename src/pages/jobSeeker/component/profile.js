@@ -1,25 +1,19 @@
 import React,{useState} from "react";
 
-import { resizeFile} from "../../../components/utils";
+import DynamicInput from './dynamicInputs';
 import category from '../../../components/asserts/category.json'
+import skilldata from '../../../components/asserts/skill.json'
 
 
 function UserProfile() {
 
-    const [imgData, setImgData] = useState(null);
-    const [imgBtn, setImgBtn] = useState(true);
     const [cate, setCat] = useState(true);
+    const [skills, setSkills] =useState([])
+    const [edu, setEdu] =useState([])
+    const [lang, setLang] =useState([])
+    const [project, setProject] =useState([])
 
 
-const onImageChange=async (e)=>{
-    if (e.target.files[0]) {
-        const file = e.target.files[0];
-        const image = await resizeFile(file);
-        //const newFile = dataURIToBlob(image);
-        setImgData(image)
-        setImgBtn(false)
-    }
-}
 
 const categoryChange =(e)=>{
     if(e==='Select..' || e ===''){
@@ -41,19 +35,6 @@ const categoryChange =(e)=>{
     <div className="tab-content p-1 p-md-1">
         <div className="tab-pane fade show active border-bottom p-3">
             <h3 className="mb-4">Profile Update</h3>
-            <div className="mb-3">
-                <div className="mb-3 row form-group">
-                  <div className="col-lg-3 img-circle">
-                      {imgBtn?<img src="https://cdn3.iconfinder.com/data/icons/flat-pro-user-management-set-4/32/user-profile-512.png"  className="shadow" alt="Logo"/>:
-                        <img src={imgData} className="shadow"  alt="ProfileImage"/>}
-                    </div>
-                  <div className="col-lg-8 mt-4">
-                    <h5><small>Profile Image</small></h5>
-                    {imgBtn?<input type="file" name="profileImage" className="text-primary" accept="image/*" onChange={onImageChange}/>:
-                     <button className="btn btn-outline-info float-end">Upload</button>}
-                  </div>
-                </div>
-            </div>
             <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
@@ -64,7 +45,7 @@ const categoryChange =(e)=>{
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Last Name</label>
-                        <input type="text" className="form-control" defaultValue="Acharya"/>
+                        <input type="text" className="form-control" defaultValue="Ram"/>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -79,6 +60,24 @@ const categoryChange =(e)=>{
                         <input type="text" className="form-control" defaultValue="+91 9876543215"/>
                     </div>
                 </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Employment Summary <small className="text-secondary"> Min 50- Characters</small></label>
+                        <textarea className="form-control" rows="4" minLength="50"
+                            defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!"></textarea>
+                    </div>
+                </div>
+                    <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Career Summary <small className="text-secondary"> Min 50- Characters</small></label>
+                        <textarea className="form-control" rows="4" minLength="50"
+                            defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Category</label>
@@ -101,23 +100,99 @@ const categoryChange =(e)=>{
                         </div>
                     </div>
                 </div>
-                <div className="col-md-12">
+            </div>
+            <div className="row">
+                <div className="col-md-6">
                     <div className="form-group">
-                        <label>Bio</label>
-                        <textarea className="form-control" rows="4" defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!"></textarea>
+                        <label>Skills</label>
+                        <div className="">
+                        <p>Skill{(JSON.stringify(skills))}</p> 
+                        <DynamicInput get={setSkills} dataset ={skilldata}></DynamicInput>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Educations</label>
+                        <div className="">
+                        <p>Educ{(JSON.stringify(edu, null, 2))}</p> 
+                        <DynamicInput get={setEdu}></DynamicInput>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Address</label>
+                        <textarea className="form-control" rows="4" minLength="50"
+                            defaultValue="Lorem ipsum dolor\n sit amet consectetur \nadipisicing \nelit."></textarea>
+                    </div>
+                </div>
+                    <div className="col-md-6">
+                    <div className="form-group calender">
+                        <label>Date of Birth</label>
+                        <input type="date" name="begin" className="form-control" placeholder="dd-mm-yyyy" onChange={(e)=>console.log(e.value)} min="1980-01-01"/>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="form-group col-md-6 col-sm">
+                    <label>Martial Status</label>
+                    <div className="input-group">
+                        <input className="form-control selector border" type="text" placeholder="Select.." list="stat"/>
+                        <datalist id = "stat">
+                            <option>Unmarried</option>
+                            <option>Married</option>
+                            <option>Single</option>
+                            <option>Widowed</option>
+                        </datalist>
+                    </div>
+                </div>
+                <div className="form-group col-md-6 col-sm">
+                    <label>Gender</label>
+                    <div className="input-group">
+                        <select className="form-control selector border" type="text" list="gender">
+                            <option>Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Transgender</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Language</label>
+                        <div className="">
+                        <p>Lang{(JSON.stringify(lang))}</p> 
+                        <DynamicInput get={setLang}></DynamicInput>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>Projects</label>
+                        <div className="">
+                        <p>Proj{(JSON.stringify(project))}</p> 
+                        <DynamicInput get={setProject}></DynamicInput> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
                     <div className="form-group p-2">
-                        <p className="form-group text-primary">Kiran resume.pdf</p>
-                        <label>Resume Update</label>
+                        <p>Resume: <span className="form-group text-primary">Kiran resume.pdf</span></p>
+                        <label>Resume Change</label>
                         <input type="file" className="form-control" accept="application/pdf"/>
                     </div>
                 </div>
             </div>
             <div>
-                <button className="btn btn-outline-primary m-2">Update</button>
-                <button className="btn btn-light m-2">Cancel</button>
+                <button className="btn btn-findJob m-2">Update</button>
+                <a className="btn btn-findJob m-2" href="/users/dashboard" >Back</a>
             </div>
         </div>
     </div>

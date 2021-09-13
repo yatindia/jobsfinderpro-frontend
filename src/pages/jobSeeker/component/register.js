@@ -2,14 +2,11 @@ import React,{useState} from 'react'
 import {Modal} from 'react-bootstrap';
 
 import DynamicInput from './dynamicInputs';
-import { resizeFile} from "../../../components/utils";
 import category from '../../../components/asserts/category.json'
+import skilldata from '../../../components/asserts/skill.json'
 
 const Registration = ({show, title, dialogClose}) => {
 
-
-    const [imgData, setImgData] = useState(null);
-    const [imgBtn, setImgBtn] = useState(true);
     const [cate, setCat] = useState(true);
     const [skills, setSkills] =useState([])
     const [edu, setEdu] =useState([])
@@ -18,15 +15,6 @@ const Registration = ({show, title, dialogClose}) => {
 
 
 
-const onImageChange=async (e)=>{
-    if (e.target.files[0]) {
-        const file = e.target.files[0];
-        const image = await resizeFile(file);
-        //const newFile = dataURIToBlob(image);
-        setImgData(image)
-        setImgBtn(false)
-    }
-}
 
 const categoryChange =(e)=>{
     if(e==='Select..' || e ===''){
@@ -53,22 +41,6 @@ const categoryChange =(e)=>{
                     <Modal.Body>
                     <div className="">
                         <div className=" fade show active border-bottom p-3">
-                            <div className="mb-3  ml-auto">
-                                <div className="mb-3 row form-group">
-                                <div className="col-lg-3 img-circle">
-                                    {imgBtn?<img src="https://cdn3.iconfinder.com/data/icons/flat-pro-user-management-set-4/32/user-profile-512.png"  className="shadow" alt="Logo"/>:
-                                        <img src={imgData} className="shadow"  alt="ProfileImage"/>}
-                                    </div>
-                                <div className="col-lg-8 mt-4">
-                                    <h5><small>Profile Image</small></h5>
-                                    {imgBtn?<input type="file" name="profileImage" className="text-primary" accept="image/*" onChange={onImageChange}/>:
-                                    <div>
-                                        <button className="row btn btn-outline-info float-end">Upload</button>
-                                        <label className="row text-danger float-end">**Note: First Upload Dp...</label>
-                                    </div>}
-                                </div>
-                                </div>
-                            </div>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group">
@@ -134,7 +106,7 @@ const categoryChange =(e)=>{
                                     <div className="form-group">
                                         <label>Skills</label>
                                         <div className="">
-                                        <DynamicInput get={setSkills}></DynamicInput>
+                                        <DynamicInput get={setSkills} dataset ={skilldata}></DynamicInput>
                                         <p>{(JSON.stringify(skills))}</p> 
                                         </div>
                                     </div>
@@ -168,8 +140,8 @@ const categoryChange =(e)=>{
                                 <div className="form-group col-md-6 col-sm">
                                     <label>Martial Status</label>
                                     <div className="input-group">
-                                        <input className="form-control selector border" type="text" placeholder="Select.." list="level"/>
-                                        <datalist id = "level">
+                                        <input className="form-control selector border" type="text" placeholder="Select.." list="stat"/>
+                                        <datalist id = "stat">
                                             <option>Unmarried</option>
                                             <option>Married</option>
                                             <option>Single</option>
@@ -180,12 +152,12 @@ const categoryChange =(e)=>{
                                 <div className="form-group col-md-6 col-sm">
                                     <label>Gender</label>
                                     <div className="input-group">
-                                        <input className="form-control selector border" type="text" placeholder="Select.." list="level"/>
-                                        <datalist id = "level">
+                                        <select className="form-control selector border" type="text" list="gender">
+                                            <option>Select</option>
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Transgender</option>
-                                        </datalist>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
