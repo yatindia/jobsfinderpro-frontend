@@ -7,7 +7,7 @@ export default class Footer extends Component {
       return (
       <div id="footer">
         <div className="footer-top">
-        <div className="container">
+        <div className="m-2">
           <div className="row">
             <div className="col-lg col-md-6 footer-links" >
               <h4>Useful Links</h4>
@@ -52,7 +52,6 @@ export default class Footer extends Component {
           &copy; Copyright <strong><span></span></strong>.
         </div>
         <div className="credits">
-          Designed by <a href="https://bootstrapmade.com/"> xyz</a>
         </div>
       </div>
       </div>

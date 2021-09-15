@@ -6,9 +6,6 @@ import data from '../../components/asserts/data.json'
 
 const Trending=()=>{
 
-    // const [search, setSearch] = useState({
-    //     jobs: "",
-    //     location: "",})
     const history = useHistory();
 
     const handleClick=(e)=>{  
@@ -16,26 +13,22 @@ const Trending=()=>{
             //props.getSearch(search)
             //console.log(search)
             if(e !== ""){
-                history.push({pathname:'/jobs',keyword:{jobs:e,location:''}});
+                history.push('/jobs?kwds='+e +'&loc=');
             }else{
                history.push('/')
             }
     }
     
     const handleLocClick=(e)=>{  
-        //setSearch({location:e})
-       // props.getSearch(search)
        if(e !== ""){
-        history.push({pathname:'/jobs',keyword:{jobs:'',location:e}});
+        history.push('/jobs?kwds=&loc='+e);
     }else{
        history.push('/')
     }
     }
 
     const handleAllClick=()=>{  
-        //setSearch({location:e})
-       // props.getSearch(search)
-        history.push({pathname:'/jobs',keyword:{jobs:'',location:''}});
+       history.push('/jobs?kwds=&loc=');
     }
 
 

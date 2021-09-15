@@ -27,7 +27,7 @@ const Fetcher=()=>{
     }
 
 return (<>
-         <div className="container mt-5 mb-5">
+         <div className="container-flex m-5">
            <h5 className="text-secondary">Advance Search options:-</h5>
           <div className="row">
               <div className="col-lg">

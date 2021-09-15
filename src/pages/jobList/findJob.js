@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import '../style.css'
 
 import data from '../../components/asserts/data.json'
 
-function FindJobs ({...props}) {
+function FindJobs ({location}) {
+
+    const history = useHistory();
     const [filterData, setFilterData] = useState({})
     const [search, setSearch] = useState({
         jobs: "",
         location: "",})
-
-    const getdata = props.location.keyword || ''
-console.log(props)
+    const [load, setLoad] = useState(2)
+   
 // ---On mount function -----
     useEffect(()=>{
-        const job = getdata.jobs
-        const loca = getdata.location
-        if(getdata ==='' || getdata=== undefined){
-            return null
+        setLoad(2)
+        try {
+        const param = new URLSearchParams(location.search);
+        const kwds = param.get('kwds');
+        const loc = param.get('loc');
+        setSearch({jobs:kwds,location:loc})
+        if(param ==='' || param === null || !param){
+            setFilterData('')
         }
         else {
             const jobFilter=data.filter(view => {
@@ -25,12 +32,14 @@ console.log(props)
                 const contract = view.contract
                 const languages = view.languages
                 const info = company + position + level + contract + languages
-                return info.trim().toLowerCase().includes(job.trim().toLowerCase())
+                return info.trim().toLowerCase().includes(kwds.trim().toLowerCase())
             });
-            const locaFilter = jobFilter.filter((view) => view.location.toLowerCase().includes(loca.toLowerCase()) )
+            const locaFilter = jobFilter.filter((view) => view.location.toLowerCase().includes(loc.toLowerCase()) )
         setFilterData(locaFilter)
         }
-    },[getdata])
+        } catch (error) {
+        }
+    },[location.search])
 
  
 // ---On Change function -----
@@ -39,49 +48,51 @@ console.log(props)
     }
 
     const handleSubmit=()=>{
-        const job = search.jobs
-        const loca = search.location
-        if(search ==='' || search=== undefined){
-            return null
+        if(search.jobs === null || search.jobs===''){
+            history.push('/jobs?kwds=&loc='+search.location);
+        }else if(search.location === null || search.location===''){
+            history.push('/jobs?kwds='+search.jobs+'&loc=');
         }
-        else {
-            const jobFilter=data.filter(view => {
-                const company = view.company
-                const position = view.position
-                const level = view.level
-                const contract = view.contract
-                const languages = view.languages
-                const info = company + position + level + contract + languages
-                return info.trim().toLowerCase().includes(job.trim().toLowerCase())
-            });
-            const locaFilter = jobFilter.filter((view) => view.location.toLowerCase().includes(loca.toLowerCase()) )
-            setFilterData(locaFilter)
+        else{
+            history.push('/jobs?kwds='+search.jobs +'&loc='+search.location);
         }
     }
+
+// ---other function -----
+    const loadMore =()=>{
+        setLoad(load+2)
+    }
+    const clear =()=>{
+        setSearch({jobs:'',location:''})
+        history.push('/jobs?search=');
+        window.location.reload()
+    }
+
 
 
     return (<><div>
         {/* -----Search Bar------ */}
-        <div className="container mt-5">
+        <div className="container-flex m-4">
             <div className="row d-flex justify-content-center shadow">
                 <div className="col-lg">
                     <div className="row">
                         <div className="col-lg col-md col-sm p-1 input-group">
-                        <input className="form-control selector border"  type="text" name="jobs" defaultValue={getdata.jobs}
+                        <input className="form-control selector border"  type="text" name="jobs" defaultValue={search.jobs}
                           onChange={changeHandle}  placeholder="Company, Title, Keywords " list="browsers"/>
                           <span className="input-group-append">
                               <div className="input-group-text"><i className="fa fa-search text-info"></i></div>
                           </span>
                         </div> 
                         <div className="col-lg col-md col-sm p-1 input-group">
-                        <input className="form-control selector border"  type="text" name="location" defaultValue={getdata.location}
+                        <input className="form-control selector border"  type="text" name="location" defaultValue={search.location}
                           onChange={changeHandle} placeholder="Job Location" list="browsers1"/>
                           <span className="input-group-append">
                               <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
                           </span>
                         </div>
-                        <div className="col-sm-2 mt-1">
-                          <button className="btn btn-findJob form-control" onClick={handleSubmit}>Find Jobs</button>
+                        <div className="col-lg-2 mt-1 ml-auto text-right">
+                          <button className="btn btn-findJob" onClick={handleSubmit}>Find Jobs</button>
+                          <button className="btn btn-info ml-2" onClick={clear}>Reset</button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +100,7 @@ console.log(props)
         </div>
 
 {/* ------Body--------- */}
-        <div className="container mt-5">
+        <div className="m-3">
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
                 {/* ------Sidebar--------- */}
 				<div id="sidebar"> 
@@ -115,20 +126,19 @@ console.log(props)
 					</div>
 				</div>
                 {/* ------Content--------- */}
-				<div className="tab-content p-2 md-5">
-					<div className="container "> <h5 className="text-secondary">Search Results:-</h5></div>
+				<div className="tab-content p-2 m-3">
+					<div className="container-fluid "> <h5 className="text-secondary">Search Results:-</h5></div>
 						{filterData.length > 0 ? (
-						  <div className="container border-2 mb-4">
-							{filterData.map((items,i)=>(
-							<div className="row d-flex justify-content-center ">
-								<div className="col-md mt-2 pt-s border" key={i}>
+						  <div className="container-fluid border-2 mb-4">
+							{filterData.slice(0,load).map((items,id)=>(
+							<div className="row d-flex justify-content-center " key={id}>
+								<div className="col-md mt-2  border">
 									<div className="row z-depth-3">
 										<div className="col-sm-3 bg-info rounded-left">
 											<div className="card-block text-center text-white">
 												<img className="mt-2 img-fluid imglogo" src={items.logo} alt="sample"></img>
 												<h2 className="font-weight-bold mt-2">{items.company}</h2>
 												<p>{items.level}</p>
-												<i className="far-fa-edit fa-2x mb-2"></i>
 											</div>
 										</div>
 										<div className="col-sm-9 bg-white rounded-right">
@@ -162,8 +172,9 @@ console.log(props)
 								</div>
 							</div>
 							 ))} 
+                        <button className="btn btn-trending" onClick={loadMore}>Load More</button> 
 						</div>
-						):<h4 className="text-danger text-center m-5">No Jobs available, search with new keywords</h4>}  
+						):<h4 className="text-danger text-center m-5">No Jobs available, search with new keywords</h4>} 
 					</div>
 				</div>
 			</div>

@@ -2,9 +2,7 @@
 .navbar {
     position: fixed;
     background: #ffffffe3!important;
-    /* background-image: linear-gradient(to right, #052c47, #012241d0);
-    background-color: #042c83;
-    color: #042c83; */
+    /* background-image: linear-gradient(to right, #052c47, #012241d0);*/
     margin-right: 50px;
 }
 #nav-dropdown-item{
@@ -42,7 +40,6 @@ color: #eb5d1e;
 }
 
 .navbar .navbar-brand img {
-    max-width: 100%;
     max-height: 40px;
 }
 
@@ -59,7 +56,7 @@ color: #eb5d1e;
 
 @media (min-width: 992px) {
     .navbar {
-        position: sticky;
+        position: relative;
         width: 100%;
         background:#ffffffee!important;
     }
@@ -195,6 +192,10 @@ color: #eb5d1e;
   }
   /********** Footer***********/
 
+  #footer {
+    position: bottom;
+    bottom: 0;
+  }
   #footer .footer-top {
     padding: 30px;
     background: #fff;

@@ -14,14 +14,12 @@ const Lander =()=> {
   const [search, setSearch] = useState({
     jobs: "",
     location: "",})
-  const [getter,setGetter] = useState({})
 
   const history = useHistory();
 
 
   const changeHandle = (e) => {
       setSearch({...search,[e.target.name]: e.target.value})
-      console.log(getter)
   }
 
   useEffect(()=>{
@@ -30,9 +28,9 @@ const Lander =()=> {
 
   const handleSubmit=()=>{
       if(search.jobs === "" && search.location === ""){
-        history.push({pathname:'/search',search:''});
+        history.push('/search?=');
       }else if(search.jobs !== "" || search.location!==''){
-        history.push({pathname:'/jobs',keyword:search});
+        history.push('/jobs?kwds='+search.jobs +'&loc='+search.location);
       }
       else {
         return null
@@ -43,12 +41,11 @@ const Lander =()=> {
     {/* {active === "top" ? */}
     <div>
       <section id="welcome" className="d-flex align-items-center">
-        <div className="container">
+        <div className="container-flex">
             <div className="row">
-                <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+                <div className="col-lg-6 pt-5 text-center order-2">
                     <h1>Bettter digital experience with Ninestars</h1>
                     <h2>We are team of talented designers making websites with Bootstrap</h2>
-
                 </div>
                 <div className="col-lg-6 order-1 order-lg-2 welcome-img">
                     <img src={welo} className="img-fluid animated" alt="ff"/> 
@@ -56,7 +53,7 @@ const Lander =()=> {
             </div>
 
 
-            <div className="">
+            <div className="m-4">
             <div className="row d-flex justify-content-center">
                 <div className="col-lg">
                     <div className="row">
@@ -95,7 +92,7 @@ const Lander =()=> {
     </section>
     <div>
       <TopHiring></TopHiring>
-      <Trending getSearch={setGetter}></Trending>
+      <Trending ></Trending>
     </div>
   </div>
   {/* :""} */}

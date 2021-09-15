@@ -1,0 +1,32 @@
+function FindJobs ({...props,}) {
+    const [filterData, setFilterData] = useState({})
+    const [search, setSearch] = useState({
+        jobs: "",
+        location: "",})
+
+    const getdata = props.location.keyword || ''
+    
+
+// ---On mount function -----
+    useEffect(()=>{
+        const params = new URLSearchParams(location.search);
+        const q = params.get('q');
+        console.log(q)
+        const job = getdata.jobs
+        const loca = getdata.location
+        if(getdata ==='' || getdata=== undefined){
+            return null
+        }
+        else {
+            const jobFilter=data.filter(view => {
+                const company = view.company
+                const position = view.position
+                const level = view.level
+                const contract = view.contract
+                const languages = view.languages
+                const info = company + position + level + contract + languages
+                return info.trim().toLowerCase().includes(job.trim().toLowerCase())
+            });
+            const locaFilter = jobFilter.filter((view) => view.location.toLowerCase().includes(loca.toLowerCase()) )
+        setFilterData(locaFilter)
+        }
