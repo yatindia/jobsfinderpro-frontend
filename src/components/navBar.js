@@ -25,6 +25,7 @@ export default class NavBar extends Component{
     async handleLogout() {
             localStorage.clear()
             window.location.reload();
+            this.props.history('/')
     };
 
     render(){

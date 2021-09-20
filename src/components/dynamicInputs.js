@@ -8,10 +8,8 @@ const DynamicInput = (props) => {
   const inputChange = (index,event) => {
     const values = [...item];
     values[index] = event.target.value
-    if(values!==""){
       setitem(values)
       props.get(values)
-    } 
   }
 
 
@@ -41,14 +39,14 @@ const DynamicInput = (props) => {
                 <div className="form-group d-flex">
                   <input type="text" name="vals" className="form-control"
                   value={data} onChange={event => inputChange(i,event)} list="dataset"/>
-                  <button  className="btn btn-outline-danger" onClick={(e)=>removeInput(i,e)}>X</button>
+                  <button  className="btn btn-outline-danger" type="button" onClick={(e)=>removeInput(i,e)}>X</button>
                 </div>
             </div>
          </> )
         })
       }
       <div className="form-group col">
-        <button className="btn btn-findJob" onClick={addInputs}>+</button>
+        <button className="btn btn-findJob" type="button" onClick={addInputs}>+</button>
     </div> 
 </div>
   )

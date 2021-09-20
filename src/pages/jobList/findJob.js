@@ -68,6 +68,13 @@ function FindJobs ({location}) {
         window.location.reload()
     }
 
+    const applyAll=()=>{
+        const idss = filterData.map(data=>({
+            jobids:data.id
+        }));
+        console.log(idss)
+    }
+
 
 
     return (<><div>
@@ -78,14 +85,14 @@ function FindJobs ({location}) {
                     <div className="row">
                         <div className="col-lg col-md col-sm p-1 input-group">
                         <input className="form-control selector border"  type="text" name="jobs" defaultValue={search.jobs}
-                          onChange={changeHandle}  placeholder="Company, Title, Keywords " list="browsers"/>
+                          onChange={changeHandle} list="browsers" placeholder ="Keywords..."/>
                           <span className="input-group-append">
                               <div className="input-group-text"><i className="fa fa-search text-info"></i></div>
                           </span>
                         </div> 
                         <div className="col-lg col-md col-sm p-1 input-group">
                         <input className="form-control selector border"  type="text" name="location" defaultValue={search.location}
-                          onChange={changeHandle} placeholder="Job Location" list="browsers1"/>
+                          onChange={changeHandle} list="browsers1" placeholder ="Locations..."/>
                           <span className="input-group-append">
                               <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
                           </span>
@@ -158,6 +165,12 @@ function FindJobs ({location}) {
 												</div>
 												<div className="col-sm">
 													<button className="btn btn-outline-info ">View</button>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" value=""/>
+                                                            <i class="fa fa-2x icon-checkbox"></i>
+                                                        </label>
+                                                    </div>
 												</div>
 											</div>
 											<hr className="bg-primary"/>
@@ -172,7 +185,8 @@ function FindJobs ({location}) {
 								</div>
 							</div>
 							 ))} 
-                        <button className="btn btn-trending" onClick={loadMore}>Load More</button> 
+                        <button className="btn  text-center btn-trending" onClick={loadMore}>Load More</button> 
+                        <button className="btn  text-center btn-trending" onClick={applyAll}>Apply All</button> 
 						</div>
 						):<h4 className="text-danger text-center m-5">No Jobs available, search with new keywords</h4>} 
 					</div>

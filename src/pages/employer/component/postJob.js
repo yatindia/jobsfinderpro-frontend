@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+
+import DynamicInput from '../../../components/dynamicInputs'
 import category from '../../../components/asserts/category.json'
+import skilldata from '../../../components/asserts/skill.json'
 
 
 const PostJobs =()=> {
 
 const [cate, setCat] = useState(true);
+const [skills, setSkills] =useState([])
 const [inputs, setInputs] = useState({
     jobName: "",
     jobLoc: "",
@@ -68,7 +72,7 @@ const changeHandle = e => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-sm">
+                        <div className="col-md-12 col-sm">
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
@@ -112,8 +116,9 @@ const changeHandle = e => {
                         <div className="col-sm-3 ">
                         <label>Skills Required</label>
                         </div>
-                        <div className="col-sm-6 form-group ">
-                            <textarea type="text" className="form-control" placeholder="Write about the Skill requirements"/>
+                        <div className="col-md-9">
+                            <DynamicInput get={setSkills} dataset ={skilldata}></DynamicInput>
+                            <p>{(JSON.stringify(skills))}</p> 
                         </div>
                     </div>
                     <div className="row">

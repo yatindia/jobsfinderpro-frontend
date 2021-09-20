@@ -19,6 +19,9 @@ if(values.password !== values.cpassword){
 if(!values.email){
     return{error:"*Please enter your E-mail.", valid:false}
 }
+if(!values.profileImage){
+    return{error:"*Upload Profile Picture.", valid:false}
+}
 
 if (typeof values.email !== "undefined") {
           
@@ -45,19 +48,4 @@ export const validateMail =(values)=>{
         }
     }
     return {error:"fine", valid:true}
-}
-
-export const progressValid =(values)=>{
-    if(values.jobName!==''){
-        return {up:10}
-    }
-   else if(values.jonLoc!==''){
-        return {up:20}
-    }
-   else if(values.jobSal!==''){
-        return {up:30}
-    }
-    else{
-        return {up:0}
-    }
 }

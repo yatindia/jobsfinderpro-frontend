@@ -85,6 +85,8 @@ const dialogClose=()=>{
 		<div className="container-fluid">
 		<Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
+
+				{/* -------Sidebar-------- */}
 				<div id="sidebar">
 					<div className="profile-tab-nav border-right ">
 						<div className="p-4">
@@ -110,7 +112,7 @@ const dialogClose=()=>{
 						<div className="nav flex-column nav-pills mb-4"   aria-orientation="vertical">
 							<a className="nav-link " href="/users/dashboard" >
 								<i className="fa fa-home text-center mr-1"></i> 
-								Home
+								Dashboard
 							</a>
 							<a className="nav-link"  href="/users/dashboard/myjobs" >
 								<i className="fa fa-user text-center mr-1"></i> 
@@ -123,6 +125,8 @@ const dialogClose=()=>{
 						</div>
 					</div>
 				</div>
+
+				{/* -------Content body-------- */}
 				<div className="tab-content p-4 p-md-5">
 					<Switch>
 						<Route exact path="/users/dashboard" component={UserContent}/>

@@ -14,8 +14,13 @@ import { validateMail } from "./validating";
 const Login =()=> {
 
   const [dialogShow, setDialogShow] = useState(false);
+  const [errs,setErr] = useState({
+    title: "",
+    message: "",
+    style:""
+  })
+
   const [btnVerify, setBtnVerify] = useState(false);
-  const [errs,setErr] = useState('')
   const history = useHistory();
   const [inputs, setInputs] = useState({
     password: "",
@@ -26,42 +31,47 @@ const Login =()=> {
       setInputs({...inputs,[e.target.name]: e.target.value})
     }
 
-    // -----Login function----
+  // -----Login function----
     const validateemail = validateMail(inputs)
 
     const handleSubmit= async(e) =>{
       e.preventDefault();
       if(validateemail.valid===false){
-        setErr("*"+ validateemail.error)
+        setErr({message:"*"+ validateemail.error,style:'text-danger'})
       }
-      else if(!inputs.password){setErr("**Enter the Password");}
+      else if(!inputs.password){setErr({message:"**Enter the Password",style:'text-danger'});}
       else{
       try {
-        const res = await axios.post(API_URL+"/account/login",inputs)
+        setErr({message:"Loading..",style:'text-primary'})
+        const res = await axios.post(`${API_URL}/account/login`,inputs)
         if(res.data.error===false){
-          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, Auth_token:res.data.authToken, Profile:'False'}
+          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, 
+              Auth_token:res.data.authToken, job_fname:res.data.firstName,job_lname:res.data.lastName, Profile:'False'}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
             if(res.data.type === "employer"){
               history.push('/employers/dashboard');
               window.location.reload()
+              console.log(res)
             }
             else if(res.data.type === "seeker"){
               history.push('/users/dashboard');
               window.location.reload()
+              console.log(res)
             }
             else{window.location.reload()}
 
           setBtnVerify(false)
         }else if(res.data.error===true && res.data.Message==="Please confirm your verification e-mail"){
           setBtnVerify(true)
-          setErr(res.data.Message)
+          setErr({message:"Please verify your e-mail",style:'text-info'})
         }
         else{
           setBtnVerify(false)
-          setErr(res.data.Message)
+          setErr({message:res.data.Message,style:'text-danger'})
         }
       } catch (ex) {
-        setErr(ex)
+        console.log(ex)
+        setErr({message:'**Network Error',style:'text-warning'})
       }
       }
     }
@@ -69,15 +79,16 @@ const Login =()=> {
 // -----Reset Password function----
  const forgetPassword=async()=>{
     if(!inputs.email){
-     setErr('*Enter the E-mail') }
+     setErr({message:'*Enter valid E-mail',style:'text-danger'}) }
     else{
       try {
-        const res = await axios.post(API_URL+"/account/recoverPassword",inputs.email)
-        console.log(res)
+        setErr({title:'',message:'Loading..',style:'text-primary'})
+        const res = await axios.post(`${API_URL}/account/recoverPassword`,inputs)
         if(res.data.error===false){
+          setErr({title:'Reset Password',message:'Check Your mail for Recovery password',style:'text-success'})
           setDialogShow(true)
         }
-        else{setErr(res.data.Message)}
+        else{setErr({message:res.data.Message,style:'text-danger'})}
       } catch (error) {
         console.log(error)
       }
@@ -88,15 +99,17 @@ const Login =()=> {
   const verifyMail=async (e)=>{
     e.preventDefault();
     if(!inputs.email){
-     setErr('*Enter the E-mail') }
+      setErr({message:'*Enter valid E-mail',style:'text-danger'}) }
     else{
       try {
+        setErr({title:'',message:'Loading..',style:'text-primary'})
         const res = await axios.post(`${API_URL}/account/reconfirm/${inputs.email}`)
         console.log(res)
         if(res.data.error===false){
+          setErr({title:'Verify E-mail',message:'Check Your mail for new Verification link',style:'text-success'})
           setDialogShow(true)
         }
-        else{setErr(res.data.Message)}
+        else{setErr({message:res.data.Message,style:'text-danger'})}
       } catch (error) {
         console.log(error)
       }
@@ -108,10 +121,9 @@ const Login =()=> {
   }
 
   return (<>
+  <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
   <div className="App d-flex">
       <div className="appForm mx-auto  align-center">
-      <DialogBox show={dialogShow} title="Password Reset" 
-          detail="A pasword reset link is sented to please check.. " dialogClose={dialogClose} button="success"/>
           <div label="Sign-In">
             <div className="formCenter">
               <form className="">
@@ -143,16 +155,15 @@ const Login =()=> {
                   />
                 </div>
               </form>
-                <div className="text-danger mb-3" id="err_message">{errs}</div>
+                <div className="p-3"><span className={errs.style}>{errs.message}</span></div>
 
                 <div className="formField">
                   <button className="btn formFieldButton effect" onClick={handleSubmit}>Sign In</button>
                   {btnVerify === false ? 
                     <button className=" m-2 btn btn-outline-secondary" onClick={forgetPassword}> <small>Forget Password</small></button> :""}
                   {btnVerify === true ? 
-                  <button className=" m-2 btn btn-outline-secondary" onClick={verifyMail}> <small>Verify E-mail</small></button>:""}
+                  <button className=" m-2 btn btn-outline-secondary" onClick={verifyMail}> <small>Sent new Verify Link</small></button>:""}
                 </div>
-                
                 <div className="socialMediaButtons">
                 <div className="googleButton m-2">
                     <GoogleLoginButton onClick={() => alert("Hello")} />

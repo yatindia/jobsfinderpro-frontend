@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 
-import DynamicInput from './dynamicInputs';
+import DynamicInput from "../../../components/dynamicInputs";
 import category from '../../../components/asserts/category.json'
 import skilldata from '../../../components/asserts/skill.json'
 
