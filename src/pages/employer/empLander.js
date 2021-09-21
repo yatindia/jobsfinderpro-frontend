@@ -7,6 +7,7 @@ import PostJobs from "./component/postJob";
 import Jobs from "./component/jobs";
 import Applied from "./component/applied";
 import Search from "./component/search";
+import EmpRegister from "./component/empRegister";
 
 import { resizeFile, dataURIToBlob, API_URL } from "../../components/utils";
 
@@ -17,17 +18,24 @@ const EmpLander = ()=> {
     const [imgShow, setImgShow] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
 
+	const [dialogShow, setDialogShow] = useState(false);
+
 	
 // --------------On Mount------
-	useEffect(()=> {
-		const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-        if(!userDetils){
-			history.push('/')
-        } else if(userDetils.Role_Type === "employer") {
-			return null 
-        }
-    })
-
+useEffect(() =>{
+	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
+	if(!userDetils){
+		history.push('/')
+	} else if(userDetils.Role_Type === "employer"){
+		if(userDetils.Profile === "False") {
+			setDialogShow(true)
+		}
+		else{
+			history.push('/employers/dashboard');
+			//window.location.reload()
+		}
+	}
+},[history])
 // ------- Image upload--------
 const userDp = localStorage.getItem('userDp');
 
@@ -75,10 +83,13 @@ const handleLogout=()=>{
 	localStorage.removeItem('userDetails')
 	history.push('/')
 }
-
+const dialogClose=()=>{
+    setDialogShow(false)
+  }
 
     return (<>
     <section className="py-5 my-5">
+	<EmpRegister show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
 				<div id="sidebar">
@@ -90,7 +101,7 @@ const handleLogout=()=>{
 								<img src={imgShow} className="shadow"  alt="pic"/>}
 							</div>
 							<div className="col mt-4">
-								<div className="dragBox" >Pick Image
+								<div className="dragBox" >Change Profile
 									<input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
 								</div>
 								<div>

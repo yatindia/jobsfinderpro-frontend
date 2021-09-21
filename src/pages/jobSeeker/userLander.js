@@ -28,7 +28,7 @@ function  UserLander () {
 			}
 			else{
 				history.push('/users/dashboard');
-            	window.location.reload()
+            	//window.location.reload()
 			}
 		}
     },[history])
@@ -71,9 +71,8 @@ function  UserLander () {
     }
 	
 const handleLogout=()=>{
-	localStorage.removeItem('userDetails')
 	history.push('/')
-	window.location.reload()
+	localStorage.removeItem('userDetails')
 }
 const dialogClose=()=>{
     setDialogShow(false)

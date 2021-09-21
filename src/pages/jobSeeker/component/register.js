@@ -3,8 +3,7 @@ import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 import DynamicInput from '../../../components/dynamicInputs';
-import { API_URL } from '../../../components/utils';
-import { formValid } from './formValidate';
+import { API_URL,formValid } from '../../../components/utils';
 
 
 const Registration = ({show, title, dialogClose}) => {
@@ -44,12 +43,16 @@ const updateProfile=async(event)=>{
       setValidated(true); 
       const checking = formValid(inputs)
       if(checking.valid===true){
-        console.log(inputs)
+        //console.log(inputs)
         try {
             setErr({message:'Loading..',style:'text-primary'})
             const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
             setErr({message:res.data.message,style:'text-info'})
-            console.log(res)
+            if(res.data.error===false){
+                addToLocalStorageObject('userDetails','Profile','True')
+            }
+            window.location.reload()
+            //console.log(res)
           } catch (ex) {
             // setErr({message:ex,style:'text-warning'})
             console.log(ex)
@@ -59,6 +62,15 @@ const updateProfile=async(event)=>{
         setErr({message:checking.error,style:'text-danger'})
       }
 }
+
+var addToLocalStorageObject = function (name, key, value) {
+	var existing = localStorage.getItem(name);
+	existing = existing ? JSON.parse(existing) : {};
+	existing[key] = value;
+	localStorage.setItem(name, JSON.stringify(existing));
+
+};
+
 
 useEffect(()=>{
     setInputs({...inputs,qualifications:edu})
@@ -98,7 +110,7 @@ useEffect(()=>{
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
-                                    <label>Current Job</label> 
+                                    <label>Jobs</label> 
                                     <input type="text" className="form-control" placeholder="Your Current Job" name="jobTitle"
                                         value={inputs.jobTitle} onChange={changeHandle} required/>
                                 </Form.Group>

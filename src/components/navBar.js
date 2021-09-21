@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Navbar, Nav, Form,NavDropdown} from 'react-bootstrap'
+import { useHistory } from 'react-router-dom';
 
 
-export default class NavBar extends Component{
-    constructor() {
-        super();
-        this.state={islogEmp: false,islogged: false};
-        this.handleLogout = this.handleLogout.bind(this);
-    }
+export default function NavBar (){
+
+    const [islogged,setislogged] = useState(false)
+    const [islogEmp,setislogEmp] = useState(false)
+    const history = useHistory();
     
-    componentDidMount() {
+
+    useEffect(()=>{
         const userDetails = JSON.parse(localStorage.getItem( 'userDetails'));
         if(!userDetails){
             return null
         } 
         else if(userDetails.Role_Type === "employer"){
-            this.setState({islogEmp: true}); 
+            setislogEmp(true); 
         }
         else if(userDetails.Role_Type === "seeker"){
-            this.setState({islogged: true}); 
+            setislogged(true);  
         }
-    }
+    },[])
       
-    async handleLogout() {
-            localStorage.clear()
-            window.location.reload();
-            this.props.history('/')
+    const handleLogout=()=> {
+        history.push('/')
+        localStorage.removeItem('userDetails')
+        window.location.reload()
     };
 
-    render(){
         return(
             <>         
             <Navbar expand="lg" className="navbar shadow rounded-lg mt-3">
@@ -39,23 +39,23 @@ export default class NavBar extends Component{
                     <Nav className="ml-auto navbar-nav mr-5" activeKey={window.location.pathname}>
                         <Nav.Link exact='True' className="mr-1 " href="/" > Home</Nav.Link>
 
-                        {this.state.islogged === false ? <Nav.Link   href="/login"  >Login</Nav.Link> :""}
-                        {this.state.islogged === true ?  
+                        {islogged === false ? <Nav.Link   href="/login"  >Login</Nav.Link> :""}
+                        {islogged === true ?  
                             <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                                 <NavDropdown.Item href="/users/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
                                 <NavDropdown.Item href="/users/dashboard/myjobs" id="nav-dropdown-item"><i className="fa fa-briefcase"></i>  My Jobs</NavDropdown.Item>
-                                <NavDropdown.Item onClick={this.handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                             </NavDropdown> :""}
 
                         <Nav.Link exact='True' className="mr-1 " href="/register">/  Register</Nav.Link>
                         
-                        {this.state.islogEmp === false ? <Nav.Link  href="/login">Post Job</Nav.Link> :""}
-                        {this.state.islogEmp === true ?  
+                        {islogEmp === false ? <Nav.Link  href="/login">Post Job</Nav.Link> :""}
+                        {islogEmp === true ?  
                             <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                                 <NavDropdown.Item href="/employers/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
                                 <NavDropdown.Item href="/employers/dashboard/newjobs" id="nav-dropdown-item"><i className="fa fa-check"></i>  Post Job</NavDropdown.Item>
                                 <NavDropdown.Item href="/employers/dashboard/search" id="nav-dropdown-item"><i className="fa fa-search"></i> Search</NavDropdown.Item>
-                                <NavDropdown.Item onClick={this.handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                             </NavDropdown> :""}
                     </Nav>
                 </Navbar.Collapse>
@@ -63,7 +63,6 @@ export default class NavBar extends Component{
             </Navbar>
             </>
         );
-    }
 }
 
   
