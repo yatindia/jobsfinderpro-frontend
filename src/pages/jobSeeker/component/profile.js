@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
 import { resizeFile, dataURIToBlob, API_URL} from "../../../components/utils";
@@ -9,6 +9,7 @@ function UserProfile() {
     const [imgData, setImgData] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
 	const [imgShow, setImgShow] = useState(null);
+    const [checkbx, setCheckbx] = useState(true);
 
     const [pastJob, setpastJob] =useState([])
     const [edu, setEdu] =useState([])
@@ -17,23 +18,36 @@ function UserProfile() {
         firstName: "",
         lastName: "",
         password: "",
+        cpassword: "",
         email: "",
         profileImage:"",
         type:'seeker'
       })
+      const [profile, setProfile] = useState({
+        email: "",
+        mobile: "",
+        dateOfBirth: "",
+        jobTitle: "",
+        pastJob: "",
+        gender:"",
+        qualifications:"",
+        state:"",
+        city:""
+      })
+
     const userDp = localStorage.getItem('userDp');
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
  
-useEffect(()=>{
-    setInputs({...inputs,firstName:profile_1.job_fname,lastName:profile_1.job_lname,password:profile_1.job_email})
-})
 
-
+//-------Input change-----------
     const changeHandle = async e => {
         setInputs({...inputs,[e.target.name]: e.target.value})
+        setProfile({...profile,[e.target.name]: e.target.value})
       }
 
 
+
+//-------Image Upload-----------
     const onImageChange=async (e)=>{
 		if (e.target.files[0]) {
 			const file = e.target.files[0];
@@ -70,10 +84,27 @@ useEffect(()=>{
             document.getElementById("message").innerText = ex
           }
     }
-	
+
+//-------Checkbox change-----------
+const handleCheck=(e)=>{
+ const checked = e.target.checked
+ if(checked){
+     setCheckbx(false)
+ }else{
+    setCheckbx(true)
+ }
+}
+
+//-------Profile Update-----------
 const baseUpdate =()=>{
     console.log(inputs)
 }
+
+//-------Profile 2 Update-----------
+useEffect(()=>{
+    setProfile({...profile,qualifications:edu,pastJob:pastJob})
+},[profile,edu,pastJob])
+
 
 
     return (<>
@@ -103,17 +134,25 @@ const baseUpdate =()=>{
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>First Name</label>
-                        <input type="text" className="form-control" name ="firstName" value={inputs.firstName} onChange={changeHandle}/>
+                        <input type="text" className="form-control inputStyle" name ="firstName" 
+                            placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
                     </div>
                     <div className="form-group">
                         <label>Last Name</label>
-                        <input type="text" className="form-control" name ="lastName" value={inputs.lastName} onChange={changeHandle}/>
+                        <input type="text" className="form-control inputStyle" name ="lastName"  
+                            placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Change Password</label>
-                        <input type="password" className="form-control" name ="password"  value={inputs.password} onChange={changeHandle}/>
+                        <label>Change Password</label> <input className='pl-2' type="checkbox" onClick = {handleCheck}/>
+                        <input type="password" className="form-control inputStyle" name ="password"  disabled={checkbx}
+                            placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Confirm Password</label> 
+                        <input type="password" className="form-control inputStyle" name ="cpassword"  disabled={checkbx}
+                            placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className ='row'>
@@ -150,39 +189,43 @@ const baseUpdate =()=>{
             <div className="col-md-4">
                     <div className="form-group">
                     <label>Date of Birth</label>
-                        <input type="date" name="dateOfBirth" className="form-control" placeholder="dd-mm-yyyy" 
-                            min="1980-01-01" />
+                        <input type="date" name="dateOfBirth" className="form-control inputStyle" placeholder="dd-mm-yyyy" 
+                          value={profile.dateOfBirth} onChange={changeHandle}  min="1980-01-01" />
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Contact Number</label>
-                        <input type="text" className="form-control" defaultValue="Kiran"/>
+                        <input type="text" className="form-control inputStyle" placeholder="Kiran" 
+                            value={profile.mobile} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Job Title</label>
-                        <input type="text" className="form-control" defaultValue="Kiran"/>
+                        <input type="text" className="form-control inputStyle" placeholder="Kiran" 
+                            value={profile.jobTitle} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>State</label>
-                        <input type="text" className="form-control" defaultValue="Kiran"/>
+                        <input type="text" className="form-control inputStyle" placeholder="Kiran" 
+                            value={profile.state} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>City</label>
-                        <input type="text" className="form-control" defaultValue="Kiran"/>
+                        <input type="text" className="form-control inputStyle" placeholder="Kiran" 
+                            value={profile.city} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <label>Gender</label>
                     <div className="input-group">
-                        <input className="form-control" type="text" name ="gender" placeholder="Select.." 
-                        list="gender"/>
+                        <input className="form-control inputStyle" type="text" name ="gender" placeholder="Select.." 
+                        list="gender" onChange={changeHandle} value={profile.gender}/>
                         <datalist id = "gender">
                             <option>Male</option>
                             <option>Female</option>

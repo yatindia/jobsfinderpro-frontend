@@ -14,6 +14,7 @@ export default function Register() {
   const [imgName, setImgName] = useState('');
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
+  
   const [inputs, setInputs] = useState({
     firstName: "",
     lastName: "",
@@ -21,13 +22,19 @@ export default function Register() {
     cpassword: "",
     email: "",
     profileImage:"",
-    type:''
+    type:'seeker'
   })
-  const [errs,setErr] = useState({
-    title: "",
-    message: "",
-    style:""
+  const [emp, setEmp] = useState({
+    firstName: "",
+    lastName: "",
+    password: "",
+    cpassword: "",
+    email: "",
+    profileImage:"",
+    type:'employer'
   })
+
+  const [errs,setErr] = useState({title: "",message: "",style:""})
 
   const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
@@ -38,7 +45,7 @@ export default function Register() {
   // ----- Job Seeker Register ----
   const seekerSubmit = async (event) => {
     event.preventDefault();
-    setInputs({...inputs,profileImage:imgName, type:'seeker'})
+    setInputs({...inputs,profileImage:imgName})
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
@@ -47,9 +54,11 @@ export default function Register() {
       const erro = validating(inputs)
       if(erro.valid===true){
         setErr({message:''})
+        console.log(inputs)
         try {
           setErr({message:'Loading..',style:'text-primary'})
           const res = await axios.post(API_URL+"/account/signup",inputs)
+          console.log(res)
           if(res.data.error===false){
             setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
             setDialogShow(true)
@@ -68,17 +77,17 @@ export default function Register() {
   const employerSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    setInputs({...inputs,profileImage:imgName, type:'employer'})
+    setEmp({...emp,profileImage:imgName})
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
       setValidated(true);  
-      const erro = validating(inputs)
+      const erro = validating(emp)
       if(erro.valid===true){
         setErr({message:''})
         try {
           setErr({message:'Loading..',style:'text-primary'})
-          const res = await axios.post(API_URL+"/account/signup",inputs)
+          const res = await axios.post(API_URL+"/account/signup",emp)
           console.log(res);
           if(res.data.error===false){
             setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
@@ -138,8 +147,9 @@ const imageUpload= async ()=>{
 }
 
 useEffect(()=>{
-  setInputs({...inputs,orgLogo:imgName})
-},[inputs,imgName])
+  setInputs({...inputs,profileImage:imgName})
+  setEmp({...emp,profileImage:imgName})
+},[inputs,emp,imgName])
 
   return (<>
     <div className="App d-flex">
@@ -231,35 +241,35 @@ useEffect(()=>{
                     {/* <Form.Label className="formFieldLabel">First name</Form.Label> */}
                     <Form.Control
                       className="formFieldInput " required type="text" placeholder="First name" 
-                      name="firstName" value={inputs.firstName} onChange={changeHandle}
+                      name="firstName" value={emp.firstName} onChange={changeHandle}
                     />
                   </Form.Group>
                   <Form.Group as={Row} md="6"  controlId="validationCustom02" className="formField">
                     {/* <Form.Label className="formFieldLabel">Last name</Form.Label> */}
                     <Form.Control
                       className="formFieldInput " required type="text" placeholder="Last/Company Name"
-                      name="lastName" value={inputs.lastName} onChange={changeHandle}
+                      name="lastName" value={emp.lastName} onChange={changeHandle}
                     />
                   </Form.Group>
                   <Form.Group as={Row} md="6"  controlId="validationCustom03" className="formField">
                   {/* <Form.Label className="formFieldLabel">Password</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="password" placeholder="Password"
-                    name="password" value={inputs.password} onChange={changeHandle}
+                    name="password" value={emp.password} onChange={changeHandle}
                   />
                 </Form.Group>
                 <Form.Group as={Row} md="6"  controlId="validationCustom04" className="formField">
                   {/* <Form.Label className="formFieldLabel">Confirm Password</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="password" placeholder="Confirm Password"
-                    name="cpassword" value={inputs.cpassword} onChange={changeHandle}
+                    name="cpassword" value={emp.cpassword} onChange={changeHandle}
                   />
                 </Form.Group>
                 <Form.Group as={Row} md="6" controlId="validationCustom05" className="formField">
                   {/* <Form.Label className="formFieldLabel">Email</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="email" placeholder="E-mail"
-                    name="email" value={inputs.email} onChange={changeHandle}
+                    name="email" value={emp.email} onChange={changeHandle}
                   />
                 </Form.Group>
                 </Col>
