@@ -102,7 +102,7 @@ const dialogClose=()=>{
 										</div>
 										<div>
 											<button className="row dragBox m-2" onClick={imageUpload}>Upload</button>
-											<label className="row text-danger" id="message">**First Upload Dp...</label>
+											<label className="row text-danger" id="message"></label>
 										</div>
 									</div>
                                 </div>

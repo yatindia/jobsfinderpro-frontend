@@ -48,15 +48,14 @@ const Login =()=> {
           const userDetails = {job_email: inputs.email, Role_Type: res.data.type, 
               Auth_token:res.data.authToken, job_fname:res.data.firstName,job_lname:res.data.lastName, Profile:'False'}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
+          console.log(res)
             if(res.data.type === "employer"){
               history.push('/employers/dashboard');
               window.location.reload()
-              console.log(res)
             }
             else if(res.data.type === "seeker"){
               history.push('/users/dashboard');
               window.location.reload()
-              console.log(res)
             }
             else{window.location.reload()}
 

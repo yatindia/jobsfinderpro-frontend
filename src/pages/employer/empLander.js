@@ -8,6 +8,7 @@ import Jobs from "./component/jobs";
 import Applied from "./component/applied";
 import Search from "./component/search";
 import EmpRegister from "./component/empRegister";
+import ErrorPage from "../../components/errorPage";
 
 import { resizeFile, dataURIToBlob, API_URL } from "../../components/utils";
 
@@ -89,7 +90,7 @@ const dialogClose=()=>{
 
     return (<>
     <section className="py-5 my-5">
-	<EmpRegister show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
+	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
 			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
 				<div id="sidebar">
@@ -143,11 +144,11 @@ const dialogClose=()=>{
 				<div className="tab-content p-2 p-md-5" id="v-pills-tabContent">
 				<Switch>
 					<Route exact path="/employers/dashboard" component={EmpContent}/>
-					{/* <Route exact path="/employers/dashboard/profile" component={EmpProfile}/> */}
 					<Route exact path="/employers/dashboard/newjobs" component={PostJobs}/>
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
 					<Route exact path="/employers/dashboard/search" component={Search}/>
 					<Route exact path="/employers/dashboard/applied" component={Applied}/>
+					<Route exact path="*" component={ErrorPage}/>
 				</Switch>
 				</div>
 			</div>

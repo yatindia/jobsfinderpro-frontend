@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { Form,Col,Row,Button} from "react-bootstrap";
 import axios from 'axios'
 
@@ -107,7 +107,6 @@ const onImageChange=async (e)=>{
 		setImgData(newFile)
 		localStorage.setItem("userDp",  image);
 		setImgBtn(false)
-    imageUpload()
 	}
 }
 
@@ -137,6 +136,10 @@ const imageUpload= async ()=>{
     setErr({title:'',message:ex,style:'text-warning'})
 	  }
 }
+
+useEffect(()=>{
+  setInputs({...inputs,orgLogo:imgName})
+},[inputs,imgName])
 
   return (<>
     <div className="App d-flex">

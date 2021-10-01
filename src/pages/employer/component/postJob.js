@@ -38,9 +38,7 @@ const changeHandle = e => {
   })
 
     return (<>
-      <div className="container-fluid">
-      <div className=" page-content">
-        <div className="container">
+    <div className="container-fluid">
         <div className="row">
             <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
@@ -149,8 +147,6 @@ const changeHandle = e => {
                 </div>
             </div>
         </div>
-        </div>
-    </div>
     </div>
     </>);
   }

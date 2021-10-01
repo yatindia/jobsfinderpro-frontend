@@ -12,6 +12,7 @@ import Register from "./pages/auth/register";
 import Footer from "./components/footer";
 import Fetcher from "./pages/jobList/fetcher";
 import FindJobs from "./pages/jobList/findJob";
+import ErrorPage from "./components/errorPage";
 
 function App () {
 
@@ -21,7 +22,8 @@ const [empRoute, setEmpRoute]=useState(false)
 useEffect(()=>{
   const userDetails = JSON.parse(localStorage.getItem( 'userDetails'));
         if(!userDetails){
-            return null
+            setEmpRoute(false)
+            setUserRoute(false)
         } 
         else if(userDetails.Role_Type === "employer"){
             setEmpRoute(true)
@@ -43,6 +45,7 @@ useEffect(()=>{
             {empRoute===true?<Route path="/employers/dashboard" component={EmpLander}/>:''}            
             <Route exact path="/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
+            <Route path ="*"component={ErrorPage}/>
           </Switch>
           <Footer></Footer>
       </Router>

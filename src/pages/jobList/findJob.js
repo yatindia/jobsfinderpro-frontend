@@ -165,12 +165,6 @@ function FindJobs ({location}) {
 												</div>
 												<div className="col-sm">
 													<button className="btn btn-outline-info ">View</button>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" value=""/>
-                                                            <i class="fa fa-2x icon-checkbox"></i>
-                                                        </label>
-                                                    </div>
 												</div>
 											</div>
 											<hr className="bg-primary"/>

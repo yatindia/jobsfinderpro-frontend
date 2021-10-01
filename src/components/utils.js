@@ -46,7 +46,7 @@ export const resizeFile = (file) =>
     if(!values.gender){
         return{error:"*Eonfirm the Gender.", valid:false}
     }
-    if(values.qualifications.length<=0){
+    if(values.qualifications.length<0){
         return{error:"*Enter your Qualification.", valid:false}
     }
     if(!values.state){
@@ -75,14 +75,14 @@ export const empformValid =(values)=>{
   if(!values.orgPhone){
       return{error:"*Enter Organization Contact Number.", valid:false}
   }
+  if(!values.orgWebsite){
+    return{error:"*Enter Organization Website.", valid:false}
+}
   if(!values.orgAddress){
       return{error:"*Enter Organization Address.", valid:false}
   }
-  if(!values.orgWebsite){
-      return{error:"*Enter Organization Website.", valid:false}
-  }
   if(!values.orgCountry){
-    return{error:"*Enter Organization Location.", valid:false}
+    return{error:"*Enter Organization Landmark.", valid:false}
 }
   
   return {error:"All are valid.", valid:true}

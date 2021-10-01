@@ -17,7 +17,7 @@ function Jobs(){
           <div className="container-flex">
             {bank.map(({id,logo,company,level,location,position,postedAt,contract,languages})=>(
             <div className="row d-flex justify-content-center " key={id}>
-                <div className="col-md-10 mt-2 pt-s border">
+                <div className="col-md-11 mt-2 pt-s border">
                     <div className="row z-depth-3">
                         <div className="col-sm-3 bg-info rounded-left">
                             <div className="card-block text-center text-white">

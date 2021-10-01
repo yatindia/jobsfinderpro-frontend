@@ -83,6 +83,7 @@
   #welcome .welcome-img img {
     width: 80%;
   }
+
 }
 
 @-webkit-keyframes up-down {
@@ -140,8 +141,9 @@
   
   .img-circle {
     height: auto;
-    width: 200px;
-    border-radius: 10px;
+    display: block;
+    max-width:200px;
+    border-radius: 50%;
     border: 5px solid #fff;
   }
   .img-circle img{
@@ -160,6 +162,7 @@
     border: 1px dashed #ccc;
     display: inline-block;
     transition: transform 0.3s;
+    overflow: hidden;
   }
   .dragBox input[type="file"] {
       position: absolute;
@@ -172,6 +175,16 @@
 
     .dragBox:hover, .dragBox input:hover{
       cursor: pointer;
+    }
+
+    @media only screen and (max-width: 680px) {
+      .img-circle {
+        height: auto;
+        display: block;
+        max-width:100px;
+        border-radius: 10px;
+        border: 5px solid #fff;
+      }
     }
 
   /********** Login/Register***********/
@@ -209,7 +222,7 @@
   }
   
   .formField {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   
   .formFieldLabel {

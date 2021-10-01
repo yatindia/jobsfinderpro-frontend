@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Navbar, Nav, Form,NavDropdown} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 
+import Logo from './asserts/logo.png'
 
 export default function NavBar (){
 
@@ -13,7 +14,8 @@ export default function NavBar (){
     useEffect(()=>{
         const userDetails = JSON.parse(localStorage.getItem( 'userDetails'));
         if(!userDetails){
-            return null
+            setislogEmp(false)
+            setislogged(false)
         } 
         else if(userDetails.Role_Type === "employer"){
             setislogEmp(true); 
@@ -21,11 +23,11 @@ export default function NavBar (){
         else if(userDetails.Role_Type === "seeker"){
             setislogged(true);  
         }
-    },[])
+    },[history])
       
     const handleLogout=()=> {
-        history.push('/')
         localStorage.removeItem('userDetails')
+        history.push('/')
         window.location.reload()
     };
 
@@ -33,7 +35,7 @@ export default function NavBar (){
             <>         
             <Navbar expand="lg" className="navbar shadow rounded-lg mt-3">
                 <Form className="container-fluid">
-                    <Navbar.Brand><a className="navbar-brand" href="/">LOGO</a>  </Navbar.Brand>
+                    <Navbar.Brand><a className="navbar-brand" href="/"><img src={Logo} alt='Yat Jobs'/></a>  </Navbar.Brand>
                 <Navbar.Toggle  aria-controls = "navbar_toggle"/>
                 <Navbar.Collapse id = "navbar_toggle"> 
                     <Nav className="ml-auto navbar-nav mr-5" activeKey={window.location.pathname}>

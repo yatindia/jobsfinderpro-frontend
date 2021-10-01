@@ -14,7 +14,6 @@ const EmpRegister = ({show, title, dialogClose}) => {
     const [imgName, setImgName] = useState('');
     const [validated, setValidated] = useState(false);
     const [inputs, setInputs] = useState({
-        token:`<Bearer> ${userProfile.Auth_token}`,
         email: userProfile.job_email,
         type:"employer",
         orgPhone: "",
@@ -48,15 +47,15 @@ const updateProfile=async(event)=>{
         //console.log(inputs)
         try {
             setErr({message:'Loading..',style:'text-primary'})
-            const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
-            setErr({message:res.data.message,style:'text-info'})
+            const res = await axios.post(`${API_URL}/account/signupcomplete`,inputs)
+            setErr({message:res.data.Message||res.data.message,style:'text-info'})
             if(res.data.error===false){
                // addToLocalStorageObject('userDetails','Profile','True')
             }
            // window.location.reload()
             console.log(res)
           } catch (ex) {
-            // setErr({message:ex,style:'text-warning'})
+            setErr({message:'Network fail',style:'text-warning'})
             console.log(ex)
           }
       }
@@ -67,13 +66,13 @@ const updateProfile=async(event)=>{
 
 
 // --------Localstorage update----
-var addToLocalStorageObject = function (name, key, value) {
-	var existing = localStorage.getItem(name);
-	existing = existing ? JSON.parse(existing) : {};
-	existing[key] = value;
-	localStorage.setItem(name, JSON.stringify(existing));
+// var addToLocalStorageObject = function (name, key, value) {
+// 	var existing = localStorage.getItem(name);
+// 	existing = existing ? JSON.parse(existing) : {};
+// 	existing[key] = value;
+// 	localStorage.setItem(name, JSON.stringify(existing));
 
-};
+// };
 
   // ------- Image upload--------
   const userDp = localStorage.getItem('userDp');
@@ -108,9 +107,9 @@ var addToLocalStorageObject = function (name, key, value) {
       setErr({title:'',message:'Loading..',style:'text-primary'})
       try {
           const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
-      setImgName(res.data.fileName)
-          setErr({title:'',message:res.data.Message,style:'text-success'})
-      setInputs({...inputs,orgLogo:imgName})
+            setImgName(res.data.fileName)
+            setErr({title:'',message:res.data.Message,style:'text-success'})
+            setInputs({...inputs,orgLogo:imgName})
         } catch (ex) {
          // console.log(ex);
       setErr({title:'',message:ex,style:'text-warning'})
@@ -134,8 +133,8 @@ var addToLocalStorageObject = function (name, key, value) {
                             <Row>
                                 <Form.Group as={Col} md="6" className="formField">
                                     <Form.Label className="formFieldLabel">Organization Logo</Form.Label>
-                                        <div className="d-flex align-items-center text-center">
-                                        <div className="row img-circle ml-3">
+                                        <div className="row m-auto justify-content-between text-center">
+                                        <div className="col img-circle ml-3">
                                         {imgBtn?<img src={userDp}  className="shadow" alt="Logo"/>:<img src={imgShow}   className="shadow" alt="Logo"/>}
                                         </div>
                                         <div className="col mt-4">
@@ -151,15 +150,15 @@ var addToLocalStorageObject = function (name, key, value) {
                                 </Form.Group>
                                 <Form.Group as={Col} md="6" className="formField">
                                     <div className="ml-auto text-right">
-                                        <p><b>Name:</b> {userProfile.job_fname} {userProfile.job_lname}</p>
-                                        <p><b>User E-Mail:</b> {userProfile.job_email} </p>
+                                        <p className="formFieldLabel"><b>Name:</b> {userProfile.job_fname} {userProfile.job_lname}</p>
+                                        <p className="formFieldLabel"><b>User E-Mail:</b> {userProfile.job_email} </p>
                                     </div>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom04" className="formField">
                                     {/* <label>Organization Name</label>  */}
-                                    <input type="text" className="form-control" placeholder="Organization Number" name="orgName"
+                                    <input type="text" className="form-control" placeholder="Organization Name" name="orgName"
                                         value={inputs.orgName} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
@@ -177,20 +176,21 @@ var addToLocalStorageObject = function (name, key, value) {
                                     <input type="text" className="form-control" placeholder="Organization Wesite" name="orgWebsite"
                                         value={inputs.orgWebsite} onChange={changeHandle} required/>
                                 </Form.Group>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
-                                    {/* <label>Organization Location</label>  */}
-                                    <input type="text" className="form-control" placeholder="Organization Location" name="orgCountry"
-                                        value={inputs.orgCountry} onChange={changeHandle} required/>
-                                </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom09" className="formField">
                                     {/* <label>Organization Address</label>  */}
                                     <textarea type="text" className="form-control" placeholder="Organization Address" row="4" name="orgAddress"
                                         value={inputs.orgAddress} onChange={changeHandle} required/>
                                 </Form.Group>
+                                <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
+                                    {/* <label>Organization Location</label>  */}
+                                    <input type="text" className="form-control" placeholder="Organization Landmark" name="orgCountry"
+                                        value={inputs.orgCountry} onChange={changeHandle} required/>
+                                </Form.Group>
                             </Row>
-                            <Row>
+                                <div className=" text-center">
                                 <span className={errs.style}>{errs.message}</span>
-                            </Row>
+                                </div>
+
                             <div className="ml-auto text-right">
                                 <button className="btn btn-findJob m-2" type="submit">Save Profile</button>
                             </div>

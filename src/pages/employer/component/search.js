@@ -22,7 +22,7 @@ const Search=()=>{
 }
 
 return (<>
-        <div className="container p-2 border-bottom">
+        <div className="container-flex p-2 border-bottom">
             <div className ="row">
                 <div className="col-md-6 col-sm">
                     <label>Category</label>

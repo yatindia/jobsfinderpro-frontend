@@ -8,17 +8,20 @@ import { API_URL,formValid } from '../../../components/utils';
 
 const Registration = ({show, title, dialogClose}) => {
 
+    // token:`<Bearer> ${userProfile.Auth_token}`,
+
     const userProfile = JSON.parse(localStorage.getItem( 'userDetails'));
     const [edu, setEdu] =useState([])
+    const [pastJob, setpastJob] =useState([])
     const [validated, setValidated] = useState(false);
     const [inputs, setInputs] = useState({
-        token:`<Bearer> ${userProfile.Auth_token}`,
         email: userProfile.job_email,
-        type:"seeker",
+        type:'seeker',
         mobile: "",
         dateOfBirth:"",
         jobTitle:"",
         gender: "",
+        pastJob:"",
         qualifications: "",
         state :"",
         city: "",
@@ -45,16 +48,15 @@ const updateProfile=async(event)=>{
       if(checking.valid===true){
         //console.log(inputs)
         try {
-            setErr({message:'Loading..',style:'text-primary'})
-            const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
-            setErr({message:res.data.message,style:'text-info'})
-            if(res.data.error===false){
-                addToLocalStorageObject('userDetails','Profile','True')
-            }
-            window.location.reload()
-            //console.log(res)
+             setErr({message:'Loading..',style:'text-primary'})
+             const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
+             setErr({message:res.data.message||res.data.Message,style:'text-info'})
+            // if(res.data.error===false){
+            //     addToLocalStorageObject('userDetails','Profile','True')
+            // }
+            // window.location.reload()
           } catch (ex) {
-            // setErr({message:ex,style:'text-warning'})
+            setErr({message:'Network fail',style:'text-warning'})
             console.log(ex)
           }
       }
@@ -63,18 +65,18 @@ const updateProfile=async(event)=>{
       }
 }
 
-var addToLocalStorageObject = function (name, key, value) {
-	var existing = localStorage.getItem(name);
-	existing = existing ? JSON.parse(existing) : {};
-	existing[key] = value;
-	localStorage.setItem(name, JSON.stringify(existing));
+// var addToLocalStorageObject = function (name, key, value) {
+// 	var existing = localStorage.getItem(name);
+// 	existing = existing ? JSON.parse(existing) : {};
+// 	existing[key] = value;
+// 	localStorage.setItem(name, JSON.stringify(existing));
 
-};
+// };
 
 
 useEffect(()=>{
-    setInputs({...inputs,qualifications:edu})
-},[inputs,edu])
+    setInputs({...inputs,qualifications:edu, pastJob:pastJob})
+},[inputs,edu,pastJob])
 
     if(!show){
         return <> </>
@@ -87,47 +89,43 @@ useEffect(()=>{
                     <div className="">
                         <Form className=" border-bottom p-3" noValidate validated={validated} onSubmit={updateProfile}> 
                             <Row>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom01" className="formField">
-                                    <label>First Name</label>
-                                    <input type="text" className="form-control" defaultValue={userProfile.job_fname} name="firstName"
-                                         onChange={changeHandle} readOnly/>
+                                <Form.Group as={Col} md="6">
+                                    <div className="">
+                                        <p className="formFieldLabel"><b>Name:</b> {userProfile.job_fname} {userProfile.job_lname}</p>
+                                        <p className="formFieldLabel"><b>User E-Mail:</b> {userProfile.job_email} </p>
+                                    </div>
                                 </Form.Group>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom02" className="formField">
-                                    <label>Last Name</label>
-                                    <input type="text" className="form-control" defaultValue={userProfile.job_lname} name="lastName"
-                                         onChange={changeHandle} readOnly/>
+                            </Row>
+                            <Row>
+                                <Form.Group as={Col} md="12"  controlId="validationCustom06" className="formField">
+                                    <label>Qualifications</label>
+                                    <div className="">
+                                        <DynamicInput get={setEdu}></DynamicInput>
+                                    </div>
                                 </Form.Group>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom03" className="formField">
-                                    <label>Email</label>
-                                    <input type="text" className="form-control" defaultValue={userProfile.job_email} name="email"
-                                         onChange={changeHandle} readOnly/>
+                            </Row>
+                            <Row>
+                                <Form.Group as={Col} md="12"  controlId="validationCustom01" className="formField">
+                                    <label>Past Jobs</label>
+                                    <div className="">
+                                        <DynamicInput get={setpastJob}></DynamicInput>
+                                    </div>
                                 </Form.Group>
+                            </Row>
+                            <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom04" className="formField">
                                     <label>Phone number</label> 
                                     <input type="text" className="form-control" placeholder="Phone Number" name="mobile"
                                         value={inputs.mobile} onChange={changeHandle} required/>
                                 </Form.Group>
-                            </Row>
-                            <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
-                                    <label>Jobs</label> 
+                                    <label>Job Title</label> 
                                     <input type="text" className="form-control" placeholder="Your Current Job" name="jobTitle"
                                         value={inputs.jobTitle} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
                             <Row>
-                            <Form.Group as={Col} md="8"  controlId="validationCustom06" className="formField">
-                                    <label>Qualifications</label>
-                                    {/* <textarea type="text" className="form-control" placeholder="Your Current State" name="qualifications"
-                                        value={inputs.qualifications} onChange={changeHandle} required/>  */}
-                                    <div className="">
-                                        <DynamicInput get={setEdu}></DynamicInput>
-                                         {/* <p> {(JSON.stringify(edu))}</p>  */}
-                                    </div>
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
+                                <Form.Group as={Col} md="6"  controlId="validationCustom02" className="formField">
                                     <label>State</label> 
                                     <input type="text" className="form-control" placeholder="Your Current State" name="state"
                                         value={inputs.state} onChange={changeHandle} required/>
@@ -159,14 +157,14 @@ useEffect(()=>{
                             </Row>
                             <Row>
                             </Row>
-                            <Row>
+                            {/* <Row>
                                 <Form.Group as={Col} md="6"  className="formField">
                                     <p className="form-group text-primary">Kiran resume.pdf</p>
                                     <div className=" form-group"> Select Resume
                                         <input type="file" className="form-control " accept="application/pdf" />
                                     </div>
                                 </Form.Group>
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <span className={errs.style}>{errs.message}</span>
                             </Row>

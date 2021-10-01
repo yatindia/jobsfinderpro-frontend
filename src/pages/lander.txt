@@ -26,6 +26,20 @@ const changeHandle = (e) => {
 useEffect(()=>{
 })
 
+const categoryChange =(e)=>{
+    if(e==='Select..' || e ===''){
+        setCat('')
+    }else{
+        try {
+            let subData = require('../../../components/asserts/subCategory/'+e+'.json');
+            setCat(subData)
+        } catch (error) {
+            setCat('')
+            console.log(error)
+        }
+    }
+}
+
 
 const handleSubmit=()=>{
     if(search.jobs === "" && search.location === ""){

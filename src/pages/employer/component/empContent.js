@@ -10,7 +10,7 @@ useEffect(() => {
 });
 
     return (<>
-    <div className="tab-content" id="v-pills-tabContent">
+    <div className="" >
         <div className="tab-pane fade show active border-bottom p-3" id="account" role="tabpanel" aria-labelledby="account-tab">
             <h3 className="mb-4">Company Profile</h3>
             <div className="row">

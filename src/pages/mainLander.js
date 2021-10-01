@@ -40,10 +40,10 @@ const Lander =()=> {
     return (<>
     {/* {active === "top" ? */}
     <div>
-      <section id="welcome" className="d-flex align-items-center">
+      <section id="welcome" className="">
         <div className="container-flex">
             <div className="row">
-                <div className="col-lg-6 pt-5 text-center order-2">
+                <div className="col-lg-6 pt-5 text-center order-2 welcome-img">
                     <h1>Bettter digital experience with Ninestars</h1>
                     <h2>We are team of talented designers making websites with Bootstrap</h2>
                 </div>
@@ -53,9 +53,9 @@ const Lander =()=> {
             </div>
 
 
-            <div className="m-4">
-            <div className="row d-flex justify-content-center">
-                <div className="col-lg">
+            <div className="container-flex p-5">
+            <div className="row m-auto justify-content-center">
+                <div className="col m-auto justify-content-center">
                     <div className="row">
                         <div className="col-lg col-md col-sm p-1 input-group">
                         <input className="form-control selector border"  type="text" name="jobs"

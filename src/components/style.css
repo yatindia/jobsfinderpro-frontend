@@ -190,6 +190,58 @@ color: #eb5d1e;
       transform: translateY(-10px);
     }
   }
+
+  /********** 404***********/
+.bgk{
+  background: #1414142a;
+  padding-bottom: 20px;
+}
+
+.err span{
+  font-size: 20em;
+  font-weight: 800;
+  color: #eb5d1e;
+  font-family: cursive;
+}
+.err i{
+  font-size: 10em;
+  font-weight: 200;
+  color: #08bbdb;
+}
+.num1{
+  -webkit-animation: 2s anime1 infinite;
+  animation: 2s anime1 infinite;
+}
+.num2{
+  -webkit-animation: 2s anime2 infinite;
+  animation: 2s anime2 infinite;
+}
+.num3{
+  -webkit-animation: 2s anime3 infinite;
+  animation: 2s anime3 infinite;
+}
+.btn-style{
+  border: 2px solid #eb5d1e;
+  border-radius: 0;
+  color: #fc4a04;
+  padding: 10px 50px;
+}
+@-webkit-keyframes anime1 {
+  20%{-webkit-transform: translateY(-40px);transform: translateY(-40px);}
+  40%{-webkit-transform: translateY(40px);transform: translateY(40px);}
+}
+@keyframes anime1 {
+  20%{-webkit-transform: translateY(-40px);transform: translateY(-40px);}
+  40%{-webkit-transform: translateY(40px);transform: translateY(40px);}
+}
+@keyframes anime2 {
+  40%{-webkit-transform: translateY(-40px);transform: translateY(-40px);}
+  60%{-webkit-transform: translateY(40px);transform: translateY(40px);}
+}
+@keyframes anime3 {
+  60%{-webkit-transform: translateY(-40px);transform: translateY(-40px);}
+  80%{-webkit-transform: translateY(40px);transform: translateY(40px);}
+}
   /********** Footer***********/
 
   #footer {
