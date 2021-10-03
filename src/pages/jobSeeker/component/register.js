@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react'
+import {useHistory } from "react-router-dom";
 import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -14,8 +15,11 @@ const Registration = ({show, title, dialogClose}) => {
     const [edu, setEdu] =useState([])
     const [pastJob, setpastJob] =useState([])
     const [validated, setValidated] = useState(false);
+    const history = useHistory()
+
     const [inputs, setInputs] = useState({
         email: userProfile.job_email,
+        //link_id:userProfile.job_id,
         type:'seeker',
         mobile: "",
         dateOfBirth:"",
@@ -46,15 +50,16 @@ const updateProfile=async(event)=>{
       setValidated(true); 
       const checking = formValid(inputs)
       if(checking.valid===true){
-        //console.log(inputs)
+        console.log(inputs)
         try {
              setErr({message:'Loading..',style:'text-primary'})
              const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
-             setErr({message:res.data.message||res.data.Message,style:'text-info'})
-            // if(res.data.error===false){
+             console.log(res)
+            setErr({message:res.data.message||res.data.Message,style:'text-info'})
+            if(res.data.error===false){
+               history.push('/users/dashboard')
             //     addToLocalStorageObject('userDetails','Profile','True')
-            // }
-            // window.location.reload()
+            }
           } catch (ex) {
             setErr({message:'Network fail',style:'text-warning'})
             console.log(ex)
@@ -64,14 +69,6 @@ const updateProfile=async(event)=>{
         setErr({message:checking.error,style:'text-danger'})
       }
 }
-
-// var addToLocalStorageObject = function (name, key, value) {
-// 	var existing = localStorage.getItem(name);
-// 	existing = existing ? JSON.parse(existing) : {};
-// 	existing[key] = value;
-// 	localStorage.setItem(name, JSON.stringify(existing));
-
-// };
 
 
 useEffect(()=>{

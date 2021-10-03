@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
+import axios from "axios";
 
 import EmpContent from "./component/empContent";
 import PostJobs from "./component/postJob";
@@ -8,6 +9,9 @@ import Applied from "./component/applied";
 import Search from "./component/search";
 import EmpRegister from "./component/empRegister";
 import ErrorPage from "../../components/errorPage";
+import EmpProfile from "./component/profile";
+
+import {API_URL, rawImg} from '../../components/utils'
 
 
 const EmpLander = ()=> {
@@ -15,27 +19,48 @@ const EmpLander = ()=> {
 	const history = useHistory();
 
 	const [dialogShow, setDialogShow] = useState(false);
+	const [userimg, setUserImg]=useState('')
 
-	
-// --------------On Mount------
-useEffect(() =>{
 	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-	if(!userDetils){
-		history.push('/')
-	} else if(userDetils.Role_Type === "employer"){
-		if(userDetils.Profile === "False") {
-			setDialogShow(true)
-		}
-		else{
-			history.push('/employers/dashboard');
-			//window.location.reload()
+
+	const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
+	const formData = {email:userDetils.job_email,type:userDetils.Role_Type}
+
+	const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+// --------------get User------
+useEffect(() =>{
+	const getUser = async()=>{
+		try {
+			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
+			if(res.data.error === false){
+				const datas = res.data.data
+				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
+				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
+				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
+				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
+				//const resdp = await axios.get(`${API_URL}/profile/profileImages/${datas.part1.profileImage}`,{headers:header})
+				//console.log(datas.part1)
+				setUserImg(datas.part1.profileImage)
+				// const imguri = rawImg(resdp.data)
+				// addToLocalStorageObject('userDetails','userdp',imguri)
+			}
+			else{
+				setDialogShow(true)
+			}
+		} catch (error) {
+			console.log(error)
 		}
 	}
-},[history])
+	getUser()
+},[header,formData])
 
-// ------- Image load--------
-const userDp = localStorage.getItem('userDp');
+var addToLocalStorageObject = function (name, key, value) {
+	var existing = localStorage.getItem(name);
+	existing = existing ? JSON.parse(existing) : {};
+	existing[key] = value;
+	localStorage.setItem(name, JSON.stringify(existing));
 
+};
 
 // ------- Logout-------	
 const handleLogout=()=>{
@@ -56,7 +81,7 @@ const dialogClose=()=>{
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
-							<img src={userDp}  className="shadow" alt="Logo"/>
+							<img src={profile_1.userdp}  className="shadow" alt="imagess"/>
 							</div>
 						</div>
 						</div>
@@ -92,6 +117,7 @@ const dialogClose=()=>{
 				<div className="tab-content p-2 p-md-5" id="v-pills-tabContent">
 				<Switch>
 					<Route exact path="/employers/dashboard" component={EmpContent}/>
+					<Route exact path="/employers/dashboard/profile" component={EmpProfile}/>
 					<Route exact path="/employers/dashboard/newjobs" component={PostJobs}/>
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
 					<Route exact path="/employers/dashboard/search" component={Search}/>

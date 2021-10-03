@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
-const DynamicInput = (props) => {
+const DynamicInput = ({test,...props}) => {
 
   const [item, setitem] = useState([]);
+
+  
+  useEffect(()=>{
+    if(test!==''&& test!==undefined){
+      setitem(test)
+    }
+  },[item,test])
 
   const inputChange = (index,event) => {
     const values = [...item];

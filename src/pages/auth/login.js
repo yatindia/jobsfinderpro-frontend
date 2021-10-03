@@ -45,28 +45,30 @@ const Login =()=> {
         setErr({message:"Loading..",style:'text-primary'})
         const res = await axios.post(`${API_URL}/account/login`,inputs)
         if(res.data.error===false){
-          const userDetails = {job_email: inputs.email, Role_Type: res.data.type, 
-              Auth_token:res.data.authToken, job_fname:res.data.firstName,job_lname:res.data.lastName, job_id:res.data.authid}
+          const datas = res.data.data
+          const userDetails = {job_email: inputs.email, Role_Type: datas.type, userdp:'', dpName:'',
+              Auth_token:datas.authToken, job_fname:datas.firstName,job_lname:datas.lastName, job_id:datas.authid}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
-          console.log(res)
-            if(res.data.type === "employer"){
+          console.log(userDetails)
+            if(datas.type === "employer"){
               history.push('/employers/dashboard');
               window.location.reload()
             }
-            else if(res.data.type === "seeker"){
+            else if(datas.type === "seeker"){
               history.push('/users/dashboard');
-              window.location.reload()
+             window.location.reload()
             }
-            else{window.location.reload()}
+            else{window.location.reload()
+            }
 
           setBtnVerify(false)
-        }else if(res.data.error===true && res.data.Message==="Please confirm your verification e-mail"){
+        }else if(res.data.error===true && res.data.message==="Please confirm your verification e-mail"){
           setBtnVerify(true)
           setErr({message:"Please verify your e-mail",style:'text-info'})
         }
         else{
           setBtnVerify(false)
-          setErr({message:res.data.Message,style:'text-danger'})
+          setErr({message:res.data.message,style:'text-danger'})
         }
       } catch (ex) {
         console.log(ex)

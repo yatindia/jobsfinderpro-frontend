@@ -3,6 +3,9 @@ import React,{useEffect} from "react";
 
 function EmpContent() {
 
+    const userDp = localStorage.getItem('userDp');
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const profile_2 = (JSON.parse(localStorage.getItem( 'userInfo'))||null)
  
 
 useEffect(() => {
@@ -10,58 +13,53 @@ useEffect(() => {
 });
 
     return (<>
-    <div className="" >
-        <div className="tab-pane fade show active border-bottom p-3" id="account" role="tabpanel" aria-labelledby="account-tab">
-            <h3 className="mb-4">Company Profile</h3>
-            <div className="row">
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Company Name</label>
-                        <input type="text" className="form-control" defaultValue="Accenture"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Mode</label>
-                        <input type="text" className="form-control" defaultValue="MNC"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input type="text" className="form-control" defaultValue="hr@ccenture.com"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Phone number</label>
-                        <input type="text" className="form-control" defaultValue="+91 9876543215"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>GSTIN</label>
-                        <input type="text" className="form-control" defaultValue="GSTIN123456789"/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Website</label>
-                        <input type="text" className="form-control" defaultValue="www.accenture.com"/>
-                    </div>
-                </div>
-                <div className="col-md-12">
-                    <div className="form-group">
-                        <label>About Us</label>
-                        <textarea className="form-control" rows="4" defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!"></textarea>
+     <div className="container-fluid">
+        <div className="tab-pane fade show active border-bottom p-3">
+        <div className="row">
+            <div className="col-md-4 mb-4 p-4">
+                <div className="">
+                    <label className="formFieldLabel">Logo:</label>
+                    <div className="row img-circle">
+                    <img src={userDp}  className="shadow" alt="Logo"/>
                     </div>
                 </div>
             </div>
+                <div className="col-md">
+                    <div className="form-group row ">
+                        <label className="formFieldLabel">Name: <b>{profile_1.job_fname} {profile_1.job_lname}</b></label>
+                    </div>
+                    <div className="form-group row">
+                        <label className="formFieldLabel">Email: <b>{profile_1.job_email}</b></label>
+                    </div>
+                    {profile_2 ?(
+                        <div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Organization Name: <b>{profile_2.orgName}</b></label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Organization Email: <b>{profile_2.orgEmail}</b></label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Contact Number: <b>{profile_2.orgPhone}</b></label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Address: <b>{profile_2.orgAddress}</b></label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Website:<b>{profile_2.orgWebsite}</b> </label>
+                            </div>
+                            <div className="form-group row">
+                                <label className="formFieldLabel">Country: <b>{profile_2.orgCountry}</b></label>
+                            </div>
+                        </div>):null}
+                </div>
+            </div>
+          
             <div>
-                <button className="btn btn-findJob m-2">Save</button>
+                <a className="btn btn-findJob " href="/employers/dashboard/profile">Edit Profile</a>
             </div>
         </div>
-    </div>
+      </div>
     </>);
 }
 

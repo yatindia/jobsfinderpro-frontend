@@ -30,10 +30,22 @@ export const resizeFile = (file) =>
   
     return new Blob([ia], { type: mimeString });
   }; 
+
+  export const rawImg =(image)=>{
+    var rawResponse = image 
+    var b64Response = window.btoa(unescape(encodeURIComponent(rawResponse)))
+    var outputImg = new Image();
+    return outputImg.src = `data:image/jpeg;base64,${b64Response}`;
+  }
   
 // ----Validation for Seeker Profile---
   export const formValid =(values)=>{
-
+    if(values.qualifications.length<=0){
+      return{error:"*Enter your Qualification.", valid:false}
+  }
+  if(values.pastJob.length<=0){
+    return{error:"*Enter your Past Jobs.", valid:false}
+}
     if(!values.mobile){
        return{error:"*Enter Mobile number.", valid:false}
     }
@@ -45,9 +57,6 @@ export const resizeFile = (file) =>
     }
     if(!values.gender){
         return{error:"*Eonfirm the Gender.", valid:false}
-    }
-    if(values.qualifications.length<0){
-        return{error:"*Enter your Qualification.", valid:false}
     }
     if(!values.state){
         return{error:"*Enter your Home State.", valid:false}

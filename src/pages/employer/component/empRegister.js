@@ -50,10 +50,10 @@ const updateProfile=async(event)=>{
             const res = await axios.post(`${API_URL}/account/signupcomplete`,inputs)
             setErr({message:res.data.Message||res.data.message,style:'text-info'})
             if(res.data.error===false){
+                window.location.reload()
                // addToLocalStorageObject('userDetails','Profile','True')
             }
-           // window.location.reload()
-            console.log(res)
+            //console.log(res)
           } catch (ex) {
             setErr({message:'Network fail',style:'text-warning'})
             console.log(ex)

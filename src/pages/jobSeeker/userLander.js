@@ -1,10 +1,13 @@
 import React, {useEffect,useState} from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
+import axios from "axios";
 
 import UserProfile from "./component/profile";
 import UserContent from "./component/userContent";
 import MyJobs from "./component/myJobs";
 import Registration from "./component/register";
+
+import {API_URL} from '../../components/utils'
 
 function  UserLander () {
 
@@ -12,25 +15,44 @@ function  UserLander () {
 	const history = useHistory()
 
 	const userDp = localStorage.getItem('userDp');
-	
-	useEffect(() =>{
-		const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-        if(!userDetils){
-			history.push('/')
-        } else if(userDetils.Role_Type === "seeker"){
-			setDialogShow(true)
-			if(userDetils.Profile === "False") {
-				setDialogShow(true)
+	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
+
+	const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
+	const formData = {email:userDetils.job_email,type:userDetils.Role_Type}
+
+
+// --------------get User------
+useEffect(() =>{
+	const getUser = async()=>{
+		try {
+			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
+			if(res.data.error === false){
+				const datas = res.data.data
+				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
+				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
+				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
+				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
+				const resdp = await axios.get(`${API_URL}/profile/profileImages/${datas.part1.profileImage}`,{headers:header})
+				addToLocalStorageObject('userDetails','userdp',resdp)
 			}
 			else{
-				history.push('/users/dashboard');
-            	//window.location.reload()
+				setDialogShow(true)
 			}
+		} catch (error) {
+			console.log(error)
 		}
-    },[history])
+	}
+	getUser()
+},[header,formData])
 
-	
-	
+var addToLocalStorageObject = function (name, key, value) {
+	var existing = localStorage.getItem(name);
+	existing = existing ? JSON.parse(existing) : {};
+	existing[key] = value;
+	localStorage.setItem(name, JSON.stringify(existing));
+
+};
+
 const handleLogout=()=>{
 	history.push('/')
 	localStorage.removeItem('userDetails')

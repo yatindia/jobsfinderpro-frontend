@@ -38,6 +38,7 @@ export default function Register() {
 
   const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
+    setEmp({...emp,[e.target.name]: e.target.value})
   }
 
   const dialogClose=()=>{ setDialogShow(false)}
@@ -157,7 +158,7 @@ useEffect(()=>{
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
         <TabView>
           <div label="Job Seeker">
-              <Form noValidate validated={validated} onSubmit={seekerSubmit}>
+              <Form noValidate validated={validated}>
               <Row className="mb-3 formCenter" >
                 <Col>
                   <Form.Group as={Row} md="6"  controlId="validationCustom01" className="formField">
@@ -226,7 +227,7 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><Button className="btn formFieldButton effect" type="submit">Sign-Up</Button></Col>
+                <Col md="6"><Button className="btn formFieldButton effect"  onClick={seekerSubmit} type="button">Sign-Up</Button></Col>
                 <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a></Form.Label></Col>
               </Row>
             </Form>
@@ -234,38 +235,38 @@ useEffect(()=>{
 
 
           <div label="Employer">
-          <Form noValidate validated={validated} onSubmit={employerSubmit}>
+          <Form noValidate validated={validated}>
               <Row className="mb-3 formCenter" >
                 <Col>
-                  <Form.Group as={Row} md="6"  controlId="validationCustom01" className="formField">
+                  <Form.Group as={Row} md="6"  controlId="validationCustom11" className="formField">
                     {/* <Form.Label className="formFieldLabel">First name</Form.Label> */}
                     <Form.Control
                       className="formFieldInput " required type="text" placeholder="First name" 
                       name="firstName" value={emp.firstName} onChange={changeHandle}
                     />
                   </Form.Group>
-                  <Form.Group as={Row} md="6"  controlId="validationCustom02" className="formField">
+                  <Form.Group as={Row} md="6"  controlId="validationCustom12" className="formField">
                     {/* <Form.Label className="formFieldLabel">Last name</Form.Label> */}
                     <Form.Control
                       className="formFieldInput " required type="text" placeholder="Last/Company Name"
                       name="lastName" value={emp.lastName} onChange={changeHandle}
                     />
                   </Form.Group>
-                  <Form.Group as={Row} md="6"  controlId="validationCustom03" className="formField">
+                  <Form.Group as={Row} md="6"  controlId="validationCustom13" className="formField">
                   {/* <Form.Label className="formFieldLabel">Password</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="password" placeholder="Password"
                     name="password" value={emp.password} onChange={changeHandle}
                   />
                 </Form.Group>
-                <Form.Group as={Row} md="6"  controlId="validationCustom04" className="formField">
+                <Form.Group as={Row} md="6"  controlId="validationCustom14" className="formField">
                   {/* <Form.Label className="formFieldLabel">Confirm Password</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="password" placeholder="Confirm Password"
                     name="cpassword" value={emp.cpassword} onChange={changeHandle}
                   />
                 </Form.Group>
-                <Form.Group as={Row} md="6" controlId="validationCustom05" className="formField">
+                <Form.Group as={Row} md="6" controlId="validationCustom15" className="formField">
                   {/* <Form.Label className="formFieldLabel">Email</Form.Label> */}
                   <Form.Control
                     className="formFieldInput " required type="email" placeholder="E-mail"
@@ -273,7 +274,7 @@ useEffect(()=>{
                   />
                 </Form.Group>
                 </Col>
-                <Form.Group as={Col} md="6" controlId="validationCustom06" className="formField">
+                <Form.Group as={Col} md="6" controlId="validationCustom16" className="formField">
                   <Form.Label className="formFieldLabel">Profile image</Form.Label>
                     <div className="d-flex flex-column align-items-center text-center">
                       <div className="row img-circle">
@@ -303,7 +304,7 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><Button className="btn formFieldButton effect" type="submit">Sign-Up</Button></Col>
+                <Col md="6"><Button className="btn formFieldButton effect" onClick={employerSubmit} type="button">Sign-Up</Button></Col>
                 <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a></Form.Label></Col>
               </Row>
             </Form>

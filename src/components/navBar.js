@@ -27,6 +27,7 @@ export default function NavBar (){
       
     const handleLogout=()=> {
         localStorage.removeItem('userDetails')
+        localStorage.removeItem('userInfo')
         history.push('/')
         window.location.reload()
     };
