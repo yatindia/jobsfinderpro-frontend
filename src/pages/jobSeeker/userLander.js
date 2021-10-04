@@ -72,7 +72,7 @@ const dialogClose=()=>{
 				<div id="sidebar">
 					<div className="profile-tab-nav border-right ">
 						<div className="p-4">
-						<h4 className="text-center h5">Kiran Acharya</h4>
+						<h4 className="text-center h5">{userDetils.job_fname} {userDetils.job_lname}</h4>
 							<div className="mb-2">
 								<div className="d-flex flex-column align-items-center text-center">
                                 	<div className="row img-circle">
@@ -82,7 +82,7 @@ const dialogClose=()=>{
                             </div>
 						</div>
 						<div className="nav flex-column nav-pills mb-4"   aria-orientation="vertical">
-							<a className="nav-link " href="/users/dashboard" >
+							<a className="nav-link active" href="/users/dashboard" >
 								<i className="fa fa-home text-center mr-1"></i> 
 								Dashboard
 							</a>

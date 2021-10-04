@@ -12,57 +12,68 @@ function UserContent() {
 
     return (<>
       <div className="container-fluid">
-        <div className="tab-pane fade show active border-bottom p-3">
-        <div className="row">
-                <div className="col-md">
-                    <div className="form-group row ">
-                        <label className="formFieldLabel">Name: <b>{profile_1.job_fname} {profile_1.job_lname}</b></label>
+            <div className='row justify-content-center'>
+                <div className="col-md-10 card-container shadow">
+                    <h3>{profile_1.job_fname} {profile_1.job_lname}</h3>
+                    {profile_2 ?(<div>
+                    <h6><i className="fa fa-map-marker"/>  {profile_2.city}, {profile_2.state}</h6>
+                    <p>{profile_2.jobTitle}</p>
+                    <div className='row border-top'>
+                        <div className='col'>
+                            <div className="skills">
+                                <h6>Gender: <b>{profile_2.gender}</b> </h6>
+                            </div>
+                        </div>
+                        <div className='col'>
+                            <div className="skills">
+                                <h6>Date of Birth: <b>{profile_2.dateOfBirth}</b></h6>
+                            </div>
+                        </div>
                     </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Email: <b>{profile_1.job_email}</b></label>
+                    <div className='row border-top'>
+                        <div className='col'>
+                            <div className="skills">
+                                <h6>Qualifications:</h6>
+                                {profile_2.qualifications.length>0 ? (<ul>
+                                    {profile_2.qualifications.map((item, i)=>(
+                                        <li className="ml-1 formFieldLabel" key={i}><b>{item}</b> </li>
+                                    ))}
+                                </ul>):null}
+                            </div>
+                        </div>
+                        <div className='col'>
+                            <div className="skills">
+                                <h6>Past Jobs:</h6>
+                                {profile_2.pastJobs.length>0 ? (<ul>
+                                    {profile_2.pastJobs.map((item, i)=>(
+                                        <li className="ml-1 formFieldLabel" key={i}><b>{item}</b> </li>
+                                    ))}
+                                </ul>):null}
+                            </div>
+                        </div>
                     </div>
+                    <div className='row border-top justify-content-between'>
+                        <div className='col'>
+                            <div className="skills">
+                                <i className="fa fa-phone"><b> {profile_2.mobile}</b> </i>
+                            </div>
+                        </div>
+                        <div className='col'>
+                            <div className="skills">
+                                <i className="fa fa-envelope"><b> {profile_1.job_email}</b></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="buttons mb-3 text-right">
+                        <a className="btn primary" href="/users/dashboard/profile">Edit Profile</a>
+                    </div>
+                    </div>):
+                    <div className="buttons mb-3">
+                        <h6>If Details not shown, Reload Page</h6>
+                        {/* <button className="btn primary" onClick={window.location.reload()}>Reload</button> */}
+                    </div>}
                 </div>
-                {profile_2 ?(
-                    <div className="col-md">
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Contact Number: <b>{profile_2.mobile}</b></label>
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Job Title: <b>{profile_2.jobTitle}</b></label>
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Past Jobs: </label>
-                        {profile_2.pastJobs.length>0 ? (<div>
-                            {profile_2.pastJobs.map((item, i)=>(
-                                <label className="ml-1 formFieldLabel" key={i}><b>{item}</b> </label>
-                            ))}
-                        </div>):null}
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Qualifications: </label>
-                        {profile_2.qualifications.length>0 ? (<div>
-                            {profile_2.qualifications.map((item, i)=>(
-                                <label className="ml-1 formFieldLabel" key={i}><b>{item}</b> </label>
-                            ))}
-                        </div>):null}
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Date of Birth: <b>{profile_2.dateOfBirth}</b></label>
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Gender:<b>{profile_2.gender}</b> </label>
-                    </div>
-                    <div className="form-group row">
-                        <label className="formFieldLabel">Location: <b>{profile_2.city}, {profile_2.state}</b></label>
-                    </div>
-                </div>
-                ):null}
             </div>
-          
-            <div>
-                <a className="btn btn-findJob " href="/users/dashboard/profile">Edit Profile</a>
-            </div>
-        </div>
       </div>
     </>);
   }

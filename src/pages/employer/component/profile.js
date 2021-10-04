@@ -185,11 +185,11 @@ useEffect(()=>{
 return (<>
 <div className="border p-3">
     <div className="tab-pane active " id="password" role="tabpanel">
-        <h3 className="mb-4">Profile Update</h3>
+        <h3 className="mb-4 text-secondary">Profile Update</h3>
         <div className='row border-top'>
             <div className ="col-md-4 align-items-center text-center">
                 <div className="mb-2 p-2">
-                    <div className="d-flex flex-column">
+                    <div className="d-flex flex-column align-items-center text-center">
                         <div className="row img-circle">
                         {imgBtn?<img src={userDp || imgShow}  className="shadow" alt="Logo"/>:
                             <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
@@ -244,7 +244,7 @@ return (<>
         </div>
     </div>
     <div className="tab-pane fade show active border-top p-3">
-            <h3 className="mb-4 p-2 border-bottom"><small>Organization Profile Update</small></h3>
+            <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Organization Profile Update</small></h3>
             <div className='row'>
                 <div className='col-md-4'>
                     <div className="mb-2 p-2">

@@ -147,7 +147,7 @@ useEffect(()=>{
     return (<>
     <div className="tab-content border">
         <div className="tab-pane fade show active m-5">
-            <h3 className="mb-4">Profile Update</h3>
+            <h3 className="mb-4 text-secondary">Profile Update</h3>
             <div className='row border-top'>
                 <div className ='col-md-4'>
                     <div className="mb-2 p-2">
@@ -207,7 +207,7 @@ useEffect(()=>{
         </div>
 
         <div className="tab-pane fade show active border-top m-5">
-            <h3 className="mb-4 p-2 border-bottom"><small>Employment Update</small></h3>
+            <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Employment Update</small></h3>
             <div className='row'>
                 <div className="col-md-12">
                     <div className="form-group">
