@@ -441,6 +441,7 @@
 /* ------------Profile Card------- */
 .card-container h3 {
 	margin: 10px 0;
+  font-size: 24px;
 }
 
 .card-container p {
@@ -491,7 +492,6 @@ a.primary:hover, button.primary:hover {
 .skills {
 	text-align: left;
 	padding: 15px;
-	margin-top: 10px;
 }
 
 .skills ul {
@@ -504,7 +504,33 @@ a.primary:hover, button.primary:hover {
 	border-color: 1px solid #2D2747;
 	border-radius: 2px;
 	display: inline-block;
+  text-transform: capitalize;
 	font-size: 14px;
 	margin: 0 7px 7px 0;
 	padding: 7px;
+}
+
+/* ---------- Profile Edit ------- */
+.profile-head {
+  padding:10px;
+  margin: 10px;
+  text-align: center;
+}
+.profile-head h5{
+  color: #333;
+}
+.profile-head h6{
+  color: #0062cc;
+}
+
+.profile-head .nav-tabs{
+  margin-bottom:5%;
+}
+.profile-head .nav-tabs .nav-link{
+  font-weight:600;
+  border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+  border: none;
+  border-bottom:2px solid #0062cc;
 }

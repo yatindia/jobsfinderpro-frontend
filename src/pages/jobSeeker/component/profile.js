@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
-import { resizeFile, dataURIToBlob, API_URL, formValid} from "../../../components/utils";
+import { resizeFile, dataURIToBlob, API_URL, formValid , getUser} from "../../../components/utils";
 import DynamicInput from "../../../components/dynamicInputs";
 import {validating} from '../../auth/validating'
 
@@ -19,29 +19,29 @@ function UserProfile() {
     const [imgName, setImgName] = useState('');
 
     const [pastJob, setpastJob] =useState(profile_2.pastJobs)
-    const [edu, setEdu] =useState(profile_2.qualifications)
+    const [edu, setEdu] =useState([])
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [err2,setErr2] = useState({title: "",message: "",style:""})
 
     const [inputs, setInputs] = useState({
-        firstName: ""||profile_1.job_fname,
-        lastName: ""||profile_1.job_lname,
+        firstName: profile_1.job_fname,
+        lastName:profile_1.job_lname,
         password: "",
         cpassword: "",
         email: profile_1.job_email,
-        profileImage:""||profile_1.dpName,
+        profileImage:profile_1.dpName,
         type:'seeker'
       })
       const [profile, setProfile] = useState({
         email: profile_1.job_email,
-        mobile: ""||profile_2.mobile,
+        mobile: profile_2.mobile,
         dateOfBirth: "",
-        jobTitle: ""||profile_2.jobTitle,
-        pastJob: ""||profile_2.pastJobs,
-        gender:""||profile_2.gender,
-        qualifications:""||profile_2.qualifications,
-        state:""||profile_2.state,
-        city:""||profile_2.city,
+        jobTitle: profile_2.jobTitle,
+        pastJob: profile_2.pastJobs,
+        gender:profile_2.gender,
+        qualifications:profile_2.qualifications,
+        state:profile_2.state,
+        city:profile_2.city,
         type:'seeker'
       })
 
@@ -106,6 +106,7 @@ const baseUpdate =async()=>{
             //console.log(res)
             if(res.data.error === true){
                 setErr({message:res.data.status,style:'text-success'})
+                getUser()
             }else{
                 setErr({message:res.data.status,style:'text-danger'})
             }
@@ -119,7 +120,7 @@ const baseUpdate =async()=>{
 
 //-------Profile 2 Update-----------
 const detailUpdate =async()=>{
-    // console.log(profile)
+     //console.log(profile)
     const erro = formValid(profile)
      if(erro.valid === true){
         setErr2({message:'Loading',style:'text-info'})
@@ -128,6 +129,7 @@ const detailUpdate =async()=>{
             //console.log(res)
             if(res.data.error === true){
                 setErr2({message:res.data.message,style:'text-success'})
+                getUser()
             }else{
                 setErr2({message:res.data.message,style:'text-danger'})
             }
@@ -145,15 +147,15 @@ useEffect(()=>{
 },[inputs,profile,edu,pastJob,imgName,profile_1.dpName])
 
     return (<>
-    <div className="tab-content border">
-        <div className="tab-pane fade show active m-5">
-            <h3 className="mb-4 text-secondary">Profile Update</h3>
+    <div className="border tab-content">
+        <div className="tab-pane fade show active m-4">
+            <h3 className="mb-1 text-secondary">Profile Update</h3>
             <div className='row border-top'>
                 <div className ='col-md-4'>
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
                             <div className="row img-circle">
-                            {imgBtn?<img src={userDp || imgShow}  className="shadow" alt="Logo"/>:
+                            {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="dp"/>:
                                 <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
                             <div className="col mt-4">
@@ -205,15 +207,14 @@ useEffect(()=>{
                 </div>
             </div>
         </div>
-
-        <div className="tab-pane fade show active border-top m-5">
+        <div className="tab-pane fade show active m-4">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Employment Update</small></h3>
             <div className='row'>
-                <div className="col-md-12">
+                <div className="col-md-10">
                     <div className="form-group">
                         <label>Qualifications</label>
-                        {edu.length>0 ? (<div>
-                            {edu.map((item, i)=>(
+                        {profile_2.qualifications.length>0 ? (<div>
+                            {profile_2.qualifications.map((item, i)=>(
                                 <input className="m-2" key={i} value={item} disabled/>
                             ))}
                         </div>):null}
@@ -224,7 +225,7 @@ useEffect(()=>{
                 </div>
             </div>
             <div className='row'>
-                <div className="col-md-12">
+                <div className="col-md-10">
                     <div className="form-group">
                         <label>Past Jobs</label>
                         {pastJob.map((item, i)=>(

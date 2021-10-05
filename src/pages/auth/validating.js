@@ -8,7 +8,7 @@ if(!values.lastName){
     return{error:"*Please enter your Last name.", valid:false}
 }
 if(!values.password){
-    return{error:"*Please enter a Password.", valid:false}
+    return{error:"*Please enter the Password.", valid:false}
 }
 if(!values.cpassword){
     return{error:"*Please confirm the password.", valid:false}

@@ -12,37 +12,36 @@ import {API_URL} from '../../components/utils'
 function  UserLander () {
 
 	const [dialogShow, setDialogShow] = useState(false);
+	const [imgsrc, setimgsrc] = useState('');
 	const history = useHistory()
 
-	const userDp = localStorage.getItem('userDp');
-	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
+	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'))
 
 	const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
 	const formData = {email:userDetils.job_email,type:userDetils.Role_Type}
 
-
 // --------------get User------
 useEffect(() =>{
-	const getUser = async()=>{
-		try {
+    const getuser= async()=>{
+        try {
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
 			if(res.data.error === false){
 				const datas = res.data.data
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
+				setimgsrc(`${API_URL}/profile/profileImages/${datas.part1.dpName}`)
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
 				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
-				const resdp = await axios.get(`${API_URL}/profile/profileImages/${datas.part1.profileImage}`,{headers:header})
-				addToLocalStorageObject('userDetails','userdp',resdp)
 			}
 			else{
-				setDialogShow(true)
+				return <></>
 			}
 		} catch (error) {
 			console.log(error)
 		}
-	}
-	getUser()
+
+    }
+    getuser()
 },[header,formData])
 
 var addToLocalStorageObject = function (name, key, value) {
@@ -52,6 +51,7 @@ var addToLocalStorageObject = function (name, key, value) {
 	localStorage.setItem(name, JSON.stringify(existing));
 
 };
+
 
 const handleLogout=()=>{
 	history.push('/')
@@ -72,11 +72,11 @@ const dialogClose=()=>{
 				<div id="sidebar">
 					<div className="profile-tab-nav border-right ">
 						<div className="p-4">
-						<h4 className="text-center h5">{userDetils.job_fname} {userDetils.job_lname}</h4>
+						{/* <h4 className="text-center h5">{userDetils.job_fname} {userDetils.job_lname}</h4> */}
 							<div className="mb-2">
 								<div className="d-flex flex-column align-items-center text-center">
                                 	<div className="row img-circle">
-                                    <img src={userDp}  className="shadow" alt="Logo"/>
+                                    <img src={imgsrc}  className="shadow" alt="Logo"/>
                                     </div>
                                 </div>
                             </div>

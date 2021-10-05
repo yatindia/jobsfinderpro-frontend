@@ -26,25 +26,25 @@ function EmpProfile() {
     const [err2,setErr2] = useState({title: "",message: "",style:""})
 
     const [inputs, setInputs] = useState({
-        firstName: ""||profile_1.job_fname,
-        lastName: ""||profile_1.job_lname,
+        firstName: profile_1.job_fname,
+        lastName: profile_1.job_lname,
         password: "",
         cpassword: "",
         email: profile_1.job_email,
-        profileImage:""||profile_1.dpName,
+        profileImage:profile_1.dpName,
         type:'employer'
       })
 
     const [profile, setProfile] = useState({
     email: profile_1.job_email,
     type:"employer",
-    orgPhone: ""||profile_2.orgPhone,
-    orgLogo:""||profile_2.orgLogo,
-    orgName:""||profile_2.orgName,
-    orgEmail: ""||profile_2.orgEmail,
-    orgAddress: ""||profile_2.orgAddress,
-    orgWebsite :""||profile_2.orgWebsite,
-    orgCountry: ""||profile_2.orgCountry,
+    orgPhone: profile_2.orgPhone,
+    orgLogo:profile_2.orgLogo,
+    orgName:profile_2.orgName,
+    orgEmail:profile_2.orgEmail,
+    orgAddress: profile_2.orgAddress,
+    orgWebsite :profile_2.orgWebsite,
+    orgCountry: profile_2.orgCountry,
     })
 
 //-------Input change-----------
@@ -60,8 +60,7 @@ const changeHandle = async e => {
         const file = e.target.files[0];
         const image = await resizeFile(file);
         const newFile = dataURIToBlob(image);
-        setImgShow(image)
-        
+        setImgShow(image)       
         setImgData(newFile)
         localStorage.setItem("userDp",  image);
         setImgBtn(false)
@@ -106,6 +105,7 @@ const baseUpdate =async()=>{
             //console.log(res)
             if(res.data.error === true){
                 setErr({message:res.data.status,style:'text-success'})
+                window.location.reload()
             }else{
                 setErr({message:res.data.status,style:'text-danger'})
             }
@@ -166,6 +166,7 @@ const profileUpdate =async()=>{
             //console.log(res)
             if(res.data.error === true){
                 setErr2({message:res.data.message,style:'text-success'})
+                window.location.reload()
             }else{
                 setErr2({message:res.data.message,style:'text-danger'})
             }
@@ -178,9 +179,9 @@ const profileUpdate =async()=>{
 }
 
 useEffect(()=>{
-    setInputs({...inputs,profileImage:imgName||profile_1.userdp})
+    setInputs({...inputs,profileImage:imgName||profile_1.dpName})
     setProfile({...profile,orgLogo:logoName||profile_2.orgLogo})
-},[inputs,profile,imgName,profile_1.userdp,logoName,profile_2.orgLogo])
+},[inputs,profile,imgName,profile_1.dpName,logoName,profile_2.orgLogo])
 
 return (<>
 <div className="border p-3">
@@ -191,7 +192,7 @@ return (<>
                 <div className="mb-2 p-2">
                     <div className="d-flex flex-column align-items-center text-center">
                         <div className="row img-circle">
-                        {imgBtn?<img src={userDp || imgShow}  className="shadow" alt="Logo"/>:
+                        {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="dp"/>:
                             <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                         </div>
                         <div className="col mt-4">
@@ -250,7 +251,8 @@ return (<>
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
                             <div className="row img-circle">
-                                <img src={userlogo || logoShow}  className="shadow" alt="Logo"/>
+                                {logoBtn?<img src={`${API_URL}/profile/profileImages/${profile_2.orgLogo}`}  className="shadow" alt="Logo"/>:
+                                <img src={logoShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
                             <div className="col mt-4">
                                 <div className="dragBox" >Change Logo

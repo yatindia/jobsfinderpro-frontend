@@ -1,5 +1,5 @@
 import Resizer from "react-image-file-resizer";
-
+import axios from "axios";
 //export const API_URL = 'http://212.71.239.166:5300' 
 export const API_URL = 'http://127.0.0.1:5300'
 
@@ -96,3 +96,72 @@ export const empformValid =(values)=>{
   
   return {error:"All are valid.", valid:true}
   }
+
+  // ----Validation for post Job---
+  export const formPostJob =(values)=>{
+    if(!values.authid){
+       return{error:"*Invalid User Id.", valid:false}
+    }
+    if(!values.jobTitle){
+        return{error:"*Enter the Title of Job.", valid:false}
+    }
+    if(!values.jobDescription){
+        return{error:"*Enter the Job Description.", valid:false}
+    }
+    if(!values.jobCity){
+        return{error:"*Enter the Job Location.", valid:false}
+    }
+    if(!values.jobSalary){
+        return{error:"*Enter the Salary Details.", valid:false}
+    }
+    if(!values.jobRequirement){
+        return{error:"*Enter the Job Requirement.", valid:false}
+    }
+    if(!values.jobType){
+      return{error:"*Enter Job Type.", valid:false}
+  }
+  if(!values.jobApplyEnd){
+      return{error:"*Enter the Deadline of application.", valid:false}
+  }
+    
+    return {error:"All are valid.", valid:true}
+    }
+
+
+  export  const getUser = async()=>{
+
+    const userDetils = (JSON.parse(localStorage.getItem( 'userDetails'))||'')
+    if (userDetils === ''){
+      return null
+    }
+    else{
+      const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
+      const formData = {email:userDetils.job_email,type:userDetils.Role_Type}
+  
+          try {
+            const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
+            if(res.data.error === false){
+              const datas = res.data.data
+              localStorage.setItem('userInfo', JSON.stringify(datas.part2));
+              addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
+              addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
+              addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
+              return datas
+            }
+            else{
+             return null
+            }
+          } catch (error) {
+            return console.log(error)
+          }
+
+    }
+  }
+    
+    var addToLocalStorageObject = function (name, key, value) {
+      var existing = localStorage.getItem(name);
+      existing = existing ? JSON.parse(existing) : {};
+      existing[key] = value;
+      localStorage.setItem(name, JSON.stringify(existing));
+    
+    };

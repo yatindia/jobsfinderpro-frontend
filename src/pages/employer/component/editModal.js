@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import React,{useEffect, useState} from 'react'
+import { useParams, useHistory } from 'react-router-dom';
+import axios from "axios";
 
-import { API_URL, formPostJob } from "../../../components/utils";
+import { API_URL } from "../../../components/utils";
+//import {formPostJob } from '../../../components/utils';
 
-const PostJobs =()=> {
 
+const EditJob = () => {
+
+    const param = useParams()
+    const history = useHistory();
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
-    const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
-    const [btn,setbtn] = useState(true)
+    const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     const [inputs, setInputs] = useState({
         authid: profile_1.job_id,
         jobTitle: "",
@@ -17,53 +21,83 @@ const PostJobs =()=> {
         jobSalary: "",
         jobRequirement: "",
         jobType: "",
-        jobApplyEnd: ""
+        jobApplyEnd: "",
+        _id:""
     })
+
     const [errs,setErr] = useState({
         title: "",
         message: "",
         style:""
       })
 
+
 const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
 }
 
-const handleCheck=(e)=>{
-    const checked = e.target.checked
-    if(checked){
-        setbtn(false)
-    }else{
-       setbtn(true)
+useEffect(() => {
+    const formData = {authid:profile_1.job_id,jobid:param.id}
+    const getuser= async()=>{
+        try {
+            const res = await axios.post(`${API_URL}/job/getsinglejob`,formData,{headers:header})
+            if(res.data.error === false){
+                const datas = res.data.data
+                setInputs({
+                    authid: profile_1.job_id,
+                    _id:param.id,
+                    jobTitle: datas.jobTitle,
+                    jobDescription: datas.jobDescription,
+                    jobCity: datas.jobCity,
+                    jobSalary: datas.jobSalary,
+                    jobRequirement: datas.jobRequirement,
+                    jobType: datas.jobType,
+                    jobApplyEnd: datas.jobApplyEnd
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     }
-   }
+    getuser()
+},[]);
    
 
-const postJob =async()=>{
-    const validate = formPostJob(inputs)
+const updateJob =async(event)=>{
+    event.preventDefault();
     setErr({title: "",message:"Loading..",style:"text-primary"})
-    if (validate.valid===true){
         try {
-            const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
-            if(res.data.error === false){
+            const res = await axios.post(`${API_URL}/job/update`,inputs,{headers:header})
+             if(res.data.error === false){
                 setErr({message:res.data.message,style:'text-success'})
+                window.location.reload()
             }else{
                 setErr({message:res.data.message,style:'text-danger'})
             }
-        } catch (error) {
-            
+        } catch (error) {        
         }
-    }
-    else{
-        setErr({title: "",message:validate.error,style:"text-danger"})
-    }
 }
 
-  useEffect(()=>{
-  })
+const removeJob =async(event)=>{
+    event.preventDefault();
+    const formData = {authid:profile_1.job_id,_id:param.id}
+    setErr({title: "",message:"Loading..",style:"text-primary"})
+        try {
+            const res = await axios.post(`${API_URL}/job/removeJob`,formData,{headers:header})
+             if(res.data.error === false){
+                setErr({message:res.data.message,style:'text-success'})
+                history.push('/employers/dashboard/jobs')
+            }else{
+                setErr({message:res.data.message,style:'text-danger'})
+            }
+        } catch (error) {        
+        }
+}
 
-    return (<>
-    <div className="container-fluid">
+
+    return(<>
+   <div className="container-fluid">
         <div className="row">
             <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
@@ -130,21 +164,19 @@ const postJob =async()=>{
                     </div>
                 </div>
                 <div className="section p-2">
-                    <label className='row'>
-                        <input className="m-2 formFieldCheckbox" type="checkbox" name="hasAgreed" onClick = {handleCheck}/>{"  "}
-                            I agree to your <a href="none">Terms of Conditions</a> and <a href="none">Privacy Policy.</a>
-                    </label>
                     <div className='row'>
                         <label className={errs.style}>{errs.message}</label>
                     </div>
                     <div className="buttons row">
-                        <button onClick={postJob} className="btn btn-findJob mr-3" disabled={btn}>Post Job</button>
+                        <button onClick={updateJob} className="btn btn-findJob m-3">Update Job</button>
+                        <button onClick={removeJob} className="btn btn-outline-danger m-3">Remove Job</button>
+                        <a href="/employers/dashboard/jobs" className="btn btn-outline-info m-3">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </>);
-  }
+    </>)
 
-export default PostJobs;
+}
+export default EditJob

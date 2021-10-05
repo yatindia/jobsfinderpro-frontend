@@ -10,8 +10,9 @@ import Search from "./component/search";
 import EmpRegister from "./component/empRegister";
 import ErrorPage from "../../components/errorPage";
 import EmpProfile from "./component/profile";
+import EditJob from "./component/editModal"
 
-import {API_URL, rawImg} from '../../components/utils'
+import {API_URL} from '../../components/utils'
 
 
 const EmpLander = ()=> {
@@ -19,14 +20,12 @@ const EmpLander = ()=> {
 	const history = useHistory();
 
 	const [dialogShow, setDialogShow] = useState(false);
-	const [userimg, setUserImg]=useState('')
-
-	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-
-	const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
-	const formData = {email:userDetils.job_email,type:userDetils.Role_Type}
 
 	const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+
+	const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+	const formData = {email:profile_1.job_email,type:profile_1.Role_Type}
+
 // --------------get User------
 useEffect(() =>{
 	const getUser = async()=>{
@@ -38,11 +37,6 @@ useEffect(() =>{
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
 				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
-				//const resdp = await axios.get(`${API_URL}/profile/profileImages/${datas.part1.profileImage}`,{headers:header})
-				//console.log(datas.part1)
-				setUserImg(datas.part1.profileImage)
-				// const imguri = rawImg(resdp.data)
-				// addToLocalStorageObject('userDetails','userdp',imguri)
 			}
 			else{
 				setDialogShow(true)
@@ -81,7 +75,7 @@ const dialogClose=()=>{
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
-							<img src={profile_1.userdp}  className="shadow" alt="imagess"/>
+							<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="imagess"/>
 							</div>
 						</div>
 						</div>
@@ -120,6 +114,7 @@ const dialogClose=()=>{
 					<Route exact path="/employers/dashboard/profile" component={EmpProfile}/>
 					<Route exact path="/employers/dashboard/newjobs" component={PostJobs}/>
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
+					<Route exact path="/employers/dashboard/jobs/:id" component={EditJob}/>
 					<Route exact path="/employers/dashboard/search" component={Search}/>
 					<Route exact path="/employers/dashboard/applied" component={Applied}/>
 					<Route exact path="*" component={ErrorPage}/>
