@@ -35,7 +35,7 @@ function UserProfile() {
       const [profile, setProfile] = useState({
         email: profile_1.job_email,
         mobile: profile_2.mobile,
-        dateOfBirth: "",
+        dateOfBirth: profile_2.dateOfBirth,
         jobTitle: profile_2.jobTitle,
         pastJob: profile_2.pastJobs,
         gender:profile_2.gender,

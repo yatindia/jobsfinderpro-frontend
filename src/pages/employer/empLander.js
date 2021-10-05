@@ -20,6 +20,7 @@ const EmpLander = ()=> {
 	const history = useHistory();
 
 	const [dialogShow, setDialogShow] = useState(false);
+	const [imgname,setimgname] = useState('')
 
 	const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
@@ -33,6 +34,7 @@ useEffect(() =>{
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
 			if(res.data.error === false){
 				const datas = res.data.data
+				setimgname(datas.part1.profileImage)
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
@@ -66,16 +68,16 @@ const dialogClose=()=>{
   }
 
     return (<>
-    <section className="py-5 my-5">
+    <section className="py-3 ">
 	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
-			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
+			<div className="bg-white rounded-lg d-block d-sm-flex">
 				<div id="sidebar">
 					<div className="profile-tab-nav border-right ">
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
-							<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="imagess"/>
+							<img src={`${API_URL}/profile/profileImages/${imgname}`}  className="shadow" alt="imagess"/>
 							</div>
 						</div>
 						</div>
@@ -108,7 +110,7 @@ const dialogClose=()=>{
 					</div>
 				</div>
 
-				<div className="tab-content p-2 p-md-5" id="v-pills-tabContent">
+				<div className="tab-content p-2 p-md-2" id="v-pills-tabContent">
 				<Switch>
 					<Route exact path="/employers/dashboard" component={EmpContent}/>
 					<Route exact path="/employers/dashboard/profile" component={EmpProfile}/>

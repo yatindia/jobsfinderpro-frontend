@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import axios from 'axios'
 
 import { API_URL, formPostJob } from "../../../components/utils";
@@ -19,11 +19,7 @@ const PostJobs =()=> {
         jobType: "",
         jobApplyEnd: ""
     })
-    const [errs,setErr] = useState({
-        title: "",
-        message: "",
-        style:""
-      })
+    const [errs,setErr] = useState({title: "",message: "",style:""})
 
 const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
@@ -38,7 +34,7 @@ const handleCheck=(e)=>{
     }
    }
    
-
+// ----Post Job-----------
 const postJob =async()=>{
     const validate = formPostJob(inputs)
     setErr({title: "",message:"Loading..",style:"text-primary"})
@@ -59,8 +55,6 @@ const postJob =async()=>{
     }
 }
 
-  useEffect(()=>{
-  })
 
     return (<>
     <div className="container-fluid">

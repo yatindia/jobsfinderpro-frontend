@@ -12,6 +12,7 @@ import {API_URL} from '../../components/utils'
 function  UserLander () {
 
 	const [dialogShow, setDialogShow] = useState(false);
+	const [imgname,setimgname] = useState('')
 	const history = useHistory()
 
 	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'))
@@ -26,6 +27,7 @@ useEffect(() =>{
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
 			if(res.data.error === false){
 				const datas = res.data.data
+				setimgname(datas.part1.profileImage)
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
@@ -61,10 +63,10 @@ const dialogClose=()=>{
 
 
     return (<>
-    <section className="py-5 my-5">
+    <section className="py-3 ">
 		<div className="container-fluid">
 		<Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
-			<div className="bg-white shadow rounded-lg d-block d-sm-flex">
+			<div className="bg-white rounded-lg d-block d-sm-flex">
 
 				{/* -------Sidebar-------- */}
 				<div id="sidebar">
@@ -74,7 +76,7 @@ const dialogClose=()=>{
 							<div className="mb-2">
 								<div className="d-flex flex-column align-items-center text-center">
                                 	<div className="row img-circle">
-                                    <img src={`${API_URL}/profile/profileImages/${userDetils.dpName}`} className="shadow" alt="Logo"/>
+                                    <img src={`${API_URL}/profile/profileImages/${imgname}`} className="shadow" alt="Logo"/>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +99,7 @@ const dialogClose=()=>{
 				</div>
 
 				{/* -------Content body-------- */}
-				<div className="tab-content p-4 p-md-5">
+				<div className="tab-content p-2 p-md-2">
 					<Switch>
 						<Route exact path="/users/dashboard" component={UserContent}/>
 						<Route exact path="/users/dashboard/profile" component={UserProfile}/>

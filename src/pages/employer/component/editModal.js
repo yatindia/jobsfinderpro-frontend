@@ -25,17 +25,14 @@ const EditJob = () => {
         _id:""
     })
 
-    const [errs,setErr] = useState({
-        title: "",
-        message: "",
-        style:""
-      })
+    const [errs,setErr] = useState({title: "",message: "",style:""})
 
 
 const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
 }
 
+// ----Get Job-----------
 useEffect(() => {
     const formData = {authid:profile_1.job_id,jobid:param.id}
     const getuser= async()=>{
@@ -63,7 +60,7 @@ useEffect(() => {
     getuser()
 },[header,param.id,profile_1.job_id]);
    
-
+// ----Update Job-----------
 const updateJob =async(event)=>{
     event.preventDefault();
     setErr({title: "",message:"Loading..",style:"text-primary"})
@@ -79,20 +76,21 @@ const updateJob =async(event)=>{
         }
 }
 
+// ----Remove Job-----------
 const removeJob =async(event)=>{
     event.preventDefault();
     const formData = {authid:profile_1.job_id,_id:param.id}
     setErr({title: "",message:"Loading..",style:"text-primary"})
-        try {
-            const res = await axios.post(`${API_URL}/job/removeJob`,formData,{headers:header})
-             if(res.data.error === false){
+    try {
+        const res = await axios.post(`${API_URL}/job/removeJob`,formData,{headers:header})
+            if(res.data.error === false){
                 setErr({message:res.data.message,style:'text-success'})
                 history.push('/employers/dashboard/jobs')
             }else{
                 setErr({message:res.data.message,style:'text-danger'})
             }
-        } catch (error) {        
-        }
+    } catch (error) {        
+    }
 }
 
 
