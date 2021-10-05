@@ -29,7 +29,7 @@ function Jobs(){
         
             }
             getuser()
-      },[]);
+      },[header,formData]);
 
 
 
@@ -69,7 +69,7 @@ function Jobs(){
                                     <h6 className="text-muted">{data.jobSalary}</h6>
                                 </div>
                                 <div className="col-sm">
-                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Profile</a>
+                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Jobs</a>
                                 </div>
                             </div>
                             <hr className="bg-primary"/>

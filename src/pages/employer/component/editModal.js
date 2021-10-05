@@ -61,7 +61,7 @@ useEffect(() => {
 
     }
     getuser()
-},[]);
+},[header,param.id,profile_1.job_id]);
    
 
 const updateJob =async(event)=>{
