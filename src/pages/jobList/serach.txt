@@ -30,3 +30,13 @@ function FindJobs ({...props,}) {
             const locaFilter = jobFilter.filter((view) => view.location.toLowerCase().includes(loca.toLowerCase()) )
         setFilterData(locaFilter)
         }
+
+        const handleSubmit=()=>{
+        if(search.title === null || search.jobs===''){
+            history.push('/jobs?kwds=&loc='+search.location);
+        }else if(search.location === null || search.location===''){
+            history.push('/jobs?kwds='+search.jobs+'&loc=');
+        }
+        else{
+            history.push('/jobs?kwds='+search.jobs +'&loc='+search.location);
+        }

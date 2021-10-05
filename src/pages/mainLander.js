@@ -6,14 +6,13 @@ import welo from '../components/asserts/hero-img.svg'
 import TopHiring from "./home/topHire";
 import Trending from "./home/trending";
 
-import data from '../components/asserts/data.json'
-
 
 const Lander =()=> {
 
   const [search, setSearch] = useState({
     jobs: "",
-    location: "",})
+    jobCity: "",})
+  const [loged, setloged] = useState(true)
 
   const history = useHistory();
 
@@ -23,19 +22,19 @@ const Lander =()=> {
   }
 
   useEffect(()=>{
-  })
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    if(!profile_1){
+      setloged(true)
+    }else{
+      setloged(false)
+    }
+  },[])
 
 
   const handleSubmit=()=>{
-      if(search.jobs === "" && search.location === ""){
-        history.push('/search?=');
-      }else if(search.jobs !== "" || search.location!==''){
-        history.push('/jobs?kwds='+search.jobs +'&loc='+search.location);
-      }
-      else {
-        return null
-      }
+    history.push('/jobs?kwds='+search.jobs +'&loc='+search.jobCity);
   }
+
 
     return (<>
     {/* {active === "top" ? */}
@@ -56,34 +55,20 @@ const Lander =()=> {
             <div className="container-flex p-5">
             <div className="row m-auto justify-content-center">
                 <div className="col m-auto justify-content-center">
-                    <div className="row">
-                        <div className="col-lg col-md col-sm p-1 input-group">
-                        <input className="form-control selector border"  type="text" name="jobs"
-                          onChange={changeHandle}  placeholder="Company, Title, Keywords " list="job"/>
-                          {data.length > 0 ? (
-                           <datalist id = "job">
-                                {Array.from(new Set(data.map(item=>item.level))).map((level,i)=>(<option key={i} value={level}>Level: {level}</option>))}
-                                {Array.from(new Set(data.map(item=>item.contract))).map((contract,i)=>(<option key={i} value={contract}>Mode: {contract}</option>))}
-                                {Array.from(new Set(data.map(item=>item.company))).map((company,i)=>(<option key={i} value={company}>Company: {company}</option>))}
-                                </datalist>):null}
-                          <span className="input-group-append">
-                              <div className="input-group-text"><i className="fa fa-search text-info"></i></div>
-                          </span>
-                        </div> 
-                        <div className="col-lg col-md col-sm p-1 input-group">
-                        <input className="form-control selector border"  type="text" name="location"
+                    <div className="row justify-content-center">
+                        <div className="col-lg-6 col-md-6 col-sm-6 p-1 input-group">
+                        <input className="form-control selector border"  type="text" name="jobCity"
                           onChange={changeHandle} placeholder="Job Location" list="locate"/>
-                           {data.length > 0 ? (
-                           <datalist id = "locate">
-                                {Array.from(new Set(data.map(item=>item.location))).map((location,i)=>(<option key={i} value={location}>{location}</option>))}
-                                </datalist>):null}
                           <span className="input-group-append">
                               <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
                           </span>
                         </div>
                         <div className="col-sm-2 mt-1">
-                          <button className="btn btn-findJob form-control" onClick={handleSubmit}>Find Jobs</button>
+                          <button className="btn btn-findJob form-control" onClick={handleSubmit} disabled={loged}>Find Jobs</button>
                         </div>
+                        {/* <div className="col-sm-2 mt-1">
+                          <button className="btn btn-outline-info form-control" onClick={advsearch} disabled={loged}>Advance Search</button>
+                        </div> */}
                     </div>
                 </div>
               </div>
