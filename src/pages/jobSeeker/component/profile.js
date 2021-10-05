@@ -18,7 +18,7 @@ function UserProfile() {
 	const [imgShow, setImgShow] = useState(null);
     const [imgName, setImgName] = useState('');
 
-    const [pastJob, setpastJob] =useState(profile_2.pastJobs)
+    const [pastJob, setpastJob] =useState([])
     const [edu, setEdu] =useState([])
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [err2,setErr2] = useState({title: "",message: "",style:""})
@@ -143,8 +143,8 @@ const detailUpdate =async()=>{
 
 useEffect(()=>{
     setInputs({...inputs,profileImage:imgName||profile_1.dpName})
-    setProfile({...profile,qualifications:edu,pastJob:pastJob})
-},[inputs,profile,edu,pastJob,imgName,profile_1.dpName])
+    setProfile({...profile,qualifications:[...edu,...profile_2.qualifications],pastJob:[...pastJob,...profile_2.pastJobs]})
+},[inputs,profile,edu,pastJob,imgName,profile_1.dpName,profile_2.qualifications,profile_2.pastJobs])
 
     return (<>
     <div className="border tab-content">
@@ -228,9 +228,11 @@ useEffect(()=>{
                 <div className="col-md-10">
                     <div className="form-group">
                         <label>Past Jobs</label>
-                        {pastJob.map((item, i)=>(
-                            <input className="m-2" key={i} value={item} disabled/>
-                        ))}
+                        {profile_2.pastJobs.length>0 ? (<div>
+                            {profile_2.pastJobs.map((item, i)=>(
+                                <input className="m-2" key={i} value={item} disabled/>
+                            ))}
+                        </div>):null}
                         <div className="">
                             <DynamicInput  get={setpastJob}></DynamicInput>
                         </div>

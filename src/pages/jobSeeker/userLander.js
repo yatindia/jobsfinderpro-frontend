@@ -12,7 +12,6 @@ import {API_URL} from '../../components/utils'
 function  UserLander () {
 
 	const [dialogShow, setDialogShow] = useState(false);
-	const [imgsrc, setimgsrc] = useState('');
 	const history = useHistory()
 
 	const userDetils = JSON.parse(localStorage.getItem( 'userDetails'))
@@ -28,7 +27,6 @@ useEffect(() =>{
 			if(res.data.error === false){
 				const datas = res.data.data
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
-				setimgsrc(`${API_URL}/profile/profileImages/${datas.part1.dpName}`)
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
 				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
@@ -76,7 +74,7 @@ const dialogClose=()=>{
 							<div className="mb-2">
 								<div className="d-flex flex-column align-items-center text-center">
                                 	<div className="row img-circle">
-                                    <img src={imgsrc}  className="shadow" alt="Logo"/>
+                                    <img src={`${API_URL}/profile/profileImages/${userDetils.dpName}`} className="shadow" alt="Logo"/>
                                     </div>
                                 </div>
                             </div>
