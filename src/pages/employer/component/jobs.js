@@ -66,7 +66,7 @@ function Jobs(){
                                 </div>
                                 <div className="col-sm">
                                     <p className="font-weight-bold">Salary</p>
-                                    <h6 className="text-muted">{data.jobSalary}</h6>
+                                    <h6 className="text-muted">₹ {data.jobSalary}</h6>
                                 </div>
                                 <div className="col-sm">
                                     <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Jobs</a>

@@ -4,6 +4,7 @@ import axios from "axios";
 import '../style.css'
 
 import { API_URL } from "../../components/utils";
+import Listing from "./listing";
 
 export default function FindJobs ({location}) {
 
@@ -114,59 +115,7 @@ const getJob =async()=>{
             <div>
             {fetch.map((data,id)=>(
             <div>
-            <div className="row d-flex justify-content-center" key={id}>
-                <div className="col-md-10 mt-2  border">
-                    <div className="row z-depth-3">
-                        {/*  <div className="col-sm-3 bg-info rounded-left">
-                            <div className="card-block text-center text-white">
-                                    <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${profile_2.orgLogo}`}  alt="sample"></img>
-                                <h2 className="font-weight-bold mt-2">{profile_2.orgName}</h2>
-                                <p>{data.dateOfAdd}</p>
-                                <i className="far-fa-edit fa-2x mb-2"></i>
-                            </div>
-                        </div> */}
-                        <div className="col-md-10 bg-white rounded-right">
-                            <h3 className="mt-3 text-start">{data.jobTitle}</h3>
-                            <div className="row">
-                                <div className="col-sm">
-                                    <p className="font-weight-bold">Location</p>
-                                    <h6 className="text-muted">{data.jobCity}</h6>
-                                </div>
-                                <div className="col-sm">
-                                    <p className="font-weight-bold">Deadline On</p>
-                                    <h6 className="text-muted">{data.jobApplyEnd}</h6>
-                                </div>
-                                <div className="col-sm">
-                                    <p className="font-weight-bold">Job Level</p>
-                                    <h6 className="text-muted">{data.jobType}</h6>
-                                </div>
-                                <div className="col-sm">
-                                    <p className="font-weight-bold">Salary</p>
-                                    <h6 className="text-muted">{data.jobSalary}</h6>
-                                </div>
-                                <div className="col-sm">
-                                    <button className="btn btn-findJob">Apply</button>
-                                </div>
-                            </div>
-                            <hr className="bg-primary"/>
-                            <div className="row">
-                                <div className="col-md">
-                                    <p className="font-weight-bold">Job Description</p>
-                                    <h6 className="text-muted" maxLength='50'>{data.jobDescription}</h6>
-                                </div>
-                            </div>
-                            <hr className="bg-primary"/>
-                            <div className="row">
-                                <div className="col-md">
-                                    <p className="font-weight-bold">Job Requirement</p>
-                                    <h6 className="text-muted " maxLength='50'>{data.jobRequirement}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+                <Listing data={data}></Listing>
             {/* <div className='row'> <button className="btn btn-findJob" onClick={loadMore}>Load</button></div> */}
             </div>
             ))}  
