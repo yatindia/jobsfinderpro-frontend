@@ -5,33 +5,11 @@ export default class Footer extends Component {
     render()
     {
       return (
-      <div id="footer">
+      <div id="footer" className="mt-5 py-4">
         <div className="footer-top">
         <div className="m-2">
-          <div className="row">
-            <div className="col-lg col-md-6 footer-links" >
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Home</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">About us</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Services</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Terms of service</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Privacy policy</a></li>
-              </ul>
-            </div>
-  
-            <div className="col-lg col-md-6 footer-links" >
-              <h4>Our Services</h4>
-              <ul>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Web Design</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Web Development</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Product Management</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Marketing</a></li>
-                <li><i className="fa fa-chevron-right"></i> <a href="/">Graphic Design</a></li>
-              </ul>
-            </div>
-  
-            <div className="col-lg col-md-6 footer-links">
+          <div className="row justify-content-center text-center">  
+            <div className="col footer-links">
               <h4>Our Social Networks</h4>
               <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
               <div className="social-links mt-3">
@@ -46,10 +24,11 @@ export default class Footer extends Component {
           </div>
         </div>
       </div>
+      <div className="brderline"></div>
   
-      <div className="container py-4">
+      <div className="container py-2">
         <div className="copyright">
-          &copy; Copyright <strong><span></span></strong>.
+          &copy; <strong>Copyright<span></span></strong>.
         </div>
         <div className="credits">
         </div>

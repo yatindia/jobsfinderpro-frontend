@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  FacebookLoginButton,
-  InstagramLoginButton,
-  GoogleLoginButton
-} from "react-social-login-buttons";
+
+// import {
+//   FacebookLoginButton,
+//   InstagramLoginButton,
+//   GoogleLoginButton
+// } from "react-social-login-buttons";
+
 import axios from 'axios'
 
 import { API_URL } from "../../components/utils";
@@ -123,7 +125,7 @@ const Login =()=> {
 
   return (<>
   <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
-  <div className="App d-flex">
+  <div className="App d-flex p-4">
       <div className="appForm mx-auto  align-center">
           <div label="Sign-In">
             <div className="formCenter">
@@ -161,11 +163,12 @@ const Login =()=> {
                 <div className="formField">
                   <button className="btn formFieldButton effect" onClick={handleSubmit}>Sign In</button>
                   {btnVerify === false ? 
-                    <button className=" m-2 btn btn-outline-secondary" onClick={forgetPassword}> <small>Forget Password</small></button> :""}
+                    <button className=" m-2 btn btn-outline-secondary effect" onClick={forgetPassword}> <small>Forget Password</small></button> :""}
                   {btnVerify === true ? 
-                  <button className=" m-2 btn btn-outline-secondary" onClick={verifyMail}> <small>Sent new Verify Link</small></button>:""}
+                  <button className=" m-2 btn btn-outline-secondary effect" onClick={verifyMail}> <small>Sent new Verify Link</small></button>:""}
+                  <label className="links m-1 float-right">New User ? <a href="/register">Sign-Up</a> here.</label>
                 </div>
-                <div className="socialMediaButtons">
+                {/* <div className="socialMediaButtons">
                 <div className="googleButton m-2">
                     <GoogleLoginButton onClick={() => alert("Hello")} />
                   </div>
@@ -176,7 +179,7 @@ const Login =()=> {
                   <div className="instagramButton m-2">
                     <InstagramLoginButton onClick={() => alert("Hello")} />
                   </div>
-                </div>
+                </div> */}
               
             </div>
           </div>

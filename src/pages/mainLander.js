@@ -11,8 +11,7 @@ const Lander =()=> {
 
   const [search, setSearch] = useState({
     jobs: "",
-    jobCity: "",})
-  const [loged, setloged] = useState(true)
+    jobTitle: "",})
 
   const history = useHistory();
 
@@ -22,17 +21,17 @@ const Lander =()=> {
   }
 
   useEffect(()=>{
-    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
-    if(!profile_1){
-      setloged(true)
-    }else{
-      setloged(false)
-    }
+  
   },[])
 
 
   const handleSubmit=()=>{
-    history.push('/jobs?kwds=&loc='+search.jobCity);
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    if(!profile_1){
+      history.push('/login');
+    }else{
+      history.push('/jobs?kwds=&loc='+search.jobTitle);
+    }
   }
 
 
@@ -44,23 +43,20 @@ const Lander =()=> {
             <div className="row">
                 <div className="col-lg-6 p-5 m-2 text-center order-2">
                     <div className='row'>
-                      <h1>Bettter digital experience with Ninestars</h1>
+                      <h1>Better digital experience with Ninestars</h1>
                       <h2>We are team of talented designers making websites with Bootstrap</h2>
                     </div>
                     <div className='row m-4 p-4'>
-                        <div className="col-lg input-group p-2">
-                        <input className="form-control selector border"  type="text" name="jobCity"
-                          onChange={changeHandle} placeholder="Job Location" list="locate"/>
-                          <span className="input-group-append">
-                              <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
-                          </span>
+                        <div className="col-lg  p-2">
+                        <input className=" formFieldInput"  type="text" name="jobTitle"
+                          onChange={changeHandle} placeholder="Job Title" list="locate"/>
                         </div>
                         <div className="col-sm-2 p-2">
-                          <button className="btn btn-findJob" onClick={handleSubmit} disabled={loged}>Search</button>
+                          <button className="btn border-0 effect" onClick={handleSubmit}><b>Search</b></button>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-5 order-1 mt-3 welcome-img">
+                <div className="col-lg-5 order-1 m-3 welcome-img">
                     <img src={welo} className="img-fluid animated" alt="ff"/> 
                 </div>
             </div>

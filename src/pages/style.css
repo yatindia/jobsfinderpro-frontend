@@ -4,7 +4,6 @@
   height: 700px;
   background: #fef8f5;
   border-bottom: 2px solid #fcebe3;
-  position: relative;
 }
 
 #welcome h1 {
@@ -247,12 +246,12 @@
     color: #6b5b95;
   }
   .formFieldInput {
-    width: 85%;
-    background-color: transparent;
+    width: 100%;
+    background: transparent;
     border: none;
     color: #290d01;
     outline: none;
-    border-bottom: 1px solid #445366;
+    border-bottom: 2px solid #eb5d1e;
     font-size: 1em;
     font-weight: 400;
     padding-bottom: 10px;
@@ -268,35 +267,30 @@
   
    .formFieldButton {
     transition: all .5s ease-in-out;
-    background-color: #6b5b95;
-    color: white;
-    border-color: red;
+    background-color: #fce8e0;
+    color: #eb5d1e;
+    border-color: 2px solid #eb5d1e;
     border-radius: 25px;
-    padding: 15px 70px;
+    padding: 10px 50px;
     font-size: 1em;
     font-weight: 500;
   } 
 
   .links a{
-    padding: 5px;
     text-decoration: none;
-    color: #ffffff;
-    background-color: blueviolet;
-    border-radius: 25px;
-    transition: all .3s ease;
+    color: #eb5d1e;
   }
   
   .links a:hover{
-    color:rgb(255, 255, 255);
-    background-color: #560f77;
+    color:#eb5d1e;
+    font-weight: bold;
   }
 
   .effect {
-    border-color: #560f77;
-    color: #fff;
+    color:#eb5d1e;
     text-decoration: none;
     /* background-image: -webkit-linear-gradient(45deg, #560f77 50%, transparent 50%); */
-    background-image: linear-gradient(90deg, #560f77 50%, transparent 50%);
+    background-image: linear-gradient(20deg, #eb5d1e 50%, transparent 50%);
     background-position: 100%;
     background-size: 400%;
     -webkit-transition:  300ms ease-in-out;
@@ -328,7 +322,7 @@
   
   .formFieldTermsLink {
     color:#eb5d1e;
-    border-bottom: 1px solid #6b5b95;
+    border-bottom: 1px solid #eb5d1e;
     text-decoration: none!important;
     display: inline-block;
     padding-bottom: 2px;
@@ -344,7 +338,7 @@
     border-bottom: 1px solid #ccc;
     padding-left: 0;
     font-weight:500;
-    color:#6b5b95;
+    color:#eb5d1e;
   }
   
   .tab-list-item {
@@ -357,13 +351,13 @@
   }
 
   .tab-list-item:hover {
-    background-color:#6b5b95;
+    background-color:#eb5d1e;
     border-radius: 5px;
     color: white;
   }
   
   .tab-list-active {
-    background-color:#6b5b95;
+    background-color:#eb5d1e;
     border-radius: 5px;
     border: solid #ccc;
     color: white;
@@ -391,11 +385,12 @@
   }
 
   .inputStyle {
+    width: 100%;
     background-color: transparent;
     border: none;
     border-color: #7e2603;
     outline: none;
-    border-bottom: 1px solid #445366;
+    border-bottom: 1px solid #eb5d1e;
   }
   /* -----------Job List sidebar----------*/
   .sidebar-tabs {

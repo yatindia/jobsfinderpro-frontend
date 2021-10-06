@@ -19,19 +19,20 @@
   .btn-trending {
     font-weight: 400;
     font-size: 14px;
+    border: 1px;
     text-decoration: none!important;
     letter-spacing: 1px;
     display: inline-block;
     border-radius: 20px;
     transition: 0.5s;
     color: #fff;
-    background: #7949a5;
+    background: #eb5d1e;
     margin: 10px;
   }
 
   .btn-trending:hover {
-    font-weight: 450;
-    color: #fff;
-    background: #882bdf;
+    color: #eb5d1e;
+    font-weight: 400;
+    background: transparent;
     cursor: pointer;
   }

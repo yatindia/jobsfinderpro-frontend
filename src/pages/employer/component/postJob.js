@@ -65,14 +65,14 @@ const postJob =async()=>{
                         <div className="col-md-10 col-sm">
                             <label>Job Title</label>
                             <div className=" form-group">
-                                <input type="text" className="form-control" placeholder="Job Position Title" name="jobTitle" 
+                                <input type="text" className="inputStyle" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
                             </div>
                         </div>
                         <div className="col-md-10 col-sm">
                             <label>Job Description</label>
                             <div className="form-group">
-                                <textarea type="text" className="form-control" placeholder="Write few lines about the Job Discription"name="jobDescription" 
+                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
                                     value={inputs.jobDescription} onChange={changeHandle}/>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ const postJob =async()=>{
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Job Location" name="jobCity" 
+                                    <input type="text" className="inputStyle" placeholder="Job Location" name="jobCity" 
                                         value={inputs.jobCity} onChange={changeHandle}/>
                                 </div>
                             </div>
@@ -89,14 +89,14 @@ const postJob =async()=>{
                         <div className="col-md-10 col-sm">
                             <label>Salary Information</label>
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Salary Info" name="jobSalary" 
+                                <input type="text" className="inputStyle" placeholder="Salary Info" name="jobSalary" 
                                     value={inputs.jobSalary} onChange={changeHandle}/>
                             </div>
                         </div>
                         <div className="col-md-10 col-sm">
                             <label>Job Requirement</label>
                             <div className="form-group">
-                                <textarea type="text" className="form-control" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
+                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
                                     value={inputs.jobRequirement} onChange={changeHandle}/>
                             </div>
                         </div>
@@ -111,14 +111,14 @@ const postJob =async()=>{
                         <div className="col-md-5 col-sm">
                             <label>Exprience Level</label>
                             <div className="input-group">
-                                <input className="form-control selector border" type="text" placeholder="Select a Level" list="level"
-                                name="jobType" value={inputs.jobType} onChange={changeHandle}/>
-                                <datalist id = "level">
+                                <select className="inputStyle" type="text" placeholder="Select a Level" list="level"
+                                name="jobType" value={inputs.jobType} onChange={changeHandle}>
+                                    <option value=''>Select ...</option>
                                     <option>Entry Level</option>
                                     <option>Mid Level</option>
                                     <option>Mid-Senior Level</option>
                                     <option>Top Level</option>
-                                </datalist>
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { resizeFile, dataURIToBlob, API_URL, empformValid} from "../../../components/utils";
 import {validating} from '../../auth/validating'
+import TabView from "../../../components/tabView";
 
 function EmpProfile() {
 
@@ -186,7 +187,7 @@ useEffect(()=>{
 return (<>
 <div className="border p-3">
     <div className="tab-pane active " id="password" role="tabpanel">
-        <h3 className="mb-4 text-secondary">Profile Update</h3>
+    <h3 className="mb-4 p-2 text-secondary"><small>Profile Update</small></h3>
         <div className='row border-top'>
             <div className ="col-md-4 align-items-center text-center">
                 <div className="mb-2 p-2">
@@ -212,22 +213,22 @@ return (<>
                     <div className="col">
                         <div className="form-group">
                             <label>First Name</label>
-                            <input type="text" className="form-control inputStyle" name ="firstName" 
+                            <input type="text" className=" formFieldInput" name ="firstName" 
                                 placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
                         </div>
                         <div className="form-group">
                             <label>Last Name</label>
-                            <input type="text" className="form-control inputStyle" name ="lastName"  
+                            <input type="text" className=" formFieldInput" name ="lastName"  
                                 placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
                         </div>
                         <div className="form-group">
                         <label>Change Password</label>
-                            <input type="password" className="form-control inputStyle" name ="password"
+                            <input type="password" className="formFieldInput" name ="password"
                                 placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
                         </div>
                         <div className="form-group">
                             <label>Confirm Password</label> 
-                            <input type="password" className="form-control inputStyle" name ="cpassword"
+                            <input type="password" className=" formFieldInput" name ="cpassword"
                                 placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
                         </div>
                     </div>
@@ -271,31 +272,31 @@ return (<>
                         <div className="col">
                             <div className="form-group">
                             <label>Organization Name</label>
-                                <input type="text" className="form-control inputStyle" placeholder={profile_2.orgName} name="orgName"
+                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgName} name="orgName"
                                     value={profile.orgName} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization E-mail</label>
-                                <input type="text" className="form-control inputStyle" placeholder={profile_2.orgEmail} name="orgEmail"
+                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgEmail} name="orgEmail"
                                     value={profile.orgEmail||profile_2.orgEmail} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Contact Number</label>
-                                <input type="text" className="form-control inputStyle" placeholder={profile_2.orgPhone} name="orgPhone"
+                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgPhone} name="orgPhone"
                                     value={profile.orgPhone||profile_2.orgPhone} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Wesite</label>
-                                <input type="text" className="form-control inputStyle" placeholder={profile_2.orgWebsite} name="orgWebsite"
+                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgWebsite} name="orgWebsite"
                                     value={profile.orgWebsite||profile_2.orgWebsite} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Address</label>
-                                <textarea type="text" className="form-control inputStyle" placeholder={profile_2.orgAddress} row="4" name="orgAddress"
+                                <textarea type="text" className="formFieldInput " placeholder={profile_2.orgAddress} row="4" name="orgAddress"
                                     value={profile.orgAddress||profile_2.orgAddress} onChange={changeHandle} />
                             </div>
                             <label>Organization Landmark</label>
-                            <input type="text" className="form-control inputStyle" placeholder={profile_2.orgCountry} name="orgCountry"
+                            <input type="text" className="formFieldInput " placeholder={profile_2.orgCountry} name="orgCountry"
                                 value={profile.orgCountry||profile_2.orgCountry} onChange={changeHandle} />
                         </div>
                     </div>

@@ -113,24 +113,24 @@ useEffect(()=>{
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom04" className="formField">
                                     <label>Phone number</label> 
-                                    <input type="text" className="form-control" placeholder="Phone Number" name="mobile"
+                                    <input type="text" className="form-control formFieldInput" placeholder="Phone Number" name="mobile"
                                         value={inputs.mobile} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
                                     <label>Job Title</label> 
-                                    <input type="text" className="form-control" placeholder="Your Current Job" name="jobTitle"
+                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current Job" name="jobTitle"
                                         value={inputs.jobTitle} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom02" className="formField">
                                     <label>State</label> 
-                                    <input type="text" className="form-control" placeholder="Your Current State" name="state"
+                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current State" name="state"
                                         value={inputs.state} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom09" className="formField">
                                     <label>City</label> 
-                                    <input type="text" className="form-control" placeholder="Your Current City" name="city"
+                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current City" name="city"
                                         value={inputs.city} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
@@ -138,7 +138,7 @@ useEffect(()=>{
                                 <Form.Group as={Col} md="6"  controlId="validationCustom07" className="formField">
                                     <label>Gender</label>
                                     <div className="input-group">
-                                        <input className="form-control" type="text" name ="gender" placeholder="Select.." 
+                                        <input className="form-control formFieldInput" type="text" name ="gender" placeholder="Select.." 
                                         list="gender" onChange={changeHandle} value={inputs.gender} required/>
                                         <datalist id = "gender">
                                             <option>Male</option>
@@ -149,7 +149,7 @@ useEffect(()=>{
                                 </Form.Group>
                                  <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
                                     <label>Date of Birth</label>
-                                    <input type="date" name="dateOfBirth" className="form-control" placeholder="dd-mm-yyyy" 
+                                    <input type="date" name="dateOfBirth" className="form-control formFieldInput" placeholder="dd-mm-yyyy" 
                                        value={inputs.dateOfBirth} onChange={changeHandle} min="1980-01-01" required/>
                                 </Form.Group>
                             </Row>

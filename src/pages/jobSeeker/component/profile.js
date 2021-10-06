@@ -175,22 +175,22 @@ useEffect(()=>{
                         <div className="col">
                             <div className="form-group">
                                 <label>First Name</label>
-                                <input type="text" className="form-control inputStyle" name ="firstName" 
+                                <input type="text" className="formFieldInput" name ="firstName" 
                                     placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
                                 <label>Last Name</label>
-                                <input type="text" className="form-control inputStyle" name ="lastName"  
+                                <input type="text" className="formFieldInput" name ="lastName"  
                                     placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
                             <label>Change Password</label>
-                                <input type="password" className="form-control inputStyle" name ="password"
+                                <input type="password" className="formFieldInput" name ="password"
                                     placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
                                 <label>Confirm Password</label> 
-                                <input type="password" className="form-control inputStyle" name ="cpassword"
+                                <input type="password" className="formFieldInput" name ="cpassword"
                                     placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
                             </div>
                         </div>
@@ -243,42 +243,42 @@ useEffect(()=>{
                 <div className="col-md-4">
                     <div className="form-group">
                     <label>Date of Birth</label>
-                        <input type="date" name="dateOfBirth" className="form-control inputStyle"
+                        <input type="date" name="dateOfBirth" className="formFieldInput"
                           value={profile.dateOfBirth} onChange={changeHandle}  min="1980-01-01" />
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Contact Number</label>
-                        <input type="text" className="form-control inputStyle" placeholder={profile_2.mobile}
+                        <input type="text" className="formFieldInput" placeholder={profile_2.mobile}
                           name ="mobile"  value={profile.mobile} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Job Title</label>
-                        <input type="text" className="form-control inputStyle"  placeholder={profile_2.jobTitle}
+                        <input type="text" className="formFieldInput"  placeholder={profile_2.jobTitle}
                             name ="jobTitle" value={profile.jobTitle} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>State</label>
-                        <input type="text" className="form-control inputStyle" placeholder={profile_2.state}
+                        <input type="text" className="formFieldInput" placeholder={profile_2.state}
                             name ="state" value={profile.state} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>City</label>
-                        <input type="text" className="form-control inputStyle" placeholder={profile_2.city}
+                        <input type="text" className="formFieldInput" placeholder={profile_2.city}
                             name ="city" value={profile.city} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <label>Gender</label>
                     <div className="input-group">
-                        <input className="form-control inputStyle" type="text" name ="gender" placeholder={profile_2.gender} 
+                        <input className="formFieldInput" type="text" name ="gender" placeholder={profile_2.gender} 
                         list="gender" onChange={changeHandle} value={profile.gender}/>
                         <datalist id = "gender">
                             <option>Male</option>

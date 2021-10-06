@@ -283,7 +283,7 @@ color: #eb5d1e;
   }
   
   #footer .footer-top .footer-links {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   
   #footer .footer-top .footer-links ul {
@@ -338,13 +338,14 @@ color: #eb5d1e;
   }
   
   #footer .footer-top .social-links a:hover {
-    background: #fc4a04;
+    background: #eb5d1e;
     color: #fff;
     text-decoration: none;
   }
   
   #footer .copyright {
     text-align: center;
+    color: #eb5d1e;
     float: left;
   }
   
@@ -357,6 +358,10 @@ color: #eb5d1e;
   
   #footer .credits a {
     color: #fc4a04;
+  }
+
+  #footer .brderline {
+   border-bottom: 2px solid #eb5d1e;
   }
   
   @media (max-width: 575px) {

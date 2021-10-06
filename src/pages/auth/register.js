@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import { Form,Col,Row,Button} from "react-bootstrap";
+import { Form,Col,Row} from "react-bootstrap";
 import axios from 'axios'
 
 import { API_URL,resizeFile,dataURIToBlob } from "../../components/utils";
@@ -153,7 +153,7 @@ useEffect(()=>{
 },[inputs,emp,imgName])
 
   return (<>
-    <div className="App d-flex">
+    <div className="App d-flex p-4">
       <div className="appForm mx-auto align-center">
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
         <TabView>
@@ -171,7 +171,7 @@ useEffect(()=>{
                   <Form.Group as={Row} md="6"  controlId="validationCustom02" className="formField">
                     {/* <Form.Label className="formFieldLabel">Last name</Form.Label> */}
                     <Form.Control
-                      className="formFieldInput " required type="text" placeholder="Last name"
+                      className="formFieldInput " required type="text" placeholder="Last Name"
                       name="lastName" value={inputs.lastName} onChange={changeHandle}
                     />
                   </Form.Group>
@@ -227,8 +227,8 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><Button className="btn formFieldButton effect"  onClick={seekerSubmit} type="button">Sign-Up</Button></Col>
-                <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a></Form.Label></Col>
+                <Col md="6"><button className="btn formFieldButton effect"  onClick={seekerSubmit} type="button">Sign-Up</button></Col>
+                <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a> here.</Form.Label></Col>
               </Row>
             </Form>
           </div>
@@ -248,7 +248,7 @@ useEffect(()=>{
                   <Form.Group as={Row} md="6"  controlId="validationCustom12" className="formField">
                     {/* <Form.Label className="formFieldLabel">Last name</Form.Label> */}
                     <Form.Control
-                      className="formFieldInput " required type="text" placeholder="Last/Company Name"
+                      className="formFieldInput " required type="text" placeholder="Last Name"
                       name="lastName" value={emp.lastName} onChange={changeHandle}
                     />
                   </Form.Group>
@@ -275,7 +275,7 @@ useEffect(()=>{
                 </Form.Group>
                 </Col>
                 <Form.Group as={Col} md="6" controlId="validationCustom16" className="formField">
-                  <Form.Label className="formFieldLabel">Profile image</Form.Label>
+                  <Form.Label className="formFieldLabel">Employer Profile Image</Form.Label>
                     <div className="d-flex flex-column align-items-center text-center">
                       <div className="row img-circle">
                       {imgBtn?<img src={userDp}   className="shadow" alt="Logo"/>:<img src={imgShow}   className="shadow" alt="Logo"/>}
@@ -304,8 +304,8 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><Button className="btn formFieldButton effect" onClick={employerSubmit} type="button">Sign-Up</Button></Col>
-                <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a></Form.Label></Col>
+                <Col md="6"><button className="btn formFieldButton effect" onClick={employerSubmit} type="button">Sign-Up</button></Col>
+                <Col md="6"><Form.Label className="links m-2">Already Registered <a href="/login">Sign-In</a> here.</Form.Label></Col>
               </Row>
             </Form>
             </div>

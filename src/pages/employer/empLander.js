@@ -68,12 +68,12 @@ const dialogClose=()=>{
   }
 
     return (<>
-    <section className="py-3 ">
+    <section className="py-4 ">
 	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
 			<div className="bg-white rounded-lg d-block d-sm-flex">
-				<div id="sidebar">
-					<div className="profile-tab-nav border-right ">
+				<div id="sidebar" className="m-2">
+					<div className="profile-tab-nav border-right">
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
