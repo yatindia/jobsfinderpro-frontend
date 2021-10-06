@@ -45,7 +45,7 @@ useEffect(()=>{
             {empRoute===true?<Route path="/employers/dashboard" component={EmpLander}/>:''}            
             <Route exact path="/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
-            <Route path ="*"component={ErrorPage}/>
+            <Route path ="*" exact={true} component={ErrorPage}/>
           </Switch>
           <Footer></Footer>
       </Router>

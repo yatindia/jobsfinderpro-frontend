@@ -58,6 +58,7 @@ const updateProfile=async(event)=>{
             setErr({message:res.data.message||res.data.Message,style:'text-info'})
             if(res.data.error===false){
                history.push('/users/dashboard')
+               window.location.reload()
             //     addToLocalStorageObject('userDetails','Profile','True')
             }
           } catch (ex) {

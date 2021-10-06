@@ -16,16 +16,27 @@ useEffect(() => {
         setBtnStyle('text')
     }else if(userDetils.Role_Type === "seeker"){
       setBtnFun(false)
-      const name = 'Apply to '+ job
+      const name = 'Apply to '+ job.jobTitle
       setBtnText(name)
       setBtnStyle('outline-info')
-  }
+  }else if(userDetils.Role_Type === "employer"){
+    setBtnFun(true)
+    const name = 'Seeker Apply to '+ job.jobTitle
+    setBtnText(name)
+    setBtnStyle('text')
+}
    
     },[job]);
 
+  const  handleClick =()=>{
+    const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
+    alert('test -- job id  '+job._id +
+            '/n auth -- id '+userDetils.job_id)
+  }
+
     return (
       <Button className="m-2"
-        onClick={props.handleClick}
+        onClick={handleClick}
         variant={btnStyle}
         disabled={btnFun}>
           {btnText}

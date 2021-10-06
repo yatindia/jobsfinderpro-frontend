@@ -25,6 +25,7 @@ useEffect(() =>{
     const getuser= async()=>{
         try {
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
+			//console.log(res)
 			if(res.data.error === false){
 				const datas = res.data.data
 				setimgname(datas.part1.profileImage)
@@ -34,7 +35,7 @@ useEffect(() =>{
 				addToLocalStorageObject('userDetails','job_lname',datas.part1.lastName)
 			}
 			else{
-				return <></>
+				setDialogShow(true)
 			}
 		} catch (error) {
 			console.log(error)

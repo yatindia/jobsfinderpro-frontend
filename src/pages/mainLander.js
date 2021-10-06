@@ -32,27 +32,41 @@ const Lander =()=> {
 
 
   const handleSubmit=()=>{
-    history.push('/jobs?kwds='+search.jobs +'&loc='+search.jobCity);
+    history.push('/jobs?kwds=&loc='+search.jobCity);
   }
 
 
     return (<>
     {/* {active === "top" ? */}
     <div>
-      <section id="welcome" className="">
+      <div id="welcome">
         <div className="container-flex">
             <div className="row">
-                <div className="col-lg-6 pt-5 text-center order-2 welcome-img">
-                    <h1>Bettter digital experience with Ninestars</h1>
-                    <h2>We are team of talented designers making websites with Bootstrap</h2>
+                <div className="col-lg-6 p-5 m-2 text-center order-2">
+                    <div className='row'>
+                      <h1>Bettter digital experience with Ninestars</h1>
+                      <h2>We are team of talented designers making websites with Bootstrap</h2>
+                    </div>
+                    <div className='row m-4 p-4'>
+                        <div className="col-lg input-group p-2">
+                        <input className="form-control selector border"  type="text" name="jobCity"
+                          onChange={changeHandle} placeholder="Job Location" list="locate"/>
+                          <span className="input-group-append">
+                              <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
+                          </span>
+                        </div>
+                        <div className="col-sm-2 p-2">
+                          <button className="btn btn-findJob" onClick={handleSubmit} disabled={loged}>Search</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="col-lg-6 order-1 order-lg-2 welcome-img">
+                <div className="col-lg-5 order-1 mt-3 welcome-img">
                     <img src={welo} className="img-fluid animated" alt="ff"/> 
                 </div>
             </div>
 
 
-            <div className="container-flex p-5">
+            {/* <div className="container-flex">
             <div className="row m-auto justify-content-center">
                 <div className="col m-auto justify-content-center">
                     <div className="row justify-content-center">
@@ -66,15 +80,12 @@ const Lander =()=> {
                         <div className="col-sm-2 mt-1">
                           <button className="btn btn-findJob form-control" onClick={handleSubmit} disabled={loged}>Find Jobs</button>
                         </div>
-                        {/* <div className="col-sm-2 mt-1">
-                          <button className="btn btn-outline-info form-control" onClick={advsearch} disabled={loged}>Advance Search</button>
-                        </div> */}
                     </div>
                 </div>
               </div>
-            </div>
+            </div> */}
         </div>
-    </section>
+    </div>
     <div>
       <TopHiring></TopHiring>
       <Trending ></Trending>

@@ -6,6 +6,7 @@ function ErrorPage () {
 
 
     return (<>
+    <div className='canvan404'> </div>
     <div className="container-flex bgk ">
         <div className="row err justify-content-center">
             <i className="fa fa-frown-o" aria-hidden="true"></i>
@@ -18,7 +19,7 @@ function ErrorPage () {
             <a className="btn btn-style" href="/">Home</a>
         </div>
     </div>
-
+   
     </>);
 }
 

@@ -192,6 +192,26 @@ color: #eb5d1e;
   }
 
   /********** 404***********/
+  .canvan404 {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-color: #fff;
+    z-index: 1000000;
+    opacity: 0;
+    animation: hide404 1s ease;
+  }  
+  @keyframes hide404 {
+    0% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 .bgk{
   background: #1414142a;
   padding-bottom: 20px;
