@@ -4,6 +4,7 @@ import axios from 'axios'
 import { resizeFile, dataURIToBlob, API_URL, formValid , getUser} from "../../../components/utils";
 import DynamicInput from "../../../components/dynamicInputs";
 import {validating} from '../../auth/validating'
+import cities from '../../../components/asserts/ind_cities.json'
 
 
 function UserProfile() {
@@ -262,20 +263,6 @@ useEffect(()=>{
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label>State</label>
-                        <input type="text" className="formFieldInput" placeholder={profile_2.state}
-                            name ="state" value={profile.state} onChange={changeHandle}/>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>City</label>
-                        <input type="text" className="formFieldInput" placeholder={profile_2.city}
-                            name ="city" value={profile.city} onChange={changeHandle}/>
-                    </div>
-                </div>
-                <div className="col-md-6">
                     <label>Gender</label>
                     <div className="input-group">
                         <input className="formFieldInput" type="text" name ="gender" placeholder={profile_2.gender} 
@@ -285,6 +272,27 @@ useEffect(()=>{
                             <option>Female</option>
                             <option>Transgender</option>
                         </datalist>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>State</label>
+                        <input type="text" className="formFieldInput text-capitalize"
+                            name ="state" value={profile.state} onChange={changeHandle}  list='state'/>
+                            <datalist id ='state'>
+                                {Array.from(new Set(cities.map(item=>item.state))).map((state,i)=>(<option key={i} value={state}>{state}</option>))}
+                            </datalist>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label>City</label>
+                        <input type="text" className="formFieldInput text-capitalize"
+                            name ="city" value={profile.city} onChange={changeHandle} list='city'/>
+                             <datalist id ='city'>
+                                {Array.from(new Set(cities.filter(selec => selec.state === profile.state).map(item=>item.name)))
+                                    .map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                            </datalist>
                     </div>
                 </div>
             </div>

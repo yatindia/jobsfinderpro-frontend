@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { API_URL } from "../../../components/utils";
 //import {formPostJob } from '../../../components/utils';
+import cities from '../../../components/asserts/ind_cities.json'
 
 
 const EditJob = () => {
@@ -58,7 +59,7 @@ useEffect(() => {
 
     }
     getuser()
-},[header,param.id,profile_1.job_id]);
+},[]);
    
 // ----Update Job-----------
 const updateJob =async(event)=>{
@@ -103,7 +104,7 @@ const removeJob =async(event)=>{
                         <div className="col-md-10 col-sm">
                             <label>Job Title</label>
                             <div className=" form-group">
-                                <input type="text" className="form-control" placeholder="Job Position Title" name="jobTitle" 
+                                <input type="text" className="form-control text-capitalize" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
                             </div>
                         </div>
@@ -119,8 +120,11 @@ const removeJob =async(event)=>{
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Job Location" name="jobCity" 
-                                        value={inputs.jobCity} onChange={changeHandle}/>
+                                    <input type="text" className="form-control text-capitalize" placeholder="Job Location" name="jobCity" 
+                                        value={inputs.jobCity} onChange={changeHandle} list='city'/>
+                                        <datalist id ='city'>
+                                            {Array.from(new Set(cities.map(item=>item.name))).map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                        </datalist>
                                 </div>
                             </div>
                         </div>

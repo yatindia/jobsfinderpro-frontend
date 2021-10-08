@@ -2,9 +2,9 @@ import React,{useState, useEffect} from "react";
 import axios from "axios";
 import {Button} from 'react-bootstrap'
 
-import { API_URL } from "./utils";
+import { API_URL } from "../../components/utils";
 
-function ApplyBtn({job, ...props}) {
+function ApplyBtn({job}) {
 
 
   const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
@@ -35,7 +35,7 @@ useEffect(() => {
     setBtnStyle('text')
 }
    
-    },[job,checkApply]);
+    },[job]);
 
 
 // ----Apply Job------
@@ -73,8 +73,6 @@ useEffect(() => {
       if(res.data.error===false){
         const aplyId = res.data.data.appliedBy
         if(aplyId.includes(profile_1.job_id)){
-          const name = 'Applyed '+ job.jobTitle
-        setBtnText(name)
         setunbtn(true)
         }
       }

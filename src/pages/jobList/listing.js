@@ -1,14 +1,12 @@
 import React from "react"
 
-import ApplyBtn from '../../components/applyBtn'
+import ApplyBtn from "./applyBtn"
 
 
 export default function Listing({data}){
 
     return(
-        <div className="row d-flex justify-content-center" key={data._id}>
-        <div className="col-md-10 mt-2  border">
-            <div className="row z-depth-3">
+            <div className="row z-depth-3 border p-3 m-3" key={data._id}>
                 <div className="col-md bg-white rounded-right">
                     <h3 className="m-3 text-start">{data.jobTitle}</h3>
                     <div className="row m-2">
@@ -35,7 +33,5 @@ export default function Listing({data}){
                     <hr className="bg-primary"/>
                 </div>
             </div>
-        </div>  
-    </div>
     )
 }

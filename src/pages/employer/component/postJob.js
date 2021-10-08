@@ -2,6 +2,7 @@ import React, {useState } from "react";
 import axios from 'axios'
 
 import { API_URL, formPostJob } from "../../../components/utils";
+import cities from '../../../components/asserts/ind_cities.json'
 
 const PostJobs =()=> {
 
@@ -65,7 +66,7 @@ const postJob =async()=>{
                         <div className="col-md-10 col-sm">
                             <label>Job Title</label>
                             <div className=" form-group">
-                                <input type="text" className="inputStyle" placeholder="Job Position Title" name="jobTitle" 
+                                <input type="text" className="inputStyle text-capitalize" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
                             </div>
                         </div>
@@ -81,8 +82,11 @@ const postJob =async()=>{
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <input type="text" className="inputStyle" placeholder="Job Location" name="jobCity" 
-                                        value={inputs.jobCity} onChange={changeHandle}/>
+                                    <input type="text" className="inputStyle text-capitalize" placeholder="Job Location" name="jobCity" 
+                                        value={inputs.jobCity} onChange={changeHandle} list='city'/>
+                                        <datalist id ='city'>
+                                            {Array.from(new Set(cities.map(item=>item.name))).map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                        </datalist>
                                 </div>
                             </div>
                         </div>

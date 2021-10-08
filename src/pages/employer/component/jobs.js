@@ -4,6 +4,7 @@ import axios from "axios";
 import { API_URL } from "../../../components/utils";
 
 function Jobs(){
+
     const [jobData, setJobData] = useState();
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
@@ -16,6 +17,7 @@ function Jobs(){
             const getuser= async()=>{
                 try {
                     const res = await axios.post(`${API_URL}/job/getjobs`,formData,{headers:header})
+                    console.log(res)
                     if(res.data.error === false){
                         //console.log(res)
                         setJobData(res.data.data)
@@ -29,7 +31,7 @@ function Jobs(){
         
             }
             getuser()
-      },[header,formData]);
+      },[]);
 
 
 
@@ -70,6 +72,9 @@ function Jobs(){
                                 </div>
                                 <div className="col-sm">
                                     <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Jobs</a>
+                                </div>
+                                <div className="col-sm">
+                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/applied/${data._id}`}>Applicants</a>
                                 </div>
                             </div>
                             <hr className="bg-primary"/>

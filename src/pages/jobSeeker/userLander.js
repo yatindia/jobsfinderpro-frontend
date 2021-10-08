@@ -83,7 +83,7 @@ const dialogClose=()=>{
                             </div>
 						</div>
 						<div className="nav flex-column nav-pills mb-4"   aria-orientation="vertical">
-							<a className="nav-link active" href="/users/dashboard" >
+							<a className="nav-link" href="/users/dashboard" >
 								<i className="fa fa-home text-center mr-1"></i> 
 								Dashboard
 							</a>

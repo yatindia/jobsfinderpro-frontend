@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import DynamicInput from '../../../components/dynamicInputs';
 import { API_URL,formValid } from '../../../components/utils';
+import cities from '../../../components/asserts/ind_cities.json'
 
 
 const Registration = ({show, title, dialogClose}) => {
@@ -118,20 +119,26 @@ useEffect(()=>{
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
                                     <label>Job Title</label> 
-                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current Job" name="jobTitle"
+                                    <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Your Current Job" name="jobTitle"
                                         value={inputs.jobTitle} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom02" className="formField">
                                     <label>State</label> 
-                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current State" name="state"
-                                        value={inputs.state} onChange={changeHandle} required/>
+                                    <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Your Current State" name="state"
+                                        value={inputs.state} onChange={changeHandle} required list='state'/>
+                                        <datalist id ='state'>
+                                            {Array.from(new Set(cities.map(item=>item.state))).map((state,i)=>(<option key={i} value={state}>{state}</option>))}
+                                        </datalist>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom09" className="formField">
                                     <label>City</label> 
-                                    <input type="text" className="form-control formFieldInput" placeholder="Your Current City" name="city"
-                                        value={inputs.city} onChange={changeHandle} required/>
+                                    <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Your Current City" name="city"
+                                        value={inputs.city} onChange={changeHandle} required list='city'/>
+                                        <datalist id ='city'>
+                                            {Array.from(new Set(cities.map(item=>item.name))).map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                        </datalist>
                                 </Form.Group>
                             </Row>
                             <Row>

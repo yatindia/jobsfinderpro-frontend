@@ -10,7 +10,8 @@ import Search from "./component/search";
 import EmpRegister from "./component/empRegister";
 import ErrorPage from "../../components/errorPage";
 import EmpProfile from "./component/profile";
-import EditJob from "./component/editModal"
+import EditJob from "./component/editModal";
+import Payment from './component/payment'
 
 import {API_URL} from '../../components/utils'
 
@@ -94,13 +95,13 @@ const dialogClose=()=>{
 								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Posted Jobs
 							</a>
+							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/payment" role="tab" aria-controls="security" aria-selected="false">
+								<i className="fa fa-shopping-cart text-center mr-1"></i> 
+								Payments
+							</a>
               					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/search" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-search text-center mr-1"></i> 
 								Search
-							</a>
-              					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/applied" role="tab" aria-controls="security" aria-selected="false">
-								<i className="fa fa-check-square-o text-center mr-1"></i> 
-								Interested
 							</a>
 							<a className="nav-link" id="security-tab" data-toggle="pill" href="/" onClick={handleLogout} role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-sign-out text-center mr-1"></i> 
@@ -118,7 +119,8 @@ const dialogClose=()=>{
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
 					<Route exact path="/employers/dashboard/jobs/:id" component={EditJob}/>
 					<Route exact path="/employers/dashboard/search" component={Search}/>
-					<Route exact path="/employers/dashboard/applied" component={Applied}/>
+					<Route exact path="/employers/dashboard/payment" component={Payment}/>
+					<Route exact path="/employers/dashboard/jobs/applied/:id" component={Applied}/>
 					<Route exact path="*" component={ErrorPage}/>
 				</Switch>
 				</div>

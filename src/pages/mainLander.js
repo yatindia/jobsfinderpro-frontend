@@ -48,8 +48,8 @@ const Lander =()=> {
                     </div>
                     <div className='row m-4 p-4'>
                         <div className="col-lg  p-2">
-                        <input className=" formFieldInput"  type="text" name="jobTitle"
-                          onChange={changeHandle} placeholder="Job Title" list="locate"/>
+                        <input className=" formFieldInput text-capitalize"  type="text" name="jobTitle"
+                          onChange={changeHandle} placeholder="Job Title ..." list="locate"/>
                         </div>
                         <div className="col-sm-2 p-2">
                           <button className="btn border-0 effect" onClick={handleSubmit}><b>Search</b></button>
@@ -60,26 +60,6 @@ const Lander =()=> {
                     <img src={welo} className="img-fluid animated" alt="ff"/> 
                 </div>
             </div>
-
-
-            {/* <div className="container-flex">
-            <div className="row m-auto justify-content-center">
-                <div className="col m-auto justify-content-center">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-6 col-md-6 col-sm-6 p-1 input-group">
-                        <input className="form-control selector border"  type="text" name="jobCity"
-                          onChange={changeHandle} placeholder="Job Location" list="locate"/>
-                          <span className="input-group-append">
-                              <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
-                          </span>
-                        </div>
-                        <div className="col-sm-2 mt-1">
-                          <button className="btn btn-findJob form-control" onClick={handleSubmit} disabled={loged}>Find Jobs</button>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div> */}
         </div>
     </div>
     <div>

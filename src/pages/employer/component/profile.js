@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
-import { resizeFile, dataURIToBlob, API_URL, empformValid} from "../../../components/utils";
+import { resizeFile, dataURIToBlob, API_URL, empformValid,getUser} from "../../../components/utils";
 import {validating} from '../../auth/validating'
-import TabView from "../../../components/tabView";
 
 function EmpProfile() {
 
@@ -106,7 +105,7 @@ const baseUpdate =async()=>{
             //console.log(res)
             if(res.data.error === true){
                 setErr({message:res.data.status,style:'text-success'})
-                window.location.reload()
+                getUser()
             }else{
                 setErr({message:res.data.status,style:'text-danger'})
             }
@@ -158,16 +157,14 @@ const logoUpload= async ()=>{
         }
 }
 const profileUpdate =async()=>{
-    // console.log(profile)
     const erro = empformValid(profile)
     if(erro.valid === true){
         setErr2({message:'Loading',style:'text-info'})
         try {
             const res = await axios.post(`${API_URL}/profile/updateprofile2`,profile,{headers:header})
-            //console.log(res)
             if(res.data.error === true){
                 setErr2({message:res.data.message,style:'text-success'})
-                window.location.reload()
+                getUser()
             }else{
                 setErr2({message:res.data.message,style:'text-danger'})
             }
@@ -214,12 +211,12 @@ return (<>
                         <div className="form-group">
                             <label>First Name</label>
                             <input type="text" className=" formFieldInput" name ="firstName" 
-                                placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
+                                placeholder="Enter First Name" value={inputs.firstName} onChange={changeHandle}/>
                         </div>
                         <div className="form-group">
                             <label>Last Name</label>
                             <input type="text" className=" formFieldInput" name ="lastName"  
-                                placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
+                                placeholder="Enter Last Name"  value={inputs.lastName} onChange={changeHandle}/>
                         </div>
                         <div className="form-group">
                         <label>Change Password</label>
@@ -272,32 +269,32 @@ return (<>
                         <div className="col">
                             <div className="form-group">
                             <label>Organization Name</label>
-                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgName} name="orgName"
-                                    value={profile.orgName} onChange={changeHandle} />
+                                <input type="text" className=" formFieldInput text-capitalize"  name="orgName"
+                                   placeholder="Enter Organization Name"  value={profile.orgName} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization E-mail</label>
-                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgEmail} name="orgEmail"
-                                    value={profile.orgEmail||profile_2.orgEmail} onChange={changeHandle} />
+                                <input type="text" className=" formFieldInput"  name="orgEmail"
+                                    placeholder="Enter Organization Mail"value={profile.orgEmail} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Contact Number</label>
-                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgPhone} name="orgPhone"
-                                    value={profile.orgPhone||profile_2.orgPhone} onChange={changeHandle} />
+                                <input type="text" className=" formFieldInput" name="orgPhone"
+                                   placeholder="Enter Organization Phone" value={profile.orgPhone} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Wesite</label>
-                                <input type="text" className=" formFieldInput" placeholder={profile_2.orgWebsite} name="orgWebsite"
-                                    value={profile.orgWebsite||profile_2.orgWebsite} onChange={changeHandle} />
+                                <input type="text" className=" formFieldInput"  name="orgWebsite"
+                                   placeholder="Enter Organization Wesite" value={profile.orgWebsite} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
                                 <label>Organization Address</label>
-                                <textarea type="text" className="formFieldInput " placeholder={profile_2.orgAddress} row="4" name="orgAddress"
-                                    value={profile.orgAddress||profile_2.orgAddress} onChange={changeHandle} />
+                                <textarea type="text" className="formFieldInput text-capitalize"  row="4" name="orgAddress"
+                                placeholder="Enter Organization Address"value={profile.orgAddress} onChange={changeHandle} />
                             </div>
-                            <label>Organization Landmark</label>
-                            <input type="text" className="formFieldInput " placeholder={profile_2.orgCountry} name="orgCountry"
-                                value={profile.orgCountry||profile_2.orgCountry} onChange={changeHandle} />
+                            <label>Organization Country</label>
+                            <input type="text" className="formFieldInput text-capitalize "  name="orgCountry"
+                               placeholder="Enter Organization Country" value={profile.orgCountry} onChange={changeHandle}/>
                         </div>
                     </div>
                 </div>
