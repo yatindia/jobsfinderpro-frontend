@@ -1,5 +1,6 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap';
+import { ReactDOMServer } from 'react-dom/server';
 import jspdf from 'jspdf'
 
 
@@ -11,21 +12,15 @@ const ViewModal = ({show, data,  dialogClose}) => {
     }
     else {
 
-const savepdf=()=>{
-    var doc = new jspdf("p","pt","a4");
-    doc.html(document.getElementById("pdf"),
-    15,
-    15, 
-    {
-      'width': 170
-    },
-    function(doc,a) 
-     {
-      doc.save("HTML2PDF.pdf");
-    });
-    
+        const doc = new jspdf("p","pt","a4");
 
+const savepdf=()=>{      
 }
+
+const pdf = <><label>Seeker Name</label>
+<input type="text" 
+value={data.part2.firstName} className="form-control border-0" readOnly/>
+ </>
 
     return(
         <div className="container" >
