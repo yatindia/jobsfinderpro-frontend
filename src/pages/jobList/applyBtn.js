@@ -70,7 +70,7 @@ useEffect(() => {
       const formData = {jobid:job._id}
       const res = await axios.post(`${API_URL}/job/searchone`,formData,{headers:header})
       if(res.data.error===false){
-        const aplyId = res.data.data.appliedBy
+        const aplyId = res.data.data.job.appliedBy
         if(aplyId.includes(profile_1.job_id)){
         setunbtn(true)
         }

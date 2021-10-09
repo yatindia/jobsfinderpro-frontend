@@ -1,13 +1,31 @@
-import React, { useState } from "react"
-import { Modal, Button } from "react-bootstrap"
+import React, { useState,useEffect } from "react"
+import axios from "axios";
 
 import ApplyBtn from "./applyBtn"
 import ViewJob from "./viewJob";
+import { API_URL } from "../../components/utils";
 
 
 export default function Listing({data}){
 
     const [dialogShow, setDialogShow] = useState(false);
+    const [fetch, setfetch] = useState({job:{},org:{}})
+
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+
+    useEffect(()=>{
+        const getjob =async ()=>{
+            const  res = await axios.post(`${API_URL}/job/searchone`,{jobid:data._id},{headers:header})
+            if (res.data.error===false){
+                setfetch({
+                    job:res.data.data.job,
+                    org:res.data.data.org
+                })
+            }
+        }
+      getjob()
+    },[data._id])
 
 
     const dialogClose=()=>{
@@ -20,9 +38,18 @@ export default function Listing({data}){
 
     return(<>
             <div className="row z-depth-3 border p-3 m-3" key={data._id}>
+                <div className="col-sm-3 bg-info rounded-left">
+                    <div className="card-block text-center text-white">
+                        <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${fetch.org.orgLogo}`} alt="sample"></img>
+                        <h2 className="font-weight-bold mt-2"></h2>
+                        <p>{fetch.job.dateOfAdd}</p>
+                        <i className="far-fa-edit fa-2x mb-2"></i>
+                    </div>
+                </div>
                 <div className="col-md bg-white rounded-right">
-                    <h3 className="m-3 text-start">{data.jobTitle}</h3>
-                    <div className="row m-2">
+                        <h5 className="mt-3 text-start">{fetch.org.orgName}</h5>
+                        <p className="mt-3 text-muted">Job Position:  <b>{fetch.job.jobTitle}</b></p>
+                        <div className="row border-top p-2">
                         <div className="col-sm">
                             <p className="font-weight-bold">Location</p>
                             <h6 className="text-muted">{data.jobCity}</h6>
@@ -42,7 +69,7 @@ export default function Listing({data}){
                         <div className="col">
                             <ApplyBtn job={data}></ApplyBtn>
                             <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
-                            {dialogShow === true? <ViewJob show={dialogShow} data={data} dialogClose={dialogClose}/> :''}
+                            {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}
                         </div>
                     </div>
                     <hr className="bg-primary"/>

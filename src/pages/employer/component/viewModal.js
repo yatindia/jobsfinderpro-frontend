@@ -1,26 +1,33 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap';
-import { ReactDOMServer } from 'react-dom/server';
-import jspdf from 'jspdf'
+
+import jsPDF from 'jspdf'
 
 
-const ViewModal = ({show, data,  dialogClose}) => {
+export default function ViewModal ({show, data,  dialogClose}){
 
+
+    function demoPDF() {    
+        var doc = new jsPDF();    
+        var pdfjs = document.querySelector('#html');
+
+	doc.html(pdfjs, {
+		callback: function(doc) {
+			doc.save("output.pdf");
+		},
+		x: 10,
+		y: 10
+	}); 
+     }
+
+const savepdf=()=> {
+    demoPDF()
+  };
 
     if(!show){
         return <> </>
     }
     else {
-
-        const doc = new jspdf("p","pt","a4");
-
-const savepdf=()=>{      
-}
-
-const pdf = <><label>Seeker Name</label>
-<input type="text" 
-value={data.part2.firstName} className="form-control border-0" readOnly/>
- </>
 
     return(
         <div className="container" >
@@ -29,23 +36,23 @@ value={data.part2.firstName} className="form-control border-0" readOnly/>
                     <Modal.Title className="text-center h5">Job Seeker Detail View</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <div className="col" id='pdf'>
+                <div className="col" id="html">
                         <div className="form-group row">
                             <div className="col">
                                 <label>Seeker Name</label>
-                                <input type="text" 
+                                <input type="text" id="fname"
                                 value={data.part2.firstName} className="form-control border-0" readOnly/>
                             </div>
                             <div className="col">
                                 <label>Gender</label>
-                                <input type="text" 
+                                <input type="text" id="lname"
                                 value={data.part1.gender} className="form-control border-0" readOnly/>
                             </div>
                         </div>
                         <div className="form-group row">
                             <div className="col">
                                 <label>E-Mail</label>
-                                <input type="password" 
+                                <input type="password" id="email"
                                 value={data.part1.email} className="form-control border-0" readOnly/>
                             </div>
                             <div className="col">
@@ -70,22 +77,22 @@ value={data.part2.firstName} className="form-control border-0" readOnly/>
                             <div className="col">
                                 <label>Past Job</label>
                                 <div className="border p-2">
-                                {data.part1.pastJobs.map(item=>(
-                                    <h6 className="text-muted d-flex">{item}</h6>
+                                {data.part1.pastJobs.map((item,i)=>(
+                                    <h6 key={i} className="text-muted d-flex">{item}</h6>
                                 ))}</div>
                             </div>
                             <div className="col">
                                 <label >Qualification</label>
                                 <div className="border p-2">
-                                {data.part1.qualifications.map(item=>(
-                                    <h6 className="text-muted d-flex">{item}</h6>
+                                {data.part1.qualifications.map((item,i)=>(
+                                    <h6 key={i} className="text-muted d-flex">{item}</h6>
                                 ))}</div>
                             </div>
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="info" onClick={savepdf}>Download</Button> 
+                    <Button variant="info" onClick={savepdf} >Download</Button> 
                     <Button variant="danger" onClick={dialogClose}>Close</Button> 
                 </Modal.Footer>
             </Modal>
@@ -93,4 +100,4 @@ value={data.part2.firstName} className="form-control border-0" readOnly/>
     ) }
 
 }
-export default ViewModal
+

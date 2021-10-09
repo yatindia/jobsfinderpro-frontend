@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Modal, Button } from "react-bootstrap"
 import axios from "axios";
 
 import { API_URL } from "../../../components/utils";
@@ -40,7 +39,7 @@ export default function UserList({data}){
     return(<>
             <div className="row z-depth-3 border p-3 m-3" key={data._id}>
                 <div className="col-md bg-white rounded-right">
-                    <h4 className="m-3 text-start"><span className='text-muted'>Job Designation:</span> {data.jobTitle}</h4>
+                    <h4 className="m-3 border-bottom p-2"><span className='text-muted'>Job Designation:</span> {data.jobTitle}</h4>
                     <div className="row m-2">
                         <div className="col-sm">
                             <p className="font-weight-bold">Location</p>

@@ -1,10 +1,8 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,componentRef} from "react";
 import axios from "axios";
 import { useParams} from 'react-router-dom';
 
 import { API_URL } from "../../../components/utils";
-
-import ViewModal from "./viewModal";
 
 export default function Applied(){
 
@@ -14,7 +12,7 @@ export default function Applied(){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
-    const [dialogShow, setDialogShow] = useState(false);
+    const [fetch, setfetch] = useState([])
 
     useEffect(() => {
         getuser()
@@ -50,12 +48,20 @@ export default function Applied(){
         setseeker(stateinfa)
     }
 
-    const viewseeker=()=>{
-            setDialogShow(true) 
+    const seekone=async(item)=>{
+        const res = await axios.post(`${API_URL}/profile/getseekerprofile`,{seekerid:item},{headers:header})
+        const infa ={
+            part1: res.data.data.part2, 
+            part2: res.data.data.part1, 
+        }
+        setfetch(infa)
     }
-    const dialogClose=()=>{
-        setDialogShow(false)
-      }
+
+    const viewseeker=(e)=>{
+        //seekone(e.target.value)
+        console.log(e.target.value)
+    }
+
 
     return (<>
     <div className="container-flex">
@@ -79,6 +85,7 @@ export default function Applied(){
                                  <th scope="col">Name</th>
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
+                                 <th scope="col">Jobs</th>
                                  <th scope="col">Resume</th>
                                  </tr>
                              </thead>
@@ -88,9 +95,11 @@ export default function Applied(){
                                         <td>{item.part2.firstName}</td>
                                         <td>{item.part1.jobTitle}</td>
                                         <td>{item.part1.qualifications}</td>
-                                        <td><button className="btn btn-outline-info"  onClick={viewseeker}>View</button></td>
+                                        <td>{item.part1.pastJobs}</td>
+                                        <td>
+                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>viewseeker(e)}>Download</button>
+                                        </td>
                                         </tr>
-                                        {dialogShow === true? <ViewModal show={dialogShow} data={item} dialogClose={dialogClose}/> :''}
                                     </tbody>
                                 ))}   
                              </table>
@@ -103,3 +112,4 @@ export default function Applied(){
         </div>
    </> )
 }
+
