@@ -30,12 +30,11 @@ useEffect(() => {
       checkApply()
   }else if(userDetils.Role_Type === "employer"){
     setBtnFun(true)
-    const name = 'Seeker Apply to '+ job.jobTitle
+    const name = 'Seeker Can Apply'
     setBtnText(name)
     setBtnStyle('text')
-}
-   
-    },[job]);
+  }
+},[job]);
 
 
 // ----Apply Job------

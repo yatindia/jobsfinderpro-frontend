@@ -5,6 +5,7 @@ import DialogBox from "../../../components/dialogBox";
 export default function Payment (){
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
 
     const [dialogShow, setDialogShow] = useState(false);
     const [errs,setErr] = useState({title: "",message: ""})
@@ -28,9 +29,8 @@ export default function Payment (){
                         <br/>
                         <p>{profile_1.job_email}</p>
                         <br/>
-                        Los Angeles, CA 90026
-                        <br/>
-                        <abbr title="Phone">P:</abbr> (213) 484-6829
+                        <p className="text-capitalize">{profile_2.orgAddress}, {profile_2.orgCountry}</p>
+                        <abbr title="Phone">P:</abbr> {profile_2.orgPhone}
                     </address>
                 </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 text-right">
@@ -46,7 +46,7 @@ export default function Payment (){
             <div className="col-md">
                 <div className="pricingTable">
                     <div className="pricing_heading">
-                        <h3 className="title">Pricing Plan</h3>
+                        <h3 className="title">Plan Pricing</h3>
                         <span className="value">
                             ₹ 200 
                             <span className="month">per month</span>
@@ -67,7 +67,7 @@ export default function Payment (){
             <div className="col-md">
                 <div className="pricingTable">
                     <div className="pricing_heading">
-                        <h3 className="title">Pricing Plan</h3>
+                        <h3 className="title">Plan Pricing</h3>
                         <span className="value">
                         ₹ 1000
                             <span className="month">per month</span>
@@ -89,7 +89,7 @@ export default function Payment (){
             <div className="col-md">
                 <div className="pricingTable">
                     <div className="pricing_heading">
-                        <h3 className="title">Pricing Plan</h3>
+                        <h3 className="title">Plan Pricing</h3>
                         <span className="value">
                         ₹ 2500
                             <span className="month">per month</span>

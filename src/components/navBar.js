@@ -58,7 +58,8 @@ export default function NavBar (){
                         <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                             <NavDropdown.Item href="/employers/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
                             <NavDropdown.Item href="/employers/dashboard/newjobs" id="nav-dropdown-item"><i className="fa fa-check"></i>  Post Job</NavDropdown.Item>
-                            <NavDropdown.Item href="/employers/dashboard/search" id="nav-dropdown-item"><i className="fa fa-search"></i> Search</NavDropdown.Item>
+                            <NavDropdown.Item href="/employers/dashboard/jobs" id="nav-dropdown-item"><i className="fa fa-briefcase"></i> Posted Jobs</NavDropdown.Item>
+                            <NavDropdown.Item href="/employers/dashboard/payment" id="nav-dropdown-item"><i className="fa fa-shopping-cart"></i> Payments</NavDropdown.Item>
                             <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link exact='True' className="mr-1 " href="/employers/dashboard/newjobs">Post Job</Nav.Link>

@@ -1,4 +1,9 @@
   /* -------Welcome------ */
+
+  #modal {
+    margin: 0 auto; 
+ }
+
 #welcome {
   width: 100%;
   height: 700px;

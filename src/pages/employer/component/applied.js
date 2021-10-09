@@ -4,6 +4,8 @@ import { useParams} from 'react-router-dom';
 
 import { API_URL } from "../../../components/utils";
 
+import ViewModal from "./viewModal";
+
 export default function Applied(){
 
     const param = useParams()
@@ -12,6 +14,7 @@ export default function Applied(){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
+    const [dialogShow, setDialogShow] = useState(false);
 
     useEffect(() => {
         getuser()
@@ -40,17 +43,23 @@ export default function Applied(){
         const result = await axios.all(vall)
         const stateinfa = result.map((res)=>(
             {
-                part1: res.data.data.part1, 
-                part2: res.data.data.part2, 
+                part1: res.data.data.part2, 
+                part2: res.data.data.part1, 
             } 
             ));
         setseeker(stateinfa)
     }
 
+    const viewseeker=()=>{
+            setDialogShow(true) 
+    }
+    const dialogClose=()=>{
+        setDialogShow(false)
+      }
+
     return (<>
-          <div className="container-flex">
-              <div>
-                  {console.log(seeker)}
+    <div className="container-flex">
+        <div>
             <div className="row d-flex justify-content-center m-3 p-2" key={getdata._id}>
                 <div className="col-md-11 mt-2  border">
                     <div className="row z-depth-3">
@@ -76,11 +85,12 @@ export default function Applied(){
                                 {seeker.map((item,i) =>(
                                     <tbody key={i}>
                                         <tr>
-                                        <td>{item.part1.firstName}</td>
-                                        <td>{item.part2.jobTitle}</td>
-                                        <td>{item.part2.qualifications}</td>
-                                        <td><a className="btn btn-info">Download</a></td>
+                                        <td>{item.part2.firstName}</td>
+                                        <td>{item.part1.jobTitle}</td>
+                                        <td>{item.part1.qualifications}</td>
+                                        <td><button className="btn btn-outline-info"  onClick={viewseeker}>View</button></td>
                                         </tr>
+                                        {dialogShow === true? <ViewModal show={dialogShow} data={item} dialogClose={dialogClose}/> :''}
                                     </tbody>
                                 ))}   
                              </table>

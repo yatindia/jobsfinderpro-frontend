@@ -2,13 +2,17 @@ import React,{useEffect,useState} from "react";
 import axios from "axios";
 
 import { API_URL } from "../../../components/utils";
+import ViewJob from "../../jobList/viewJob";
 
 function MyJobs(){
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+
+    const [dialogShow, setDialogShow] = useState(false);
     const [getdata, setGetdata] = useState({})
+
 
     useEffect(() =>{
         const formData = {email:profile_1.job_email,type:profile_1.Role_Type}
@@ -57,6 +61,13 @@ function MyJobs(){
         }
       }
 
+      const dialogClose=()=>{
+        setDialogShow(false)
+      }
+
+    const viewjob=()=>{
+        setDialogShow(true) 
+     }
 
 
     return (<>
@@ -88,6 +99,8 @@ function MyJobs(){
                                  </div>
                                  <div className="col-lg">
                                     <button className="btn btn-outline-danger" value={item.job._id} onClick={(e)=>unapply(e)}> UnApply</button>
+                                    <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
+                                    {dialogShow === true? <ViewJob show={dialogShow} data={item.job} dialogClose={dialogClose}/> :''}
                                  </div>
                              </div>
                          </div>

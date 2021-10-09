@@ -11,7 +11,7 @@ export default function FindJobs ({location}) {
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     
     const [count, setCount] = useState(0)
-    const range = 2
+    const range = 3
     const limit = 3
     const [totalpge,setTotalpge] = useState(0)
     const [skip, setSkip] = useState(0)
@@ -39,12 +39,12 @@ export default function FindJobs ({location}) {
 
  
 // ---On Change function -----
-    const changeHandle = (e) => {
+    function changeHandle(e) {
         setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:3})
     }
 
 // -----Get Job--------
-    const getJob =async()=>{
+    async function getJob(){
         try {
             console.log(search)
             const res = await axios.post(`${API_URL}/job/search`,search,{headers:header})
@@ -62,14 +62,16 @@ export default function FindJobs ({location}) {
     }
 
 // -----on search--------
-    const handleSubmit=async()=>{
+    function handleSubmit (){
      setSearch({...search,skip:0,limit:3})
      getJob()
     }
 
-    const loadmore=()=>{
-        setSkip(prevSkip =>prevSkip + range);
-        getJob()
+    const  loadmore= ()=>{
+        setSkip(skip=>skip + range);
+        if(skip >=range){
+            getJob()
+        }
     }
 
 
@@ -116,16 +118,17 @@ export default function FindJobs ({location}) {
                 </div>
             ))}<div className='row justify-content-center'> 
                     {loadbtn===true ?
-                         <button className="m-2 btn btn-findJob" type="button" onClick={loadmore}>Next {' >>'}</button>
-                        // <Pagination
-                        //     itemClass="page-item"
-                        //     linkClass="page-link" 
-                        //     activePage={skip}
-                        //     itemsCountPerPage={limit}
-                        //     totalItemsCount={length}
-                        //     pageRangeDisplayed={pageRange}
-                        //     onChange={loadMore}
-                        // />
+                          <button className="m-2 btn btn-findJob" type="button" onClick={loadmore}>Next {' >>'}</button>
+                        // < ReactPaginate
+                        //     previousLabel={"previous" }
+                        //     nextLabel={ "next" }
+                        //     breakLabel={ "..." }
+                        //     breakClassName={ "break-me" }
+                        //     pageCount={ totalpge }
+                        //     onPageChange={loadmore }
+                        //     containerClassName={ "pagination" }
+                        //     subContainerClassName={ "pages pagination" }
+                        //     activeClassName={ "active" } />
                     :<h5 className="text-info m-1">End of the result</h5>}
                 </div> 
                 </div>
