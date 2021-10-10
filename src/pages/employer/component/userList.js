@@ -30,7 +30,7 @@ export default function UserList({data}){
             }
         }
         getlist()
-    },[])
+    },[data.link_id])
 
     const viewSeeker=()=>{
        setDialogShow(true) 

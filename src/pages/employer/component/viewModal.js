@@ -7,7 +7,6 @@ import jsPDF from 'jspdf'
 export default function ViewModal ({show, data,  dialogClose}){
 
 // const image = `${API_URL}/profile/profileImages/${data.part2.profileImage}`
-
     function pdfcreate() {    
         var doc = new jsPDF(); 
         doc.setLineWidth(0.1);
@@ -33,7 +32,7 @@ export default function ViewModal ({show, data,  dialogClose}){
         doc.text(20, 160, 'Past Job: ');    
         doc.text(60, 160, `${data.part1.pastJobs}`);
         doc.text(20, 180, 'D O B: ');    
-        doc.text(60, 180, `${data.part2.dateOfBirth}`);   
+        doc.text(60, 180, `${data.part1.dateOfBirth}`);   
         doc.save(`${data.part2.firstName}.pdf`); 
      }
 
