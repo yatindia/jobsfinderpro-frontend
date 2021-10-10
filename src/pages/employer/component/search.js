@@ -41,9 +41,14 @@ export default function Search () {
         setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:10})
     }
 
+    function changeSkip(e){
+        setSkip(Number(e.target.value))
+      }
+
 // -----Get Job--------
     async function getJob(){
         try {
+            console.log(search)
             const res = await axios.post(`${API_URL}/job/searchSeeker`,search,{headers:header})
              if (res.data.error===false){
                  setfetch(res.data.data[0])
@@ -114,20 +119,20 @@ export default function Search () {
         <div className="container-flex m-3 p-2">
         <div className=' container'>
                 <div className='row d-flex'>
-                <h5 className="text-muted m-2">{count} Search Results: <span className='ml-2'>Show</span></h5>
-                <select className="form m-2">
-                    <option>1 - 10</option>
-                    <option>10 - 20</option>
-                    <option>20 - 30</option>
-                    <option>30 - 40</option>
-                    <option>40 - 50</option>
+                <h5 className="text-muted m-2">{count} Search Results: <span className='ml-2'>Load</span></h5>
+                <select className="form m-2" onChange={(e)=>changeSkip(e)}>
+                    <option value=''>1 - 10</option>
+                    <option value='10'>10 - 20</option>
+                    <option value='20'>20 - 30</option>
+                    <option value='30'>30 - 40</option>
+                    <option value='40'>40 - 50</option>
                 </select>
                 </div>
             </div>
             {fetch.length>0 ?(
                 <div className="row d-flex justify-content-center" >
                     <div className="col-md-10 mt-2">
-                        <h5 className="text-muted">{count} Results Found:-</h5>
+                        <h5 className="text-muted">5 Results Per Page:-</h5>
                         {displayUsers}
                         <div className='row justify-content-center'> 
                             {loadbtn===true ?

@@ -46,10 +46,14 @@ export default function FindJobs ({location}) {
         setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:100})
     }
 
+    function changeSkip(e){
+      setSkip(Number(e.target.value))
+    }
+
 // -----Get Job--------
     async function getJob(){
+        console.log(search)
         try {
-            console.log(search)
             const res = await axios.post(`${API_URL}/job/search`,search,{headers:header})
             if (res.data.error===false){
                 setfetch(res.data.data[0])
@@ -70,6 +74,8 @@ export default function FindJobs ({location}) {
      getJob()
     }
 
+
+// -----Pagination--------
     const changePage = ({ selected }) => {
         setPageNumber(selected);
       };
@@ -116,19 +122,20 @@ export default function FindJobs ({location}) {
         <div className="container-flex m-3 p-2">
             <div className=' container'>
                 <div className='row d-flex'>
-                <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Show</span></h5>
-                <select className="form m-2">
-                    <option>1 - 100</option>
-                    <option>100 - 200</option>
-                    <option>200 - 300</option>
-                    <option>300 - 400</option>
-                    <option>400 - 500</option>
+                <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>
+                <select className="form m-2" onChange={(e)=>changeSkip(e)}>
+                    <option value=''>1 - 100</option>
+                    <option value='100'>100 - 200</option>
+                    <option value='200'>200 - 300</option>
+                    <option value='300'>300 - 400</option>
+                    <option value='400'>400 - 500</option>
                 </select>
                 </div>
             </div>
         {fetch.length>0 ?(
             <div className="row d-flex justify-content-center" >
                 <div className="col-md-10 mt-2">
+                <h5 className="text-muted">10 Results Per Page:-</h5>
                     {displayJobs}
                <div className='row justify-content-center'> 
                     {loadbtn===true ?
@@ -147,7 +154,7 @@ export default function FindJobs ({location}) {
                     :<h5 className="text-info m-1">End of the result</h5>}
                 </div> 
                 </div>
-            </div>):<div><h4 className="text-info text-center m-5">No Jobs available for your search keywords</h4></div>}
+            </div>):<div><h4 className="text-info text-center m-5">No Jobs available/ Search Limit Exceeded</h4></div>}
         </div>
 
     </div>

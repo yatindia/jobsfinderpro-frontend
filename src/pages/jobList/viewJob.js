@@ -17,75 +17,52 @@ const ViewJob = ({show, data,  dialogClose}) => {
         <div className="container">
            <Modal show={show} onHide={dialogClose}>
             <Modal.Header closeButton>
-                <Modal.Title className="text-center h5">Organization: {org.orgName}</Modal.Title>
+                <Modal.Title className="text-center h5">{org.orgName} Recruiting</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <div className="col">
                     <div className="form-group row"> 
-                      <div className='col'>
-                      <label>Job Position: <b className='text-muted'>{job.jobTitle}</b></label>
+                      <div className='col text-center'>
+                      <p>Requirement For: <b className='text-muted'>{job.jobTitle}</b></p>
                       </div>
                     </div>   
-                    <div className="form-group row">
-                        <div className="col">
-                            <label>Address</label>
-                            <div className="p-2 border ml-4">
-                                <p>{org.orgAddress}</p>
-                                <p>{org.orgCountry}</p>
+                    <div className="form-group row border p-2 m-1">
+                        <div className="col border-right">
+                            <div className=" ">
+                                <p>Location:<i className="text-info">    {job.jobCity}</i></p>
+                                <p>Level:<i className="text-info">   {job.jobType}</i></p>
+                                <p>Dead Line: <i className="text-info">  {job.jobApplyEnd}</i></p>
+                                <p>Salary: <i className="text-info">{    `₹ ${job.jobSalary}`}</i></p>
                             </div>
                         </div>
                         <div className="col">
-                            <label>Contact</label>
-                            <div className="p-2 border ml-4">
-                                <p>{org.orgEmail}</p>
-                                <p>{org.orgPhone}</p>
-                                <p>{org.orgWebsite}</p>
+                            <div className="">
+                                <p> <i className="fa fa-map-marker text-primary"></i>{org.orgAddress}, {org.orgCountry}</p>
+                                <p><i className="fa fa-envelope text-danger"></i> {org.orgEmail}</p>
+                                <p><i className="fa fa-phone text-success"></i> {org.orgPhone}</p>
+                                <p><i className="fa fa-link text-info"></i> {org.orgWebsite}</p>
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <div className="col">
-                            <label>Job Location</label>
-                            <input type="text" 
-                            value={job.jobCity} className="form-control border-0" readOnly/>
-                        </div>
-                        <div className="col">
-                            <label>Job Level</label>
-                            <input type="text" 
-                            value={job.jobType} className="form-control border-0" readOnly/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col">
-                            <label>Dead Line on</label>
-                            <input type="text" 
-                            value={job.jobApplyEnd} className="form-control border-0" readOnly/>
-                        </div>
-                        <div className="col">
-                            <label>Salary</label>
-                            <input type="text" 
-                            value={`₹ ${job.jobSalary}`}className="form-control border-0" readOnly/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
+                    <div className="form-group row pt-2">
                         <div className="col">
                             <label>Job Description</label>
-                            <input type="text" 
+                            <textarea type="text"  rows="8"
                             value={job.jobDescription} className="form-control border-0" readOnly/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col">
                             <label>Job Requirement</label>
-                            <input type="text" 
+                            <textarea type="text" rows="4"
                             value={job.jobRequirement} className="form-control border-0" readOnly/>
                         </div>
                     </div>
+                    <small className="text-center"><b>Posted On: </b>{job.dateOfAdd}</small>
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <small className="text-center"><b>Posted On: </b>{job.dateOfAdd}</small>
-                <ApplyBtn job={data}></ApplyBtn>
+                <ApplyBtn job={data.job}></ApplyBtn>
                 <Button variant="danger" onClick={dialogClose}>Close</Button> 
             </Modal.Footer>
         </Modal>

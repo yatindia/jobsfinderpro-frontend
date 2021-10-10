@@ -21,9 +21,9 @@ export default function ViewModal ({show, data,  dialogClose}){
         doc.text(150, 30, 'Gender:');  
         doc.text(180, 30, `${data.part1.gender}`);  
         doc.text(20, 50, 'Mail Id:');          
-        doc.text(60, 50, document.getElementById("email").value);
+        doc.text(60, 50, `${data.part1.email}`);
         doc.text(20, 70, 'Mobile: ');    
-        doc.text(60, 70, document.getElementById("mobile").value);  
+        doc.text(60, 70, `${data.part1.mobile}`);  
         doc.text(20, 90, 'Location: ');    
         doc.text(60, 90, document.getElementById("loc").value);   
         doc.text(20, 110, 'Designation: ');    
@@ -64,18 +64,6 @@ const savepdf=()=> {
                                 <label>Gender</label>
                                 <input type="text" id="lname"
                                 value={data.part1.gender} className="form-control border-0" readOnly/>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <div className="col">
-                                <label>E-Mail</label>
-                                <input type="password" id="email"
-                                value={data.part1.email} className="form-control border-0" readOnly/>
-                            </div>
-                            <div className="col">
-                                <label>Mobile</label>
-                                <input type="password" id="mobile"
-                                value={data.part1.mobile}className="form-control border-0" readOnly/>
                             </div>
                         </div>
                         <div className="form-group row">
