@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 import '../style.css'
 
 import { API_URL } from "../../components/utils";
@@ -11,9 +12,11 @@ export default function FindJobs ({location}) {
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     
     const [count, setCount] = useState(0)
-    const range = 3
-    const limit = 3
+    const perpage = 10
+    const limit = 100
     const [totalpge,setTotalpge] = useState(0)
+    const [pageNumber, setPageNumber] = useState(0);
+    const pagesVisited = pageNumber * perpage;
     const [skip, setSkip] = useState(0)
 
     const [loadbtn, setLoadBtn] = useState(false)
@@ -40,7 +43,7 @@ export default function FindJobs ({location}) {
  
 // ---On Change function -----
     function changeHandle(e) {
-        setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:3})
+        setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:100})
     }
 
 // -----Get Job--------
@@ -51,8 +54,8 @@ export default function FindJobs ({location}) {
             if (res.data.error===false){
                 setfetch(res.data.data[0])
                 setCount(res.data.data[1])
-                setTotalpge(Math.ceil(res.data.data[1])/limit)
-                if(limit<res.data.data[1]){
+                setTotalpge(Math.ceil(res.data.data[1])/perpage)
+                if(perpage<res.data.data[1]){
                     setLoadBtn(true)
                 }
                 else{setLoadBtn(false)}
@@ -63,19 +66,22 @@ export default function FindJobs ({location}) {
 
 // -----on search--------
     function handleSubmit (){
-     setSearch({...search,skip:0,limit:3})
+     setSearch({...search,skip:0,limit:100})
      getJob()
     }
 
-    const  loadmore= ()=>{
-        setSkip(skip=>skip + range);
-        if(skip >=range){
-            getJob()
-        }
-    }
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+      };
 
 
-
+      const displayJobs = fetch
+      .slice(pagesVisited, pagesVisited + perpage)
+      .map((data,id)=>{ return(
+        <div key={id}>
+            <Listing data={data}></Listing>
+        </div>
+    )})
 
     return (<>
     <div>
@@ -108,27 +114,36 @@ export default function FindJobs ({location}) {
 
         {/* ------Content--------- */}
         <div className="container-flex m-3 p-2">
+            <div className=' container'>
+                <div className='row d-flex'>
+                <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Show</span></h5>
+                <select className="form m-2">
+                    <option>1 - 100</option>
+                    <option>100 - 200</option>
+                    <option>200 - 300</option>
+                    <option>300 - 400</option>
+                    <option>400 - 500</option>
+                </select>
+                </div>
+            </div>
         {fetch.length>0 ?(
             <div className="row d-flex justify-content-center" >
                 <div className="col-md-10 mt-2">
-                <h5 className="text-muted">{count} Results Found:-</h5>
-                {fetch.map((data,id)=>(
-                <div key={id}>
-                    <Listing data={data}></Listing>
-                </div>
-            ))}<div className='row justify-content-center'> 
+                    {displayJobs}
+               <div className='row justify-content-center'> 
                     {loadbtn===true ?
-                          <button className="m-2 btn btn-findJob" type="button" onClick={loadmore}>Next {' >>'}</button>
-                        // < ReactPaginate
-                        //     previousLabel={"previous" }
-                        //     nextLabel={ "next" }
-                        //     breakLabel={ "..." }
-                        //     breakClassName={ "break-me" }
-                        //     pageCount={ totalpge }
-                        //     onPageChange={loadmore }
-                        //     containerClassName={ "pagination" }
-                        //     subContainerClassName={ "pages pagination" }
-                        //     activeClassName={ "active" } />
+                        //   <button className="m-2 btn btn-findJob" type="button" onClick={loadmore}>Next {' >>'}</button>
+                        <ReactPaginate
+                        previousLabel={"Previous"}
+                        nextLabel={"Next"}
+                        pageCount={totalpge}
+                        onPageChange={changePage}
+                        containerClassName={"paginationBttns"}
+                        previousLinkClassName={"previousBttn"}
+                        nextLinkClassName={"nextBttn"}
+                        disabledClassName={"paginationDisabled"}
+                        activeClassName={"paginationActive"}
+                      />
                     :<h5 className="text-info m-1">End of the result</h5>}
                 </div> 
                 </div>

@@ -165,7 +165,7 @@ useEffect(()=>{
                                 </div>
                                 <div>
                                     <button className="row dragBox m-2" onClick={imageUpload}>Upload</button>
-                                    <label className="row text-danger" id="message"></label>
+                                    <label className="row text-info" id="message"></label>
                                 </div>
                             </div>
                         </div>

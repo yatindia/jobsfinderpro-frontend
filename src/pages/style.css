@@ -666,3 +666,38 @@ a.primary:hover, button.primary:hover {
       margin-bottom: 35px;
   }
 }
+
+
+/* ----------pagination------- */
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 1px solid #eb5d1e;
+  color: #eb5d1e;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #eb5d1e;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #eb5d1e;
+}
+
+.paginationDisabled a {
+  color: #eb5d1e;
+  background-color: white;
+}

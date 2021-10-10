@@ -46,6 +46,32 @@ class EmpAuth extends Component {
     }
   }
 
+   function pdfcreate() {    
+        var doc = new jsPDF(); 
+        doc.setLineWidth(0.1);
+        doc.rect(10, 20, 190, 200);
+        doc.setLineWidth(0.1);
+        doc.line(55, 20, 55, 220)
+        doc.text(80, 10, 'Job Seeker Profile Details');        
+        doc.text(20, 30, 'Name: ');    
+        doc.text(60, 30, `${data.part2.firstName} `); 
+        doc.text(100, 30, `${data.part2.lastName}`);    
+        doc.text(150, 30, `${data.part1.gender}`);  
+        doc.text(20, 50, 'Mail Id:');          
+        doc.text(60, 50, document.getElementById("email").value);
+        doc.text(20, 70, 'Mobile: ');    
+        doc.text(60, 70, document.getElementById("mobile").value);  
+        doc.text(20, 90, 'Location: ');    
+        doc.text(60, 90, document.getElementById("loc").value);   
+        doc.text(20, 110, 'Designation: ');    
+        doc.text(60, 110, document.getElementById("pos").value);   
+        doc.text(20, 130, 'Qualification: ');    
+        doc.text(60, 130, `${data.part1.qualifications}`);    
+        doc.text(20, 160, 'Past Job: ');    
+        doc.text(60, 160, `${data.part1.pastJobs}`);       
+        doc.save(`${data.part2.firstName}.pdf`); 
+     }
+
   render() {
     return (<>
       <div className="App d-flex">

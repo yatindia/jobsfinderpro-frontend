@@ -2,7 +2,6 @@ import React,{useEffect,useState} from "react";
 import axios from "axios";
 
 import { API_URL } from "../../../components/utils";
-import ViewJob from "./viewJob";
 import JobList from "./jobList";
 
 function MyJobs(){
@@ -10,8 +9,6 @@ function MyJobs(){
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
-
-    const [dialogShow, setDialogShow] = useState(false);
     const [getdata, setGetdata] = useState({})
 
 

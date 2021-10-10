@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 import { API_URL } from "../../../components/utils";
 import cities from '../../../components/asserts/ind_cities.json'
@@ -12,9 +13,11 @@ export default function Search () {
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
     
     const [count, setCount] = useState(0)
-    const range = 10
+    const perpage = 5
     const limit = 10
     const [totalpge,setTotalpge] = useState(0)
+    const [pageNumber, setPageNumber] = useState(0);
+    const pagesVisited = pageNumber * perpage;
     const [skip, setSkip] = useState(0)
 
     const [loadbtn, setLoadBtn] = useState(false)
@@ -44,12 +47,13 @@ export default function Search () {
             const res = await axios.post(`${API_URL}/job/searchSeeker`,search,{headers:header})
              if (res.data.error===false){
                  setfetch(res.data.data[0])
-                setCount(res.data.data[1])
-            //     setTotalpge(Math.ceil(res.data.data[1])/limit)
-            //     if(limit<res.data.data[1]){
-            //         setLoadBtn(true)
-                 }
+                 setCount(res.data.data[1])
+                setTotalpge(Math.ceil(res.data.data[1])/perpage)
+                if(perpage<res.data.data[1]){
+                    setLoadBtn(true)
+                }
                 else{setLoadBtn(false)}
+            }
         } catch (error) {        
         }
     }
@@ -60,12 +64,18 @@ export default function Search () {
      getJob()
     }
 
-    const  loadmore= ()=>{
-        setSkip(skip=>skip + range);
-        if(skip >=range){
-            getJob()
-        }
-    }
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+      };
+
+
+      const displayUsers = fetch
+      .slice(pagesVisited, pagesVisited + perpage)
+      .map((data,id)=>{ return(
+            <div key={id}>
+            <UserList data={data} key={id}></UserList>
+        </div>
+    )})
 
 
 
@@ -102,18 +112,36 @@ export default function Search () {
 
         {/* ------Content--------- */}
         <div className="container-flex m-3 p-2">
+        <div className=' container'>
+                <div className='row d-flex'>
+                <h5 className="text-muted m-2">{count} Search Results: <span className='ml-2'>Show</span></h5>
+                <select className="form m-2">
+                    <option>1 - 10</option>
+                    <option>10 - 20</option>
+                    <option>20 - 30</option>
+                    <option>30 - 40</option>
+                    <option>40 - 50</option>
+                </select>
+                </div>
+            </div>
             {fetch.length>0 ?(
                 <div className="row d-flex justify-content-center" >
                     <div className="col-md-10 mt-2">
                         <h5 className="text-muted">{count} Results Found:-</h5>
-                        {fetch.map((data,id)=>(
-                        <div key={id}>
-                            <UserList data={data} key={id}></UserList>
-                        </div>
-                        ))}
+                        {displayUsers}
                         <div className='row justify-content-center'> 
                             {loadbtn===true ?
-                                <button className="m-2 btn btn-findJob" type="button" >Next {' >>'}</button>
+                                 <ReactPaginate
+                                 previousLabel={"Previous"}
+                                 nextLabel={"Next"}
+                                 pageCount={totalpge}
+                                 onPageChange={changePage}
+                                 containerClassName={"paginationBttns"}
+                                 previousLinkClassName={"previousBttn"}
+                                 nextLinkClassName={"nextBttn"}
+                                 disabledClassName={"paginationDisabled"}
+                                 activeClassName={"paginationActive"}
+                               />
                             :<h5 className="text-info m-1">End of the result</h5>}
                         </div> 
                     </div>

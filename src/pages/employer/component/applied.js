@@ -1,6 +1,7 @@
-import React,{useEffect,useState,componentRef} from "react";
+import React,{useEffect,useState} from "react";
 import axios from "axios";
 import { useParams} from 'react-router-dom';
+import jsPDF from 'jspdf'
 
 import { API_URL } from "../../../components/utils";
 
@@ -10,13 +11,14 @@ export default function Applied(){
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
     const [fetch, setfetch] = useState([])
 
     useEffect(() => {
         getuser()
-    },[]);
+    },[fetch]);
 
     const formData = {authid:profile_1.job_id,jobid:param.id}
     const getuser= async()=>{
@@ -48,20 +50,50 @@ export default function Applied(){
         setseeker(stateinfa)
     }
 
-    const seekone=async(item)=>{
+    const seekonePdf=async(item)=>{
         const res = await axios.post(`${API_URL}/profile/getseekerprofile`,{seekerid:item},{headers:header})
         const infa ={
             part1: res.data.data.part2, 
             part2: res.data.data.part1, 
         }
-        setfetch(infa)
+        pdfcreate(infa)
     }
 
-    const viewseeker=(e)=>{
-        //seekone(e.target.value)
-        console.log(e.target.value)
-    }
 
+
+    function pdfcreate(data) {    
+        var doc = new jsPDF(); 
+        doc.setLineWidth(0.1);
+        doc.rect(10, 20, 190, 200);
+        doc.setLineWidth(0.1);
+        doc.line(55, 20, 55, 220)
+        doc.text(80, 10, 'Job Seeker Profile Details');        
+        doc.text(20, 30, 'Name: ');    
+        doc.text(60, 30, `${data.part2.firstName} `); 
+        doc.text(100, 30, `${data.part2.lastName}`);   
+        doc.text(150, 30, 'Gender:');  
+        doc.text(180, 30, `${data.part1.gender}`);  
+        doc.text(20, 50, 'Mail Id:');          
+        doc.text(60, 50, `${data.part1.email}`);
+        doc.text(20, 70, 'Mobile: ');    
+        doc.text(60, 70, `${data.part1.mobile}`);  
+        doc.text(20, 90, 'Location: ');    
+        doc.text(60, 90, `${data.part1.city}, ${data.part1.state}`);   
+        doc.text(20, 110, 'Designation: ');    
+        doc.text(60, 110, `${data.part1.jobTitle}`);   
+        doc.text(20, 130, 'Qualification: ');    
+        doc.text(60, 130, `${data.part1.qualifications}`);    
+        doc.text(20, 160, 'Past Job: ');    
+        doc.text(60, 160, `${data.part1.pastJobs}`);
+        doc.text(20, 180, 'D O B: ');    
+        doc.text(60, 180, `${data.part1.dateOfBirth}`);   
+        doc.save(`${data.part2.firstName}.pdf`); 
+     }
+
+
+    const downloadpdf=(e)=>{
+        seekonePdf(e.target.value)
+    }
 
     return (<>
     <div className="container-flex">
@@ -97,7 +129,7 @@ export default function Applied(){
                                         <td>{item.part1.qualifications}</td>
                                         <td>{item.part1.pastJobs}</td>
                                         <td>
-                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>viewseeker(e)}>Download</button>
+                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
                                         </td>
                                         </tr>
                                     </tbody>
