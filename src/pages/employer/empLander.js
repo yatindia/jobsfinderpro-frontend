@@ -13,7 +13,7 @@ import EmpProfile from "./component/profile";
 import EditJob from "./component/editModal";
 import Payment from './component/payment'
 
-import {API_URL} from '../../components/utils'
+import {API_URL, userDp} from '../../components/utils'
 
 
 const EmpLander = ()=> {
@@ -78,7 +78,7 @@ const dialogClose=()=>{
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
-							<img src={`${API_URL}/profile/profileImages/${imgname}`}  className="shadow" alt="imagess"/>
+							<img src={`${API_URL}/profile/profileImages/${imgname}` || userDp}  className="shadow" alt="imagess"/>
 							</div>
 						</div>
 						</div>
@@ -87,6 +87,10 @@ const dialogClose=()=>{
 								<i className="fa fa-home text-center mr-1"></i> 
 								Dashboard
 							</a>
+							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/payment" role="tab" aria-controls="security" aria-selected="false">
+								<i className="fa fa-shopping-cart text-center mr-1"></i> 
+								Payments
+							</a>
 							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/newjobs" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-check text-center mr-1"></i> 
 								Post Job
@@ -94,10 +98,6 @@ const dialogClose=()=>{
 							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/jobs" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Posted Jobs
-							</a>
-							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/payment" role="tab" aria-controls="security" aria-selected="false">
-								<i className="fa fa-shopping-cart text-center mr-1"></i> 
-								Payments
 							</a>
               					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/search" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-search text-center mr-1"></i> 

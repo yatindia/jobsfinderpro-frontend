@@ -2,7 +2,7 @@ import React,{useState, useEffect} from "react";
 import { Form,Col,Row} from "react-bootstrap";
 import axios from 'axios'
 
-import { API_URL,resizeFile,dataURIToBlob } from "../../components/utils";
+import { API_URL,resizeFile,dataURIToBlob, userDp } from "../../components/utils";
 import TabView from "../../components/tabView";
 import { validating } from "./validating";
 import DialogBox from '../../components/dialogBox'
@@ -106,8 +106,6 @@ export default function Register() {
 
 
   // ------- Image upload--------
-const userDp = localStorage.getItem('userDp');
-
 const onImageChange=async (e)=>{
 	if (e.target.files[0]) {
 		const file = e.target.files[0];
@@ -115,7 +113,7 @@ const onImageChange=async (e)=>{
 		const newFile = dataURIToBlob(image);
 		setImgShow(image)
 		setImgData(newFile)
-		localStorage.setItem("userDp",  image);
+		//localStorage.setItem("userDp",  image);
 		setImgBtn(false)
 	}
 }
@@ -154,7 +152,7 @@ useEffect(()=>{
 
   return (<>
     <div className="App d-flex p-4">
-      <div className="appForm mx-auto align-center">
+      <div className="appForm mx-auto align-center shadow">
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
         <TabView>
           <div label="Job Seeker">
@@ -204,11 +202,11 @@ useEffect(()=>{
                       {imgBtn?<img src={userDp}   className="shadow" alt="Logo"/>:<img src={imgShow}   className="shadow" alt="Logo"/>}
                       </div>
                       <div className="col mt-4">
-                        <div className="dragBox" >Pick Image
+                        <div className="dragBox btn" >Pick Image
                           <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
                         </div>
                         <div>
-                          <button className="row dragBox m-2" type="button" onClick={imageUpload}>Upload</button>
+                          <button className="row dragBox btn m-2" type="button" onClick={imageUpload}>Upload</button>
                         </div>
                       </div>
                     </div>
@@ -281,11 +279,11 @@ useEffect(()=>{
                       {imgBtn?<img src={userDp}   className="shadow" alt="Logo"/>:<img src={imgShow}   className="shadow" alt="Logo"/>}
                       </div>
                       <div className="col mt-4">
-                        <div className="dragBox" >Pick Image
+                        <div className="dragBox btn" >Pick Image
                           <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
                         </div>
                         <div>
-                          <button className="row dragBox m-2" type="button" onClick={imageUpload}>Upload</button>
+                          <button className="row dragBox btn m-2" type="button" onClick={imageUpload}>Upload</button>
                         </div>
                       </div>
                     </div>

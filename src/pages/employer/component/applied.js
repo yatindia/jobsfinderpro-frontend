@@ -14,11 +14,10 @@ export default function Applied(){
 
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
-    const [fetch, setfetch] = useState([])
 
     useEffect(() => {
         getuser()
-    },[fetch]);
+    },[]);
 
     const formData = {authid:profile_1.job_id,jobid:param.id}
     const getuser= async()=>{
@@ -117,7 +116,7 @@ export default function Applied(){
                                  <th scope="col">Name</th>
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
-                                 <th scope="col">Jobs</th>
+                                 <th scope="col">Previous Jobs</th>
                                  <th scope="col">Resume</th>
                                  </tr>
                              </thead>

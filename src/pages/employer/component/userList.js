@@ -46,7 +46,7 @@ export default function UserList({data}){
                             <h6 className="text-muted">{data.city}, {data.state}</h6>
                         </div>
                         <div className="col-sm">
-                            <p className="font-weight-bold">Past Job</p>
+                            <p className="font-weight-bold">Previous Jobs</p>
                             {data.pastJobs.map((item,i)=>(
                                 <h6 className="text-muted d-flex" key={i}>{item}</h6>
                             ))}

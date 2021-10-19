@@ -29,7 +29,7 @@ export default function ViewModal ({show, data,  dialogClose}){
         doc.text(60, 110, document.getElementById("pos").value);   
         doc.text(20, 130, 'Qualification: ');    
         doc.text(60, 130, `${data.part1.qualifications}`);    
-        doc.text(20, 160, 'Past Job: ');    
+        doc.text(20, 160, 'Previous Jobs: ');    
         doc.text(60, 160, `${data.part1.pastJobs}`);
         doc.text(20, 180, 'D O B: ');    
         doc.text(60, 180, `${data.part1.dateOfBirth}`);   
@@ -79,7 +79,7 @@ const savepdf=()=> {
                         </div>
                         <div className="form-group row">
                             <div className="col">
-                                <label>Past Job</label>
+                                <label>Previous Jobs</label>
                                 <div className="border p-2">
                                 {data.part1.pastJobs.map((item,i)=>(
                                     <h6 key={i} className="text-muted d-flex" id="job">{item}</h6>

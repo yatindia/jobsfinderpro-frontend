@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
-import { resizeFile, dataURIToBlob, API_URL, formValid , getUser} from "../../../components/utils";
+import { resizeFile, dataURIToBlob, API_URL, formValid , getUser, userDp} from "../../../components/utils";
 import DynamicInput from "../../../components/dynamicInputs";
 import {validating} from '../../auth/validating'
 import cities from '../../../components/asserts/ind_cities.json'
@@ -9,7 +9,6 @@ import cities from '../../../components/asserts/ind_cities.json'
 
 function UserProfile() {
 
-    const userDp = localStorage.getItem('userDp');
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
@@ -62,21 +61,13 @@ function UserProfile() {
 			const image = await resizeFile(file);
 			const newFile = dataURIToBlob(image);
 			setImgShow(image)
-			localStorage.setItem("userDp",  image);
 			setImgData(newFile)
 			setImgBtn(false)
 		}
 	}
 	const imageUpload= async ()=>{
-		let imageData = ''
-		if(!userDp){
-			imageData = imgData
-		}else {
-			const newFile = dataURIToBlob(userDp);
-			imageData = newFile
-		}
         const formData = new FormData();
-        formData.append("profile", imageData);
+        formData.append("profile", imgData);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -148,7 +139,7 @@ useEffect(()=>{
 },[inputs,profile,edu,pastJob,imgName,profile_1.dpName,profile_2.qualifications,profile_2.pastJobs])
 
     return (<>
-    <div className="border tab-content">
+    <div className="conatiner-flex m-3 p-2 border tab-content">
         <div className="tab-pane fade show active m-4">
             <h3 className="mb-1 text-secondary">Profile Update</h3>
             <div className='row border-top'>
@@ -156,15 +147,15 @@ useEffect(()=>{
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
                             <div className="row img-circle">
-                            {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="dp"/>:
+                            {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}` || userDp}  className="shadow" alt="dp"/>:
                                 <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
                             <div className="col mt-4">
-                                <div className="dragBox" >Change Image
+                                <div className="dragBox btn" >Change Image
                                     <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
                                 </div>
                                 <div>
-                                    <button className="row dragBox m-2" onClick={imageUpload}>Upload</button>
+                                    <button className="row dragBox btn m-2" onClick={imageUpload}>Upload</button>
                                     <label className="row text-info" id="message"></label>
                                 </div>
                             </div>
@@ -228,7 +219,7 @@ useEffect(()=>{
             <div className='row'>
                 <div className="col-md-10">
                     <div className="form-group">
-                        <label>Past Jobs</label>
+                        <label>Previous Jobs</label>
                         {profile_2.pastJobs.length>0 ? (<div>
                             {profile_2.pastJobs.map((item, i)=>(
                                 <input className="m-2" key={i} value={item} disabled/>

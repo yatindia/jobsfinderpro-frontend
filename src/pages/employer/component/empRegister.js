@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
-import { API_URL,empformValid ,resizeFile,dataURIToBlob } from '../../../components/utils';
+import { API_URL,empformValid ,resizeFile,dataURIToBlob,userDp } from '../../../components/utils';
 
 
 const EmpRegister = ({show, title, dialogClose}) => {
@@ -75,7 +75,6 @@ const updateProfile=async(event)=>{
 // };
 
   // ------- Image upload--------
-  const userDp = localStorage.getItem('userDp');
 
   const onImageChange=async (e)=>{
       if (e.target.files[0]) {
@@ -90,15 +89,15 @@ const updateProfile=async(event)=>{
   }
   
   const imageUpload= async ()=>{
-      let imageData = ''
-      if(!userDp){
-          imageData = imgData
-      }else {
-          const newFile = dataURIToBlob(userDp);
-          imageData = newFile
-      }
+    //   let imageData = ''
+    //   if(!userDp){
+    //       imageData = imgData
+    //   }else {
+    //       const newFile = dataURIToBlob(userDp);
+    //       imageData = newFile
+    //   }
       const formData = new FormData();
-      formData.append("profile", imageData);
+      formData.append("profile", imgData);
       const config = {
           headers: {
               'content-type': 'multipart/form-data',

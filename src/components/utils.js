@@ -1,8 +1,11 @@
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
 //export const API_URL = 'http://212.71.239.166:5300' 
-export const API_URL = 'http://127.0.0.1:5300'
+import user from './asserts/user.jpg'
 
+
+export const API_URL = 'http://127.0.0.1:5300'
+export const userDp = user
 
 // ----Image Resizer-------
 export const resizeFile = (file) =>
@@ -39,6 +42,8 @@ export const resizeFile = (file) =>
   }
   
 // ----Validation for Seeker Profile---
+var phoneno = /^\d{10}$/;
+
   export const formValid =(values)=>{
     if(values.qualifications.length<=0){
       return{error:"*Enter your Qualification.", valid:false}
@@ -48,6 +53,9 @@ export const resizeFile = (file) =>
 }
     if(!values.mobile){
        return{error:"*Enter Mobile number.", valid:false}
+    }
+    if(!values.mobile.match(phoneno)){
+      return{error:"*Enter Valid Phone Number.", valid:false}
     }
     if(!values.dateOfBirth){
         return{error:"*Enter Date fo Birth.", valid:false}
@@ -84,6 +92,9 @@ export const empformValid =(values)=>{
   if(!values.orgPhone){
       return{error:"*Enter Organization Contact Number.", valid:false}
   }
+  if(!values.orgPhone.match(phoneno)){
+  return{error:"*Enter Valid Contact Number.", valid:false}
+}
   if(!values.orgWebsite){
     return{error:"*Enter Organization Website.", valid:false}
 }

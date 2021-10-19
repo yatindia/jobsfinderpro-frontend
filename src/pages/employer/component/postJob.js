@@ -1,8 +1,9 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import axios from 'axios'
 
 import { API_URL, formPostJob } from "../../../components/utils";
 import cities from '../../../components/asserts/ind_cities.json'
+import category from '../../../components/asserts/category.json'
 
 const PostJobs =()=> {
 
@@ -10,6 +11,7 @@ const PostJobs =()=> {
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [btn,setbtn] = useState(true)
+    const [cat,setcat] = useState()
     const [inputs, setInputs] = useState({
         authid: profile_1.job_id,
         jobTitle: "",
@@ -56,29 +58,66 @@ const postJob =async()=>{
     }
 }
 
+const changeCate =(e)=>{
+    const cate = e.target.value
+    if(e==='Select..' || e ===''){
+        setcat('')
+    }
+    else{
+        try {
+            let subData = require('../../../components/asserts/subCategory/'+cate+'.json');
+            setcat(subData)
+        } catch (error) {
+            setcat('')
+            console.log(error)
+        }
+    }
+}
 
     return (<>
-    <div className="container-fluid">
-        <div className="row">
+    <div className="container-flex m-2 p-2 ">
+        <div className="row p-3 m-2">
             <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
                     <div className="section row">
-                        <div className="col-md-10 col-sm">
+                        <div className="col-md-10 col-sm-10">
                             <label>Job Title</label>
                             <div className=" form-group">
                                 <input type="text" className="inputStyle text-capitalize" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm">
+                        <div className="col-md-5 col-sm-5">
+                            <label>Category</label>
+                            <div className="form-group">
+                                <div className="form-group">
+                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobCity" 
+                                        onChange={(e)=>changeCate(e)}>
+                                            <option value=''>Select Category</option>
+                                            {category.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-5 col-sm-5">
+                            <label>Sub Category</label>
+                            <div className="form-group">
+                                <div className="form-group">
+                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobCity">
+                                        {!cat ? <option value=''>Select Category</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                            
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-10 col-sm-10">
                             <label>Job Description</label>
                             <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    value={inputs.jobDescription} onChange={changeHandle}/>
+                                    rows="6" value={inputs.jobDescription} onChange={changeHandle}/>
                             </div>
                         </div>
-
-                        <div className="col-md-10 col-sm">
+                        <div className="col-md-10 col-sm-10">
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
@@ -90,21 +129,21 @@ const postJob =async()=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm">
+                        <div className="col-md-10 col-sm-10">
                             <label>Salary Information</label>
                             <div className="form-group">
                                 <input type="text" className="inputStyle" placeholder="Salary Info" name="jobSalary" 
                                     value={inputs.jobSalary} onChange={changeHandle}/>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm">
+                        <div className="col-md-10 col-sm-10">
                             <label>Job Requirement</label>
                             <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
-                                    value={inputs.jobRequirement} onChange={changeHandle}/>
+                                   rows="3" value={inputs.jobRequirement} onChange={changeHandle}/>
                             </div>
                         </div>
-                        <div className="col-md-5 col-sm">
+                        <div className="col-md-5 col-sm-5">
                             <label>Application Deadline</label>
                             <div className="form-group">
                                 <div className="calendar">
@@ -112,7 +151,7 @@ const postJob =async()=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-5 col-sm">
+                        <div className="col-md-5 col-sm-5">
                             <label>Exprience Level</label>
                             <div className="input-group">
                                 <select className="inputStyle" type="text" placeholder="Select a Level" list="level"
@@ -128,9 +167,9 @@ const postJob =async()=>{
                     </div>
                 </div>
                 <div className="section p-2">
-                    <label className='row'>
+                    <label className='row align-items-center m-auto'>
                         <input className="m-2 formFieldCheckbox" type="checkbox" name="hasAgreed" onClick = {handleCheck}/>{"  "}
-                            I agree to your <a href="none">Terms of Conditions</a> and <a href="none">Privacy Policy.</a>
+                            I agree to your <a href="none"> Terms of Conditions.</a>
                     </label>
                     <div className='row'>
                         <label className={errs.style}>{errs.message}</label>

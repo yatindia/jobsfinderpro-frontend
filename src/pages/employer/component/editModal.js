@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../../../components/utils";
 //import {formPostJob } from '../../../components/utils';
 import cities from '../../../components/asserts/ind_cities.json'
+import category from '../../../components/asserts/category.json'
 
 
 const EditJob = () => {
@@ -14,6 +15,8 @@ const EditJob = () => {
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+
+    const [cat,setcat] = useState()
     const [inputs, setInputs] = useState({
         authid: profile_1.job_id,
         jobTitle: "",
@@ -94,9 +97,25 @@ const removeJob =async(event)=>{
     }
 }
 
+const changeCate =(e)=>{
+    const cate = e.target.value
+    if(e==='Select..' || e ===''){
+        setcat('')
+    }
+    else{
+        try {
+            let subData = require('../../../components/asserts/subCategory/'+cate+'.json');
+            setcat(subData)
+        } catch (error) {
+            setcat('')
+            console.log(error)
+        }
+    }
+}
+
 
     return(<>
-   <div className="container-fluid">
+   <div className="container-flex m-2 p-2">
         <div className="row">
             <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
@@ -106,6 +125,29 @@ const removeJob =async(event)=>{
                             <div className=" form-group">
                                 <input type="text" className="form-control text-capitalize" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
+                            </div>
+                        </div>
+                        <div className="col-md-5 col-sm-5">
+                            <label>Category</label>
+                            <div className="form-group">
+                                <div className="form-group">
+                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobCity" 
+                                        onChange={(e)=>changeCate(e)}>
+                                            <option value=''>Select Category</option>
+                                            {category.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-5 col-sm-5">
+                            <label>Sub Category</label>
+                            <div className="form-group">
+                                <div className="form-group">
+                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobCity">
+                                        {!cat ? <option value=''>Select Category</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
+                                            
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div className="col-md-10 col-sm">

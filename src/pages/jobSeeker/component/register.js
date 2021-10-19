@@ -105,7 +105,7 @@ useEffect(()=>{
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="12"  controlId="validationCustom01" className="formField">
-                                    <label>Past Jobs</label>
+                                    <label>Previous Jobs</label>
                                     <div className="">
                                         <DynamicInput get={setpastJob}></DynamicInput>
                                     </div>

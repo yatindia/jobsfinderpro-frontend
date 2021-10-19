@@ -7,7 +7,7 @@ import UserContent from "./component/userContent";
 import MyJobs from "./component/myJobs";
 import Registration from "./component/register";
 
-import {API_URL} from '../../components/utils'
+import {API_URL, userDp} from '../../components/utils'
 
 function  UserLander () {
 
@@ -77,7 +77,7 @@ const dialogClose=()=>{
 							<div className="mb-2">
 								<div className="d-flex flex-column align-items-center text-center">
                                 	<div className="row img-circle">
-                                    <img src={`${API_URL}/profile/profileImages/${imgname}`} className="shadow" alt="Logo"/>
+                                    <img src={`${API_URL}/profile/profileImages/${imgname}` || userDp} className="shadow" alt="Logo"/>
                                     </div>
                                 </div>
                             </div>

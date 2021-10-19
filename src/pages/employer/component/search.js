@@ -110,7 +110,7 @@ export default function Search () {
                             </datalist>
                 </div>
                 <div className="m-1">
-                    <button className="btn btn-findJob" type="button" onClick={handleSubmit}>Find Jobs</button>
+                    <button className="btn btn-findJob" type="button" onClick={handleSubmit}>Search</button>
                 </div>
             </div>
         </div>
@@ -131,8 +131,8 @@ export default function Search () {
             </div>
             {fetch.length>0 ?(
                 <div className="row d-flex justify-content-center" >
-                    <div className="col-md-10 mt-2">
-                        <h5 className="text-muted">5 Results Per Page:-</h5>
+                    <div className="col-md mt-2">
+                        <h5 className=" p-2 m-1 text-muted">5 Results Per Page:-</h5>
                         {displayUsers}
                         <div className='row justify-content-center'> 
                             {loadbtn===true ?
@@ -150,7 +150,7 @@ export default function Search () {
                             :<h5 className="text-info m-1">End of the result</h5>}
                         </div> 
                     </div>
-                </div>):<div><h4 className="text-info text-center m-5">No Jobs available for your search keywords</h4></div>}
+                </div>):<div><h4 className="text-info text-center m-5">Seekers Not available for your search keywords</h4></div>}
         </div>
     </div>
     </>);

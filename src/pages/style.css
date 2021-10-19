@@ -129,6 +129,7 @@
   
   .profile-tab-nav {
     min-width: 250px;
+    margin: 20px;
   }
   
   .tab-content {
@@ -170,15 +171,31 @@
     width: 100%;
   }
 
+  @media only screen and (max-width: 680px) {
+    .img-circle {
+      height: 100px;
+      display: inline-block;
+      width:100px;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid #fff;
+    }
+  }
+
+
+  /* -------------input file ----- */
   .dragBox {
     min-width: 150px;
-    height: 25px;
+    height: 35px;
     position: relative;
     font-weight: bold;
-    color: #999;
-    border: 1px dashed #ccc;
+    color: #ffffff;
+    border-radius: 5px;
+    background: #eb5d1e;
     display: inline-block;
-    transition: transform 0.3s;
+    transition: all .4s;
+    cursor: pointer;
     overflow: hidden;
   }
   .dragBox input[type="file"] {
@@ -192,18 +209,9 @@
 
     .dragBox:hover, .dragBox input:hover{
       cursor: pointer;
-    }
-
-    @media only screen and (max-width: 680px) {
-      .img-circle {
-        height: 100px;
-        display: inline-block;
-        width:100px;
-        position: relative;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 5px solid #fff;
-      }
+      color: #eb5d1e;
+      background: #ffffff;
+      border:2px solid #eb5d1e;
     }
 
   /********** Login/Register***********/
@@ -297,7 +305,7 @@
     /* background-image: -webkit-linear-gradient(45deg, #560f77 50%, transparent 50%); */
     background-image: linear-gradient(20deg, #eb5d1e 50%, transparent 50%);
     background-position: 100%;
-    background-size: 400%;
+    background-size: 500%;
     -webkit-transition:  300ms ease-in-out;
     transition: all .5s ease;
   }
@@ -494,12 +502,12 @@ a.primary, button.primary {
 	font-family: Montserrat, sans-serif;
 	font-weight: bold;
 	padding: 10px 25px;
-  box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 }
 a.primary:hover, button.primary:hover {
 	background-color: white;
 	border: 2px solid #eb5d1e;
 	color: #231E39;
+  box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 }
 
 .skills {

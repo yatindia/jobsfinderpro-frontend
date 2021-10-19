@@ -126,7 +126,7 @@ const Login =()=> {
   return (<>
   <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
   <div className="App d-flex p-4">
-      <div className="appForm mx-auto  align-center">
+      <div className="appForm mx-auto shadow align-center">
           <div label="Sign-In">
             <div className="formCenter">
               <form className="">

@@ -86,7 +86,7 @@ const PostData = (data) => {
                             </ul>):<></>}
                         </div>
                         <div className=" skills">
-                            <h6 className="text-secondary">Past Jobs:</h6>
+                            <h6 className="text-secondary">Previous Jobs:</h6>
                                 {part_2.pastJobs.length>0 ? (<ul>
                                 {part_2.pastJobs.map((item, i)=>(
                                     <li className="ml-1" key={i}><b>{item}</b> </li>

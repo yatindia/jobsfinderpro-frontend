@@ -3,7 +3,6 @@
     position: fixed;
     background: #ffffffe3!important;
     /* background-image: linear-gradient(to right, #052c47, #012241d0);*/
-    margin-right: 50px;
 }
 #nav-dropdown-item{
   color: rgb(15, 15, 15);

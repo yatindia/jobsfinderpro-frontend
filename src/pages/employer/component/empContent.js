@@ -62,7 +62,11 @@ const PostData =(data)=>{
                 {part_2 ?(
                 <div className=" row border-top p-2">
                     <div className='col border p-2'>
-                        <img className="round" src={`${API_URL}/profile/profileImages/${part_2.orgLogo}`} alt="user" />
+                        <div className="d-flex flex-column align-items-center text-center">
+                            <div className="row img-circle">
+                                <img src={`${API_URL}/profile/profileImages/${part_2.orgLogo}`} className="shadow" alt="Logo"/>
+                            </div>
+                        </div>
                         <p>{part_2.orgName}</p>
                         <h6><i className="fa fa-map-marker text-primary"/>  {part_2.orgAddress},</h6>
                         <h6>{part_2.orgCountry}</h6>

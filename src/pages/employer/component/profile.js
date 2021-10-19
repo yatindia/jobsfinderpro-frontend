@@ -7,7 +7,6 @@ import {validating} from '../../auth/validating'
 function EmpProfile() {
 
     const userDp = localStorage.getItem('userDp');
-    const userlogo = localStorage.getItem('userlogo')
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
@@ -68,15 +67,15 @@ const changeHandle = async e => {
 }
 
 const imageUpload= async ()=>{
-    let imageData = ''
-    if(!userDp){
-        imageData = imgData
-    }else {
-        const newFile = dataURIToBlob(userDp);
-        imageData = newFile
-    }
+    // let imageData = ''
+    // if(!userDp){
+    //     imageData = imgData
+    // }else {
+    //     const newFile = dataURIToBlob(userDp);
+    //     imageData = newFile
+    // }
     const formData = new FormData();
-    formData.append("profile", imageData);
+    formData.append("profile", imgData);
     const config = {
         headers: {
             'content-type': 'multipart/form-data',
@@ -125,21 +124,13 @@ const onLogoChange=async (e)=>{
         const newFile = dataURIToBlob(image);
         setLogoShow(image)
         setLogoData(newFile)
-        localStorage.setItem("userlogo",  image);
         setLogoBtn(false)
     }
 }
 
 const logoUpload= async ()=>{
-    let imageData = ''
-    if(!userlogo){
-        imageData = logoData
-    }else {
-        const newFile = dataURIToBlob(userlogo);
-        imageData = newFile
-    }
     const formData = new FormData();
-    formData.append("profile", imageData);
+    formData.append("profile", logoData);
     const config = {
         headers: {
             'content-type': 'multipart/form-data',
@@ -182,7 +173,7 @@ useEffect(()=>{
 },[inputs,profile,imgName,profile_1.dpName,logoName,profile_2.orgLogo])
 
 return (<>
-<div className="border p-3">
+<div className="container-flex m-3 border p-2">
     <div className="tab-pane active " id="password" role="tabpanel">
     <h3 className="mb-4 p-2 text-secondary"><small>Profile Update</small></h3>
         <div className='row border-top'>
@@ -194,11 +185,11 @@ return (<>
                             <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                         </div>
                         <div className="col mt-4">
-                            <div className="dragBox" >Change Image
+                            <div className="dragBox btn" >Pick Image
                                 <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
                             </div>
                             <div>
-                                <button className="row dragBox m-2" onClick={imageUpload}>Upload</button>
+                                <button className="row btn dragBox m-2" onClick={imageUpload}>Upload</button>
                                 <label className="row text-danger" id="message"></label>
                             </div>
                         </div>
@@ -253,11 +244,11 @@ return (<>
                                 <img src={logoShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
                             <div className="col mt-4">
-                                <div className="dragBox" >Change Logo
+                                <div className="dragBox btn" >Pick Logo
                                     <input type="file"  accept="image/*" onChange={onLogoChange} id="uploadFile"  />
                                 </div>
                                 <div>
-                                    <button className="row dragBox m-2" onClick={logoUpload}>Upload</button>
+                                    <button className="row btn dragBox m-2" onClick={logoUpload}>Upload</button>
                                     <label className="row text-danger" id="message"></label>
                                 </div>
                             </div>

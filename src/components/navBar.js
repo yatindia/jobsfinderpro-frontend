@@ -30,15 +30,16 @@ export default function NavBar (){
     const handleLogout=()=> {
         localStorage.removeItem('userDetails')
         localStorage.removeItem('userInfo')
+        localStorage.clear()
         history.push('/')
         window.location.reload()
     };
 
         return(
             <>         
-            <Navbar expand="lg" className="navbar shadow rounded-lg mt-3">
+            <Navbar expand="lg" className="navbar shadow rounded-lg">
                 <Form className="container-fluid">
-                    <Navbar.Brand><a className="navbar-brand" href="/"><img src={Logo} alt='Yat Jobs'/></a>  </Navbar.Brand>
+                    <Navbar.Brand><a className="navbar-brand ml-4" href="/"><img src={Logo} alt='Yat Jobs'/></a>  </Navbar.Brand>
                 <Navbar.Toggle  aria-controls = "navbar_toggle"/>
                 <Navbar.Collapse id = "navbar_toggle"> 
                     <Nav className="ml-auto navbar-nav mr-5" activeKey={window.location.pathname}>
