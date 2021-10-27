@@ -30,7 +30,7 @@ const Lander =()=> {
     if(!profile_1){
       history.push('/login');
     }else{
-      history.push('/jobs?kwds=&loc='+search.jobTitle);
+      history.push('/jobs?kwds='+search.jobTitle+'&loc=');
     }
   }
 
@@ -40,18 +40,18 @@ const Lander =()=> {
     <div>
       <div id="welcome">
         <div className="container-flex">
-            <div className="row">
+            <div className="row justify-content-center align-items-center">
                 <div className="col-lg-6 p-5 m-2 text-center order-2">
-                    <div className='row'>
+                    <div className='row justify-content-center'>
                       <h1>Better digital experience with Ninestars</h1>
                       <h2>We are team of talented designers making websites with Bootstrap</h2>
                     </div>
-                    <div className='row m-4 p-4'>
+                    <div className='row justify-content-center m-4'>
                         <div className="col-lg  p-2">
                         <input className=" formFieldInput text-capitalize"  type="text" name="jobTitle"
                           onChange={changeHandle} placeholder="Job Title ..." list="locate"/>
                         </div>
-                        <div className="col-sm-2 p-2">
+                        <div className="col-sm-2 p-2 align-items-center m-auto">
                           <button className="btn border-0 effect" onClick={handleSubmit}><b>Search</b></button>
                         </div>
                     </div>

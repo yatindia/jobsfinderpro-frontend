@@ -1,9 +1,8 @@
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
-//export const API_URL = 'http://212.71.239.166:5300' 
 import user from './asserts/user.jpg'
 
-
+//export const API_URL = 'http://212.71.239.166:5300' 
 export const API_URL = 'http://127.0.0.1:5300'
 export const userDp = user
 
@@ -75,7 +74,6 @@ var phoneno = /^\d{10}$/;
     
     return {error:"All are valid.", valid:true}
     }
-    
 
 // ----Validation for Employer Profile---
 export const empformValid =(values)=>{
@@ -175,4 +173,19 @@ export const empformValid =(values)=>{
       existing[key] = value;
       localStorage.setItem(name, JSON.stringify(existing));
     
+    };
+
+
+  export const parseJwt = (token) => {
+    const timeNow = Math.floor(Date.now()/1000)
+      try {
+        const decodeToken = JSON.parse(atob(token.split(".")[1]));
+        if(decodeToken.exp > timeNow){
+          return true
+        }else{
+          return false
+        }
+      } catch (e) {
+        return null;
+      }
     };

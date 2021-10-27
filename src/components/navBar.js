@@ -3,6 +3,7 @@ import {Navbar, Nav, Form,NavDropdown} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 
 import Logo from './asserts/logo.png'
+import { parseJwt } from './utils';
 
 export default function NavBar (){
 
@@ -13,24 +14,31 @@ export default function NavBar (){
     
 
     useEffect(()=>{
-        const userDetails = JSON.parse(localStorage.getItem( 'userDetails'));
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(!userDetails){
             setislogged(false)
         } 
-        else if(userDetails.Role_Type === "employer"){
-            setislogEmp(true); 
-            setislogged(true)
+        else{
+            const tokenValid = parseJwt(userDetails.Auth_token);
+            if (tokenValid === true){
+                if(userDetails.Role_Type === "employer"){
+                    setislogEmp(true); 
+                    setislogged(true)
+                }
+                else if(userDetails.Role_Type === "seeker"){
+                    setisseeker(true);  
+                    setislogged(true)
+                }
+            }else {
+                localStorage.removeItem('userDetails')
+                localStorage.removeItem('userInfo')
+            }
         }
-        else if(userDetails.Role_Type === "seeker"){
-            setisseeker(true);  
-            setislogged(true)
-        }
-    },[history])
+    },[])
       
     const handleLogout=()=> {
         localStorage.removeItem('userDetails')
         localStorage.removeItem('userInfo')
-        localStorage.clear()
         history.push('/')
         window.location.reload()
     };

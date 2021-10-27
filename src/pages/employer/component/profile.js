@@ -6,7 +6,6 @@ import {validating} from '../../auth/validating'
 
 function EmpProfile() {
 
-    const userDp = localStorage.getItem('userDp');
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}

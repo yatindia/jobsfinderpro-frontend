@@ -32,12 +32,12 @@ export default function FindJobs ({location}) {
 // ---On mount function -----
     useEffect(()=>{
         const param = new URLSearchParams(location.search);
-        const loc = param.get('loc');
+        const loc = param.get('kwds');
         if(loc !== ''){
             setSearch({...search,jobTitle:loc})
             getJob()
         }
-        setSearch({...search,skip:skip,limit:limit})
+        setSearch({...search,jobTitle:loc,skip:skip,limit:limit})
     },[skip,limit])
 
  
@@ -54,7 +54,7 @@ export default function FindJobs ({location}) {
     async function getJob(){
         try {
             const res = await axios.post(`${API_URL}/job/search`,search,{headers:header})
-            console.log(res)
+            console.log(search)
             if (res.data.error===false){
                 setfetch(res.data.data[0])
                 setCount(res.data.data[1])

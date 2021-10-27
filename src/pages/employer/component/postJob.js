@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, {useState } from "react";
 import axios from 'axios'
 
 import { API_URL, formPostJob } from "../../../components/utils";
@@ -20,7 +20,9 @@ const PostJobs =()=> {
         jobSalary: "",
         jobRequirement: "",
         jobType: "",
-        jobApplyEnd: ""
+        jobApplyEnd: "",
+        jobCat:'',
+        jobSCat:''
     })
     const [errs,setErr] = useState({title: "",message: "",style:""})
 
@@ -41,6 +43,7 @@ const handleCheck=(e)=>{
 const postJob =async()=>{
     const validate = formPostJob(inputs)
     setErr({title: "",message:"Loading..",style:"text-primary"})
+    console.log(inputs)
     if (validate.valid===true){
         try {
             const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
@@ -60,6 +63,7 @@ const postJob =async()=>{
 
 const changeCate =(e)=>{
     const cate = e.target.value
+    setInputs({...inputs,jobCat:cate})
     if(e==='Select..' || e ===''){
         setcat('')
     }
@@ -103,10 +107,12 @@ const changeCate =(e)=>{
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobCity">
-                                        {!cat ? <option value=''>Select Category</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
-                                            
+                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobSCat" id="cat" onChange={changeHandle}>
+                                        <option value=''>Select Category</option>
+                                        {!cat ? <></>:
+                                        cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}       
                                     </select>
+                                    <p><small className='ml-2 text-muted'>{inputs.jobSCat}</small></p>
                                 </div>
                             </div>
                         </div>
