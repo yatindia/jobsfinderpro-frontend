@@ -32,6 +32,8 @@ export default function NavBar (){
             }else {
                 localStorage.removeItem('userDetails')
                 localStorage.removeItem('userInfo')
+                history.push('/')
+                window.location.reload()
             }
         }
     },[])

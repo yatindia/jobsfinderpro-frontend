@@ -40,6 +40,10 @@ const savepdf=()=> {
     pdfcreate()
   };
 
+const resumeDown=()=>{
+    alert("gkb")
+}
+
     if(!show){
         return <> </>
     }
@@ -96,7 +100,8 @@ const savepdf=()=> {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="info" onClick={savepdf} >Download</Button> 
+                    <Button variant="info" onClick={savepdf} >Get Profile</Button> 
+                    <Button variant="info" onClick={resumeDown} >Pick Resume</Button> 
                     <Button variant="danger" onClick={dialogClose}>Close</Button> 
                 </Modal.Footer>
             </Modal>

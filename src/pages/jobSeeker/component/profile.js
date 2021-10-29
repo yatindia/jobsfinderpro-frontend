@@ -17,11 +17,14 @@ function UserProfile() {
     const [imgBtn, setImgBtn] = useState(true);
 	const [imgShow, setImgShow] = useState(null);
     const [imgName, setImgName] = useState('');
+    const [resume, setResume] = useState('')
+    const [resumeName, setResumeName] = useState('')
 
     const [pastJob, setpastJob] =useState([])
     const [edu, setEdu] =useState([])
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [err2,setErr2] = useState({title: "",message: "",style:""})
+    const [mess,setMess] = useState({message: "",style:""})
 
     const [inputs, setInputs] = useState({
         firstName: profile_1.job_fname,
@@ -42,6 +45,7 @@ function UserProfile() {
         qualifications:profile_2.qualifications,
         state:profile_2.state,
         city:profile_2.city,
+        resume:profile_2.resume,
         type:'seeker'
       })
 
@@ -112,7 +116,7 @@ const baseUpdate =async()=>{
 
 //-------Profile 2 Update-----------
 const detailUpdate =async()=>{
-     //console.log(profile)
+    //  console.log(profile)
     const erro = formValid(profile)
      if(erro.valid === true){
         setErr2({message:'Loading',style:'text-info'})
@@ -133,10 +137,42 @@ const detailUpdate =async()=>{
        }
 }
 
+// -------Resume update------
+const resumeClick = (e)=>{
+    if (e.target.files[0]) {
+        const file = e.target.files[0];
+        document.getElementById("fileName").innerText = file.name
+        setResume(file)
+    }
+}
+ 
+const uploadResume=async()=>{
+    const formdata = new FormData()
+    formdata.append('resume',resume)
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data',
+            'authorization': `<Bearer> ${profile_1.Auth_token}`
+        }
+    };
+    try {
+        const res = await axios.post(API_URL+"/profile/updateresume",formdata,{headers:config.headers})
+        if(res.data.uploadStatus === true){
+            setResumeName(res.data.fileName)
+            setMess({message:res.data.message,style:'text-info'})
+        }else{
+            setMess({message:res.data.message,style:'text-danger'})
+        }        
+      } catch (ex) {
+       console.log(ex);
+       setMess({message:ex,style:'text-warning'})
+      }
+}
+
 useEffect(()=>{
     setInputs({...inputs,profileImage:imgName||profile_1.dpName})
-    setProfile({...profile,qualifications:[...edu,...profile_2.qualifications],pastJob:[...pastJob,...profile_2.pastJobs]})
-},[inputs,profile,edu,pastJob,imgName,profile_1.dpName,profile_2.qualifications,profile_2.pastJobs])
+    setProfile({...profile,qualifications:[...edu,...profile_2.qualifications],pastJob:[...pastJob,...profile_2.pastJobs],resume:resumeName})
+},[inputs,profile,edu,pastJob,imgName,profile_1.dpName,profile_2.qualifications,profile_2.pastJobs,resumeName])
 
     return (<>
     <div className="conatiner-flex m-3 p-2 border tab-content">
@@ -201,6 +237,22 @@ useEffect(()=>{
         </div>
         <div className="tab-pane fade show active m-4">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Employment Update</small></h3>
+            <div className="row m-2 p-2">
+                <div className="form-group">
+                    Resume: <label className="file-name">{profile_2.resume}</label>
+                    <div className='col-md d-flex'>
+                        <div className="resume-container">
+                            <div className="btn-wrap">
+                                <label className="btn-resume" htmlFor="upload">Change Resume</label>
+                                <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
+                                <label className="file-name" id="fileName"></label>
+                            </div>
+                        </div>
+                        <button className="btn btn-upload mr-2" type='button' onClick={uploadResume}>Upload</button>
+                        <label className={mess.style}>{mess.message}</label>
+                    </div>
+                </div>
+            </div>
             <div className='row'>
                 <div className="col-md-10">
                     <div className="form-group">
@@ -236,7 +288,7 @@ useEffect(()=>{
                     <div className="form-group">
                     <label>Date of Birth</label>
                         <input type="date" name="dateOfBirth" className="formFieldInput"
-                          value={profile.dateOfBirth} onChange={changeHandle}  min="1980-01-01" />
+                          value={profile.dateOfBirth} onChange={changeHandle} />
                     </div>
                 </div>
                 <div className="col-md-6">

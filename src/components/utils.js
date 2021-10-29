@@ -53,9 +53,9 @@ var phoneno = /^\d{10}$/;
     if(!values.mobile){
        return{error:"*Enter Mobile number.", valid:false}
     }
-    if(!values.mobile.match(phoneno)){
-      return{error:"*Enter Valid Phone Number.", valid:false}
-    }
+    // if(values.mobile.match(phoneno)===false){
+    //   return{error:"*Enter Valid Phone Number.", valid:false}
+    // }
     if(!values.dateOfBirth){
         return{error:"*Enter Date fo Birth.", valid:false}
     }

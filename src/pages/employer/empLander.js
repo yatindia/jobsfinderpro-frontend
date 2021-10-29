@@ -12,6 +12,7 @@ import ErrorPage from "../../components/errorPage";
 import EmpProfile from "./component/profile";
 import EditJob from "./component/editModal";
 import Payment from './component/payment'
+import Resumes from "./component/resumes";
 
 import {API_URL, userDp} from '../../components/utils'
 
@@ -119,6 +120,7 @@ const dialogClose=()=>{
 					<Route exact path="/employers/dashboard/jobs" component={Jobs}/>
 					<Route exact path="/employers/dashboard/jobs/:id" component={EditJob}/>
 					<Route exact path="/employers/dashboard/search" component={Search}/>
+					<Route exact path="/employers/dashboard/resumes" component={Resumes}/>
 					<Route exact path="/employers/dashboard/payment" component={Payment}/>
 					<Route exact path="/employers/dashboard/jobs/applied/:id" component={Applied}/>
 					<Route exact path="*" component={ErrorPage}/>

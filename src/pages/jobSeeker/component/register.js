@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {useHistory } from "react-router-dom";
-import {Modal, Form, Row, Col} from 'react-bootstrap';
+import {Modal, Form, Row, Col, Toast} from 'react-bootstrap';
 import axios from 'axios';
 
 import DynamicInput from '../../../components/dynamicInputs';
@@ -14,6 +14,9 @@ const Registration = ({show, title, dialogClose}) => {
 
     const userProfile = JSON.parse(localStorage.getItem( 'userDetails'));
     const [edu, setEdu] =useState([])
+    const [resume, setResume] = useState('')
+    const [resumeName, setResumeName] = useState('')
+    const [toast, setToast] = useState(false);
     const [pastJob, setpastJob] =useState([])
     const [validated, setValidated] = useState(false);
     const history = useHistory()
@@ -30,9 +33,15 @@ const Registration = ({show, title, dialogClose}) => {
         qualifications: "",
         state :"",
         city: "",
+        resume:"",
       })
     const [errs,setErr] = useState({
         title: "",
+        message: "",
+        style:""
+      })
+
+      const [mess,setMess] = useState({
         message: "",
         style:""
       })
@@ -72,10 +81,42 @@ const updateProfile=async(event)=>{
       }
 }
 
+const resumeClick = (e)=>{
+    if (e.target.files[0]) {
+        const file = e.target.files[0];
+        document.getElementById("fileName").innerText = file.name
+        setResume(file)
+    }
+}
+ 
+const uploadResume=async()=>{
+    const formdata = new FormData()
+    formdata.append('resume',resume)
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data',
+            'authorization': `<Bearer> ${userProfile.Auth_token}`
+        }
+    };
+    try {
+        const res = await axios.post(API_URL+"/account/uploadresume",formdata,{headers:config.headers})
+        if(res.data.uploadStatus === true){
+            setResumeName(res.data.fileName)
+            setMess({message:res.data.message,style:'text-info'})
+            setToast(true)
+        }else{
+            setMess({message:res.data.message,style:'text-danger'})
+            setToast(true)
+        }        
+      } catch (ex) {
+       console.log(ex);
+       setMess({message:ex,style:'text-warning'})
+      }
+}
 
 useEffect(()=>{
-    setInputs({...inputs,qualifications:edu, pastJob:pastJob})
-},[inputs,edu,pastJob])
+    setInputs({...inputs,qualifications:edu, pastJob:pastJob,resume:resumeName})
+},[inputs,edu,pastJob,resumeName])
 
     if(!show){
         return <> </>
@@ -92,6 +133,31 @@ useEffect(()=>{
                                     <div className="">
                                         <p className="formFieldLabel"><b>Name:</b> {userProfile.job_fname} {userProfile.job_lname}</p>
                                         <p className="formFieldLabel"><b>User E-Mail:</b> {userProfile.job_email} </p>
+                                    </div>
+                                </Form.Group>
+                                <Form.Group as={Col} md="6">
+                                    <div className="row">
+                                        <div className="resume-container">
+                                            <div className="btn-wrap">
+                                                <label className="btn-resume" htmlFor="upload">Select Resume</label>
+                                                <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
+                                                <label className="file-name" id="fileName"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Row className='row justify-content-center'>
+                                        {/* <Col xs={6}>
+                                            <Toast onClose={() => setToast(false)} show={toast} delay={3000} autohide bg={mess.style}>
+                                            <Toast.Header>
+                                                <strong className="me-auto">Resume Upload</strong>
+                                            </Toast.Header>
+                                            <Toast.Body>{mess.message}</Toast.Body>
+                                            </Toast>
+                                        </Col> */}
+                                        <label className={mess.style}>{mess.message}</label>
+                                    </Row>
+                                    <div className='row justify-content-center'>
+                                        <button className="btn btn-upload" type='button' onClick={uploadResume}>Upload Resume</button>
                                     </div>
                                 </Form.Group>
                             </Row>
@@ -156,20 +222,18 @@ useEffect(()=>{
                                 </Form.Group>
                                  <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
                                     <label>Date of Birth</label>
-                                    <input type="date" name="dateOfBirth" className="form-control formFieldInput" placeholder="dd-mm-yyyy" 
-                                       value={inputs.dateOfBirth} onChange={changeHandle} min="1980-01-01" required/>
+                                    <input type="date" name="dateOfBirth" className="form-control formFieldInput"
+                                       value={inputs.dateOfBirth} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
                             <Row>
-                            </Row>
-                            {/* <Row>
-                                <Form.Group as={Col} md="6"  className="formField">
-                                    <p className="form-group text-primary">Kiran resume.pdf</p>
-                                    <div className=" form-group"> Select Resume
+                                {/* <Form.Group as={Col} md="6"  className="formField">
+                                    <div className=" input-group">
                                         <input type="file" className="form-control " accept="application/pdf" />
                                     </div>
-                                </Form.Group>
-                            </Row> */}
+                                </Form.Group> */}
+                            </Row> 
+                            
                             <Row>
                                 <span className={errs.style}>{errs.message}</span>
                             </Row>

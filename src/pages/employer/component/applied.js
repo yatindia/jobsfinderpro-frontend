@@ -94,11 +94,15 @@ export default function Applied(){
         seekonePdf(e.target.value)
     }
 
+    const downloadResume=(e)=>{
+        alert(e.target.value)
+    }
+
     return (<>
     <div className="container-flex">
         <div>
-            <div className="row d-flex justify-content-center m-3 p-2" key={getdata._id}>
-                <div className="col-md-11 mt-2  border">
+            <div className="row d-flex justify-content-center m-2 p-2" key={getdata._id}>
+                <div className="col-md-12 mt-2  border">
                     <div className="row z-depth-3">
                         <div className="col-sm-9 bg-white rounded-right">
                             <h3 className="m-3 text-start">{getdata.jobTitle}</h3>
@@ -108,15 +112,17 @@ export default function Applied(){
                             </div>
                         </div>
                     </div>
-                    <div className='row'>
+                    <div className='row m-2 p-2 '>
                          {seeker ?
-                             <table className="table table-striped m-2 border">
-                             <thead>
+                         <div className="table-responsive ">
+                             <table className="table table-striped border">
+                             <thead className='table-header'>
                                  <tr>
                                  <th scope="col">Name</th>
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
                                  <th scope="col">Previous Jobs</th>
+                                 <th scope="col">Profile</th>
                                  <th scope="col">Resume</th>
                                  </tr>
                              </thead>
@@ -128,12 +134,15 @@ export default function Applied(){
                                         <td>{item.part1.qualifications}</td>
                                         <td>{item.part1.pastJobs}</td>
                                         <td>
-                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
+                                            <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Get Resume</button>
                                         </td>
                                         </tr>
                                     </tbody>
                                 ))}   
-                             </table>
+                             </table></div>
                         :<label>No data</label>} 
                     </div>
                 <a href="/employers/dashboard/jobs" className=" text-right btn btn-outline-info m-3">Back</a>

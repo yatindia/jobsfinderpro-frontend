@@ -88,9 +88,14 @@ const PostData =(data)=>{
                                 <i className="fa fa-envelope-o text-danger"/><b> {part_2.orgEmail}</b>
                             </div>
                         </div>
-                        <div className="buttons m-3 text-center">
-                        <a className="btn primary" href="/employers/dashboard/profile">Edit Profile</a>
-                    </div>
+                        <div className='row justify-content-center'>
+                            <div className="buttons m-3 text-center">
+                                <a className="btn primary" href="/employers/dashboard/profile">Edit Profile</a>
+                            </div>
+                            <div className="buttons m-3 text-center">
+                                <a className="btn primary" href="/employers/dashboard/resumes">Resumes</a>
+                            </div>
+                        </div>
                     </div>
                 </div>):
                 <div className="buttons mb-3">
