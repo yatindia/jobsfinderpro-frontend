@@ -11,7 +11,6 @@ export default function Resumes(){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [seeker, setseeker] = useState('')
-    const [data, setdata] = useState(false)
     const ids =  profile_2.downloadedResumes
 
     useEffect(() => {
@@ -53,7 +52,7 @@ export default function Resumes(){
                                  <th scope="col">Previous Jobs</th>
                                  <th scope="col">Resume</th>
                                  </tr>
-                             </thead>{console.log(seeker)}
+                             </thead>
                                 {seeker.map((item,i) =>(
                                     <tbody key={i} className='table-row'>
                                         <tr>
@@ -62,7 +61,7 @@ export default function Resumes(){
                                         <td>{item.part1.qualifications}</td>
                                         <td>{item.part1.pastJobs}</td> 
                                         <td>
-                                            <a className="btn btn-outline-info" title={`${item.part2.firstName}`} target="_blank"
+                                            <a className="btn btn-outline-info" title={`${item.part2.firstName}`} target="_blank" rel="noopener noreferrer"
                                                download href={`${API_URL}/profile/profileResumes/${item.part1.resume}`}> Download</a>
                                         </td>
                                         </tr>

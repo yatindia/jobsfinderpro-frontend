@@ -8,12 +8,10 @@ import ViewModal from "./viewModal";
 export default function UserList({data}){
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
-    const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [dialogShow, setDialogShow] = useState(false);
     const [fetch,setfetch] = useState()
-    const [exist,setExist] = useState('')
 
 
     const dialogClose=()=>{

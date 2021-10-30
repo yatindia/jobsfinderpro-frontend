@@ -16,7 +16,6 @@ const Registration = ({show, title, dialogClose}) => {
     const [edu, setEdu] =useState([])
     const [resume, setResume] = useState('')
     const [resumeName, setResumeName] = useState('')
-    const [toast, setToast] = useState(false);
     const [pastJob, setpastJob] =useState([])
     const [validated, setValidated] = useState(false);
     const history = useHistory()
@@ -103,10 +102,8 @@ const uploadResume=async()=>{
         if(res.data.uploadStatus === true){
             setResumeName(res.data.fileName)
             setMess({message:res.data.message,style:'text-info'})
-            setToast(true)
         }else{
             setMess({message:res.data.message,style:'text-danger'})
-            setToast(true)
         }        
       } catch (ex) {
        console.log(ex);

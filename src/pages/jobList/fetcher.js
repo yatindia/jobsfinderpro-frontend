@@ -5,14 +5,12 @@ import '../style.css'
 
 import { API_URL } from "../../components/utils";
 import Listing from "./listing";
-import { useHistory } from "react-router-dom";
 
 export default function Featcher ({location}) {
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
-    const history = useHistory()
     const [count, setCount] = useState(0)
     const perpage = 10
     const limit = 100

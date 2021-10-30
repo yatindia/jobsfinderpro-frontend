@@ -28,9 +28,7 @@ export default function Payment (){
             setErr({title:'Payment',message:'Waiting for process..',style:"info"})
             setToast(true)
             const res = await axios.get(`${API_URL}/payment/`,{link_id:profile_2.link_id},config)
-            window.open(res.data.paymentURL, "_blank")
-            // setErr({title:'Payment',message:'Payment Success',style:'info'})
-            // setToast(true)
+            window.open(res.data.paymentURL)
         } catch (error) {
             setErr({title:'Payment',message:'Network Error',style:"warning"})
             setToast(true)
@@ -52,28 +50,19 @@ export default function Payment (){
   }, []);
 
     return(
-    <div className="container-flex m-2 p-2">
+    <div className="container-flex m-2 p-2 border">
         <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
-        <div className="row contain justify-content-center m-auto border p-3">
+        <div className="row justify-content-center m-auto">
             <div className="col-xs-6 col-sm-6 col-md-6 ">
                 <address>
                     <strong className='text-capitalize'>{profile_1.job_fname} {profile_1.job_lname}</strong>
                     <br/>
                     <p>{profile_1.job_email}</p>
+                    <p>Balance Point <abbr title="Number">#:</abbr><b>{profile_2.resumePoints}</b></p>
                     <br/>
-                    <p className="text-capitalize">{profile_2.orgAddress}, {profile_2.orgCountry}</p>
-                    <abbr title="Phone">P:</abbr> {profile_2.orgPhone}
                 </address>
             </div>
-            <div className="col-xs-6 col-sm-6 col-md-6 text-right">
-                <p>
-                    <em>Expiry Date: <b>15th November, 2021</b></em>
-                </p>
-                <p>
-                    <em>Balance Point #:<b>{profile_2.resumePoints}</b></em>
-                </p>
-            </div>
-            <div className='col-sm-4'>
+            <div className='col-xs-6 col-sm-6 col-md-6 m-auto align-items-center'>
             <Toast onClose={() => setToast(false)} show={toast} bg={errs.style}>
                 <Toast.Header>
                     <strong className="me-auto">{errs.title}</strong>
@@ -82,13 +71,13 @@ export default function Payment (){
                 </Toast>
             </div>
         </div>
-        {/* <div className='row m-3 justify-content-center'>
-        <div className="col-sm-4 bg-info rounded">
-            <label className="p-3">{errs.message}</label>
+         {/* <div className='row m-3 justify-content-center'>
+        <div className={`col-sm-4 bg-${errs.style} rounded text-center`}>
+            <h4 className="p-3"><b>{errs.message}</b></h4>
         </div>
         </div> */}
        <div>
-       <div className="row contain justify-content-center m-auto">
+       <div className="row contain justify-content-center m-auto border-top">
             <div className="col-md-4 col-lg-4 col-sm-4">
                 <div className="pricingTable">
                     <div className="pricing_heading">
@@ -101,8 +90,8 @@ export default function Payment (){
                     <div className="content">
                         <ul>
                             <li>Yearly Package Rs 25000</li>
-                            <li>Post 10 Job</li>
-                            <li>250 Resume Download</li>
+                            <li>Post Unlimited Job</li>
+                            <li>50 Point Resume Download</li>
                         </ul>
                         <div className="link">
                             <button className="btn" value="2500" onClick={(e)=>buynow(e)}>Buy Now</button>
