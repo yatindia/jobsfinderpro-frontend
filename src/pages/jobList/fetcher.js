@@ -27,6 +27,7 @@ export default function Featcher ({location}) {
     const [search, setSearch] = useState({
         jobCategory: "",
         jobSubCategory:"",
+        jobCity:"",
         skip:skip,
         limit:limit
     })
@@ -48,6 +49,10 @@ export default function Featcher ({location}) {
 // ---On Change function -----
     const handleClick=async(e)=> {
         setSearch({...search,jobSubCategory: e,skip:0,limit:100})
+    }
+
+    function changeHandle(e) {
+        setSearch({...search,jobCity: e.target.value,skip:0,limit:100})
     }
 
     function changeSkip(e){
@@ -93,18 +98,21 @@ export default function Featcher ({location}) {
         <div className="container m-auto row justify-content-center" >
         <div className="col text-center m-2 p-2 ">
              <div className="row">
-                 {/* { cat ? <div className="col-sm">
-                    {cat.map((level,i)=>
-                        (<button key={i} className="btn btn-trending" value={level} onClick={(e) => handleClick(e.target.value)}>{level}</button>))}
-                 </div> :<h5>Loading</h5> } */}
-                 { cat ? <div className="col-md d-flex">
-                     <input className="form-control" type='select' list='subcat' placeholder="Select Subcategory....." onChange={(e) => handleClick(e.target.value)}/>
+                 { cat ? <div className="col-sm d-flex">
+                     <input className="form-control formFieldInput" type='select' list='subcat' placeholder="Select Subcategory....." onChange={(e) => handleClick(e.target.value)}/>
                      <datalist id='subcat'>
                      {cat.map((level,i)=>
                         (<option key={i} value={level}>{level}</option>))}
                      </datalist>
-                     <button className='btn btn-findJob ml-2' type='button' onClick={findJob}>Search</button>
+                     
                  </div> :<h5>Loading</h5> }
+                 {/* <div className="col-lg col-md col-sm p-1 m-1 input-group">
+                    <input className="form-control formFieldInput text-capitalize"  type="text" name="jobCity" value={search.jobCity}
+                    onChange={changeHandle} list="browsers1" placeholder ="Locations..."/>
+                </div> */}
+                <div className="m-1 m-auto align-item-center">
+                    <button className="btn btn-findJob" type="button" onClick={findJob}>Search</button>
+                </div>
              </div>
         </div> 
         </div>

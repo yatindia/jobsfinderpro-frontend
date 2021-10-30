@@ -1,5 +1,6 @@
 import React,{useState} from "react"
 import axios from "axios";
+import { Toast } from "react-bootstrap";
 
 import DialogBox from "../../../components/dialogBox";
 import { API_URL } from "../../../components/utils";
@@ -10,7 +11,8 @@ export default function Payment (){
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
 
     const [dialogShow, setDialogShow] = useState(false);
-    const [errs,setErr] = useState({title: "",message: ""})
+    const [errs,setErr] = useState({title: "",message: "",style:""})
+    const [toast, setToast] = useState(false);
 
     const dialogClose=()=>{
         setDialogShow(false)
@@ -19,26 +21,20 @@ export default function Payment (){
     const buynow=async(e)=>{
         const config = {
             headers: {
-                'content-type': 'multipart/form-data',
                 'authorization': `<Bearer> ${profile_1.Auth_token}`
             }
         };
-        setDialogShow(true)
-        setErr({title:'Payment '+e.target.value+' Received',message:e.target.value+' Pack is processed to you Account'})
-        // try {
-        //     const res = await axios.post(API_URL+"/profile/checkout",{price:e.target.value},config)
-        //     if (res.data.message==="success") {
-        //         setDialogShow(true)
-        //         setErr({title:'Payment '+e.target.value+' Received',message:e.target.value+' Pack is processed to you Account'})
-        //     }
-        //     if (res.data.message==="canceled") {
-        //         setDialogShow(true)
-        //         setErr({title:'Payment '+e.target.value+' Failed',message:' Payment is Cancelled Please try Again.'})
-        //       }
-        // } catch (error) {
-        //     setDialogShow(true)
-        //     setErr({title:'Payment Failed',message:'Network Error'})
-        // }
+        try {
+            setErr({title:'Payment',message:'Loading..',style:"info"})
+            setToast(true)
+            const res = await axios.get(`${API_URL}/payment/`,config)
+            window.open(res.data, "_blank")
+            // setErr({title:'Payment',message:'Payment Success',style:'info'})
+            // setToast(true)
+        } catch (error) {
+            setErr({title:'Payment',message:'Network Error',style:"warning"})
+            setToast(true)
+        }
     }
 
     return(
@@ -62,6 +58,12 @@ export default function Payment (){
                     <p>
                         <em>Balance Point #:<b>{profile_2.resumePoints}</b></em>
                     </p>
+                        <Toast onClose={() => setToast(false)} show={toast} delay={3000} autohide bg={errs.style}>
+                        <Toast.Header>
+                            <strong className="me-auto">{errs.title}</strong>
+                        </Toast.Header>
+                        <Toast.Body className="me-auto">{errs.message}</Toast.Body>
+                        </Toast>
                 </div>
         </div>
        <div>

@@ -126,7 +126,7 @@ export default function FindJobs ({location}) {
             <div className=' container'>
                 <div className='row d-flex'>
                 <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>
-                <select className="form m-2" onChange={(e)=>changeSkip(e)}>
+                <select className="form m-2 border" onChange={(e)=>changeSkip(e)}>
                     <option value=''>1 - 100</option>
                     <option value='100'>100 - 200</option>
                     <option value='200'>200 - 300</option>

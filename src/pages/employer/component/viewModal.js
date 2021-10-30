@@ -7,7 +7,6 @@ import { API_URL } from '../../../components/utils';
 
 export default function ViewModal ({show, data,  dialogClose}){
     
-    // const URL = "https://9139-2405-201-e031-7014-fd82-3b40-b7a6-1f3d.ngrok.io"
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
@@ -52,10 +51,12 @@ const savepdf=()=> {
     pdfcreate()
   };
 
+  const url = 'https://b0fc-2405-201-e031-7014-a1f8-a4aa-d42d-998f.ngrok.io'
+
 const resumeDown=async()=>{
     console.log(input)
     try {
-        const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
+        const res = await axios.post(`${url}/job/takeresume`,input,{headers:header})
         setMess({message:res.data.message,style:'text-info'})
     } catch (error) {
         

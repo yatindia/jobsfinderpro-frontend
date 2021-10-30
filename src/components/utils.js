@@ -41,9 +41,10 @@ export const resizeFile = (file) =>
   }
   
 // ----Validation for Seeker Profile---
-var phoneno = /^\d{10}$/;
+var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
 
   export const formValid =(values)=>{
+  
     if(values.qualifications.length<=0){
       return{error:"*Enter your Qualification.", valid:false}
   }
@@ -51,11 +52,11 @@ var phoneno = /^\d{10}$/;
     return{error:"*Enter your Past Jobs.", valid:false}
 }
     if(!values.mobile){
-       return{error:"*Enter Mobile number.", valid:false}
+       return{error:"*Enter Contact number.", valid:false}
     }
-    // if(values.mobile.match(phoneno)===false){
-    //   return{error:"*Enter Valid Phone Number.", valid:false}
-    // }
+    if(!pattern.test(values.mobile)){
+      return{error:"*Enter Valid Contact Number.", valid:false}
+    }
     if(!values.dateOfBirth){
         return{error:"*Enter Date fo Birth.", valid:false}
     }
@@ -88,9 +89,9 @@ export const empformValid =(values)=>{
       return{error:"*Enter Organization E-mail.", valid:false}
   }
   if(!values.orgPhone){
-      return{error:"*Enter Organization Contact Number.", valid:false}
+      return{error:"*Enter Contact Number.", valid:false}
   }
-  if(!values.orgPhone.match(phoneno)){
+if(!pattern.test(values.orgPhone)){
   return{error:"*Enter Valid Contact Number.", valid:false}
 }
   if(!values.orgWebsite){

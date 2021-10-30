@@ -37,7 +37,7 @@ export default function Listing({data}){
      }
 
     return(<>
-            <div className="row z-depth-3 border p-3 m-3" key={data._id}>
+            <div className="row z-depth-3 border p-3 " key={data._id}>
                 <div className="col-sm-3 bg-info rounded-left">
                     <div className="text-center text-white align-items-center mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${fetch.org.orgLogo}`} alt="sample"></img>
@@ -49,6 +49,11 @@ export default function Listing({data}){
                 <div className="col-md bg-white rounded-right">
                         <h5 className="mt-3 text-start">{fetch.org.orgName}</h5>
                         <p className="mt-3 text-muted">Job Position:  <b>{fetch.job.jobTitle}</b></p>
+                        <div className='row mb-2'>
+                            <div className="col">
+                                <h6 className="text-muted">{data.jobCategory} / {data.jobSubCategory}</h6>
+                            </div>
+                        </div>
                         <div className="row border-top p-2">
                             <div className="col-sm">
                                 <p className="font-weight-bold">Location</p>
@@ -66,18 +71,10 @@ export default function Listing({data}){
                                 <p className="font-weight-bold">Salary</p>
                                 <h6 className="text-muted">₹ {data.jobSalary}</h6>
                             </div>
-                            <div className="col m-auto text-center">
+                            <div className="col m-auto d-flex ">
                                 <ApplyBtn job={data}></ApplyBtn>
                                 <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
                                 {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}
-                            </div>
-                        </div>
-                        <div className='row'>
-                        <div className="col-sm">
-                                <h6 className="text-muted">{data.jobCategory}</h6>
-                            </div>
-                            <div className="col-sm">
-                                <h6 className="text-muted">{data.jobSubCategory}</h6>
                             </div>
                         </div>
                     <hr className="bg-primary"/>

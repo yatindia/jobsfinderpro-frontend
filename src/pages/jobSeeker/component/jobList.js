@@ -36,7 +36,7 @@ export default function JobList({data}){
     return(<>
             <div className="row z-depth-3 p-2 m-2 border">
                 <div className="col-sm-3 bg-info rounded-left">
-                    <div className="card-block text-center text-white">
+                    <div className="card-block text-center text-white mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${data.org.orgLogo}`} alt="sample"></img>
                         {/* <h2 className="font-weight-bold mt-2"></h2> */}
                         <p>{data.job.dateOfAdd}</p>
@@ -45,8 +45,11 @@ export default function JobList({data}){
                 </div>
                 <div className="col-md bg-white rounded-right" key={data.job._id}>
                 <h5 className="mt-3 text-start">{data.org.orgName}</h5>
-                <p className="mt-3 text-muted">Job Position:  <b>{data.job.jobTitle}</b></p>
-                <div className="row border-top p-2">
+                <div className='row'>
+                    <p className="col mt-3 text-muted">Job Position:  <b>{data.job.jobTitle}</b></p>
+                    <p className="col mt-3 text-muted">Category:  <b>{data.job.jobCategory}</b></p>
+                </div>
+                <div className="row border-top ">
                     <div className="col-sm">
                         <p className="font-weight-bold">Location</p>
                         <h6 className="text-muted">{data.job.jobCity}</h6>

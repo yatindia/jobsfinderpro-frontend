@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {useHistory } from "react-router-dom";
-import {Modal, Form, Row, Col, Toast} from 'react-bootstrap';
+import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 import DynamicInput from '../../../components/dynamicInputs';
