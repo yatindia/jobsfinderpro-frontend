@@ -33,6 +33,7 @@ const ViewJob = ({show, data,  dialogClose}) => {
                                 <p>Level:<i className="text-info">   {job.jobType}</i></p>
                                 <p>Dead Line: <i className="text-info">  {job.jobApplyEnd}</i></p>
                                 <p>Salary: <i className="text-info">{    `₹ ${job.jobSalary}`}</i></p>
+                                <p>Category: <i className="text-info">{job.jobCategory} , {job.jobSubCategory}</i></p>
                             </div>
                         </div>
                         <div className="col">
@@ -44,7 +45,7 @@ const ViewJob = ({show, data,  dialogClose}) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row pt-2">
+                    <div className="form-group row">
                         <div className="col">
                             <label>Job Description</label>
                             <textarea type="text"  rows="8"
@@ -58,7 +59,7 @@ const ViewJob = ({show, data,  dialogClose}) => {
                             value={job.jobRequirement} className="form-control border-0" readOnly/>
                         </div>
                     </div>
-                    <small className="text-center"><b>Posted On: </b>{job.dateOfAdd}</small>
+                    <small className="text-right m-auto"><b>Posted On: </b>{job.dateOfAdd}</small>
                 </div>
             </Modal.Body>
             <Modal.Footer>

@@ -99,7 +99,7 @@ const uploadResume=async()=>{
         }
     };
     try {
-        const res = await axios.post(API_URL+"/account/uploadresume",formdata,{headers:config.headers})
+        const res = await axios.post(API_URL+"/account/uploadresume",formdata,config)
         if(res.data.uploadStatus === true){
             setResumeName(res.data.fileName)
             setMess({message:res.data.message,style:'text-info'})

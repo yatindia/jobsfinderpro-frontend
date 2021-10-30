@@ -11,7 +11,7 @@ export default function Register() {
   const [imgData, setImgData] = useState(null);
   const [imgShow, setImgShow] = useState(null);
   const [imgBtn, setImgBtn] = useState(true);
-  const [imgName, setImgName] = useState('');
+  const [imgName, setImgName] = useState('null');
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
   
@@ -86,6 +86,7 @@ export default function Register() {
       const erro = validating(emp)
       if(erro.valid===true){
         setErr({message:''})
+        // console.log(emp)
         try {
           setErr({message:'Loading..',style:'text-primary'})
           const res = await axios.post(API_URL+"/account/signup",emp)
@@ -119,15 +120,11 @@ const onImageChange=async (e)=>{
 }
 
 const imageUpload= async ()=>{
-	let imageData = ''
-	if(!userDp){
-		imageData = imgData
-	}else {
-		const newFile = dataURIToBlob(userDp);
-		imageData = newFile
-	}
+  if(imgBtn===true){
+    setErr({title:'',message:'Select Image',style:'text-danger'})
+  }else{
 	const formData = new FormData();
-	formData.append("profile", imageData);
+	formData.append("profile", imgData);
 	const config = {
 		headers: {
 			'content-type': 'multipart/form-data',
@@ -143,6 +140,7 @@ const imageUpload= async ()=>{
 	   // console.log(ex);
     setErr({title:'',message:ex,style:'text-warning'})
 	  }
+  }
 }
 
 useEffect(()=>{

@@ -21,8 +21,8 @@ const PostJobs =()=> {
         jobRequirement: "",
         jobType: "",
         jobApplyEnd: "",
-        jobCat:'',
-        jobSCat:''
+        jobCategory:'',
+        jobSubCategory:''
     })
     const [errs,setErr] = useState({title: "",message: "",style:""})
 
@@ -43,7 +43,7 @@ const handleCheck=(e)=>{
 const postJob =async()=>{
     const validate = formPostJob(inputs)
     setErr({title: "",message:"Loading..",style:"text-primary"})
-    console.log(inputs)
+    // console.log(inputs)
     if (validate.valid===true){
         try {
             const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
@@ -63,7 +63,7 @@ const postJob =async()=>{
 
 const changeCate =(e)=>{
     const cate = e.target.value
-    setInputs({...inputs,jobCat:cate})
+    setInputs({...inputs,jobCategory:cate})
     if(e==='Select..' || e ===''){
         setcat('')
     }
@@ -95,7 +95,7 @@ const changeCate =(e)=>{
                             <label>Category</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobCity" 
+                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobCategory" 
                                         onChange={(e)=>changeCate(e)}>
                                             <option value=''>Select Category</option>
                                             {category.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
@@ -107,12 +107,12 @@ const changeCate =(e)=>{
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobSCat" id="cat" onChange={changeHandle}>
+                                    <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobSubCategory" id="cat" onChange={changeHandle}>
                                         <option value=''>Select Category</option>
                                         {!cat ? <></>:
                                         cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}       
                                     </select>
-                                    <p><small className='ml-2 text-muted'>{inputs.jobSCat}</small></p>
+                                    <p><small className='ml-2 text-muted'>{inputs.jobSubCategory}</small></p>
                                 </div>
                             </div>
                         </div>

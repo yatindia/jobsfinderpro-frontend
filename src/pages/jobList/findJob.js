@@ -54,7 +54,7 @@ export default function FindJobs ({location}) {
     async function getJob(){
         try {
             const res = await axios.post(`${API_URL}/job/search`,search,{headers:header})
-            console.log(search)
+            // console.log(search)
             if (res.data.error===false){
                 setfetch(res.data.data[0])
                 setCount(res.data.data[1])

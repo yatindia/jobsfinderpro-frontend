@@ -59,6 +59,7 @@ const PostData =(data)=>{
         <div className='row justify-content-center'>
             <div className="col-md-10 card-container shadow">
                 <h3><span className="text-secondary">User:</span> {part_1.firstName} {part_1.lastName}</h3>
+                <p className='text-right'>Balance Points: # {part_2.resumePoints}</p>
                 {part_2 ?(
                 <div className=" row border-top p-2">
                     <div className='col border p-2'>
@@ -93,7 +94,7 @@ const PostData =(data)=>{
                                 <a className="btn primary" href="/employers/dashboard/profile">Edit Profile</a>
                             </div>
                             <div className="buttons m-3 text-center">
-                                <a className="btn primary" href="/employers/dashboard/resumes">Resumes</a>
+                                <a className="btn primary" href="/employers/dashboard/resumes">{part_2.downloadedResumes.length} Resumes</a>
                             </div>
                         </div>
                     </div>

@@ -26,6 +26,8 @@ const EditJob = () => {
         jobRequirement: "",
         jobType: "",
         jobApplyEnd: "",
+        jobCategory: "",
+        jobSubCategory: "",
         _id:""
     })
 
@@ -53,7 +55,9 @@ useEffect(() => {
                     jobSalary: datas.jobSalary,
                     jobRequirement: datas.jobRequirement,
                     jobType: datas.jobType,
-                    jobApplyEnd: datas.jobApplyEnd
+                    jobApplyEnd: datas.jobApplyEnd,
+                    jobCategory: datas.jobCategory,
+                    jobSubCategory: datas.jobSubCategory
                 })
             }
         } catch (error) {
@@ -68,6 +72,7 @@ useEffect(() => {
 const updateJob =async(event)=>{
     event.preventDefault();
     setErr({title: "",message:"Loading..",style:"text-primary"})
+    // console.log(inputs)
         try {
             const res = await axios.post(`${API_URL}/job/update`,inputs,{headers:header})
              if(res.data.error === false){
@@ -99,6 +104,7 @@ const removeJob =async(event)=>{
 
 const changeCate =(e)=>{
     const cate = e.target.value
+    setInputs({...inputs,jobCategory:cate})
     if(e==='Select..' || e ===''){
         setcat('')
     }
@@ -131,9 +137,9 @@ const changeCate =(e)=>{
                             <label>Category</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobCity" 
+                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobCategory" 
                                         onChange={(e)=>changeCate(e)}>
-                                            <option value=''>Select Category</option>
+                                            <option value={inputs.jobCategory}>{inputs.jobCategory}</option>
                                             {category.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
                                     </select>
                                 </div>
@@ -143,10 +149,10 @@ const changeCate =(e)=>{
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
-                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobCity">
-                                        {!cat ? <option value=''>Select Category</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}
-                                            
+                                    <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobSubCategory" onChange={changeHandle}>
+                                        {!cat ? <option value={inputs.jobSubCategory}>{inputs.jobSubCategory}</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}    
                                     </select>
+                                    <p><small className='ml-2 text-muted'>{inputs.jobSubCategory}</small></p>
                                 </div>
                             </div>
                         </div>

@@ -9,11 +9,13 @@ export default function Applied(){
 
     const param = useParams()
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
+    const [mess,setMess] = useState({message: "",style:""})
 
     useEffect(() => {
         getuser()
@@ -94,8 +96,13 @@ export default function Applied(){
         seekonePdf(e.target.value)
     }
 
-    const downloadResume=(e)=>{
-        alert(e.target.value)
+    const downloadResume=async(e)=>{
+        try {
+            const res = await axios.post(`${API_URL}/job/takeresume`,{link_id:profile_2.link_id,seekerid:e.target.value},{headers:header})
+            setMess({message:res.data.message,style:'text-info'})
+        } catch (error) {
+            
+        }
     }
 
     return (<>
@@ -112,6 +119,9 @@ export default function Applied(){
                             </div>
                         </div>
                     </div>
+                    <div className="row justify-content-center">
+                            <h6 className={mess.style}>{mess.message}</h6>
+                        </div> 
                     <div className='row m-2 p-2 '>
                          {seeker ?
                          <div className="table-responsive ">

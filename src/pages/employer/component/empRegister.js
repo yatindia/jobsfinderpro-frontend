@@ -44,7 +44,7 @@ const updateProfile=async(event)=>{
       setValidated(true); 
       const checking = empformValid(inputs)
       if(checking.valid===true){
-        //console.log(inputs)
+        // console.log(inputs)
         try {
             setErr({message:'Loading..',style:'text-primary'})
             const res = await axios.post(`${API_URL}/account/signupcomplete`,inputs)
@@ -83,19 +83,15 @@ const updateProfile=async(event)=>{
           const newFile = dataURIToBlob(image);
           setImgShow(image)
           setImgData(newFile)
-          localStorage.setItem("userDp",  image);
+          //localStorage.setItem("userDp",  image);
           setImgBtn(false)
       }
   }
   
   const imageUpload= async ()=>{
-    //   let imageData = ''
-    //   if(!userDp){
-    //       imageData = imgData
-    //   }else {
-    //       const newFile = dataURIToBlob(userDp);
-    //       imageData = newFile
-    //   }
+    if(imgBtn===true){
+        setErr({title:'',message:'Select Image',style:'text-danger'})
+      }else{
       const formData = new FormData();
       formData.append("profile", imgData);
       const config = {
@@ -110,9 +106,9 @@ const updateProfile=async(event)=>{
             setErr({title:'',message:res.data.Message,style:'text-success'})
             setInputs({...inputs,orgLogo:imgName})
         } catch (ex) {
-         // console.log(ex);
       setErr({title:'',message:ex,style:'text-warning'})
         }
+    }
   }
 
   useEffect(()=>{
@@ -133,7 +129,7 @@ const updateProfile=async(event)=>{
                                 <Form.Group as={Col} md="6" className="formField">
                                     <Form.Label className="formFieldLabel">Organization Logo</Form.Label>
                                         <div className="row m-auto justify-content-between text-center">
-                                        <div className="col img-circle ml-3">
+                                        <div className="img-circle ml-3">
                                         {imgBtn?<img src={userDp}  className="shadow" alt="Logo"/>:<img src={imgShow}   className="shadow" alt="Logo"/>}
                                         </div>
                                         <div className="col mt-4">

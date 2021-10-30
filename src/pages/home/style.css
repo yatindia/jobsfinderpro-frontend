@@ -17,22 +17,24 @@
 }
 
   .btn-trending {
-    font-weight: 400;
+    font-weight: bold;
     font-size: 14px;
-    border: 1px;
+    border-radius: 20px;
     text-decoration: none!important;
+    background-color: transparent;
     letter-spacing: 1px;
     display: inline-block;
-    border-radius: 20px;
     transition: 0.5s;
-    color: #fff;
-    background: #eb5d1e;
-    margin: 10px;
+    color: #722505;
+    margin: 3px;
   }
 
   .btn-trending:hover {
     color: #eb5d1e;
-    font-weight: 400;
     background: transparent;
     cursor: pointer;
+  }
+
+  .btn-trending:focus {
+    outline:2px solid #eb5d1e;
   }

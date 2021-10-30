@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 import {Modal, Button} from 'react-bootstrap';
-
 import jsPDF from 'jspdf'
 
+import { API_URL } from '../../../components/utils';
 
 export default function ViewModal ({show, data,  dialogClose}){
+    
+    // const URL = "https://9139-2405-201-e031-7014-fd82-3b40-b7a6-1f3d.ngrok.io"
 
-// const image = `${API_URL}/profile/profileImages/${data.part2.profileImage}`
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
+    const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+
+    const [mess,setMess] = useState({message: "",style:""})
+    const [input] = useState({
+        link_id:profile_2.link_id,
+        seekerid:data.part1.link_id
+    })
+
     function pdfcreate() {    
         var doc = new jsPDF(); 
         doc.setLineWidth(0.1);
@@ -40,8 +52,14 @@ const savepdf=()=> {
     pdfcreate()
   };
 
-const resumeDown=()=>{
-    alert("gkb")
+const resumeDown=async()=>{
+    console.log(input)
+    try {
+        const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
+        setMess({message:res.data.message,style:'text-info'})
+    } catch (error) {
+        
+    }
 }
 
     if(!show){
@@ -97,6 +115,9 @@ const resumeDown=()=>{
                                 ))}</div>
                             </div>
                         </div>
+                        <div className="row justify-content-center">
+                            <h6 className={mess.style}>{mess.message}</h6>
+                        </div>                        
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

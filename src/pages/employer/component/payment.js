@@ -60,13 +60,13 @@ export default function Payment (){
                         <em>Expiry Date: <b>15th November, 2021</b></em>
                     </p>
                     <p>
-                        <em>Balance Point #:<b>345</b></em>
+                        <em>Balance Point #:<b>{profile_2.resumePoints}</b></em>
                     </p>
                 </div>
         </div>
        <div>
        <div className="row contain justify-content-center m-auto">
-            <div className="col-md-6 col-lg-6 col-sm-6">
+            <div className="col-md-4 col-lg-4 col-sm-4">
                 <div className="pricingTable">
                     <div className="pricing_heading">
                         <h3 className="title">Plan Pricing</h3>

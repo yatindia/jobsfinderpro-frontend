@@ -70,15 +70,26 @@ function Jobs(){
                                     <p className="font-weight-bold">Salary</p>
                                     <h6 className="text-muted">₹ {data.jobSalary}</h6>
                                 </div>
-                                <div className="col-sm">
+                                <div className="col-sm text-right">
                                     <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Jobs</a>
-                                </div>
-                                <div className="col-sm">
-                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/applied/${data._id}`}>Applicants</a>
                                 </div>
                             </div>
                             <hr className="bg-primary"/>
                             <div className="row">
+                                <div className="col-md">
+                                    <p className="font-weight-bold">Category</p>
+                                    <h6 className="text-muted" maxLength='50'>{data.jobCategory}</h6>
+                                </div>
+                                <div className="col-md">
+                                    <p className="font-weight-bold">Sub Category</p>
+                                    <h6 className="text-muted" maxLength='50'>{data.jobSubCategory}</h6>
+                                </div>
+                                <div className="col-sm text-right">
+                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/applied/${data._id}`}>Applicants</a>
+                                </div>
+                            </div>
+                            <hr className="bg-primary"/>
+                            {/* <div className="row">
                                 <div className="col-md">
                                     <p className="font-weight-bold">Job Description</p>
                                     <h6 className="text-muted" maxLength='50'>{data.jobDescription}</h6>
@@ -90,7 +101,7 @@ function Jobs(){
                                     <p className="font-weight-bold">Job Requirement</p>
                                     <h6 className="text-muted " maxLength='50'>{data.jobRequirement}</h6>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

@@ -72,6 +72,7 @@ function UserProfile() {
 	const imageUpload= async ()=>{
         const formData = new FormData();
         formData.append("profile", imgData);
+        formData.append('oldDp',profile_1.dpName)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -147,26 +148,32 @@ const resumeClick = (e)=>{
 }
  
 const uploadResume=async()=>{
-    const formdata = new FormData()
-    formdata.append('resume',resume)
-    const config = {
-        headers: {
-            'content-type': 'multipart/form-data',
-            'authorization': `<Bearer> ${profile_1.Auth_token}`
+    if(resume === ''){
+        setMess({message:'Select the Resume',style:'text-info'})
+    }else{
+        const formdata = new FormData()
+        formdata.append('resume',resume)
+        formdata.append('oldResume',profile_2.resume)
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'authorization': `<Bearer> ${profile_1.Auth_token}`
+            }
+        };
+        try {
+            setMess({message:'Loading..',style:'text-primary'})
+            const res = await axios.post(`${API_URL}/profile/updateresume`,formdata,config)
+            if(res.data.uploadStatus === true){
+                setResumeName(res.data.fileName)
+                setMess({message:res.data.message,style:'text-info'})
+            }else{
+                setMess({message:res.data.message,style:'text-danger'})
+            }        
+        } catch (ex) {
+        console.log(ex);
+        setMess({message:"Network error",style:'text-warning'})
         }
-    };
-    try {
-        const res = await axios.post(API_URL+"/profile/updateresume",formdata,{headers:config.headers})
-        if(res.data.uploadStatus === true){
-            setResumeName(res.data.fileName)
-            setMess({message:res.data.message,style:'text-info'})
-        }else{
-            setMess({message:res.data.message,style:'text-danger'})
-        }        
-      } catch (ex) {
-       console.log(ex);
-       setMess({message:ex,style:'text-warning'})
-      }
+    }
 }
 
 useEffect(()=>{
@@ -240,15 +247,15 @@ useEffect(()=>{
             <div className="row m-2 p-2">
                 <div className="form-group">
                     Resume: <label className="file-name">{profile_2.resume}</label>
-                    <div className='col-md d-flex'>
+                    <div className='col'>
                         <div className="resume-container">
                             <div className="btn-wrap">
                                 <label className="btn-resume" htmlFor="upload">Change Resume</label>
                                 <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
                                 <label className="file-name" id="fileName"></label>
+                                <button className="btn btn-upload m-2" type='button' onClick={uploadResume}>Upload</button>
                             </div>
                         </div>
-                        <button className="btn btn-upload mr-2" type='button' onClick={uploadResume}>Upload</button>
                         <label className={mess.style}>{mess.message}</label>
                     </div>
                 </div>

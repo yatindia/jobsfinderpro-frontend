@@ -8,16 +8,22 @@ import ViewModal from "./viewModal";
 export default function UserList({data}){
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [dialogShow, setDialogShow] = useState(false);
     const [fetch,setfetch] = useState()
+    const [exist,setExist] = useState('')
 
 
     const dialogClose=()=>{
         setDialogShow(false)
       }
     useEffect(()=>{
+        // const resumes = profile_2.downloadedResumes
+        // if(resumes.includes(data.link_id)){
+        //     setExist('Already')
+        // }
         const getlist =async()=>{
             try {
                 const res = await axios.post(`${API_URL}/job/searchoneseeker`,{seekerid:data.link_id},{headers:header})

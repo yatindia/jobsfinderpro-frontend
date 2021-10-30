@@ -11,6 +11,7 @@ export default function Resumes(){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [seeker, setseeker] = useState('')
+    const [data, setdata] = useState(false)
     const ids =  profile_2.downloadedResumes
 
     useEffect(() => {
@@ -19,7 +20,8 @@ export default function Resumes(){
 
     const getseek=async(ids)=>{
         const  vall = ids.map(item => {
-            return axios.post(`${API_URL}/profile/getseekerprofile`,{seekerid:item},{headers:header})
+            const res = axios.post(`${API_URL}/profile/getseekerprofile`,{seekerid:item},{headers:header})
+            return res
         })
         const result = await axios.all(vall)
         const stateinfa = result.map((res)=>(
@@ -40,7 +42,7 @@ export default function Resumes(){
                             <h3 className="m-3 text-start text-muted">Resume Bucket:</h3>
                     </div>
                     <div className='row p-2'>
-                          {seeker?
+                          {seeker ?
                           <div className="table-responsive ">
                              <table className="table table-striped border">
                              <thead className='table-header'>
@@ -51,7 +53,7 @@ export default function Resumes(){
                                  <th scope="col">Previous Jobs</th>
                                  <th scope="col">Resume</th>
                                  </tr>
-                             </thead>
+                             </thead>{console.log(seeker)}
                                 {seeker.map((item,i) =>(
                                     <tbody key={i} className='table-row'>
                                         <tr>
@@ -65,7 +67,7 @@ export default function Resumes(){
                                         </td>
                                         </tr>
                                     </tbody>
-                                ))}   
+                                ))}  
                              </table></div>
                         :<label>No data</label>} 
                     </div>

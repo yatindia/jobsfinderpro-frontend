@@ -48,7 +48,7 @@ export default function Search () {
 // -----Get Job--------
     async function getJob(){
         try {
-            console.log(search)
+            // console.log(search)
             const res = await axios.post(`${API_URL}/job/searchSeeker`,search,{headers:header})
              if (res.data.error===false){
                  setfetch(res.data.data[0])

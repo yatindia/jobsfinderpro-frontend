@@ -65,8 +65,10 @@ const Lander =()=> {
     </div>
     <div>
       <TopHiring></TopHiring>
-      <Trending ></Trending>
+      {/* <Trending ></Trending> */}
+      <div className='mt-5 pt-4'>
       <SearchCate></SearchCate>
+      </div>
     </div>
   </div>
   {/* :""} */}

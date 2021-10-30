@@ -39,10 +39,10 @@ export default function Listing({data}){
     return(<>
             <div className="row z-depth-3 border p-3 m-3" key={data._id}>
                 <div className="col-sm-3 bg-info rounded-left">
-                    <div className="card-block text-center text-white">
+                    <div className="text-center text-white align-items-center mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${fetch.org.orgLogo}`} alt="sample"></img>
                         {/* <h2 className="font-weight-bold mt-2"></h2> */}
-                        <p>{fetch.job.dateOfAdd}</p>
+                        <p>On: {fetch.job.dateOfAdd}</p>
                         <i className="far-fa-edit fa-2x mb-2"></i>
                     </div>
                 </div>
@@ -50,28 +50,36 @@ export default function Listing({data}){
                         <h5 className="mt-3 text-start">{fetch.org.orgName}</h5>
                         <p className="mt-3 text-muted">Job Position:  <b>{fetch.job.jobTitle}</b></p>
                         <div className="row border-top p-2">
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Location</p>
+                                <h6 className="text-muted">{data.jobCity}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Deadline On</p>
+                                <h6 className="text-muted">{data.jobApplyEnd}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Job Level</p>
+                                <h6 className="text-muted">{data.jobType}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Salary</p>
+                                <h6 className="text-muted">₹ {data.jobSalary}</h6>
+                            </div>
+                            <div className="col m-auto text-center">
+                                <ApplyBtn job={data}></ApplyBtn>
+                                <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
+                                {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}
+                            </div>
+                        </div>
+                        <div className='row'>
                         <div className="col-sm">
-                            <p className="font-weight-bold">Location</p>
-                            <h6 className="text-muted">{data.jobCity}</h6>
+                                <h6 className="text-muted">{data.jobCategory}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <h6 className="text-muted">{data.jobSubCategory}</h6>
+                            </div>
                         </div>
-                        <div className="col-sm">
-                            <p className="font-weight-bold">Deadline On</p>
-                            <h6 className="text-muted">{data.jobApplyEnd}</h6>
-                        </div>
-                        <div className="col-sm">
-                            <p className="font-weight-bold">Job Level</p>
-                            <h6 className="text-muted">{data.jobType}</h6>
-                        </div>
-                        <div className="col-sm">
-                            <p className="font-weight-bold">Salary</p>
-                            <h6 className="text-muted">₹ {data.jobSalary}</h6>
-                        </div>
-                        <div className="col">
-                            <ApplyBtn job={data}></ApplyBtn>
-                            <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
-                            {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}
-                        </div>
-                    </div>
                     <hr className="bg-primary"/>
                 </div>
             </div>

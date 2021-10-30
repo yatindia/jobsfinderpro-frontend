@@ -5,12 +5,14 @@ import '../style.css'
 
 import { API_URL } from "../../components/utils";
 import Listing from "./listing";
+import { useHistory } from "react-router-dom";
 
 export default function Featcher ({location}) {
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
-    
+
+    const history = useHistory()
     const [count, setCount] = useState(0)
     const perpage = 10
     const limit = 100
@@ -18,13 +20,13 @@ export default function Featcher ({location}) {
     const [pageNumber, setPageNumber] = useState(0);
     const pagesVisited = pageNumber * perpage;
     const [skip, setSkip] = useState(0)
-
+    
+    const [cat,setcat] = useState()
     const [loadbtn, setLoadBtn] = useState(false)
     const [fetch,setfetch] = useState([])
     const [search, setSearch] = useState({
-        jobTitle: "",
-        jobType:"",
-        jobCity: "",
+        jobCategory: "",
+        jobSubCategory:"",
         skip:skip,
         limit:limit
     })
@@ -33,17 +35,19 @@ export default function Featcher ({location}) {
     useEffect(()=>{
         const param = new URLSearchParams(location.search);
         const loc = param.get('kwds');
-        if(loc !== ''){
-            setSearch({...search,jobTitle:loc})
-            getJob()
+        try {
+            let subData = require('../../components/asserts/subCategory/'+loc+'.json');
+            setcat(subData)
+        } catch (error) {
+            setcat('')
         }
-        setSearch({...search,jobTitle:loc,skip:skip,limit:limit})
+        setSearch({...search,jobCategory:loc,skip:skip,limit:limit})
     },[skip,limit])
 
  
 // ---On Change function -----
-    function changeHandle(e) {
-        setSearch({...search,[e.target.name]: e.target.value,skip:0,limit:100})
+    const handleClick=async(e)=> {
+        setSearch({...search,jobSubCategory: e,skip:0,limit:100})
     }
 
     function changeSkip(e){
@@ -51,10 +55,9 @@ export default function Featcher ({location}) {
     }
 
 // -----Get Job--------
-    async function getJob(){
+    async function findJob(){
         try {
             const res = await axios.post(`${API_URL}/job/search`,search,{headers:header})
-            console.log(search)
             if (res.data.error===false){
                 setfetch(res.data.data[0])
                 setCount(res.data.data[1])
@@ -69,13 +72,6 @@ export default function Featcher ({location}) {
         } catch (error) {        
         }
     }
-
-// -----on search--------
-    function handleSubmit (){
-     setSearch({...search,skip:0,limit:100})
-     getJob()
-    }
-
 
 // -----Pagination--------
     const changePage = ({ selected }) => {
@@ -94,32 +90,23 @@ export default function Featcher ({location}) {
     return (<>
     <div >
         {/* -----Search Bar------ */}
-        <div className="row d-flex justify-content-center" >
-        <div className="container-flex m-3 p-2 col-md-10">
-            <div className="row justify-content-center p-2 m-2">
-                <div className="col-lg col-md col-sm p-1 m-1">
-                    <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
-                        onChange={changeHandle} list="browsers" placeholder ="Title..."/>
-                </div> 
-                <div className="col-lg col-md col-sm p-1 m-1">
-                    <select className="form-control formFieldInput" type="text" placeholder="Select a Level" list="level"
-                    name="jobType" value={search.jobType} onChange={changeHandle}>
-                        <option value=''>Select Level...</option>
-                        <option>Entry Level</option>
-                        <option>Mid Level</option>
-                        <option>Mid-Senior Level</option>
-                        <option>Top Level</option>
-                    </select>
-                </div>
-                <div className="col-lg col-md col-sm p-1 m-1 input-group">
-                    <input className="form-control formFieldInput text-capitalize"  type="text" name="jobCity" value={search.jobCity}
-                    onChange={changeHandle} list="browsers1" placeholder ="Locations..."/>
-                </div>
-                <div className="m-1 m-auto align-item-center">
-                    <button className="btn btn-findJob" type="button" onClick={handleSubmit}>Find Jobs</button>
-                </div>
-            </div>
-        </div>
+        <div className="container m-auto row justify-content-center" >
+        <div className="col text-center m-2 p-2 ">
+             <div className="row">
+                 {/* { cat ? <div className="col-sm">
+                    {cat.map((level,i)=>
+                        (<button key={i} className="btn btn-trending" value={level} onClick={(e) => handleClick(e.target.value)}>{level}</button>))}
+                 </div> :<h5>Loading</h5> } */}
+                 { cat ? <div className="col-md d-flex">
+                     <input className="form-control" type='select' list='subcat' placeholder="Select Subcategory....." onChange={(e) => handleClick(e.target.value)}/>
+                     <datalist id='subcat'>
+                     {cat.map((level,i)=>
+                        (<option key={i} value={level}>{level}</option>))}
+                     </datalist>
+                     <button className='btn btn-findJob ml-2' type='button' onClick={findJob}>Search</button>
+                 </div> :<h5>Loading</h5> }
+             </div>
+        </div> 
         </div>
         {/* ------Content--------- */}
         <div className="container-flex m-3 p-2">

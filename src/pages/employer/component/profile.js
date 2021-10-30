@@ -75,6 +75,7 @@ const imageUpload= async ()=>{
     // }
     const formData = new FormData();
     formData.append("profile", imgData);
+    formData.append('oldDp',profile_1.dpName)
     const config = {
         headers: {
             'content-type': 'multipart/form-data',
@@ -130,6 +131,7 @@ const onLogoChange=async (e)=>{
 const logoUpload= async ()=>{
     const formData = new FormData();
     formData.append("profile", logoData);
+    formData.append('oldDp',profile_2.orgLogo)
     const config = {
         headers: {
             'content-type': 'multipart/form-data',
