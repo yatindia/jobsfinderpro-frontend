@@ -30,7 +30,7 @@ useEffect(() => {
       checkApply()
   }else if(userDetils.Role_Type === "employer"){
     setBtnFun(true)
-    const name = 'Seeker Can Apply'
+    const name = ''
     setBtnText(name)
     setBtnStyle('text')
   }
