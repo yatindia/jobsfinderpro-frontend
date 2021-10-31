@@ -27,7 +27,7 @@ export default function Payment (){
         try {
             setErr({title:'Payment',message:'Waiting for process..',style:"info"})
             setToast(true)
-            const res = await axios.get(`${API_URL}/payment/`,{link_id:profile_2.link_id},config)
+            const res = await axios.post(`${API_URL}/payment/`,{link_id:profile_2.link_id},config)
             window.open(res.data.paymentURL)
         } catch (error) {
             setErr({title:'Payment',message:'Network Error',style:"warning"})
@@ -49,6 +49,10 @@ export default function Payment (){
     }
   }, []);
 
+  const reload=()=>{
+    window.location.reload()
+  }
+
     return(
     <div className="container-flex m-2 p-2 border">
         <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
@@ -58,7 +62,10 @@ export default function Payment (){
                     <strong className='text-capitalize'>{profile_1.job_fname} {profile_1.job_lname}</strong>
                     <br/>
                     <p>{profile_1.job_email}</p>
-                    <p>Balance Point <abbr title="Number">#:</abbr><b>{profile_2.resumePoints}</b></p>
+                    <p>Balance Point <abbr title="Number">#:</abbr>
+                     <b>{profile_2.resumePoints}</b>
+                     <button className='btn text-success fa fa-refresh' type='button' onClick={reload}></button>
+                     </p>
                     <br/>
                 </address>
             </div>
