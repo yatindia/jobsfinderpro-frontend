@@ -51,12 +51,11 @@ const savepdf=()=> {
     pdfcreate()
   };
 
-  const url = 'https://b0fc-2405-201-e031-7014-a1f8-a4aa-d42d-998f.ngrok.io'
 
 const resumeDown=async()=>{
-    console.log(input)
+    // console.log(input)
     try {
-        const res = await axios.post(`${url}/job/takeresume`,input,{headers:header})
+        const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
         setMess({message:res.data.message,style:'text-info'})
     } catch (error) {
         

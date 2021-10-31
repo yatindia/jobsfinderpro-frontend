@@ -67,7 +67,7 @@ const PostData = (data) => {
                             <h6><i className="fa fa-user text-info"/> Gender: <b>{part_2.gender}</b> </h6>
                         </div>
                         <div className="row skills">
-                            <h6><i className="fa fa-calendar text-warning"/> Date of Birth: <b>{part_2.dateOfBirth}</b></h6>
+                            <h6><i className="fa fa-calendar text-warning"/> Date of Birth: <b>{part_2.dateOfBirth.split("T")[0]}</b></h6>
                         </div>
                         <div className="row skills">
                             <i className="fa fa-phone text-success m-1"/><b> {part_2.mobile}</b>

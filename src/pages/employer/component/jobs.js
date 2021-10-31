@@ -17,7 +17,6 @@ function Jobs(){
             const getuser= async()=>{
                 try {
                     const res = await axios.post(`${API_URL}/job/getjobs`,formData,{headers:header})
-                    console.log(res)
                     if(res.data.error === false){
                         //console.log(res)
                         setJobData(res.data.data)

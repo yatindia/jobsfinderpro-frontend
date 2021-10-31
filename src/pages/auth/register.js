@@ -11,7 +11,7 @@ export default function Register() {
   const [imgData, setImgData] = useState(null);
   const [imgShow, setImgShow] = useState(null);
   const [imgBtn, setImgBtn] = useState(true);
-  const [imgName, setImgName] = useState('null');
+  const [imgName, setImgName] = useState('default.jpg');
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
   
@@ -55,11 +55,11 @@ export default function Register() {
       const erro = validating(inputs)
       if(erro.valid===true){
         setErr({message:''})
-        console.log(inputs)
+        // console.log(inputs)
         try {
           setErr({message:'Loading..',style:'text-primary'})
           const res = await axios.post(API_URL+"/account/signup",inputs)
-          console.log(res)
+          // console.log(res)
           if(res.data.error===false){
             setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
             setDialogShow(true)
@@ -90,7 +90,7 @@ export default function Register() {
         try {
           setErr({message:'Loading..',style:'text-primary'})
           const res = await axios.post(API_URL+"/account/signup",emp)
-          console.log(res);
+          // console.log(res);
           if(res.data.error===false){
             setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
             setDialogShow(true)

@@ -18,7 +18,7 @@ function UserProfile() {
 	const [imgShow, setImgShow] = useState(null);
     const [imgName, setImgName] = useState('');
     const [resume, setResume] = useState('')
-    const [resumeName, setResumeName] = useState('')
+    const [resumeName, setResumeName] = useState(profile_2.resume)
 
     const [pastJob, setpastJob] =useState([])
     const [edu, setEdu] =useState([])
@@ -117,7 +117,7 @@ const baseUpdate =async()=>{
 
 //-------Profile 2 Update-----------
 const detailUpdate =async()=>{
-    //  console.log(profile)
+    console.log(profile)
     const erro = formValid(profile)
      if(erro.valid === true){
         setErr2({message:'Loading',style:'text-info'})

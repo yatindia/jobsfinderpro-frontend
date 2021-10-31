@@ -9,11 +9,16 @@ const SearchCate=()=>{
     const history = useHistory();
 
     const handleClick=(e)=>{  
+        const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+        if(!profile_1){
+            history.push('/login');
+          }else{
             if(e !== ""){
                 history.push('/search?kwds='+e+'&key=');
             }else{
                history.push('/')
             }
+          }
     }
 
 return (<>

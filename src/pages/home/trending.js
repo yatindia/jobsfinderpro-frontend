@@ -9,9 +9,6 @@ const Trending=()=>{
     const history = useHistory();
 
     const handleClick=(e)=>{  
-            //setSearch({jobs:e})
-            //props.getSearch(search)
-            //console.log(search)
             if(e !== ""){
                 history.push('/jobs?kwds='+e +'&loc=');
             }else{

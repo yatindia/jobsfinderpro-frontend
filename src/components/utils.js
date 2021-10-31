@@ -44,7 +44,9 @@ export const resizeFile = (file) =>
 var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
 
   export const formValid =(values)=>{
-  
+    if(!values.resume){
+      return{error:"*Upload Resume.", valid:false}
+  }
     if(values.qualifications.length<=0){
       return{error:"*Enter your Qualification.", valid:false}
   }
