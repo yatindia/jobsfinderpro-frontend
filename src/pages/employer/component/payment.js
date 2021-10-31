@@ -40,11 +40,11 @@ export default function Payment (){
     const query = new URLSearchParams(window.location.search);
     const result = query.get("success")
     if (result==='true') {
-      setErr({title:'Payment',message:'Payment Success',style:"success"})
+      setErr({title:'Payment',message:'Success - Points Credited',style:"success"})
     setToast(true)
     }
     else if (result==='false') {
-        setErr({title:'Payment',message:'Canceled - Network Error',style:"danger"})
+        setErr({title:'Payment',message:'Canceled - Network Error',style:"warning"})
         setToast(true)
     }
   }, []);
@@ -67,7 +67,7 @@ export default function Payment (){
                 <Toast.Header>
                     <strong className="me-auto">{errs.title}</strong>
                 </Toast.Header>
-                <Toast.Body className={`text-${errs.style}`}><b>{errs.message}</b></Toast.Body>
+                <Toast.Body className={`bg-${errs.style}`}><b>{errs.message}</b></Toast.Body>
                 </Toast>
             </div>
         </div>
