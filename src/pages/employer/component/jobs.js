@@ -106,7 +106,8 @@ function Jobs(){
                 </div>
             </div>
              ))}  
-             </div>):<div><h4 className="text-info text-center m-5">Job not Posted Yet <a href='/employers/dashboard/newjobs'>Post a Job</a></h4></div>}
+             </div>):<div><h4 className="text-info text-center m-5">Job not Posted Yet 
+                        <a href='/employers/dashboard/newjobs'>Post a Job</a></h4></div>}
         </div>
    </> )
 }

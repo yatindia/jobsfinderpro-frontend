@@ -100,7 +100,7 @@ const dialogClose=()=>{
 				</div>
 
 				{/* -------Content body-------- */}
-				<div className="tab-content p-2 ">
+				<div className="tab-content ">
 					<Switch>
 						<Route exact path="/users/dashboard" component={UserContent}/>
 						<Route exact path="/users/dashboard/profile" component={UserProfile}/>

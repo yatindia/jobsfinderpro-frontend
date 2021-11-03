@@ -80,18 +80,18 @@ const changeCate =(e)=>{
 
     return (<>
     <div className="container-flex m-2 p-2 ">
-        <div className="row p-3 m-2">
+        <div className="row">
             <div className="col-md-12 col-lg-12 col-md-12">
                 <div>
                     <div className="section row">
-                        <div className="col-md-10 col-sm-10">
+                        <div className="col-md-12 col-lg-12 col-md-12">
                             <label>Job Title</label>
                             <div className=" form-group">
                                 <input type="text" className="inputStyle text-capitalize" placeholder="Job Position Title" name="jobTitle" 
                                     value={inputs.jobTitle} onChange={changeHandle}/>
                             </div>
                         </div>
-                        <div className="col-md-5 col-sm-5">
+                        <div className="col-md-6 col-lg-6 col-md-6">
                             <label>Category</label>
                             <div className="form-group">
                                 <div className="form-group">
@@ -103,7 +103,7 @@ const changeCate =(e)=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-5 col-sm-5">
+                        <div className="col-md-6 col-lg-6 col-md-6">
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
@@ -116,14 +116,14 @@ const changeCate =(e)=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm-10">
-                            <label>Job Description</label>
+                        <div className="col-md-6 col-lg-6 col-md-6">
+                            <label>Salary Information</label>
                             <div className="form-group">
-                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    rows="6" value={inputs.jobDescription} onChange={changeHandle}/>
+                                <input type="text" className="inputStyle" placeholder="Salary Info" name="jobSalary" 
+                                    value={inputs.jobSalary} onChange={changeHandle}/>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm-10">
+                        <div className="col-md-6 col-lg-6 col-md-6">
                             <label>Job Location</label>
                             <div className="form-group">
                                 <div className="form-group">
@@ -135,21 +135,7 @@ const changeCate =(e)=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-10 col-sm-10">
-                            <label>Salary Information</label>
-                            <div className="form-group">
-                                <input type="text" className="inputStyle" placeholder="Salary Info" name="jobSalary" 
-                                    value={inputs.jobSalary} onChange={changeHandle}/>
-                            </div>
-                        </div>
-                        <div className="col-md-10 col-sm-10">
-                            <label>Job Requirement</label>
-                            <div className="form-group">
-                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
-                                   rows="3" value={inputs.jobRequirement} onChange={changeHandle}/>
-                            </div>
-                        </div>
-                        <div className="col-md-5 col-sm-5">
+                        <div className="col-md-6 col-lg-6 col-md-6">
                             <label>Application Deadline</label>
                             <div className="form-group">
                                 <div className="calendar">
@@ -157,7 +143,7 @@ const changeCate =(e)=>{
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-5 col-sm-5">
+                        <div className="col-md-6 col-lg-6 col-md-6">
                             <label>Exprience Level</label>
                             <div className="input-group">
                                 <select className="inputStyle" type="text" placeholder="Select a Level" list="level"
@@ -168,6 +154,20 @@ const changeCate =(e)=>{
                                     <option>Mid-Senior Level</option>
                                     <option>Top Level</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div className="col-md-12 col-lg-12 col-md-12">
+                            <label>Job Description</label>
+                            <div className="form-group">
+                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
+                                    rows="6" value={inputs.jobDescription} onChange={changeHandle}/>
+                            </div>
+                        </div>
+                        <div className="col-md-12 col-lg-12 col-md-12">
+                            <label>Job Requirement</label>
+                            <div className="form-group">
+                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
+                                   rows="3" value={inputs.jobRequirement} onChange={changeHandle}/>
                             </div>
                         </div>
                     </div>

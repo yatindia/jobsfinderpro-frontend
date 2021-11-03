@@ -58,7 +58,7 @@ function MyJobs(){
                              </div>
                          ))}
                     </div>
-                    :<label>No Job is Applied yet</label>}
+                    :<div><h4 className="text-info text-center m-5">Job not Applied Yet <a href='/'>Search Job</a></h4></div>}
                 </div>
             </div>
         </div>

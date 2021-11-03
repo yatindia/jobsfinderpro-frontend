@@ -54,9 +54,9 @@ const PostData = (data) => {
     const part_1 = data.part1
     const part_2 = data.part2
     return (
-    <div className="container-fluid">
+    <div className="container-fluid mt-4">
         <div className='row justify-content-center'>
-            <div className="col-md-10 card-container shadow">
+            <div className="col-md card-container shadow">
                 <h3>{part_1.firstName} {part_1.lastName}</h3>
                 {part_2 ?(<div>
                 <h6><i className="fa fa-map-marker text-primary"/>  {part_2.city}, {part_2.state}</h6>

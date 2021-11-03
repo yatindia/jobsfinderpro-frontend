@@ -63,7 +63,7 @@ export default function JobList({data}){
                         <h6 className="text-muted">{data.job.jobType}</h6>
                     </div>
                     <div className="col-lg">
-                    <button className="btn btn-outline-danger" value={data.job._id} onClick={(e)=>unapply(e)}> UnApply</button>
+                    <button className="btn btn-outline-danger" value={data.job._id} onClick={(e)=>unapply(e)}> Remove</button>
                     <button type="button" className="btn btn-findJob m-2" value={data.job._id} onClick={viewjob}> View</button>
                     {dialogShow === true? <ViewJob show={dialogShow} data={data}  dialogClose={dialogClose}/> :''}
                     </div>

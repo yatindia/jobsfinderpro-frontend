@@ -89,7 +89,7 @@ export default function Search () {
     <div>
         {/* -----Search Bar------ */}
         <div className="container-fluid p-2 ">
-            <div className="row justify-content-center ">
+            <div className="row justify-content-center m-2 p-2">
                 <div className="col-lg col-md col-sm p-1">
                     <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
                         onChange={changeHandle} list="browsers" placeholder ="Job Title / Name ..."/>
@@ -118,7 +118,7 @@ export default function Search () {
         {/* ------Content--------- */}
         <div className="container-flex p-2">
         <div className=''>
-                <div className='row '>
+                <div className='row p-2'>
                     <div className='col d-flex'>
                         <h5 className="text-muted m-2">{count} Results Found:</h5>
                     </div>
@@ -135,9 +135,9 @@ export default function Search () {
                 </div>
             </div>
             {fetch.length>0 ?(
-                <div className="row d-flex justify-content-center" >
+                <div className="row d-flex justify-content-center m-2" >
                     <div className="col-md mt-2">
-                        <h6 className=" p-2 m-1 text-muted">5 Results Per Page:-</h6>
+                        <h6 className=" text-muted">5 Results Per Page:-</h6>
                         {displayUsers}
                         <div className='row justify-content-center p-4'> 
                             {loadbtn===true ?
