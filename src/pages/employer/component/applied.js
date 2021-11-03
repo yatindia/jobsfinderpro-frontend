@@ -147,7 +147,7 @@ export default function Applied(){
                                             <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Get Resume</button>
+                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Select Resume</button>
                                         </td>
                                         </tr>
                                     </tbody>

@@ -5,7 +5,7 @@ import { API_URL } from "../../../components/utils";
 
 function Jobs(){
 
-    const [jobData, setJobData] = useState();
+    const [jobData, setJobData] = useState('');
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'))
@@ -36,7 +36,7 @@ function Jobs(){
 
     return (<>
           <div className="container-flex">
-              {jobData ?(
+              {jobData.length>0 ?(
               <div>
              {jobData.map((data,id)=>(
             <div className="row d-flex justify-content-center m-3 p-2" key={id}>
@@ -106,7 +106,7 @@ function Jobs(){
                 </div>
             </div>
              ))}  
-             </div>):<label>Loading..</label>}
+             </div>):<div><h4 className="text-info text-center m-5">Job not Posted Yet <a href='/employers/dashboard/newjobs'>Post a Job</a></h4></div>}
         </div>
    </> )
 }

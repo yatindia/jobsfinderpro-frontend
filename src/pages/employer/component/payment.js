@@ -2,44 +2,53 @@ import React,{useState,useEffect} from "react"
 import axios from "axios";
 import { Toast } from "react-bootstrap";
 
-import DialogBox from "../../../components/dialogBox";
 import { API_URL } from "../../../components/utils";
+import { useHistory } from "react-router-dom";
 
 export default function Payment (){
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'));
+    const formData = {email:profile_1.job_email,type:profile_1.Role_Type}
 
-    const [dialogShow, setDialogShow] = useState(false);
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [toast, setToast] = useState(false);
+    const history = useHistory()
+    let points = profile_2.resumePoints
 
-    const dialogClose=()=>{
-        setDialogShow(false)
-      }
-
-    const buynow=async(e)=>{
-        const config = {
-            headers: {
-                'authorization': `<Bearer> ${profile_1.Auth_token}`
-            }
-        };
+    const config = {
+        headers: {'authorization': `<Bearer> ${profile_1.Auth_token}`}
+    };
+    
+    const buynow=async()=>{
         try {
             setErr({title:'Payment',message:'Waiting for process..',style:"info"})
             setToast(true)
             const res = await axios.post(`${API_URL}/payment/`,{link_id:profile_2.link_id},config)
-            window.location(res.data.paymentURL)
+            // window.location.replace(res.data.paymentURL)
+            window.open(res.data.paymentURL,"_self")
         } catch (error) {
             setErr({title:'Payment',message:'Network Error',style:"warning"})
             setToast(true)
         }
     }
 
+    const getUser = async()=>{
+		try {
+			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,config)
+			if(res.data.error === false){
+				points = res.data.data.part2.resumePoints
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
     
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const result = query.get("success")
     if (result==='true') {
+        getUser()
       setErr({title:'Payment',message:'Success - Points Credited',style:"success"})
     setToast(true)
     }
@@ -55,7 +64,6 @@ export default function Payment (){
 
     return(
     <div className="container-flex m-2 p-2 border">
-        <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
         <div className="row justify-content-center m-auto">
             <div className="col-xs-6 col-sm-6 col-md-6 ">
                 <address>
@@ -63,7 +71,7 @@ export default function Payment (){
                     <br/>
                     <p>{profile_1.job_email}</p>
                     <p>Balance Point <abbr title="Number">#:</abbr>
-                     <b>{profile_2.resumePoints}</b>
+                     <b>{points}</b>
                      <button className='btn text-success fa fa-refresh' type='button' onClick={reload}></button>
                      </p>
                     <br/>

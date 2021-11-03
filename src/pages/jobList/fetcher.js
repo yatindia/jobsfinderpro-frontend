@@ -49,9 +49,9 @@ export default function Featcher ({location}) {
         setSearch({...search,jobSubCategory: e,skip:0,limit:100})
     }
 
-    function changeHandle(e) {
-        setSearch({...search,jobCity: e.target.value,skip:0,limit:100})
-    }
+    // function changeHandle(e) {
+    //     setSearch({...search,jobCity: e.target.value,skip:0,limit:100})
+    // }
 
     function changeSkip(e){
       setSkip(Number(e.target.value))

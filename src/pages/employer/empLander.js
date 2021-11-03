@@ -74,7 +74,7 @@ const dialogClose=()=>{
 	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
 			<div className="bg-white rounded-lg d-block d-sm-flex">
-				<div id="sidebar" className="m-2">
+				<div id="sidebar">
 					<div className="profile-tab-nav border-right">
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
@@ -112,7 +112,7 @@ const dialogClose=()=>{
 					</div>
 				</div>
 
-				<div className="tab-content mt-2 " id="v-pills-tabContent">
+				<div className="tab-content " id="v-pills-tabContent">
 				<Switch>
 					<Route exact path="/employers/dashboard" component={EmpContent}/>
 					<Route exact path="/employers/dashboard/profile" component={EmpProfile}/>

@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import welo from '../components/asserts/hero-img.svg'
 import TopHiring from "./home/topHire";
-import Trending from "./home/trending";
 import SearchCate from "./home/searchCate";
 
 

@@ -116,11 +116,11 @@ export default function Search () {
         </div>
 
         {/* ------Content--------- */}
-        <div className="container-flex m-3 p-2">
+        <div className="container-flex p-2">
         <div className=''>
                 <div className='row '>
                     <div className='col d-flex'>
-                        <h5 className="text-muted m-2">{count} Search Results:</h5>
+                        <h5 className="text-muted m-2">{count} Results Found:</h5>
                     </div>
                     <div className='col-sm d-flex form-group'>
                         {/* <h5><span >Load</span></h5>  */}
@@ -137,7 +137,7 @@ export default function Search () {
             {fetch.length>0 ?(
                 <div className="row d-flex justify-content-center" >
                     <div className="col-md mt-2">
-                        <h5 className=" p-2 m-1 text-muted">5 Results Per Page:-</h5>
+                        <h6 className=" p-2 m-1 text-muted">5 Results Per Page:-</h6>
                         {displayUsers}
                         <div className='row justify-content-center p-4'> 
                             {loadbtn===true ?

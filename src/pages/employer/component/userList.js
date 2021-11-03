@@ -29,32 +29,32 @@ export default function UserList({data}){
     },[data.link_id])
 
     function pdfcreate() {    
-        // var doc = new jsPDF(); 
-        // doc.setLineWidth(0.1);
-        // doc.rect(10, 20, 190, 200);
-        // doc.setLineWidth(0.1);
-        // doc.line(55, 20, 55, 220)
-        // doc.text(80, 10, 'Job Seeker Profile Details');        
-        // doc.text(20, 30, 'Name: ');    
-        // doc.text(60, 30, `${fetch.part2.firstName} `); 
-        // doc.text(100, 30, `${fetch.part2.lastName}`);   
-        // doc.text(150, 30, 'Gender:');  
-        // doc.text(180, 30, `${fetch.part1.gender}`);  
-        // doc.text(20, 50, 'Mail Id:');          
-        // doc.text(60, 50, `${fetch.part1.email}`);
-        // doc.text(20, 70, 'Mobile: ');    
-        // doc.text(60, 70, `${fetch.part1.mobile}`);  
-        // doc.text(20, 90, 'Location: ');    
-        // doc.text(60, 90, `${fetch.part1.city}, ${fetch.part1.state}` );   
-        // doc.text(20, 110, 'Designation: ');    
-        // doc.text(60, 110, `${fetch.part1.jobTitle}`);   
-        // doc.text(20, 130, 'Qualification: ');    
-        // doc.text(60, 130, `${fetch.part1.qualifications}`);    
-        // doc.text(20, 160, 'Previous Jobs: ');    
-        // doc.text(60, 160, `${fetch.part1.pastJobs}`);
-        // doc.text(20, 180, 'D O B: ');    
-        // doc.text(60, 180, `${fetch.part1.dateOfBirth}`);   
-        // doc.save(`${fetch.part2.firstName}.pdf`); 
+        var doc = new jsPDF(); 
+        doc.setLineWidth(0.1);
+        doc.rect(10, 20, 190, 200);
+        doc.setLineWidth(0.1);
+        doc.line(55, 20, 55, 220)
+        doc.text(80, 10, 'Job Seeker Profile Details');        
+        doc.text(20, 30, 'Name: ');    
+        doc.text(60, 30, `${fetch.part2.firstName} `); 
+        doc.text(100, 30, `${fetch.part2.lastName}`);   
+        doc.text(150, 30, 'Gender:');  
+        doc.text(180, 30, `${fetch.part1.gender}`);  
+        doc.text(20, 50, 'Mail Id:');          
+        doc.text(60, 50, `${fetch.part1.email}`);
+        doc.text(20, 70, 'Mobile: ');    
+        doc.text(60, 70, `${fetch.part1.mobile}`);  
+        doc.text(20, 90, 'Location: ');    
+        doc.text(60, 90, `${fetch.part1.city}, ${fetch.part1.state}` );   
+        doc.text(20, 110, 'Designation: ');    
+        doc.text(60, 110, `${fetch.part1.jobTitle}`);   
+        doc.text(20, 130, 'Qualification: ');    
+        doc.text(60, 130, `${fetch.part1.qualifications}`);    
+        doc.text(20, 160, 'Previous Jobs: ');    
+        doc.text(60, 160, `${fetch.part1.pastJobs}`);
+        doc.text(20, 180, 'D O B: ');    
+        doc.text(60, 180, `${fetch.part1.dateOfBirth.split('T')[0]}`);   
+        doc.save(`${fetch.part2.firstName}.pdf`); 
      }
 
     const [input] = useState({
@@ -72,7 +72,7 @@ export default function UserList({data}){
     }
 
     return(<>
-            <div className="row z-depth-3 border m-3 " key={data._id}>
+            <div className="row border " key={data._id}>
             {fetch ?
                 <div className="col-md bg-white rounded-right">
                     <div className="row d-flex border-bottom">
