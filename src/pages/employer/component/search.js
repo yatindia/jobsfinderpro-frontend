@@ -88,11 +88,11 @@ export default function Search () {
     return (<>
     <div>
         {/* -----Search Bar------ */}
-        <div className="container-fluid m-2 p-2 ">
-            <div className="row justify-content-center p-2 m-2">
+        <div className="container-fluid p-2 ">
+            <div className="row justify-content-center ">
                 <div className="col-lg col-md col-sm p-1">
                     <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
-                        onChange={changeHandle} list="browsers" placeholder ="Job Designation ..."/>
+                        onChange={changeHandle} list="browsers" placeholder ="Job Title / Name ..."/>
                 </div> 
                 <div className="col-lg col-md col-sm p-1">
                     <input type="text" className="form-control text-capitalize formFieldInput" placeholder="State ..." name="state"
@@ -117,16 +117,21 @@ export default function Search () {
 
         {/* ------Content--------- */}
         <div className="container-flex m-3 p-2">
-        <div className=' container'>
-                <div className='row d-flex'>
-                <h5 className="text-muted m-2">{count} Search Results: <span className='ml-2'>Load</span></h5>
-                <select className="form m-2" onChange={(e)=>changeSkip(e)}>
-                    <option value=''>1 - 10</option>
-                    <option value='10'>10 - 20</option>
-                    <option value='20'>20 - 30</option>
-                    <option value='30'>30 - 40</option>
-                    <option value='40'>40 - 50</option>
-                </select>
+        <div className=''>
+                <div className='row '>
+                    <div className='col d-flex'>
+                        <h5 className="text-muted m-2">{count} Search Results:</h5>
+                    </div>
+                    <div className='col-sm d-flex form-group'>
+                        {/* <h5><span >Load</span></h5>  */}
+                        <select className="form-control " onChange={(e)=>changeSkip(e)}>
+                            <option value=''>1 - 10</option>
+                            <option value='10'>10 - 20</option>
+                            <option value='20'>20 - 30</option>
+                            <option value='30'>30 - 40</option>
+                            <option value='40'>40 - 50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             {fetch.length>0 ?(
@@ -134,7 +139,7 @@ export default function Search () {
                     <div className="col-md mt-2">
                         <h5 className=" p-2 m-1 text-muted">5 Results Per Page:-</h5>
                         {displayUsers}
-                        <div className='row justify-content-center'> 
+                        <div className='row justify-content-center p-4'> 
                             {loadbtn===true ?
                                  <ReactPaginate
                                  previousLabel={"Previous"}

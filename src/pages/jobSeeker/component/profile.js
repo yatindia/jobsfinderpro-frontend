@@ -183,9 +183,9 @@ useEffect(()=>{
 
     return (<>
     <div className="conatiner-flex m-3 p-2 border tab-content">
-        <div className="tab-pane fade show active m-4">
-            <h3 className="mb-1 text-secondary">Profile Update</h3>
-            <div className='row border-top'>
+        <div className="tab-pane fade show active m-2">
+            <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Profile Update</small></h3>
+            <div className='row'>
                 <div className ='col-md-4'>
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
@@ -205,7 +205,7 @@ useEffect(()=>{
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 p-2 mt-3">
+                <div className="col-md-7 p-2 mt-3">
                     <div className="row">
                         <div className="col">
                             <div className="form-group">
@@ -244,13 +244,15 @@ useEffect(()=>{
         </div>
         <div className="tab-pane fade show active m-4">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Employment Update</small></h3>
-            <div className="row m-2 p-2">
-                <div className="form-group">
-                    Resume: <label className="file-name">{profile_2.resume}</label>
+            <div className="row ">
+                <div>
                     <div className='col'>
+                    Resume: {profile_2.resume === 'null' ?<label className="file-name text-info">Upload Resume</label>:
+                                <label className="file-name">{profile_2.resume}</label>}
                         <div className="resume-container">
                             <div className="btn-wrap">
-                                <label className="btn-resume" htmlFor="upload">Change Resume</label>
+                            {profile_2.resume === 'null' ?<label className="btn-resume" htmlFor="upload">Get Resume</label>:
+                                        <label className="btn-resume" htmlFor="upload">Change Resume</label>}
                                 <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
                                 <label className="file-name" id="fileName"></label>
                                 <button className="btn btn-upload m-2" type='button' onClick={uploadResume}>Upload</button>

@@ -70,7 +70,7 @@ const dialogClose=()=>{
   }
 
     return (<>
-    <section className="py-4 ">
+    <section className="container p-1">
 	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
 			<div className="bg-white rounded-lg d-block d-sm-flex">
@@ -102,7 +102,7 @@ const dialogClose=()=>{
 							</a>
               					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/search" role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-search text-center mr-1"></i> 
-								Search
+								Resume Search
 							</a>
 							<a className="nav-link" id="security-tab" data-toggle="pill" href="/" onClick={handleLogout} role="tab" aria-controls="security" aria-selected="false">
 								<i className="fa fa-sign-out text-center mr-1"></i> 
@@ -112,7 +112,7 @@ const dialogClose=()=>{
 					</div>
 				</div>
 
-				<div className="tab-content p-2 p-md-2" id="v-pills-tabContent">
+				<div className="tab-content mt-2 " id="v-pills-tabContent">
 				<Switch>
 					<Route exact path="/employers/dashboard" component={EmpContent}/>
 					<Route exact path="/employers/dashboard/profile" component={EmpProfile}/>

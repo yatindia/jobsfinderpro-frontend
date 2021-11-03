@@ -64,7 +64,7 @@ const dialogClose=()=>{
 
 
     return (<>
-    <section className="py-3 ">
+    <section className="container">
 		<div className="container-fluid">
 		<Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
 			<div className="bg-white rounded-lg d-block d-sm-flex">
@@ -100,7 +100,7 @@ const dialogClose=()=>{
 				</div>
 
 				{/* -------Content body-------- */}
-				<div className="tab-content p-2 p-md-2">
+				<div className="tab-content p-2 ">
 					<Switch>
 						<Route exact path="/users/dashboard" component={UserContent}/>
 						<Route exact path="/users/dashboard/profile" component={UserProfile}/>

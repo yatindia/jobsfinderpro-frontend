@@ -28,7 +28,7 @@ export default function Payment (){
             setErr({title:'Payment',message:'Waiting for process..',style:"info"})
             setToast(true)
             const res = await axios.post(`${API_URL}/payment/`,{link_id:profile_2.link_id},config)
-            window.open(res.data.paymentURL)
+            window.location(res.data.paymentURL)
         } catch (error) {
             setErr({title:'Payment',message:'Network Error',style:"warning"})
             setToast(true)
@@ -85,7 +85,7 @@ export default function Payment (){
         </div> */}
        <div>
        <div className="row contain justify-content-center m-auto border-top">
-            <div className="col-md-4 col-lg-4 col-sm-4">
+            <div className="col-md-6 col-lg-6 col-sm-6">
                 <div className="pricingTable">
                     <div className="pricing_heading">
                         <h3 className="title">Plan Pricing</h3>

@@ -2,8 +2,8 @@ import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import user from './asserts/user.jpg'
 
-//export const API_URL = 'http://212.71.239.166:5300' 
-export const API_URL = 'http://127.0.0.1:5300'
+export const API_URL = 'http://172.105.53.14:5300' 
+// export const API_URL = 'http://127.0.0.1:5300'
 export const userDp = user
 
 // ----Image Resizer-------
@@ -44,9 +44,9 @@ export const resizeFile = (file) =>
 var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
 
   export const formValid =(values)=>{
-    if(!values.resume){
-      return{error:"*Upload Resume.", valid:false}
-  }
+  //   if(!values.resume){
+  //     return{error:"*Upload Resume.", valid:false}
+  // }
     if(values.qualifications.length<=0){
       return{error:"*Enter your Qualification.", valid:false}
   }

@@ -95,7 +95,7 @@ useEffect(() => {
         onClick={unApply}
         variant= 'outline-danger'
         disabled={false}>
-          UnApply
+          Remove
       </Button>}
       
       </div>

@@ -56,9 +56,9 @@ const PostData =(data)=>{
     const part_1 = data.part1
     const part_2 = data.part2
     return(
-        <div className='row justify-content-center'>
-            <div className="col-md-10 card-container shadow">
-                <h3><span className="text-secondary">User:</span> {part_1.firstName} {part_1.lastName}</h3>
+        <div className='row justify-content-center mt-2'>
+            <div className="col-md col-lg  card-container shadow">
+                <h4><span className="text-secondary">Employer:</span> {part_1.firstName} {part_1.lastName}</h4>
                 <p className='text-right'>Balance Points: # {part_2.resumePoints}</p>
                 {part_2 ?(
                 <div className=" row border-top p-2">

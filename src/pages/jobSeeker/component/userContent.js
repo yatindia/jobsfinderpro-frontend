@@ -70,10 +70,10 @@ const PostData = (data) => {
                             <h6><i className="fa fa-calendar text-warning"/> Date of Birth: <b>{part_2.dateOfBirth.split("T")[0]}</b></h6>
                         </div>
                         <div className="row skills">
-                            <i className="fa fa-phone text-success m-1"/><b> {part_2.mobile}</b>
+                            <h6><i className="fa fa-phone text-success m-1"/><b> {part_2.mobile}</b></h6>
                         </div>
                         <div className="row skills">
-                            <i className="fa fa-envelope text-danger m-1"/><b> {part_1.email}</b>
+                            <h6><i className="fa fa-envelope text-danger m-1"/><b> {part_1.email}</b></h6>
                         </div>
                     </div>
                     <div className='col border'>

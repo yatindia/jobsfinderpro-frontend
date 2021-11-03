@@ -15,7 +15,7 @@ const Registration = ({show, title, dialogClose}) => {
     const userProfile = JSON.parse(localStorage.getItem( 'userDetails'));
     const [edu, setEdu] =useState([])
     const [resume, setResume] = useState('')
-    const [resumeName, setResumeName] = useState('')
+    const [resumeName, setResumeName] = useState('null')
     const [pastJob, setpastJob] =useState([])
     const [validated, setValidated] = useState(false);
     const history = useHistory()
@@ -59,7 +59,6 @@ const updateProfile=async(event)=>{
       setValidated(true); 
       const checking = formValid(inputs)
       if(checking.valid===true){
-        console.log(inputs)
         try {
              setErr({message:'Loading..',style:'text-primary'})
              const res = await axios.post(API_URL+"/account/signupcomplete",inputs)
@@ -68,13 +67,12 @@ const updateProfile=async(event)=>{
             if(res.data.error===false){
                history.push('/users/dashboard')
                window.location.reload()
-            //     addToLocalStorageObject('userDetails','Profile','True')
             }
           } catch (ex) {
             setErr({message:'Network fail',style:'text-warning'})
             console.log(ex)
           }
-      }
+     }
       else{
         setErr({message:checking.error,style:'text-danger'})
       }
@@ -219,8 +217,10 @@ useEffect(()=>{
                                 </Form.Group>
                                  <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
                                     <label>Date of Birth</label>
-                                    <input type="date" name="dateOfBirth" className="form-control formFieldInput"
-                                       value={inputs.dateOfBirth} onChange={changeHandle} required/>
+                                    <div className="calendar">
+                                        <input type="date" className="form-control formFieldInput" name="dateOfBirth" 
+                                        value={inputs.dateOfBirth} onChange={changeHandle}/>
+                                    </div>
                                 </Form.Group>
                             </Row>
                             <Row>

@@ -11,7 +11,7 @@ const EmpRegister = ({show, title, dialogClose}) => {
     const [imgData, setImgData] = useState(null);
     const [imgShow, setImgShow] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
-    const [imgName, setImgName] = useState('');
+    const [imgName, setImgName] = useState('null');
     const [validated, setValidated] = useState(false);
     const [inputs, setInputs] = useState({
         email: userProfile.job_email,
