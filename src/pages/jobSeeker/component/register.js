@@ -83,13 +83,13 @@ const updateProfile=async(event)=>{
 }
 
 const resumeClick = (e)=>{
-    console.log(e)
     if (e.target.files[0]) {
         const file = e.target.files[0];
         document.getElementById("fileName").innerText = file.name
         setResume(file)
     }
 }
+ 
  
 const uploadResume=async()=>{
     if(resume === ''){
@@ -141,12 +141,12 @@ useEffect(()=>{
                                 </Form.Group>
                                 <Form.Group as={Col} md="6">
                                     <div className="row d-flex">
-                                        <div className=" col resume-container">
+                                        <div className="resume-container">
                                             <div className="btn-wrap">
                                                 <label className="btn-resume" htmlFor="upload">Get Resume</label>
-                                                <input id="upload" type="file" accept="application/pdf" onChange={e=>resumeClick(e)}/>
+                                                <input id="upload" type="file" onChange={resumeClick}/>
                                                 <label className="file-name" id="fileName"></label>
-                                                <button className="btn btn-resume" type='button' onClick={uploadResume}>Upload</button>
+                                                <button className="btn btn-resume m-2" type='button' onClick={uploadResume}>Upload</button>
                                             </div>
                                         </div>
                                         <label className={`${mess.style} col`}>{mess.message}</label>

@@ -77,7 +77,7 @@ const PostData = (data) => {
                         </div>
                     </div>
                     <div className='col border'>
-                        <div className=" skills">
+                        <div className="skills">
                             <h6 className="text-secondary">Qualifications:</h6>
                                 {part_2.qualifications.length>0 ? (<ul>
                                 {part_2.qualifications.map((item, i)=>(
@@ -85,7 +85,7 @@ const PostData = (data) => {
                                 ))}
                             </ul>):<></>}
                         </div>
-                        <div className=" skills">
+                        <div className="skills">
                             <h6 className="text-secondary">Previous Jobs:</h6>
                                 {part_2.pastJobs.length>0 ? (<ul>
                                 {part_2.pastJobs.map((item, i)=>(
@@ -94,11 +94,11 @@ const PostData = (data) => {
                             </ul>):<></>} 
                         </div>
                         {part_2.techQualifications ? (
-                        <div className=" skills">
+                        <div className="skills">
                             <h6 className="text-secondary">Technical Skills:</h6>
                                 <ul>
-                                {part_2.techQualifications.map((item, i)=>(<div className='row border d-flex' key={i}>
-                                    <li className="col "><b>{item.skill}</b> </li>
+                                {part_2.techQualifications.map((item, i)=>(<div className='m-2 row border d-flex' key={i}>
+                                    <li className="col"><b>{item.skill}</b> </li>
                                     <li className="col"><b>{item.experience} Years</b> </li>
                                </div> ))}
                             </ul>

@@ -11,6 +11,7 @@ export default function UserList({data}){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 ;
     const [fetch,setfetch] = useState()
+    const [sk,setsk] = useState([])
     const [mess,setMess] = useState({message: "",style:""})
 
     useEffect(()=>{
@@ -31,9 +32,9 @@ export default function UserList({data}){
     function pdfcreate() {    
         var doc = new jsPDF(); 
         doc.setLineWidth(0.1);
-        doc.rect(10, 20, 190, 200);
+        doc.rect(10, 20, 190, 230);
         doc.setLineWidth(0.1);
-        doc.line(55, 20, 55, 220)
+        doc.line(57, 20, 57, 240)
         doc.text(80, 10, 'Job Seeker Profile Details');        
         doc.text(20, 30, 'Name: ');    
         doc.text(60, 30, `${fetch.part2.firstName} `); 
@@ -52,8 +53,8 @@ export default function UserList({data}){
         doc.text(60, 130, `${fetch.part1.qualifications}`);    
         doc.text(20, 160, 'Previous Jobs: ');    
         doc.text(60, 160, `${fetch.part1.pastJobs}`);
-        doc.text(20, 180, 'D O B: ');    
-        doc.text(60, 180, `${fetch.part1.dateOfBirth.split('T')[0]}`);   
+        doc.text(20, 220, 'D O B: ');    
+        doc.text(60, 220, `${fetch.part1.dateOfBirth.split('T')[0]}`);   
         doc.save(`${fetch.part2.firstName}.pdf`); 
      }
 
@@ -72,7 +73,7 @@ export default function UserList({data}){
     }
 
     return(<>
-            <div className="row border " key={data._id}>
+            <div className="row border mb-3" key={data._id}>
             {fetch ?
                 <div className="col-md bg-white rounded-right">
                     <div className="row d-flex border-bottom">
@@ -95,6 +96,15 @@ export default function UserList({data}){
                             <p className="font-weight-bold">Qualification</p>
                             {data.qualifications.map((item,i)=>(
                                 <h6 className="text-muted " key={i}>{item}</h6>
+                            ))}
+                        </div>
+                        <div className="col-sm">
+                            <p className="font-weight-bold">Skills</p>
+                            {data.techQualifications.map((item,i)=>(
+                            <div key={i} className="row d-flex">
+                                <h6 className="col text-muted " >{item.skill} </h6>
+                                <h6 className="col text-muted " >{item.experience} Years</h6>
+                            </div>
                             ))}
                         </div>
                     </div>

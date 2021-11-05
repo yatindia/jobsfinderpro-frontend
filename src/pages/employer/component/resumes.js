@@ -38,7 +38,7 @@ export default function Resumes(){
             <div className="row d-flex justify-content-center m-2 p-2">
                 <div className="col-md-12 mt-2  border">
                     <div className="row z-depth-3">
-                            <h3 className="m-3 text-start text-muted">Resume Bucket:</h3>
+                            <h5 className="m-3 text-start text-muted">Resume Bucket:</h5>
                     </div>
                     <div className='row p-2'>
                           {seeker ?
@@ -50,6 +50,7 @@ export default function Resumes(){
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
                                  <th scope="col">Previous Jobs</th>
+                                 <th scope="col">Skills</th>
                                  <th scope="col">Resume</th>
                                  </tr>
                              </thead>
@@ -58,8 +59,25 @@ export default function Resumes(){
                                         <tr>
                                         <td>{item.part2.firstName}</td>
                                         <td>{item.part1.jobTitle}</td>
-                                        <td>{item.part1.qualifications}</td>
-                                        <td>{item.part1.pastJobs}</td> 
+                                        <td>{item.part1.qualifications.map((item,i)=>(
+                                            <div key={i} className="row d-flex">
+                                                <h6 className="col" >{item} </h6>
+                                            </div>
+                                            ))}
+                                        </td> 
+                                        <td>{item.part1.pastJobs.map((item,i)=>(
+                                            <div key={i} className="row d-flex">
+                                                <h6 className="col" >{item} </h6>
+                                            </div>
+                                            ))}
+                                        </td> 
+                                        <td>{item.part1.techQualifications.map((item,i)=>(
+                                            <div key={i} className="row d-flex">
+                                                <h6 className="col" >{item.skill} </h6>
+                                                <h6 className="col" >{item.experience} Years</h6>
+                                            </div>
+                                            ))}
+                                        </td> 
                                         <td>
                                             <a className="btn btn-outline-info" title={`${item.part2.firstName}`} target="_blank" rel="noopener noreferrer"
                                                download href={`${API_URL}/profile/profileResumes/${item.part1.resume}`}> Download</a>

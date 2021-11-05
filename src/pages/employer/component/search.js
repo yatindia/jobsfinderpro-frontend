@@ -22,6 +22,9 @@ export default function Search () {
 
     const [loadbtn, setLoadBtn] = useState(false)
     const [fetch,setfetch] = useState([])
+
+    const [searchSkill, setSkillSearch] = useState("");
+    const [searchExp, setExpSearch] = useState("");
     const [search, setSearch] = useState({
         jobTitle: "",
         state:"",
@@ -73,7 +76,6 @@ export default function Search () {
         setPageNumber(selected);
       };
 
-
       const displayUsers = fetch
       .slice(pagesVisited, pagesVisited + perpage)
       .map((data,id)=>{ return(
@@ -81,10 +83,13 @@ export default function Search () {
             <UserList data={data} key={id}></UserList>
         </div>
     )})
+    
 
-
-
-
+    // const displayUsers = fetch.map(data=>data.techQualifications).map(item=>item.map(e=>e.skill))
+    // console.log(displayUsers)
+    
+    // const displayUsers = fetch
+    // .map(data=>data.techQualifications).map((item,i)=>{return(<div key={i}><label></label>{console.log(item.map(e=>e.skill))}</div>)})
     return (<>
     <div>
         {/* -----Search Bar------ */}
@@ -137,8 +142,36 @@ export default function Search () {
             {fetch.length>0 ?(
                 <div className="row d-flex justify-content-center m-2" >
                     <div className="col-md mt-2">
-                        <h6 className=" text-muted">5 Results Per Page:-</h6>
+                    <h6 className="text-center text-muted">5 Results Per Page:-</h6>
+                        <div className = 'row'>
+                            <div className='col'>
+                                <h6 className="text-muted">Skills:-</h6>
+                                <input className="form-control m-2 p-1 " onChange={(e) => setSkillSearch(e.target.value)} >
+                                </input>
+                            </div>
+                            <div className='col'>
+                                <h6 className="text-muted">Experience:-</h6>
+                                <select className="form-control m-2 p-1 " name="experience" onChange={(e) => setExpSearch(e.target.value)}  >
+                                    <option value=''>All</option>
+                                    <option value='1'>Below 1 Year</option>
+                                    <option value='2'>2 Years</option>
+                                    <option value='3'>3 Years</option>
+                                    <option value='4'>4 Years</option>
+                                    <option value='5'>5 Years</option>
+                                    <option value='6'>6 Years</option>
+                                    <option value='7'>7 Years</option>
+                                    <option value='8'>8 Years</option>
+                                    <option value='9'>9 Years</option>
+                                    <option value='10'>10 Years</option>
+                                    <option value='11'>10 + Years</option>
+                                </select>
+                            </div>
+                        </div>
+                        {/* {fetch.map(({techQualifications,index})=>(<div id={index}> 
+                        {}
+                        </div>))} */}
                         {displayUsers}
+        
                         <div className='row justify-content-center p-4'> 
                             {loadbtn===true ?
                                  <ReactPaginate

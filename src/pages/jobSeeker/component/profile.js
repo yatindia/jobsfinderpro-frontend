@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
-import { resizeFile, dataURIToBlob, API_URL, formValid , getUser, userDp} from "../../../components/utils";
+import { resizeFile, dataURIToBlob, API_URL, formValid , getUser} from "../../../components/utils";
 import {validating} from '../../auth/validating'
 import cities from '../../../components/asserts/ind_cities.json'
 
@@ -22,7 +22,6 @@ function UserProfile() {
     const [newJob, setNewJob] =useState()
     const [newEdu, setNewEdu] =useState()
     const [skill,setSkill] = useState({skill:"",experience:""})
-    const [exp,setExp] = useState()
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [err2,setErr2] = useState({title: "",message: "",style:""})
     const [mess,setMess] = useState({message: "",style:""})
@@ -71,7 +70,6 @@ function UserProfile() {
 	const imageUpload= async ()=>{
         const formData = new FormData();
         formData.append("profile", imgData);
-        formData.append('oldDp',profile_1.dpName)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -80,14 +78,21 @@ function UserProfile() {
         };
         document.getElementById("message").innerText = "Loading.."
         try {
-            const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
-            console.log(res);
+        if (profile_1.dpName === 'default.jpg'){
+            const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
             setImgName(res.data.fileName)
             document.getElementById("message").innerText = res.data.message
-          } catch (ex) {
-           console.log(ex);
-            document.getElementById("message").innerText = ex
+        }else{
+            formData.append('oldDp',profile_1.dpName)
+            const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
+            setImgName(res.data.fileName)
+            document.getElementById("message").innerText = res.data.message
           }
+        }
+        catch (ex) {
+        console.log(ex);
+            document.getElementById("message").innerText = ex
+        }
     }
 
 
@@ -122,7 +127,6 @@ const detailUpdate =async()=>{
         setErr2({message:'Loading',style:'text-info'})
         try {
             const res = await axios.post(`${API_URL}/profile/updateprofile2`,profile,{headers:header})
-            //console.log(res)
             if(res.data.error === true){
                 setErr2({message:res.data.message,style:'text-success'})
                 getUser()
@@ -217,7 +221,7 @@ const deleteEdu=(e)=>{
     const eduId = e.target.value
     const items = Object.assign([],profile.qualifications)
     items.splice(eduId,1)
-    setProfile({...profile,qualifications:items})
+    setProfile({...profile,qualifications:[...items]})
 }
 
 const eduAdd =()=>{
@@ -234,7 +238,7 @@ const eduChange=(i,e)=>{
 useEffect(()=>{
     setInputs({...inputs,profileImage:imgName})
     setProfile({...profile,qualifications:[...profile.qualifications],pastJob:[...profile.pastJob],techQualifications:[...profile.techQualifications],resume:resumeName,})
-},[inputs,profile,imgName,resumeName])
+},[inputs,profile,imgName,resumeName, profile.pastJob])
 
     return (<>
     <div className="conatiner-flex m-3 p-2 border tab-content">
@@ -245,7 +249,7 @@ useEffect(()=>{
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
                             <div className="row img-circle">
-                            {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}` || userDp}  className="shadow" alt="dp"/>:
+                            {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="Profile"/>:
                                 <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
                             <div className="col mt-4">
@@ -300,7 +304,6 @@ useEffect(()=>{
         <div className="tab-pane fade show active m-4">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Employment Update</small></h3>
             <div className="row ">
-                <div>
                     <div className='col'>
                     {profile_2.resume === 'null' ?<label className="file-name text-info">Upload Resume</label>:<>
                                 <label className="formFieldLabel">Current Resume: </label>
@@ -316,9 +319,8 @@ useEffect(()=>{
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-            <div className='row'>
+            <div className='row mt-4'>
                 <div className="col-md-10">
                     <div className="form-group">
                         <label className="formFieldLabel">Qualifications</label>
@@ -333,9 +335,9 @@ useEffect(()=>{
                         {profile_2.qualifications.length>0 ? (
                         <div className='row p-2'>
                             {profile.qualifications.map((item, i)=>(
-                            <div key={i} className="d-flex">
-                                <input className="m-2 p-1 form-control" type="text" defaultValue={item} onChange={(e)=>eduChange(i,e)}/>
-                                <button className="m-2 btn btn-outline-danger" value={i} onClick={(e)=>deleteEdu(e)}>X</button>
+                            <div key={i} className="d-flex m-2">
+                                <input className="form-control" type="text" value={item} onChange={(e)=>eduChange(i,e)}/>
+                                <button className="btn btn-outline-danger" value={i} onClick={(e)=>deleteEdu(e)}>X</button>
                             </div>
                             ))}
                         </div>):null}
@@ -357,9 +359,9 @@ useEffect(()=>{
                         {profile_2.pastJobs.length>0 ? (
                         <div className='row p-2'>
                             {profile.pastJob.map((item, i)=>(
-                            <div key={i} className="d-flex">
-                                <input className="m-2 p-1 form-control" type="text" defaultValue={item} onChange={(e)=>jobChange(i,e)}/>
-                                <button className="m-2 btn btn-outline-danger" value={item} onClick={(e)=>deleteJob(i,e)}>X</button>
+                            <div key={i} className="d-flex m-2">
+                                <input className="form-control" type="text" value={item} onChange={(e)=>jobChange(i,e)}/>
+                                <button className="btn btn-outline-danger" value={item} onClick={(e)=>deleteJob(i,e)}>X</button>
                             </div>
                             ))}
                         </div>):null}
@@ -371,9 +373,9 @@ useEffect(()=>{
                     <div className="form-group">
                         <label className="formFieldLabel">Technical Skills</label>
                         <div className="row p-2">
-                            <div className='d-flex'>
-                                <input className="form-control m-2 p-1 " name="skill" onChange={changeSkill}/>
-                                <select className="form-control m-2 p-1 " name="experience" onChange={changeSkill}>
+                            <div className='col-sm-8 d-flex'>
+                                <input className="form-control" name="skill" onChange={changeSkill}/>
+                                <select className="form-control" name="experience" onChange={changeSkill}>
                                     <option value=''>Experience</option>
                                     <option value='1'>Below 1 Year</option>
                                     <option value='2'>2 Years</option>
@@ -388,16 +390,16 @@ useEffect(()=>{
                                     <option value='11'>10 + Years</option>
                                 </select>
                             </div>
-                            <div className='col-sm'>
-                                <button className="m-2 p-1 btn btn-resume" onClick={skillNew}>Add Skills</button>
+                            <div className='col-sm-3'>
+                                <button className="btn btn-resume" onClick={skillNew}>Add Skills</button>
                             </div>
                         </div>
                         {profile.techQualifications ? (
                         <div className='row p-2'>
                             {profile.techQualifications.map((item, i)=>(
-                            <div key={i} className="d-flex">
-                                <input className="m-2 p-1 form-control" name="skill" defaultValue={item.skill} onChange={(e)=>skillChange(i,e)}/>
-                                <select className="m-2 p-1 form-control" name="experience" defaultValue={item.experience} onChange={(e)=>skillChange(i,e)}>
+                            <div key={i} className="d-flex m-2">
+                                <input className="form-control" name="skill" value={item.skill} onChange={(e)=>skillChange(i,e)}/>
+                                <select className="form-control" name="experience" value={item.experience} onChange={(e)=>skillChange(i,e)}>
                                     <option value='1'>Below 1 Year</option>
                                     <option value='2'>2 Years</option>
                                     <option value='3'>3 Years</option>
@@ -410,7 +412,7 @@ useEffect(()=>{
                                     <option value='10'>10 Years</option>
                                     <option value='11'>10 + Years</option>
                                 </select>
-                                <button className="m-2 btn btn-outline-danger" value={i} onClick={(e)=>deleteSkill(e,i)}>X</button>
+                                <button className="btn btn-outline-danger" value={i} onClick={(e)=>deleteSkill(e,i)}>X</button>
                             </div>
                             ))}
                         </div>):null}
@@ -420,9 +422,8 @@ useEffect(()=>{
             <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
-                    <label className="formFieldLabel">Date of Birth</label>
-                        <input type="date" name="dateOfBirth" className="formFieldInput"
-                          value={profile.dateOfBirth} onChange={changeHandle} />
+                    <label className="formFieldLabel">Date of Birth :- {profile.dateOfBirth.split('T')[0]}</label>
+                        <input type="date" name="dateOfBirth" className="formFieldInput" onChange={changeHandle} />
                     </div>
                 </div>
                 <div className="col-md-6">
