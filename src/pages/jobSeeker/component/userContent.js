@@ -93,6 +93,16 @@ const PostData = (data) => {
                                 ))}
                             </ul>):<></>} 
                         </div>
+                        {part_2.techQualifications ? (
+                        <div className=" skills">
+                            <h6 className="text-secondary">Technical Skills:</h6>
+                                <ul>
+                                {part_2.techQualifications.map((item, i)=>(<div className='row border d-flex' key={i}>
+                                    <li className="col "><b>{item.skill}</b> </li>
+                                    <li className="col"><b>{item.experience} Years</b> </li>
+                               </div> ))}
+                            </ul>
+                        </div>):<></>} 
                         <div className="buttons mb-3 text-right">
                             <a className="btn primary" href="/users/dashboard/profile">Edit Profile</a>
                         </div>

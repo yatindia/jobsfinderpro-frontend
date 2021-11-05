@@ -302,6 +302,7 @@
     display: block;
     text-transform: uppercase;
     font-size: 0.9em;
+    font-weight: 500;
     color: #6b5b95;
   }
   .formFieldInput {
@@ -432,15 +433,17 @@
     text-decoration: none!important;
     letter-spacing: 1px;
     display: inline-block;
-    border-radius: 3px;
+    border-radius: 5px;
+    border: 2px solid #eb5d1e;
     transition: ease-in-out;
-    color: #fff;
-    background: #eb5d1e;
+    background: #fff;
+    color: #eb5d1e;
   }
 
   .btn-findJob:hover {
+    background: #eb5d1e;
     color: #ffffff;
-    background: #fa8959;
+    border: 2px solid #eb5d1e;
   }
 
   .inputStyle {

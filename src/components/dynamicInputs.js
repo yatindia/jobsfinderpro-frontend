@@ -9,6 +9,8 @@ const DynamicInput = ({test,...props}) => {
   useEffect(()=>{
     if(test!==''&& test!==undefined){
       setitem(test)
+    }else{
+      
     }
   },[item,test])
 
@@ -39,18 +41,14 @@ const DynamicInput = ({test,...props}) => {
   return (
     <div className="row">
       {
-        item.map((data,i) => {
-          return (<>
-
-              <div className="col-sm-3" key={i}>
+        item.map((data,idx) => 
+              <div className="col-sm-3" key={idx}>
                 <div className="form-group d-flex">
                   <input type="text" name="vals" className="form-control"
-                  value={data} onChange={event => inputChange(i,event)} list="dataset"/>
-                  <button  className="btn btn-outline-danger" type="button" onClick={(e)=>removeInput(i,e)}>X</button>
+                  value={data} onChange={event => inputChange(idx,event)} />
+                  <button  className="btn btn-outline-danger" type="button" onClick={(e)=>removeInput(idx,e)}>X</button>
                 </div>
-            </div>
-         </> )
-        })
+            </div> )
       }
       <div className="form-group col">
         <button className="btn btn-findJob" type="button" onClick={addInputs}>+</button>

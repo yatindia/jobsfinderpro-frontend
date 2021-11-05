@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios'
 
 import { resizeFile, dataURIToBlob, API_URL, formValid , getUser, userDp} from "../../../components/utils";
-import DynamicInput from "../../../components/dynamicInputs";
 import {validating} from '../../auth/validating'
 import cities from '../../../components/asserts/ind_cities.json'
 
@@ -16,12 +15,14 @@ function UserProfile() {
     const [imgData, setImgData] = useState(null);
     const [imgBtn, setImgBtn] = useState(true);
 	const [imgShow, setImgShow] = useState(null);
-    const [imgName, setImgName] = useState('');
+    const [imgName, setImgName] = useState('null');
     const [resume, setResume] = useState('')
     const [resumeName, setResumeName] = useState(profile_2.resume)
 
-    const [pastJob, setpastJob] =useState([])
-    const [edu, setEdu] =useState([])
+    const [newJob, setNewJob] =useState()
+    const [newEdu, setNewEdu] =useState()
+    const [skill,setSkill] = useState({skill:"",experience:""})
+    const [exp,setExp] = useState()
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [err2,setErr2] = useState({title: "",message: "",style:""})
     const [mess,setMess] = useState({message: "",style:""})
@@ -46,17 +47,15 @@ function UserProfile() {
         state:profile_2.state,
         city:profile_2.city,
         resume:profile_2.resume,
+        techQualifications:profile_2.techQualifications,
         type:'seeker'
       })
-
- 
+      
 //-------Input change-----------
     const changeHandle = async e => {
         setInputs({...inputs,[e.target.name]: e.target.value})
         setProfile({...profile,[e.target.name]: e.target.value})
       }
-
-
 
 //-------Image Upload-----------
     const onImageChange=async (e)=>{
@@ -117,7 +116,7 @@ const baseUpdate =async()=>{
 
 //-------Profile 2 Update-----------
 const detailUpdate =async()=>{
-    console.log(profile)
+    //  console.log(profile)
     const erro = formValid(profile)
      if(erro.valid === true){
         setErr2({message:'Loading',style:'text-info'})
@@ -175,11 +174,67 @@ const uploadResume=async()=>{
         }
     }
 }
+const changeSkill =(e)=>{
+    setSkill({...skill,[e.target.name]: e.target.value})
+}
+
+const skillNew = ()=>{
+    let arr = profile.techQualifications.concat(skill)
+    setProfile({...profile,techQualifications:arr})
+}
+
+const deleteSkill=(e,i)=>{
+    const items = Object.assign([],profile.techQualifications)
+    items.splice(i,1)
+    setProfile({...profile,techQualifications:items})
+}
+
+const skillChange=(i,e)=>{
+    const items = Object.assign([],profile.techQualifications)
+    const {name, value} = e.target
+    items[i][name] = value
+    setProfile({...profile,techQualifications:items})
+}
+
+const deleteJob=(i,e)=>{
+    const job = e.target.value
+    const filtered = profile.pastJob.filter(jb => jb !== job);
+    setProfile({...profile,pastJob:filtered})
+}
+
+const jobAdd =()=>{
+   let arr = profile.pastJob.concat(newJob)
+   setProfile({...profile,pastJob:arr})
+}
+
+const jobChange=(i,e)=>{
+    const items = Object.assign([],profile.pastJob)
+    items.splice(i, 1, e.target.value)
+    setProfile({...profile,pastJob:items})
+}
+
+const deleteEdu=(e)=>{
+    const eduId = e.target.value
+    const items = Object.assign([],profile.qualifications)
+    items.splice(eduId,1)
+    setProfile({...profile,qualifications:items})
+}
+
+const eduAdd =()=>{
+   let arr = profile.qualifications.concat(newEdu)
+   setProfile({...profile,qualifications:arr})
+}
+
+const eduChange=(i,e)=>{
+    const items = Object.assign([],profile.qualifications)
+    items.splice(i, 1, e.target.value)
+    setProfile({...profile,qualifications:items})
+}
 
 useEffect(()=>{
-    setInputs({...inputs,profileImage:imgName||profile_1.dpName})
-    setProfile({...profile,qualifications:[...edu,...profile_2.qualifications],pastJob:[...pastJob,...profile_2.pastJobs],resume:resumeName})
-},[inputs,profile,edu,pastJob,imgName,profile_1.dpName,profile_2.qualifications,profile_2.pastJobs,resumeName])
+    setInputs({...inputs,profileImage:imgName})
+    setProfile({...profile,qualifications:[...profile.qualifications],pastJob:[...profile.pastJob],techQualifications:[...profile.techQualifications],resume:resumeName,})
+},[inputs,profile,imgName,resumeName])
 
     return (<>
     <div className="conatiner-flex m-3 p-2 border tab-content">
@@ -209,22 +264,22 @@ useEffect(()=>{
                     <div className="row">
                         <div className="col">
                             <div className="form-group">
-                                <label>First Name</label>
+                                <label className="formFieldLabel">First Name</label>
                                 <input type="text" className="formFieldInput" name ="firstName" 
                                     placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
-                                <label>Last Name</label>
+                                <label className="formFieldLabel">Last Name</label>
                                 <input type="text" className="formFieldInput" name ="lastName"  
                                     placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
-                            <label>Change Password</label>
+                            <label className="formFieldLabel">Change Password</label>
                                 <input type="password" className="formFieldInput" name ="password"
                                     placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
                             </div>
                             <div className="form-group">
-                                <label>Confirm Password</label> 
+                                <label className="formFieldLabel">Confirm Password</label> 
                                 <input type="password" className="formFieldInput" name ="cpassword"
                                     placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
                             </div>
@@ -247,75 +302,145 @@ useEffect(()=>{
             <div className="row ">
                 <div>
                     <div className='col'>
-                    Resume: {profile_2.resume === 'null' ?<label className="file-name text-info">Upload Resume</label>:
-                                <label className="file-name">{profile_2.resume}</label>}
+                    {profile_2.resume === 'null' ?<label className="file-name text-info">Upload Resume</label>:<>
+                                <label className="formFieldLabel">Current Resume: </label>
+                                <label className="file-name">{profile_2.resume}</label></>}
                         <div className="resume-container">
                             <div className="btn-wrap">
                             {profile_2.resume === 'null' ?<label className="btn-resume" htmlFor="upload">Get Resume</label>:
                                         <label className="btn-resume" htmlFor="upload">Change Resume</label>}
                                 <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
                                 <label className="file-name" id="fileName"></label>
-                                <button className="btn btn-upload m-2" type='button' onClick={uploadResume}>Upload</button>
+                                <button className="btn btn-resume m-2" type='button' onClick={uploadResume}>Upload</button>
+                                <label className={mess.style}>{mess.message}</label>
                             </div>
                         </div>
-                        <label className={mess.style}>{mess.message}</label>
                     </div>
                 </div>
             </div>
             <div className='row'>
                 <div className="col-md-10">
                     <div className="form-group">
-                        <label>Qualifications</label>
-                        {profile_2.qualifications.length>0 ? (<div>
-                            {profile_2.qualifications.map((item, i)=>(
-                                <input className="m-2" key={i} value={item} disabled/>
+                        <label className="formFieldLabel">Qualifications</label>
+                        <div className="row">
+                            <div className='col'>
+                                <input className="form-control" onChange={(e) => setNewEdu(e.target.value)}/>
+                            </div>
+                            <div className='col-sm'>
+                                <button className="btn btn-resume" onClick={eduAdd}>Add New</button>
+                            </div>
+                        </div>
+                        {profile_2.qualifications.length>0 ? (
+                        <div className='row p-2'>
+                            {profile.qualifications.map((item, i)=>(
+                            <div key={i} className="d-flex">
+                                <input className="m-2 p-1 form-control" type="text" defaultValue={item} onChange={(e)=>eduChange(i,e)}/>
+                                <button className="m-2 btn btn-outline-danger" value={i} onClick={(e)=>deleteEdu(e)}>X</button>
+                            </div>
                             ))}
                         </div>):null}
-                        <div className="">
-                            <DynamicInput get={setEdu}></DynamicInput>
-                        </div>
                     </div>
                 </div>
             </div>
             <div className='row'>
                 <div className="col-md-10">
                     <div className="form-group">
-                        <label>Previous Jobs</label>
-                        {profile_2.pastJobs.length>0 ? (<div>
-                            {profile_2.pastJobs.map((item, i)=>(
-                                <input className="m-2" key={i} value={item} disabled/>
+                        <label className="formFieldLabel">Previous Jobs</label>
+                        <div className="row">
+                            <div className='col'>
+                                <input className="form-control" onChange={(e) => setNewJob(e.target.value)}/>
+                            </div>
+                            <div className='col-sm'>
+                                <button className="btn btn-resume" onClick={jobAdd}>Add Job</button>
+                            </div>
+                        </div>
+                        {profile_2.pastJobs.length>0 ? (
+                        <div className='row p-2'>
+                            {profile.pastJob.map((item, i)=>(
+                            <div key={i} className="d-flex">
+                                <input className="m-2 p-1 form-control" type="text" defaultValue={item} onChange={(e)=>jobChange(i,e)}/>
+                                <button className="m-2 btn btn-outline-danger" value={item} onClick={(e)=>deleteJob(i,e)}>X</button>
+                            </div>
                             ))}
                         </div>):null}
-                        <div className="">
-                            <DynamicInput  get={setpastJob}></DynamicInput>
+                    </div>
+                </div>
+            </div>
+            <div className='row'>
+                <div className="col-md-10">
+                    <div className="form-group">
+                        <label className="formFieldLabel">Technical Skills</label>
+                        <div className="row p-2">
+                            <div className='d-flex'>
+                                <input className="form-control m-2 p-1 " name="skill" onChange={changeSkill}/>
+                                <select className="form-control m-2 p-1 " name="experience" onChange={changeSkill}>
+                                    <option value=''>Experience</option>
+                                    <option value='1'>Below 1 Year</option>
+                                    <option value='2'>2 Years</option>
+                                    <option value='3'>3 Years</option>
+                                    <option value='4'>4 Years</option>
+                                    <option value='5'>5 Years</option>
+                                    <option value='6'>6 Years</option>
+                                    <option value='7'>7 Years</option>
+                                    <option value='8'>8 Years</option>
+                                    <option value='9'>9 Years</option>
+                                    <option value='10'>10 Years</option>
+                                    <option value='11'>10 + Years</option>
+                                </select>
+                            </div>
+                            <div className='col-sm'>
+                                <button className="m-2 p-1 btn btn-resume" onClick={skillNew}>Add Skills</button>
+                            </div>
                         </div>
+                        {profile.techQualifications ? (
+                        <div className='row p-2'>
+                            {profile.techQualifications.map((item, i)=>(
+                            <div key={i} className="d-flex">
+                                <input className="m-2 p-1 form-control" name="skill" defaultValue={item.skill} onChange={(e)=>skillChange(i,e)}/>
+                                <select className="m-2 p-1 form-control" name="experience" defaultValue={item.experience} onChange={(e)=>skillChange(i,e)}>
+                                    <option value='1'>Below 1 Year</option>
+                                    <option value='2'>2 Years</option>
+                                    <option value='3'>3 Years</option>
+                                    <option value='4'>4 Years</option>
+                                    <option value='5'>5 Years</option>
+                                    <option value='6'>6 Years</option>
+                                    <option value='7'>7 Years</option>
+                                    <option value='8'>8 Years</option>
+                                    <option value='9'>9 Years</option>
+                                    <option value='10'>10 Years</option>
+                                    <option value='11'>10 + Years</option>
+                                </select>
+                                <button className="m-2 btn btn-outline-danger" value={i} onClick={(e)=>deleteSkill(e,i)}>X</button>
+                            </div>
+                            ))}
+                        </div>):null}
                     </div>
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-6">
                     <div className="form-group">
-                    <label>Date of Birth</label>
+                    <label className="formFieldLabel">Date of Birth</label>
                         <input type="date" name="dateOfBirth" className="formFieldInput"
                           value={profile.dateOfBirth} onChange={changeHandle} />
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Contact Number</label>
+                        <label className="formFieldLabel">Contact Number</label>
                         <input type="text" className="formFieldInput" placeholder={profile_2.mobile}
                           name ="mobile"  value={profile.mobile} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Job Title</label>
+                        <label className="formFieldLabel">Job Title</label>
                         <input type="text" className="formFieldInput"  placeholder={profile_2.jobTitle}
                             name ="jobTitle" value={profile.jobTitle} onChange={changeHandle}/>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label>Gender</label>
+                    <label className="formFieldLabel">Gender</label>
                     <div className="input-group">
                         <input className="formFieldInput" type="text" name ="gender" placeholder={profile_2.gender} 
                         list="gender" onChange={changeHandle} value={profile.gender}/>
@@ -328,7 +453,7 @@ useEffect(()=>{
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>State</label>
+                        <label className="formFieldLabel">State</label>
                         <input type="text" className="formFieldInput text-capitalize"
                             name ="state" value={profile.state} onChange={changeHandle}  list='state'/>
                             <datalist id ='state'>
@@ -338,7 +463,7 @@ useEffect(()=>{
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>City</label>
+                        <label className="formFieldLabel">City</label>
                         <input type="text" className="formFieldInput text-capitalize"
                             name ="city" value={profile.city} onChange={changeHandle} list='city'/>
                              <datalist id ='city'>

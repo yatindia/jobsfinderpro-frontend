@@ -4,6 +4,7 @@ import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 import DynamicInput from '../../../components/dynamicInputs';
+import SkillInput from '../../../components/skillInput';
 import { API_URL,formValid } from '../../../components/utils';
 import cities from '../../../components/asserts/ind_cities.json'
 
@@ -14,6 +15,7 @@ const Registration = ({show, title, dialogClose}) => {
 
     const userProfile = JSON.parse(localStorage.getItem( 'userDetails'));
     const [edu, setEdu] =useState([])
+    const [skill, setSkill] =useState([])
     const [resume, setResume] = useState('')
     const [resumeName, setResumeName] = useState('null')
     const [pastJob, setpastJob] =useState([])
@@ -30,6 +32,7 @@ const Registration = ({show, title, dialogClose}) => {
         gender: "",
         pastJob:"",
         qualifications: "",
+        techQualifications: "",
         state :"",
         city: "",
         resume:"",
@@ -56,6 +59,7 @@ const updateProfile=async(event)=>{
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
+    //  console.log(inputs)
       setValidated(true); 
       const checking = formValid(inputs)
       if(checking.valid===true){
@@ -79,6 +83,7 @@ const updateProfile=async(event)=>{
 }
 
 const resumeClick = (e)=>{
+    console.log(e)
     if (e.target.files[0]) {
         const file = e.target.files[0];
         document.getElementById("fileName").innerText = file.name
@@ -87,6 +92,9 @@ const resumeClick = (e)=>{
 }
  
 const uploadResume=async()=>{
+    if(resume === ''){
+        setMess({message:'Select the Resume',style:'text-info'})
+    }else{
     const formdata = new FormData()
     formdata.append('resume',resume)
     const config = {
@@ -107,11 +115,12 @@ const uploadResume=async()=>{
        console.log(ex);
        setMess({message:ex,style:'text-warning'})
       }
+    }
 }
 
 useEffect(()=>{
-    setInputs({...inputs,qualifications:edu, pastJob:pastJob,resume:resumeName})
-},[inputs,edu,pastJob,resumeName])
+    setInputs({...inputs,qualifications:edu, pastJob:pastJob,resume:resumeName,techQualifications:skill})
+},[inputs,edu,pastJob,resumeName,skill])
 
     if(!show){
         return <> </>
@@ -131,28 +140,16 @@ useEffect(()=>{
                                     </div>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6">
-                                    <div className="row">
-                                        <div className="resume-container">
+                                    <div className="row d-flex">
+                                        <div className=" col resume-container">
                                             <div className="btn-wrap">
-                                                <label className="btn-resume" htmlFor="upload">Select Resume</label>
-                                                <input id="upload" type="file" accept="application/pdf" onChange={resumeClick}/>
+                                                <label className="btn-resume" htmlFor="upload">Get Resume</label>
+                                                <input id="upload" type="file" accept="application/pdf" onChange={e=>resumeClick(e)}/>
                                                 <label className="file-name" id="fileName"></label>
+                                                <button className="btn btn-resume" type='button' onClick={uploadResume}>Upload</button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <Row className='row justify-content-center'>
-                                        {/* <Col xs={6}>
-                                            <Toast onClose={() => setToast(false)} show={toast} delay={3000} autohide bg={mess.style}>
-                                            <Toast.Header>
-                                                <strong className="me-auto">Resume Upload</strong>
-                                            </Toast.Header>
-                                            <Toast.Body>{mess.message}</Toast.Body>
-                                            </Toast>
-                                        </Col> */}
-                                        <label className={mess.style}>{mess.message}</label>
-                                    </Row>
-                                    <div className='row justify-content-center'>
-                                        <button className="btn btn-upload" type='button' onClick={uploadResume}>Upload Resume</button>
+                                        <label className={`${mess.style} col`}>{mess.message}</label>
                                     </div>
                                 </Form.Group>
                             </Row>
@@ -170,6 +167,12 @@ useEffect(()=>{
                                     <div className="">
                                         <DynamicInput get={setpastJob}></DynamicInput>
                                     </div>
+                                </Form.Group>
+                            </Row>
+                            <Row>
+                                <Form.Group as={Col} md="12"  controlId="validationCustom11" className="formField">
+                                    <label>Technical Skills</label>
+                                    <SkillInput getSkill = {setSkill}></SkillInput>
                                 </Form.Group>
                             </Row>
                             <Row>

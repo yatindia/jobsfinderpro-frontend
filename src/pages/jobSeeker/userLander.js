@@ -88,7 +88,7 @@ const dialogClose=()=>{
 								Dashboard
 							</a>
 							<a className="nav-link"  href="/users/dashboard/myjobs" >
-								<i className="fa fa-user text-center mr-1"></i> 
+								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Applied Jobs
 							</a>
 							<a className="nav-link"  onClick={handleLogout} href="/" >
