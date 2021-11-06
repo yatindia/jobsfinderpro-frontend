@@ -120,7 +120,7 @@ export default function UserList({data}){
                             ))}
                             {load<count ?<button className="btn btn-upload" onClick={()=>{
                                 setload(count)
-                            }} type="button" >More Skill...</button>:<></>}
+                            }} type="button" >Show More...</button>:<></>}
                             
                         </div>
                     </div>
