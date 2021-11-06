@@ -71,11 +71,15 @@ export default function UserList({data}){
         seekerid:data.link_id
     })
 
-    const downloadResume=async()=>{
+    const selectResume=async()=>{
         try {
             const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
             setMess({message:res.data.message,style:'text-info'})
-        } catch (error) {
+            if(res.data.error === false){
+                window.open(`${API_URL}/profile/profileResumes/${data.resume}`)
+            }
+            } 
+        catch (error) {
             
         }
     }
@@ -110,8 +114,7 @@ export default function UserList({data}){
                             <p className="font-weight-bold">Skills</p>
                             {data.techQualifications.slice(0,load).map((item,i)=>(
                             <div key={i} id="content" className="row d-flex">
-                                <h6 className="col text-muted " >{item.skill} </h6>
-                                <h6 className="col text-muted " >{item.experience} Years</h6>
+                                <h6 className="col text-muted d-inline" >{item.skill} <i>({item.experience} Yrs)</i></h6>
                             </div>
                             ))}
                             {load<count ?<button className="btn btn-upload" onClick={()=>{
@@ -122,7 +125,15 @@ export default function UserList({data}){
                     </div>
                     <div className="row justify-content-end p-2 border-top">
                             <button type="button" className="btn btn-outline-info mr-2" onClick={pdfcreate}> Get Profile</button>
-                            <button type="button" className="btn btn-outline-info" onClick={downloadResume}> Select Resume</button>
+                            {data.resume !== 'null'?<div>
+                                {profile_2.downloadedResumes.includes(data.link_id) ?
+                                <a className="btn btn-outline-info" title={`${fetch.part2.firstName}`} target="_blank" 
+                                download href={`${API_URL}/profile/profileResumes/${data.resume}`}> Download</a>:
+                                <button type="button" className="btn btn-outline-info" onClick={selectResume}> Select Resume</button>
+                                }
+                            
+                            </div>:
+                            <p className="m-2">No Resume</p>}
                     </div>
                 </div>
                 :<p>Loading...</p>}
