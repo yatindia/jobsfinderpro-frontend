@@ -23,8 +23,6 @@ export default function Search () {
     const [loadbtn, setLoadBtn] = useState(false)
     const [fetch,setfetch] = useState([])
 
-    const [searchSkill, setSkillSearch] = useState("");
-    const [searchExp, setExpSearch] = useState("");
     const [search, setSearch] = useState({
         jobTitle: "",
         state:"",

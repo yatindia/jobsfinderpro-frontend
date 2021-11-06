@@ -115,7 +115,7 @@ export default function Featcher ({location}) {
         </div> 
         </div>
         {/* ------Content--------- */}
-        <div className="container-flex m-3 p-2">
+        <div className="container m-3 p-2">
             <div className=' container'>
                 <div className='row d-flex'>
                 <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>

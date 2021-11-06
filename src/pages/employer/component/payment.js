@@ -3,7 +3,6 @@ import axios from "axios";
 import { Toast } from "react-bootstrap";
 
 import { API_URL } from "../../../components/utils";
-import { useHistory } from "react-router-dom";
 
 export default function Payment (){
 
@@ -13,7 +12,6 @@ export default function Payment (){
 
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [toast, setToast] = useState(false);
-    const history = useHistory()
     let points = profile_2.resumePoints
 
     const config = {

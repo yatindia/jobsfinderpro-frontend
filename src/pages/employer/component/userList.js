@@ -12,14 +12,10 @@ export default function UserList({data}){
 ;
     const [fetch,setfetch] = useState()
     const [load, setload] =useState(2)
-    const [btn, setBtn] =useState(true)
     const count = data.techQualifications.length
     const [mess,setMess] = useState({message: "",style:""})
 
     useEffect(()=>{
-        if(data.techQualifications.length>=load){
-            setBtn(false)
-        }
         const getlist =async()=>{
             try {
                 const res = await axios.post(`${API_URL}/job/searchoneseeker`,{seekerid:data.link_id},{headers:header})
