@@ -29,6 +29,7 @@ export default function Search () {
         jobTitle: "",
         state:"",
         city: "",
+        techQualifications:"",
         skip:skip,
         limit:limit
     })
@@ -100,6 +101,12 @@ export default function Search () {
                         onChange={changeHandle} list="browsers" placeholder ="Job Title / Name ..."/>
                 </div> 
                 <div className="col-lg col-md col-sm p-1">
+                    <input className="form-control formFieldInput text-capitalize"  type="text" name="techQualifications" value={search.techQualifications}
+                        onChange={changeHandle} list="browsers" placeholder ="Technical Skills ..."/>
+                </div> 
+            </div> 
+            <div className="row justify-content-center m-2 p-2">
+                <div className="col-lg col-md col-sm p-1">
                     <input type="text" className="form-control text-capitalize formFieldInput" placeholder="State ..." name="state"
                         value={search.state} onChange={changeHandle} required list='state'/>
                         <datalist id ='state'>
@@ -143,30 +150,6 @@ export default function Search () {
                 <div className="row d-flex justify-content-center m-2" >
                     <div className="col-md mt-2">
                     <h6 className="text-center text-muted">5 Results Per Page:-</h6>
-                        <div className = 'row'>
-                            <div className='col'>
-                                <h6 className="text-muted">Skills:-</h6>
-                                <input className="form-control m-2 p-1 " onChange={(e) => setSkillSearch(e.target.value)} >
-                                </input>
-                            </div>
-                            <div className='col'>
-                                <h6 className="text-muted">Experience:-</h6>
-                                <select className="form-control m-2 p-1 " name="experience" onChange={(e) => setExpSearch(e.target.value)}  >
-                                    <option value=''>All</option>
-                                    <option value='1'>Below 1 Year</option>
-                                    <option value='2'>2 Years</option>
-                                    <option value='3'>3 Years</option>
-                                    <option value='4'>4 Years</option>
-                                    <option value='5'>5 Years</option>
-                                    <option value='6'>6 Years</option>
-                                    <option value='7'>7 Years</option>
-                                    <option value='8'>8 Years</option>
-                                    <option value='9'>9 Years</option>
-                                    <option value='10'>10 Years</option>
-                                    <option value='11'>10 + Years</option>
-                                </select>
-                            </div>
-                        </div>
                         {/* {fetch.map(({techQualifications,index})=>(<div id={index}> 
                         {}
                         </div>))} */}

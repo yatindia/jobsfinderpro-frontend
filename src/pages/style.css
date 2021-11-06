@@ -251,9 +251,13 @@
 }
 
 .btn-upload{
-  border-radius: 30px;
-  border: 2px solid #eb5d1e;
+  border: none !important;
   color: #eb5d1e;
+  background: transparent;
+  outline: none !important;
+  border: none !important;
+  cursor: pointer;
+  margin: auto;
 }
 .btn-upload:hover{
   color: #8d2d05;
@@ -782,3 +786,13 @@ td, th {
 	text-align: left; 
 	font-size: 18px;
 	}
+
+  /* ---------------------- */
+  #content {
+    overflow: hidden; 
+    height: 2em;
+    line-height: 1em;
+  }
+  #more:checked + div {
+    height: auto;
+  }
