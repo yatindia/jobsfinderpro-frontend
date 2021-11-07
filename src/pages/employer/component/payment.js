@@ -12,7 +12,7 @@ export default function Payment (){
 
     const [errs,setErr] = useState({title: "",message: "",style:""})
     const [toast, setToast] = useState(false);
-    let points = profile_2.resumePoints
+    const [points, setPoints] = useState();
 
     const config = {
         headers: {'authorization': `<Bearer> ${profile_1.Auth_token}`}
@@ -35,7 +35,7 @@ export default function Payment (){
 		try {
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,config)
 			if(res.data.error === false){
-				points = res.data.data.part2.resumePoints
+				setPoints(res.data.data.part2.resumePoints)
 			}
 		} catch (error) {
 			console.log(error)
@@ -43,10 +43,10 @@ export default function Payment (){
 	}
     
   useEffect(() => {
+    getUser()
     const query = new URLSearchParams(window.location.search);
     const result = query.get("success")
     if (result==='true') {
-        getUser()
       setErr({title:'Payment',message:'Success - Points Credited',style:"success"})
     setToast(true)
     }
@@ -54,7 +54,7 @@ export default function Payment (){
         setErr({title:'Payment',message:'Canceled - Network Error',style:"warning"})
         setToast(true)
     }
-  }, []);
+  }, [points]);
 
   const reload=()=>{
     window.location.reload()
@@ -76,7 +76,7 @@ export default function Payment (){
                 </address>
             </div>
             <div className='col-xs-6 col-sm-6 col-md-6 m-auto align-items-center'>
-            <Toast onClose={() => setToast(false)} show={toast} bg={errs.style}>
+            <Toast onClose={() => setToast(false)} show={toast} bg={errs.style} autohide delay={3000}>
                 <Toast.Header>
                     <strong className="me-auto">{errs.title}</strong>
                 </Toast.Header>

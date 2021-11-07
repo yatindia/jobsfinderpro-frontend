@@ -1,7 +1,7 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap';
 
-import ApplyBtn from './applyBtn';
+// import ApplyBtn from './applyBtn';
 
 const ViewJob = ({show, data,  dialogClose}) => {
 
@@ -63,7 +63,7 @@ const ViewJob = ({show, data,  dialogClose}) => {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <ApplyBtn job={data.job}></ApplyBtn>
+                {/* <ApplyBtn job={data.job}></ApplyBtn> */}
                 <Button variant="danger" onClick={dialogClose}>Close</Button> 
             </Modal.Footer>
         </Modal>

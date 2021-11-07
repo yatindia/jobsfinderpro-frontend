@@ -57,7 +57,7 @@ useEffect(()=>{
                 </div>
           </div>))}
           <div className='col-sm'>
-            <button className="btn btn-findJob"  type="button" onClick={add}>Add New</button>
+            <button className="btn btn-findJob"  type="button" onClick={add}>+</button>
           </div>
       </div>
     )

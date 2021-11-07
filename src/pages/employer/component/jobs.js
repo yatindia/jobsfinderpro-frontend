@@ -45,13 +45,13 @@ function Jobs(){
                         <div className="col-sm-3 bg-info rounded-left">
                             <div className="card-block text-center text-white">
                                 <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${profile_2.orgLogo}`}  alt="sample"></img>
-                                <h2 className="font-weight-bold mt-2">{profile_2.orgName}</h2>
+                                <h5 className="font-weight-bold mt-2">{profile_2.orgName}</h5>
                                 <p>{data.dateOfAdd}</p>
                                 <i className="far-fa-edit fa-2x mb-2"></i>
                             </div>
                         </div>
                         <div className="col-sm-9 bg-white rounded-right">
-                            <h3 className="mt-3 text-start">{data.jobTitle}</h3>
+                            <h5 className="mt-3 text-start">{data.jobTitle}</h5>
                             <div className="row">
                                 <div className="col-sm">
                                     <p className="font-weight-bold">Location</p>
@@ -70,7 +70,7 @@ function Jobs(){
                                     <h6 className="text-muted">₹ {data.jobSalary}</h6>
                                 </div>
                                 <div className="col-sm text-right">
-                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit Jobs</a>
+                                    <a className="btn btn-findJob" href={`/employers/dashboard/jobs/${data._id}`}>Edit</a>
                                 </div>
                             </div>
                             <hr className="bg-primary"/>

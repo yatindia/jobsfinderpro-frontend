@@ -564,7 +564,7 @@ a.primary:hover, button.primary:hover {
 
 .skills {
 	text-align: left;
-	padding: 15px;
+	padding: 10px;
 }
 
 .skills ul {
@@ -579,8 +579,8 @@ a.primary:hover, button.primary:hover {
 	display: inline-block;
   text-transform: capitalize;
 	font-size: 14px;
-	margin: 0 7px 7px 0;
-	padding: 7px;
+	margin: 0 5px 5px 0;
+	padding: 3px;
 }
 
 /* ---------- Profile Edit ------- */

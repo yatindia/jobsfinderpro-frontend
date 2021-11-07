@@ -66,32 +66,40 @@ const changeHandle = async e => {
 }
 
 const imageUpload= async ()=>{
-    // let imageData = ''
-    // if(!userDp){
-    //     imageData = imgData
-    // }else {
-    //     const newFile = dataURIToBlob(userDp);
-    //     imageData = newFile
-    // }
     const formData = new FormData();
     formData.append("profile", imgData);
-    formData.append('oldDp',profile_1.dpName)
     const config = {
         headers: {
             'content-type': 'multipart/form-data',
             'authorization': `<Bearer> ${profile_1.Auth_token}`
         }
     };
-    setErr({title:'',message:'Loading..',style:'text-primary'})
+    document.getElementById("message").innerText = "Loading.."
     try {
-        const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
-            setImgName(res.data.fileName)
-            setErr({title:'',message:res.data.message,style:'text-success'})
-            setInputs({...inputs,profileImage:imgName})
-        } catch (ex) {
-        // console.log(ex);
-    setErr({title:'',message:ex,style:'text-warning'})
+        if (profile_1.dpName === 'default.jpg'){
+            const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
+            if(res.data.uploadStatus === true){
+                setImgName(res.data.fileName)
+                document.getElementById("message").innerText = "Image Uploaded"
+            }else{
+                document.getElementById("message").innerText = "Upload Filed"
+            }  
         }
+        else{
+            formData.append('oldDp',profile_1.dpName)
+            const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
+            if(res.data.uploadStatus === true){
+                setImgName(res.data.fileName)
+                document.getElementById("message").innerText = "Image Uploaded"
+            }else{
+                document.getElementById("message").innerText = "Upload Filed"
+            }  
+        }
+    }
+    catch (ex) {
+    console.log(ex);
+        document.getElementById("message").innerText = "Network Error"
+    }
 }
 
 const baseUpdate =async()=>{
@@ -138,14 +146,18 @@ const logoUpload= async ()=>{
             'authorization': `<Bearer> ${profile_1.Auth_token}`
         }
     };
-    setErr2({title:'',message:'Loading..',style:'text-primary'})
+    document.getElementById("mess").innerText = "Loading.."
     try {
         const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
+        if(res.data.uploadStatus === true){
             setLogoName(res.data.fileName)
-            setErr2({title:'',message:res.data.message,style:'text-success'})
+            document.getElementById("mess").innerText = "LOGO Uploaded"
+        }else{
+            document.getElementById("mess").innerText = "Upload Filed"
+        }
         } catch (ex) {
-        // console.log(ex);
-    setErr2({title:'',message:ex,style:'text-warning'})
+             console.log(ex);
+             document.getElementById("mess").innerText = "Network Error"
         }
 }
 const profileUpdate =async()=>{
@@ -191,7 +203,7 @@ return (<>
                             </div>
                             <div>
                                 <button className="row btn dragBox m-2" onClick={imageUpload}>Upload</button>
-                                <label className="row text-danger" id="message"></label>
+                                <label className="m-auto text-info" id="message"></label>
                             </div>
                         </div>
                     </div>
@@ -250,7 +262,7 @@ return (<>
                                 </div>
                                 <div>
                                     <button className="row btn dragBox m-2" onClick={logoUpload}>Upload</button>
-                                    <label className="row text-danger" id="message"></label>
+                                    <label className="m-auto text-info" id="mess"></label>
                                 </div>
                             </div>
                         </div>

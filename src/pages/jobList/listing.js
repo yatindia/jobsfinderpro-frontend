@@ -71,7 +71,7 @@ export default function Listing({data}){
                                 <p className="font-weight-bold">Salary</p>
                                 <h6 className="text-muted">₹ {data.jobSalary}</h6>
                             </div>
-                            <div className="col-md d-flex p-2">
+                            <div className="col-md">
                                 <ApplyBtn job={data}></ApplyBtn>
                                 <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
                                 {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}

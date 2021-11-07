@@ -30,9 +30,10 @@ export default function UserList({data}){
         getlist()
     },[data.link_id,load])
 
-    function pdfcreate() {    
+    function pdfcreate() {   
         let x = 60
-        let y = 190
+        let y = 150
+        let a = 200 
         var doc = new jsPDF(); 
         doc.setLineWidth(0.1);
         doc.rect(10, 20, 190, 300);
@@ -54,16 +55,17 @@ export default function UserList({data}){
         doc.text(60, 110, `${fetch.part1.city}, ${fetch.part1.state}` );   
         doc.text(20, 130, 'Designation: ');    
         doc.text(60, 130, `${fetch.part1.jobTitle}`);   
-        doc.text(20, 150, 'Qualification: ');    
-        doc.text(60, 150, `${fetch.part1.qualifications}`);    
-        doc.text(20, 170, 'Previous Jobs: ');    
-        doc.text(60, 170, `${fetch.part1.pastJobs}`);
-        doc.text(20, 190, 'Skills: '); 
+        doc.text(20, 150, 'Qualifications: ');    
+        (fetch.part1.qualifications).forEach(e=>{
+            doc.text(x,y,`${e.qualification}`); 
+            doc.text(130,y,`${e.percentage} Percentage`);
+            y=y+10})    
+        doc.text(20, 200, 'Skills: '); 
         (fetch.part1.techQualifications).forEach(e=>{
-            doc.text(x,y,`${e.skill}`); 
-            doc.text(130,y,`${e.experience} Years`);
-            y=y+10}) 
-        doc.save(`${fetch.part2.firstName}.pdf`); 
+            doc.text(x,a,`${e.skill}`); 
+            doc.text(130,a,`${e.experience} Years`);
+            a=a+10}) 
+        doc.save(`${fetch.part2.firstName}.pdf`);  
      }
 
     const [input] = useState({
@@ -76,7 +78,7 @@ export default function UserList({data}){
             const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
             setMess({message:res.data.message,style:'text-info'})
             if(res.data.error === false){
-                window.open(`${API_URL}/profile/profileResumes/${data.resume}`)
+                window.open(`${API_URL}/profile/profileResumes/${data.resume}`,"_blank" )
             }
             } 
         catch (error) {
@@ -98,16 +100,18 @@ export default function UserList({data}){
                             <p className="font-weight-bold">Location</p>
                             <h6 className="text-muted ">{data.city}, {data.state}</h6>
                         </div>
-                        <div className="col-sm">
+                        {/* <div className="col-sm">
                             <p className="font-weight-bold">Previous Jobs</p>
                             {data.pastJobs.map((item,i)=>(
                                 <h6 className="text-muted " key={i}>{item}</h6>
                             ))}
-                        </div>
+                        </div> */}
                         <div className="col-sm">
                             <p className="font-weight-bold">Qualification</p>
                             {data.qualifications.map((item,i)=>(
-                                <h6 className="text-muted " key={i}>{item}</h6>
+                            <div key={i} id="content" className="row d-flex">
+                                <h6 className="col text-muted d-inline" >{item.qualification} <i>({item.percentage} Pct)</i></h6>
+                            </div>
                             ))}
                         </div>
                         <div className="col-sm">
@@ -127,7 +131,7 @@ export default function UserList({data}){
                             <button type="button" className="btn btn-outline-info mr-2" onClick={pdfcreate}> Get Profile</button>
                             {data.resume !== 'null'?<div>
                                 {profile_2.downloadedResumes.includes(data.link_id) ?
-                                <a className="btn btn-outline-info" title={`${fetch.part2.firstName}`} target="_blank" 
+                                <a className="btn btn-outline-info" title={`${fetch.part2.firstName}`} target="_blank"  rel="noopener noreferrer"
                                 download href={`${API_URL}/profile/profileResumes/${data.resume}`}> Download</a>:
                                 <button type="button" className="btn btn-outline-info" onClick={selectResume}> Select Resume</button>
                                 }

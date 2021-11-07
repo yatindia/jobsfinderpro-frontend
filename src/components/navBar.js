@@ -3,7 +3,7 @@ import {Navbar, Nav, Form,NavDropdown} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 
 import Logo from './asserts/logo.png'
-import { parseJwt } from './utils';
+import { tokenCheck } from './utils';
 
 export default function NavBar (){
 
@@ -19,7 +19,7 @@ export default function NavBar (){
             setislogged(false)
         } 
         else{
-            const tokenValid = parseJwt(userDetails.Auth_token);
+            const tokenValid = tokenCheck(userDetails.Auth_token);
             if (tokenValid === true){
                 if(userDetails.Role_Type === "employer"){
                     setislogEmp(true); 
@@ -58,13 +58,15 @@ export default function NavBar (){
                         {islogged === false ?<> <Nav.Link   href="/login"  >Login</Nav.Link>
                         <Nav.Link exact='True' className="mr-1 " href="/register">/  Register</Nav.Link>
                         <Nav.Link  href="/login">Post Job</Nav.Link></> :""}
-                        {isseeker === true ?  
+                        {isseeker === true ?  <>
                             <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                                 <NavDropdown.Item href="/users/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
                                 <NavDropdown.Item href="/users/dashboard/myjobs" id="nav-dropdown-item"><i className="fa fa-briefcase"></i>  Applied Jobs</NavDropdown.Item>
                                 <NavDropdown.Item href="/users/dashboard/profile" id="nav-dropdown-item"><i className="fa fa-cogs"></i>  Profile</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
-                            </NavDropdown> :""}
+                            </NavDropdown> 
+                            <Nav.Link exact='True' className="mr-1 " href={`/jobs?kwds=&loc`}>Search Job</Nav.Link>
+                            </>:""}
 
                         {islogEmp === true ? <>
                         <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 

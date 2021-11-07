@@ -58,7 +58,7 @@ function MyJobs(){
                              </div>
                          ))}
                     </div>
-                    :<div><h4 className="text-info text-center m-5">Job not Applied Yet <a href='/'>Search Job</a></h4></div>}
+                    :<div><h4 className="text-info text-center m-5">Job not Applied Yet <a href={`/jobs?kwds=&loc`}>Search Job</a></h4></div>}
                 </div>
             </div>
         </div>

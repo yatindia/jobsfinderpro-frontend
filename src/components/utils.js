@@ -1,6 +1,7 @@
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
-import user from './asserts/user.jpg'
+import user from './asserts/user.jpg';
+import moment from 'moment';
 
 export const API_URL = 'http://172.105.53.14:5300' 
 // export const API_URL = 'http://127.0.0.1:5300'
@@ -44,15 +45,15 @@ export const resizeFile = (file) =>
 var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
 
   export const formValid =(values)=>{
-  //   if(!values.resume){
-  //     return{error:"*Upload Resume.", valid:false}
-  // }
     if(values.qualifications.length<=0){
       return{error:"*Enter your Qualification.", valid:false}
   }
-  if(values.pastJob.length<=0){
-    return{error:"*Enter your Past Jobs.", valid:false}
+  if(values.techQualifications.length<=0){
+    return{error:"*Enter your Skill sets.", valid:false}
 }
+//   if(values.pastJob.length<=0){
+//     return{error:"*Enter your Past Jobs.", valid:false}
+// }
     if(!values.mobile){
        return{error:"*Enter Contact number.", valid:false}
     }
@@ -179,7 +180,7 @@ if(!pattern.test(values.orgPhone)){
     };
 
 
-  export const parseJwt = (token) => {
+  export const tokenCheck = (token) => {
     const timeNow = Math.floor(Date.now()/1000)
       try {
         const decodeToken = JSON.parse(atob(token.split(".")[1]));
@@ -192,3 +193,5 @@ if(!pattern.test(values.orgPhone)){
         return null;
       }
     };
+
+    export const maxDate = moment(new Date()).subtract(18, 'years').format("YYYY-MM-DD");

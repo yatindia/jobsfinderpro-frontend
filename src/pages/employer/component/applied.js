@@ -62,12 +62,15 @@ export default function Applied(){
 
 
 
-    function pdfcreate(data) {    
+    function pdfcreate(data) {   
+        let x = 60
+        let y = 150
+        let a = 200 
         var doc = new jsPDF(); 
         doc.setLineWidth(0.1);
-        doc.rect(10, 20, 190, 200);
+        doc.rect(10, 20, 190, 300);
         doc.setLineWidth(0.1);
-        doc.line(55, 20, 55, 220)
+        doc.line(57, 20, 57, 300)
         doc.text(80, 10, 'Job Seeker Profile Details');        
         doc.text(20, 30, 'Name: ');    
         doc.text(60, 30, `${data.part2.firstName} `); 
@@ -76,19 +79,25 @@ export default function Applied(){
         doc.text(180, 30, `${data.part1.gender}`);  
         doc.text(20, 50, 'Mail Id:');          
         doc.text(60, 50, `${data.part1.email}`);
-        doc.text(20, 70, 'Mobile: ');    
-        doc.text(60, 70, `${data.part1.mobile}`);  
-        doc.text(20, 90, 'Location: ');    
-        doc.text(60, 90, `${data.part1.city}, ${data.part1.state}`);   
-        doc.text(20, 110, 'Designation: ');    
-        doc.text(60, 110, `${data.part1.jobTitle}`);   
-        doc.text(20, 130, 'Qualification: ');    
-        doc.text(60, 130, `${data.part1.qualifications}`);    
-        doc.text(20, 160, 'Past Job: ');    
-        doc.text(60, 160, `${data.part1.pastJobs}`);
-        doc.text(20, 180, 'D O B: ');    
-        doc.text(60, 180, `${data.part1.dateOfBirth}`);   
-        doc.save(`${data.part2.firstName}.pdf`); 
+        doc.text(20, 70, 'DOB:');  
+        doc.text(60, 70, `${(data.part1.dateOfBirth).split('T')[0]}`); 
+        doc.text(20, 90, 'Mobile: ');    
+        doc.text(60, 90, `${data.part1.mobile}`);  
+        doc.text(20, 110, 'Location: ');    
+        doc.text(60, 110, `${data.part1.city}, ${data.part1.state}` );   
+        doc.text(20, 130, 'Designation: ');    
+        doc.text(60, 130, `${data.part1.jobTitle}`);   
+        doc.text(20, 150, 'Qualifications: ');    
+        (data.part1.qualifications).forEach(e=>{
+            doc.text(x,y,`${e.qualification}`); 
+            doc.text(130,y,`${e.percentage} Percentage`);
+            y=y+10})    
+        doc.text(20, 200, 'Skills: '); 
+        (data.part1.techQualifications).forEach(e=>{
+            doc.text(x,a,`${e.skill}`); 
+            doc.text(130,a,`${e.experience} Years`);
+            a=a+10}) 
+        doc.save(`${data.part2.firstName}.pdf`);  
      }
 
 
@@ -111,9 +120,9 @@ export default function Applied(){
             <div className="row d-flex justify-content-center m-2 p-2" key={getdata._id}>
                 <div className="col-md-12 mt-2  border">
                     <div className="row z-depth-3">
-                        <div className="col-sm-9 bg-white rounded-right">
-                            <h3 className="m-3 text-start">{getdata.jobTitle}</h3>
-                            <div className="row m-2">
+                        <div className="col-sm-9 bg-white rounded-right d-flex">
+                            <h5 className="m-3 text-start">{getdata.jobTitle}</h5>
+                            <div className="row m-3 align-item-end">
                                     <p className="font-weight-bold">Deadline On: </p>
                                     <p className="text-muted"> {getdata.jobApplyEnd}</p>
                             </div>
@@ -122,7 +131,7 @@ export default function Applied(){
                     <div className="row justify-content-center">
                             <h6 className={mess.style}>{mess.message}</h6>
                         </div> 
-                    <div className='row m-2 p-2 '>
+                    <div className='row m-2 p-1'>
                          {seeker ?
                          <div className="table-responsive ">
                              <table className="table table-striped border">
@@ -131,7 +140,7 @@ export default function Applied(){
                                  <th scope="col">Name</th>
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
-                                 <th scope="col">Previous Jobs</th>
+                                 <th scope="col">Skills</th>
                                  <th scope="col">Profile</th>
                                  <th scope="col">Resume</th>
                                  </tr>
@@ -141,13 +150,23 @@ export default function Applied(){
                                         <tr>
                                         <td>{item.part2.firstName}</td>
                                         <td>{item.part1.jobTitle}</td>
-                                        <td>{item.part1.qualifications}</td>
-                                        <td>{item.part1.pastJobs}</td>
+                                        <td>{item.part1.qualifications.map((item,i)=>(
+                                            <div key={i} className="row d-flex">
+                                                <h6 className="col" >{item.qualification} <small className="text-muted">({item.percentage}Pct)</small></h6>
+                                            </div>
+                                            ))}
+                                        </td> 
+                                        <td>{item.part1.techQualifications.map((item,i)=>(
+                                            <div key={i} className="row d-flex">
+                                                <h6 className="col" >{item.skill} <small className="text-muted">({item.experience}Yrs)</small></h6>
+                                            </div>
+                                            ))}
+                                        </td> 
                                         <td>
                                             <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Select Resume</button>
+                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Select</button>
                                         </td>
                                         </tr>
                                     </tbody>

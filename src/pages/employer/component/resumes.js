@@ -35,46 +35,48 @@ export default function Resumes(){
 
    async function pdfcreate (e) {    
     let x = 60
-    let y = 190
+    let y = 150
+    let a = 200
     var doc = new jsPDF(); 
-            try {
-                const res = await axios.post(`${API_URL}/job/searchoneseeker`,{seekerid:e.target.value},{headers:header})
-                if(res.data.error===false){
-                    const fetch = res.data.data
-                    doc.setLineWidth(0.1);
-                    doc.rect(10, 20, 190, 300);
-                    doc.setLineWidth(0.1);
-                    doc.line(57, 20, 57, 300)
-                    doc.text(80, 10, 'Job Seeker Profile Details');        
-                    doc.text(20, 30, 'Name: ');    
-                    doc.text(60, 30, `${fetch.part2.firstName} `); 
-                    doc.text(100, 30, `${fetch.part2.lastName}`);   
-                    doc.text(150, 30, 'Gender:');  
-                    doc.text(180, 30, `${fetch.part1.gender}`);  
-                    doc.text(20, 50, 'Mail Id:');          
-                    doc.text(60, 50, `${fetch.part1.email}`);
-                    doc.text(20, 70, 'DOB:');  
-                    doc.text(60, 70, `${(fetch.part1.dateOfBirth).split('T')[0]}`); 
-                    doc.text(20, 90, 'Mobile: ');    
-                    doc.text(60, 90, `${fetch.part1.mobile}`);  
-                    doc.text(20, 110, 'Location: ');    
-                    doc.text(60, 110, `${fetch.part1.city}, ${fetch.part1.state}` );   
-                    doc.text(20, 130, 'Designation: ');    
-                    doc.text(60, 130, `${fetch.part1.jobTitle}`);   
-                    doc.text(20, 150, 'Qualification: ');    
-                    doc.text(60, 150, `${fetch.part1.qualifications}`);    
-                    doc.text(20, 170, 'Previous Jobs: ');    
-                    doc.text(60, 170, `${fetch.part1.pastJobs}`);
-                    doc.text(20, 190, 'Skills: '); 
-                    (fetch.part1.techQualifications).forEach(e=>{
-                        doc.text(x,y,`${e.skill}`); 
-                        doc.text(130,y,`${e.experience} Years`);
-                        y=y+10}) 
-                    doc.save(`${fetch.part2.firstName}.pdf`); 
-                }
-            } catch (error) {
-                
-            }
+    try {
+        const res = await axios.post(`${API_URL}/job/searchoneseeker`,{seekerid:e.target.value},{headers:header})
+        if(res.data.error===false){
+            const fetch = res.data.data
+            doc.setLineWidth(0.1);
+            doc.rect(10, 20, 190, 300);
+            doc.setLineWidth(0.1);
+            doc.line(57, 20, 57, 300)
+            doc.text(80, 10, 'Job Seeker Profile Details');        
+            doc.text(20, 30, 'Name: ');    
+            doc.text(60, 30, `${fetch.part2.firstName} `); 
+            doc.text(100, 30, `${fetch.part2.lastName}`);   
+            doc.text(150, 30, 'Gender:');  
+            doc.text(180, 30, `${fetch.part1.gender}`);  
+            doc.text(20, 50, 'Mail Id:');          
+            doc.text(60, 50, `${fetch.part1.email}`);
+            doc.text(20, 70, 'DOB:');  
+            doc.text(60, 70, `${(fetch.part1.dateOfBirth).split('T')[0]}`); 
+            doc.text(20, 90, 'Mobile: ');    
+            doc.text(60, 90, `${fetch.part1.mobile}`);  
+            doc.text(20, 110, 'Location: ');    
+            doc.text(60, 110, `${fetch.part1.city}, ${fetch.part1.state}` );   
+            doc.text(20, 130, 'Designation: ');    
+            doc.text(60, 130, `${fetch.part1.jobTitle}`);   
+            doc.text(20, 150, 'Qualifications: ');    
+            (fetch.part1.qualifications).forEach(e=>{
+                doc.text(x,y,`${e.qualification}`); 
+                doc.text(130,y,`${e.percentage} Percentage`);
+                y=y+10})    
+            doc.text(20, 200, 'Skills: '); 
+            (fetch.part1.techQualifications).forEach(e=>{
+                doc.text(x,a,`${e.skill}`); 
+                doc.text(130,a,`${e.experience} Years`);
+                a=a+10}) 
+            doc.save(`${fetch.part2.firstName}.pdf`); 
+        }
+    } catch (error) {
+        
+    }
      }
 
 
@@ -95,7 +97,7 @@ export default function Resumes(){
                                  <th scope="col">Name</th>
                                  <th scope="col">Position</th>
                                  <th scope="col">Qualification</th>
-                                 <th scope="col">Previous Jobs</th>
+                                 {/* <th scope="col">Previous Jobs</th> */}
                                  <th scope="col">Skills</th>
                                  <th scope="col">Resume</th>
                                  </tr>
@@ -107,16 +109,16 @@ export default function Resumes(){
                                         <td>{item.part1.jobTitle}</td>
                                         <td>{item.part1.qualifications.map((item,i)=>(
                                             <div key={i} className="row d-flex">
-                                                <h6 className="col" >{item} </h6>
+                                                <h6 className="col" >{item.qualification} <small className="text-muted">({item.percentage}Pct)</small></h6>
                                             </div>
                                             ))}
                                         </td> 
-                                        <td>{item.part1.pastJobs.map((item,i)=>(
+                                        {/* <td>{item.part1.pastJobs.map((item,i)=>(
                                             <div key={i} className="row d-flex">
                                                 <h6 className="col" >{item} </h6>
                                             </div>
                                             ))}
-                                        </td> 
+                                        </td>  */}
                                         <td>{item.part1.techQualifications.map((item,i)=>(
                                             <div key={i} className="row d-flex">
                                                 <h6 className="col" >{item.skill} <small className="text-muted">({item.experience}Yrs)</small></h6>

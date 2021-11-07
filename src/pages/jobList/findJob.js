@@ -122,9 +122,9 @@ export default function FindJobs ({location}) {
         </div>
         </div>
         {/* ------Content--------- */}
+        <div className="row d-flex justify-content-center" >
         <div className="container m-3 p-2">
-            <div className=' container'>
-                <div className='row d-flex'>
+                <div className='d-flex d-inline'>
                 <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>
                 <select className="form m-2 border" onChange={(e)=>changeSkip(e)}>
                     <option value=''>1 - 100</option>
@@ -134,13 +134,12 @@ export default function FindJobs ({location}) {
                     <option value='400'>400 - 500</option>
                 </select>
                 </div>
-            </div>
             {fetch.length>0 ?(
-            <div className="row d-flex justify-content-center" >
-                <div className="col-md-10 mt-2">
+            <div className="row m-auto" >
+                <div className="col-md mt-2">
                 <h5 className="text-muted">10 Results Per Page:-</h5>
                     {displayJobs}
-               <div className='row justify-content-center'> 
+               <div className='row'> 
                     {loadbtn===true ?
                         //   <button className="m-2 btn btn-findJob" type="button" onClick={loadmore}>Next {' >>'}</button>
                         <ReactPaginate
@@ -154,12 +153,12 @@ export default function FindJobs ({location}) {
                         disabledClassName={"paginationDisabled"}
                         activeClassName={"paginationActive"}
                       />
-                    :<h5 className="text-info m-1">End of the result</h5>}
+                    :<h5 className="pt-4 text-info text-center m-auto">End of the result</h5>}
                 </div> 
                 </div>
             </div>):<div><h4 className="text-info text-center m-5" id='mess'>No Jobs available/ Search Limit Exceeded</h4></div>}
         </div>
-
+        </div>
     </div>
     </>);
 }

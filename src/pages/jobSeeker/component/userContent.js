@@ -64,42 +64,48 @@ const PostData = (data) => {
                 <div className='row p-2'>
                     <div className='col border'>
                         <div className="row skills">
-                            <h6><i className="fa fa-user text-info"/> Gender: <b>{part_2.gender}</b> </h6>
+                            <h6><i className="fa fa-user text-info m-1"/> 
+                            <span className="text-secondary"> Gender: </span><b>{part_2.gender}</b> </h6>
                         </div>
                         <div className="row skills">
-                            <h6><i className="fa fa-calendar text-warning"/> Date of Birth: <b>{part_2.dateOfBirth.split("T")[0]}</b></h6>
+                            <h6><i className="fa fa-calendar text-warning m-1"/>
+                            <span className="text-secondary"> Date of Birth: </span><b>{part_2.dateOfBirth.split("T")[0]}</b></h6>
                         </div>
                         <div className="row skills">
-                            <h6><i className="fa fa-phone text-success m-1"/><b> {part_2.mobile}</b></h6>
+                            <h6><i className="fa fa-phone text-success m-1"/>
+                            <span className="text-secondary"> Phone: </span><b> {part_2.mobile}</b></h6>
                         </div>
                         <div className="row skills">
-                            <h6><i className="fa fa-envelope text-danger m-1"/><b> {part_1.email}</b></h6>
+                            <h6><i className="fa fa-envelope text-danger m-1"/>
+                            <span className="text-secondary"> Mail: </span><b> {part_1.email}</b></h6>
                         </div>
                     </div>
                     <div className='col border'>
+                        {part_2.qualifications ? (
                         <div className="skills">
-                            <h6 className="text-secondary">Qualifications:</h6>
-                                {part_2.qualifications.length>0 ? (<ul>
-                                {part_2.qualifications.map((item, i)=>(
-                                    <li className="ml-1" key={i}><b>{item}</b> </li>
-                                ))}
-                            </ul>):<></>}
-                        </div>
-                        <div className="skills">
+                            <h6 className="text-secondary">Educational Qualifications:</h6>
+                                <ul>
+                                {part_2.qualifications.map((item, i)=>(<div className='m-2 row d-flex' key={i}>
+                                    <li className="col"><b>{item.qualification}</b> - 
+                                        <span className="ml-3"><b>{item.percentage} </b><small>Percentage</small></span></li>
+                               </div> ))}
+                            </ul>
+                        </div>):<></>} 
+                        {/* <div className="skills">
                             <h6 className="text-secondary">Previous Jobs:</h6>
                                 {part_2.pastJobs.length>0 ? (<ul>
                                 {part_2.pastJobs.map((item, i)=>(
                                     <li className="ml-1" key={i}><b>{item}</b> </li>
                                 ))}
                             </ul>):<></>} 
-                        </div>
+                        </div> */}
                         {part_2.techQualifications ? (
                         <div className="skills">
                             <h6 className="text-secondary">Technical Skills:</h6>
                                 <ul>
-                                {part_2.techQualifications.map((item, i)=>(<div className='m-2 row border d-flex' key={i}>
-                                    <li className="col"><b>{item.skill}</b> </li>
-                                    <li className="col"><b>{item.experience} Years</b> </li>
+                                {part_2.techQualifications.map((item, i)=>(<div className='m-2 row d-flex' key={i}>
+                                    <li className="col"><b>{item.skill}</b> - 
+                                        <span className="ml-3"><b>{item.experience} </b><small>Years</small></span></li>
                                </div> ))}
                             </ul>
                         </div>):<></>} 

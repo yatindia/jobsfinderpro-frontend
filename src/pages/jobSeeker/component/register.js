@@ -3,9 +3,10 @@ import {useHistory } from "react-router-dom";
 import {Modal, Form, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
-import DynamicInput from '../../../components/dynamicInputs';
+// import DynamicInput from '../../../components/dynamicInputs';
+import EduInput from '../../../components/eduInput';
 import SkillInput from '../../../components/skillInput';
-import { API_URL,formValid } from '../../../components/utils';
+import { API_URL,formValid, maxDate } from '../../../components/utils';
 import cities from '../../../components/asserts/ind_cities.json'
 
 
@@ -18,7 +19,7 @@ const Registration = ({show, title, dialogClose}) => {
     const [skill, setSkill] =useState([])
     const [resume, setResume] = useState('')
     const [resumeName, setResumeName] = useState('null')
-    const [pastJob, setpastJob] =useState([])
+    const [pastJob] =useState([])
     const [validated, setValidated] = useState(false);
     const history = useHistory()
 
@@ -30,7 +31,7 @@ const Registration = ({show, title, dialogClose}) => {
         dateOfBirth:"",
         jobTitle:"",
         gender: "",
-        pastJob:"",
+        pastJob:pastJob,
         qualifications: "",
         techQualifications: "",
         state :"",
@@ -82,7 +83,7 @@ const updateProfile=async(event)=>{
       }
 }
 
-const resumeClick = (e)=>{
+const resumeUp = (e)=>{
     if (e.target.files[0]) {
         const file = e.target.files[0];
         document.getElementById("fileName").innerText = file.name
@@ -113,7 +114,6 @@ const uploadResume=async()=>{
         }        
       } catch (ex) {
        console.log(ex);
-       setMess({message:ex,style:'text-warning'})
       }
     }
 }
@@ -144,7 +144,7 @@ useEffect(()=>{
                                         <div className="resume-container">
                                             <div className="btn-wrap">
                                                 <label className="btn-resume" htmlFor="upload">Get Resume</label>
-                                                <input id="upload" type="file" onChange={resumeClick}/>
+                                                <input id="upload" type="file" onChange={resumeUp}/>
                                                 <label className="file-name" id="fileName"></label>
                                                 <button className="btn btn-resume m-2" type='button' onClick={uploadResume}>Upload</button>
                                             </div>
@@ -155,20 +155,20 @@ useEffect(()=>{
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="12"  controlId="validationCustom06" className="formField">
-                                    <label>Qualifications</label>
+                                    <label>Educational Qualifications</label>
                                     <div className="">
-                                        <DynamicInput get={setEdu}></DynamicInput>
+                                        <EduInput getEdu={setEdu}></EduInput>
                                     </div>
                                 </Form.Group>
                             </Row>
-                            <Row>
+                            {/* <Row>
                                 <Form.Group as={Col} md="12"  controlId="validationCustom01" className="formField">
                                     <label>Previous Jobs</label>
                                     <div className="">
                                         <DynamicInput get={setpastJob}></DynamicInput>
                                     </div>
                                 </Form.Group>
-                            </Row>
+                            </Row> */}
                             <Row>
                                 <Form.Group as={Col} md="12"  controlId="validationCustom11" className="formField">
                                     <label>Technical Skills</label>
@@ -183,7 +183,7 @@ useEffect(()=>{
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
                                     <label>Job Title</label> 
-                                    <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Your Current Job" name="jobTitle"
+                                    <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Your Job Title/Position" name="jobTitle"
                                         value={inputs.jobTitle} onChange={changeHandle} required/>
                                 </Form.Group>
                             </Row>
@@ -222,7 +222,7 @@ useEffect(()=>{
                                     <label>Date of Birth</label>
                                     <div className="calendar">
                                         <input type="date" className="form-control formFieldInput" name="dateOfBirth" 
-                                        value={inputs.dateOfBirth} onChange={changeHandle}/>
+                                        value={inputs.dateOfBirth} onChange={changeHandle} max={maxDate}/>
                                     </div>
                                 </Form.Group>
                             </Row>

@@ -15,8 +15,12 @@ const DialogBox = ({show, title, detail, dialogClose}) => {
                         <div className="col">
                             <p>{detail}</p>
                         </div>
-                        {/* <Button variant={button} className="ml-3 col-sm-3" onClick={dialogClose}>Ok ..</Button>  */}
+                        
                     </Modal.Body>
+                <Modal.Footer>
+                    <a  className="btn btn-findJob" href="/login">Login ..</a> 
+                    <button  className="btn btn-outline-danger" onClick={dialogClose}>Close</button> 
+                </Modal.Footer>
             </Modal>
         </div>
     ) }
