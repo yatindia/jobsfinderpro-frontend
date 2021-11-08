@@ -17,10 +17,10 @@ export default function Applied(){
     const [seeker, setseeker] = useState()
     const [mess,setMess] = useState({message: "",style:""})
     const [load, setload] =useState(2)
+    const [btnFun,setBtnFun]=useState(true)
 
     useEffect(() => {
         getuser()
-        
     },[]);
     
     const formData = {authid:profile_1.job_id,jobid:param.id}
@@ -49,6 +49,7 @@ export default function Applied(){
                 part1: res.data.data.part2, 
                 part2: res.data.data.part1, 
             } 
+            
             ));
         setseeker(stateinfa)
     }
@@ -164,11 +165,12 @@ export default function Applied(){
                                                     setload(item.part1.techQualifications.length)
                                             }} type="button" >More...</button>:<></>}
                                         </td> 
-                                        <td>
+                                        <td className="align-items-center">
                                             <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
                                         </td>
                                         <td>{item.part1.resume !== 'null'?<div>
-                                            <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Select</button>
+                                            <a className="btn btn-outline-info" title={`${item.part2.firstName}`} target="_blank"  rel="noopener noreferrer"
+                                            download href={`${API_URL}/profile/profileResumes/${item.part1.resume}`}> Download</a>                                           
                                             </div>:<p className="m-2">No Resume</p>}
                                         </td>
                                         </tr>

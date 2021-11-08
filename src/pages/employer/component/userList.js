@@ -35,11 +35,26 @@ export default function UserList({data}){
         getlist()
     },[data.link_id,load])
 
+   async function getProfile(){
+        try {
+            const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
+            setMess({message:"Profile Added in your Bucket",style:'text-info'})
+            if(res.data.error === false){
+                setBtnFun(false)
+                pdfcreate()
+            }
+            else{
+                setMess({message:res.data.message,style:'text-info'})
+            }
+            } 
+        catch (error) {}
+    }
+
     function pdfcreate() {   
         let x = 60
         let y = 150
         let a = 200 
-        var doc = new jsPDF(); 
+        var doc = new jsPDF();        
         doc.setLineWidth(0.1);
         doc.rect(10, 20, 190, 300);
         doc.setLineWidth(0.1);
@@ -75,8 +90,7 @@ export default function UserList({data}){
     })
 
     const selectResume=async()=>{
-        var newWin = window.open(`${API_URL}/profile/profileResumes/${data.resume}`,"_blank",
-            "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=yes, width=400, height=400" );  
+        var newWin = window.open(`${API_URL}/profile/profileResumes/${data.resume}`,"_blank");  
         try {
             const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
             setMess({message:res.data.message,style:'text-info'})
@@ -136,7 +150,6 @@ export default function UserList({data}){
                         </div>
                     </div>
                     <div className="row justify-content-end p-2 border-top">
-                            <button type="button" className="btn btn-outline-info mr-2" onClick={pdfcreate}> Get Profile</button>
                             {data.resume !== 'null'?<div>
                                 {!btnFun?
                                 <a className="btn btn-outline-info" title={`${fetch.part2.firstName}`} target="_blank"  rel="noopener noreferrer"
@@ -144,8 +157,12 @@ export default function UserList({data}){
                                 <button type="button" className="btn btn-outline-info" onClick={selectResume}> Select Resume</button>
                                 }
                             
-                            </div>:
-                            <p className="m-2">No Resume</p>}
+                            </div>:<div className="d-flex">
+                            {btnFun?
+                                <p>There is no Resume for this Seeker, Click
+                                    <button type="button" className="btn btn-link" onClick={getProfile}>Get Profile</button>to add the Profile details to Bucket.</p>:
+                                <p>Profile <button type="button" className="btn btn-link" onClick={pdfcreate}>Download</button></p>}
+                            </div>}
                     </div>
                 </div>
                 :<p>Loading...</p>}

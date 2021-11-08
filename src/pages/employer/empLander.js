@@ -23,6 +23,7 @@ const EmpLander = ()=> {
 
 	const [dialogShow, setDialogShow] = useState(false);
 	const [imgname,setimgname] = useState('')
+	const [points,setPoints] = useState('')
 
 	const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
 
@@ -37,6 +38,7 @@ useEffect(() =>{
 			if(res.data.error === false){
 				const datas = res.data.data
 				setimgname(datas.part1.profileImage)
+				setPoints(datas.part2.resumePoints)
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
 				addToLocalStorageObject('userDetails','job_fname',datas.part1.firstName)
@@ -84,6 +86,7 @@ const dialogClose=()=>{
 						</div>
 						</div>
 						<div className="nav flex-column nav-pills mb-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+							{/* <p className='text-center'>Balance Points: # {points}</p> */}
 							<a className="nav-link" id="account-tab" data-toggle="pill" href="/employers/dashboard" role="tab" aria-controls="account" aria-selected="true">
 								<i className="fa fa-home text-center mr-1"></i> 
 								Dashboard
