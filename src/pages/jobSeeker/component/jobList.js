@@ -39,7 +39,8 @@ export default function JobList({data}){
                     <div className="card-block text-center text-white mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${data.org.orgLogo}`} alt="sample"></img>
                         {/* <h2 className="font-weight-bold mt-2"></h2> */}
-                        <p>{data.job.dateOfAdd}</p>
+                        <p>Posted On:</p>
+                        <p>{data.job.dateOfAdd.split('T')[0]}</p>
                         <i className="far-fa-edit fa-2x mb-2"></i>
                     </div>
                 </div>

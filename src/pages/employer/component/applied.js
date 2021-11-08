@@ -22,8 +22,7 @@ export default function Applied(){
         getuser()
         
     },[]);
-
-    console.log("dkjs")
+    
     const formData = {authid:profile_1.job_id,jobid:param.id}
     const getuser= async()=>{
         try {
@@ -76,10 +75,8 @@ export default function Applied(){
         doc.line(57, 20, 57, 300)
         doc.text(80, 10, 'Job Seeker Profile Details');        
         doc.text(20, 30, 'Name: ');    
-        doc.text(60, 30, `${data.part2.firstName} `); 
-        doc.text(100, 30, `${data.part2.lastName}`);   
-        doc.text(150, 30, 'Gender:');  
-        doc.text(180, 30, `${data.part1.gender}`);  
+        doc.text(60, 30, `${data.part2.firstName} ${data.part2.lastName} `);  
+        doc.text(150, 30, `Gender: ${data.part1.gender}`);   
         doc.text(20, 50, 'Mail Id:');          
         doc.text(60, 50, `${data.part1.email}`);
         doc.text(20, 70, 'DOB:');  

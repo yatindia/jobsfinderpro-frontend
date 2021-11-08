@@ -115,7 +115,7 @@ export default function Featcher ({location}) {
         </div> 
         </div>
         {/* ------Content--------- */}
-        <div className="container m-3 p-2">
+        <div className="row d-flex justify-content-center">
             <div className=' container'>
                 <div className='row d-flex'>
                 <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>
@@ -130,7 +130,7 @@ export default function Featcher ({location}) {
             </div>
             {fetch.length>0 ?(
             <div className="row d-flex justify-content-center" >
-                <div className="col-md-10 mt-2">
+                <div className="col-md col-lg mt-2">
                 <h5 className="text-muted">10 Results Per Page:-</h5>
                     {displayJobs}
                <div className='row justify-content-center'> 

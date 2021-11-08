@@ -42,7 +42,9 @@ export default function Listing({data}){
                     <div className="text-center text-white align-items-center mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${fetch.org.orgLogo}`} alt="sample"></img>
                         {/* <h2 className="font-weight-bold mt-2"></h2> */}
-                        <p>Posted On: {fetch.job.dateOfAdd}</p>
+                        {fetch.job.dateOfAdd !== undefined ? 
+                            <p className="p-2">Posted On: <b>{fetch.job.dateOfAdd.split('T')[0]}</b></p>
+                                :<p>Posted On</p>}
                         <i className="far-fa-edit fa-2x mb-2"></i>
                     </div>
                 </div>
@@ -59,8 +61,8 @@ export default function Listing({data}){
                                 <p className="font-weight-bold">Location</p>
                                 <h6 className="text-muted">{data.jobCity}</h6>
                             </div>
-                            <div className="col-sm">
-                                <p className="font-weight-bold">Deadline On</p>
+                            <div className="col-md">
+                                <p className="font-weight-bold">Deadline</p>
                                 <h6 className="text-muted">{data.jobApplyEnd}</h6>
                             </div>
                             <div className="col-sm">
@@ -74,7 +76,7 @@ export default function Listing({data}){
                             <div className="col-md">
                                 <ApplyBtn job={data}></ApplyBtn>
                                 <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>
-                                {dialogShow === true? <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> :''}
+                                <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> 
                             </div>
                         </div>
                     <hr className="bg-primary"/>
