@@ -159,8 +159,8 @@ export default function UserList({data}){
                             
                             </div>:<div className="d-flex">
                             {btnFun?
-                                <p>There is no Resume for this Seeker, Click
-                                    <button type="button" className="btn btn-link" onClick={getProfile}>Get Profile</button>to add the Profile details to Bucket.</p>:
+                                <p>There is no Resume for this Seeker,
+                                    <button type="button" className="btn btn-upload" onClick={getProfile}>Get Profile</button>For Detailed Profile.</p>:
                                 <p>Profile <button type="button" className="btn btn-link" onClick={pdfcreate}>Download</button></p>}
                             </div>}
                     </div>
