@@ -84,18 +84,18 @@ function UserProfile() {
             const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
             if(res.data.uploadStatus === true){
                 setImgName(res.data.fileName)
-                document.getElementById("message").innerText = "Image Uploaded"
+                document.getElementById("message").innerText = "Uploaded, Click! Update"
             }else{
-                document.getElementById("message").innerText = "Upload Filed"
+                document.getElementById("message").innerText = "Upload Failed"
             }  
         }else{
             formData.append('oldDp',profile_1.dpName)
             const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
             if(res.data.uploadStatus === true){
                 setImgName(res.data.fileName)
-                document.getElementById("message").innerText = "Image Uploaded"
+                document.getElementById("message").innerText = "Uploaded, Click! Update"
             }else{
-                document.getElementById("message").innerText = "Upload Filed"
+                document.getElementById("message").innerText = "Upload Failed"
             }  
           }
         }
@@ -312,7 +312,7 @@ useEffect(()=>{
                     <label className={errs.style}>{errs.message}</label>
                 </div>
                 <div className ="col ml-auto text-right">
-                    <button className="btn btn-findJob m-2" type="button" onClick={baseUpdate}>Update</button>
+                    <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
                     <a className="btn btn-outline-danger m-2" type="button"  href="/users/dashboard" >Cancel</a>
                 </div>
             </div>
@@ -436,8 +436,8 @@ useEffect(()=>{
             <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
-                    <label className="formFieldLabel">Date of Birth :- {profile.dateOfBirth.split('T')[0]}</label>
-                        <input type="date" max={maxDate} name="dateOfBirth" className="formFieldInput" onChange={changeHandle} />
+                    <label className="formFieldLabel">Date of Birth :-</label>
+                        <input type="date" max={maxDate} name="dateOfBirth" value={profile.dateOfBirth.split('T')[0]} className="formFieldInput" onChange={changeHandle} />
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -493,7 +493,7 @@ useEffect(()=>{
                     <label className={err2.style}>{err2.message}</label>
                 </div>
                 <div className ="col ml-auto text-right">
-                    <button className="btn btn-findJob m-2" type="button" onClick={detailUpdate}>Update</button>
+                    <button className="btn btn-outline-success m-2" type="button" onClick={detailUpdate}>Update</button>
                     <a className="btn btn-outline-danger m-2" type="button"  href="/users/dashboard" >Cancel</a>
                 </div>
             </div>

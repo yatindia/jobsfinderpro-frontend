@@ -92,6 +92,14 @@ const dialogClose=()=>{
 								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Applied Jobs
 							</a>
+							<a className="nav-link"  href="/users/dashboard/profile" >
+								<i className="fa fa-cogs text-center mr-1"></i> 
+								Edit Profile
+							</a>
+							<a className="nav-link"  href={`/jobs?kwds=&loc `}>
+								<i className="fa fa-search text-center mr-1"></i> 
+								Search Job
+							</a>
 							<a className="nav-link"  onClick={handleLogout} href="/" >
 								<i className="fa fa-sign-out text-center mr-1"></i> 
 								Logout

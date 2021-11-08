@@ -93,9 +93,8 @@ export default function FindJobs ({location}) {
 
     return (<>
     <div >
-        {/* -----Search Bar------ */}
         <div className="row d-flex justify-content-center" >
-        <div className="container m-3 p-2 col-md-10">
+        <div className="container m-3 p-2 ">
             <div className="row justify-content-center p-2 m-2">
                 <div className="col-lg col-md col-sm p-1 m-1">
                     <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
@@ -121,7 +120,6 @@ export default function FindJobs ({location}) {
             </div>
         </div>
         </div>
-        {/* ------Content--------- */}
         <div className="row d-flex justify-content-center" >
         <div className="container m-3 p-2">
                 <div className='d-flex d-inline'>

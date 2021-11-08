@@ -49,7 +49,7 @@ function MyJobs(){
     return (<>
           <div className="container-flex">
             <div className="row d-flex justify-content-center ">
-                <div className="col-md-10 mt-2 pt-s">
+                <div className="col-md mt-2 pt-s">
                     {getdata.length>0?
                     <div>
                          {getdata.map((item,idx)=>(

@@ -80,9 +80,9 @@ const imageUpload= async ()=>{
             const res = await axios.post(API_URL+"/account/uploaddp",formData,config)
             if(res.data.uploadStatus === true){
                 setImgName(res.data.fileName)
-                document.getElementById("message").innerText = "Image Uploaded"
+                document.getElementById("message").innerText = "Uploaded, Click! Update"
             }else{
-                document.getElementById("message").innerText = "Upload Filed"
+                document.getElementById("message").innerText = "Upload Failed"
             }  
         }
         else{
@@ -90,9 +90,9 @@ const imageUpload= async ()=>{
             const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
             if(res.data.uploadStatus === true){
                 setImgName(res.data.fileName)
-                document.getElementById("message").innerText = "Image Uploaded"
+                document.getElementById("message").innerText = "Uploaded Click! Update"
             }else{
-                document.getElementById("message").innerText = "Upload Filed"
+                document.getElementById("message").innerText = "Upload Failed"
             }  
         }
     }
@@ -151,9 +151,9 @@ const logoUpload= async ()=>{
         const res = await axios.post(API_URL+"/profile/updatedp",formData,config)
         if(res.data.uploadStatus === true){
             setLogoName(res.data.fileName)
-            document.getElementById("mess").innerText = "LOGO Uploaded"
+            document.getElementById("mess").innerText = "Uploaded, Click! Update"
         }else{
-            document.getElementById("mess").innerText = "Upload Filed"
+            document.getElementById("mess").innerText = "Upload Failed"
         }
         } catch (ex) {
              console.log(ex);
@@ -241,7 +241,7 @@ return (<>
                 <label className={errs.style}>{errs.message}</label>
             </div>
             <div className ="col ml-auto text-right">
-                <button className="btn btn-findJob m-2" type="button" onClick={baseUpdate}>Update</button>
+                <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
                 <a className="btn btn-outline-danger m-2" type="button"  href="/employers/dashboard" >Cancel</a>
             </div>
         </div>
@@ -308,7 +308,7 @@ return (<>
                     <label className={err2.style}>{err2.message}</label>
                 </div>
                 <div className ="col ml-auto text-right">
-                    <button className="btn btn-findJob m-2" type="button" onClick={profileUpdate}>Update</button>
+                    <button className="btn btn-outline-success m-2" type="button" onClick={profileUpdate}>Update</button>
                     <a className="btn btn-outline-danger m-2" type="button"  href="/employers/dashboard" >Cancel</a>
                 </div>
             </div>
