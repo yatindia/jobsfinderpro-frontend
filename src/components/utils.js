@@ -3,8 +3,9 @@ import axios from "axios";
 import user from './asserts/user.jpg';
 import moment from 'moment';
 
-export const API_URL = 'http://172.105.53.14:5300' 
+// export const API_URL = 'http://172.105.53.14:5300' 
 // export const API_URL = 'http://127.0.0.1:5300'
+export const API_URL = 'https://api.jobsfinderpro.com'
 export const userDp = user
 
 // ----Image Resizer-------

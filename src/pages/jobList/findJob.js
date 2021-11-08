@@ -93,34 +93,34 @@ export default function FindJobs ({location}) {
 
     return (<>
     <div >
-        <div className="row d-flex justify-content-center" >
-        <div className="container m-3 p-2 ">
-            <div className="row justify-content-center p-2 m-2">
-                <div className="col-lg col-md col-sm p-1 m-1">
-                    <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
-                        onChange={changeHandle} list="browsers" placeholder ="Title..."/>
-                </div> 
-                <div className="col-lg col-md col-sm p-1 m-1">
-                    <select className="form-control formFieldInput" type="text" placeholder="Select a Level" list="level"
-                    name="jobType" value={search.jobType} onChange={changeHandle}>
-                        <option value=''>Select Level...</option>
-                        <option>Entry Level</option>
-                        <option>Mid Level</option>
-                        <option>Mid-Senior Level</option>
-                        <option>Top Level</option>
-                    </select>
-                </div>
-                <div className="col-lg col-md col-sm p-1 m-1 input-group">
-                    <input className="form-control formFieldInput text-capitalize"  type="text" name="jobCity" value={search.jobCity}
-                    onChange={changeHandle} list="browsers1" placeholder ="Locations..."/>
-                </div>
-                <div className="m-1 m-auto align-item-center">
-                    <button className="btn btn-findJob" type="button" onClick={handleSubmit}>Find Jobs</button>
+        <div className="container m-auto row justify-content-center" >
+            <div className="col m-3 p-2">
+                <div className="row">
+                    <div className="col-lg col-md col-sm p-1 m-1">
+                        <input className="form-control formFieldInput text-capitalize"  type="text" name="jobTitle" value={search.jobTitle}
+                            onChange={changeHandle} list="browsers" placeholder ="Title..."/>
+                    </div> 
+                    <div className="col-lg col-md col-sm p-1 m-1">
+                        <select className="form-control formFieldInput" type="text" placeholder="Select a Level" list="level"
+                        name="jobType" value={search.jobType} onChange={changeHandle}>
+                            <option value=''>Select Level...</option>
+                            <option>Entry Level</option>
+                            <option>Mid Level</option>
+                            <option>Mid-Senior Level</option>
+                            <option>Top Level</option>
+                        </select>
+                    </div>
+                    <div className="col-lg col-md col-sm p-1 m-1 input-group">
+                        <input className="form-control formFieldInput text-capitalize"  type="text" name="jobCity" value={search.jobCity}
+                        onChange={changeHandle} list="browsers1" placeholder ="Locations..."/>
+                    </div>
+                    <div className="col-sm-2 m-1 m-auto align-item-center">
+                        <button className="btn btn-findJob" type="button" onClick={handleSubmit}>Find Jobs</button>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-        <div className="row d-flex justify-content-center" >
+        <div className=" m-auto row justify-content-center" >
         <div className="container m-3 p-2">
                 <div className='d-flex d-inline'>
                 <h5 className="text-muted m-2">{count} Results Found: <span className='ml-2'>Load</span></h5>
@@ -133,7 +133,7 @@ export default function FindJobs ({location}) {
                 </select>
                 </div>
             {fetch.length>0 ?(
-            <div className="row m-auto" >
+            <div className="container row m-auto" >
                 <div className="col-md mt-2">
                 <h5 className="text-muted">10 Results Per Page:-</h5>
                     {displayJobs}
