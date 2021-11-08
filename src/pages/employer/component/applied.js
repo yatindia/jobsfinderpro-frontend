@@ -20,8 +20,10 @@ export default function Applied(){
 
     useEffect(() => {
         getuser()
+        
     },[]);
 
+    console.log("dkjs")
     const formData = {authid:profile_1.job_id,jobid:param.id}
     const getuser= async()=>{
         try {
@@ -90,13 +92,12 @@ export default function Applied(){
         doc.text(60, 130, `${data.part1.jobTitle}`);   
         doc.text(20, 150, 'Qualifications: ');    
         (data.part1.qualifications).forEach(e=>{
-            doc.text(x,y,`${e.qualification}`); 
-            doc.text(130,y,`${e.percentage} Percentage`);
+            doc.text(x,y,`${e.qualification} - ${e.percentage} Percentage`); 
+            doc.text(130,y,``);
             y=y+10})    
         doc.text(20, 200, 'Skills: '); 
         (data.part1.techQualifications).forEach(e=>{
-            doc.text(x,a,`${e.skill}`); 
-            doc.text(130,a,`${e.experience} Years`);
+            doc.text(x,a,`${e.skill} - ${e.experience} Years`); 
             a=a+10}) 
         doc.save(`${data.part2.firstName}.pdf`);  
      }
@@ -169,8 +170,9 @@ export default function Applied(){
                                         <td>
                                             <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>
                                         </td>
-                                        <td>
+                                        <td>{item.part1.resume !== 'null'?<div>
                                             <button className="btn btn-outline-info" value={item.part2._id} onClick={ (e)=>downloadResume(e)}>Select</button>
+                                            </div>:<p className="m-2">No Resume</p>}
                                         </td>
                                         </tr>
                                     </tbody>

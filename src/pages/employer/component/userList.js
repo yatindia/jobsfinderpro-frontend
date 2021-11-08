@@ -12,10 +12,15 @@ export default function UserList({data}){
 ;
     const [fetch,setfetch] = useState()
     const [load, setload] =useState(2)
+    const [btnFun,setBtnFun]=useState(true)
     const count = data.techQualifications.length
     const [mess,setMess] = useState({message: "",style:""})
 
     useEffect(()=>{
+        if(profile_2.downloadedResumes.includes(data.link_id) ){
+            setBtnFun(false)
+        }
+
         const getlist =async()=>{
             try {
                 const res = await axios.post(`${API_URL}/job/searchoneseeker`,{seekerid:data.link_id},{headers:header})
@@ -57,13 +62,11 @@ export default function UserList({data}){
         doc.text(60, 130, `${fetch.part1.jobTitle}`);   
         doc.text(20, 150, 'Qualifications: ');    
         (fetch.part1.qualifications).forEach(e=>{
-            doc.text(x,y,`${e.qualification}`); 
-            doc.text(130,y,`${e.percentage} Percentage`);
+            doc.text(x,y,`${e.qualification} - ${e.percentage} Percentage`); 
             y=y+10})    
         doc.text(20, 200, 'Skills: '); 
         (fetch.part1.techQualifications).forEach(e=>{
-            doc.text(x,a,`${e.skill}`); 
-            doc.text(130,a,`${e.experience} Years`);
+            doc.text(x,a,`${e.skill} - ${e.experience} Years`); 
             a=a+10}) 
         doc.save(`${fetch.part2.firstName}.pdf`);  
      }
@@ -74,11 +77,18 @@ export default function UserList({data}){
     })
 
     const selectResume=async()=>{
+        var newWin = window.open(`${API_URL}/profile/profileResumes/${data.resume}`,"_blank",
+            "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=yes, width=400, height=400" );  
         try {
             const res = await axios.post(`${API_URL}/job/takeresume`,input,{headers:header})
             setMess({message:res.data.message,style:'text-info'})
             if(res.data.error === false){
-                window.open(`${API_URL}/profile/profileResumes/${data.resume}`,"_blank" )
+                setBtnFun(false)
+                try {
+                    newWin.focus();   
+                } catch (e) {
+                    alert("Pop-up is Blocked! Please add this site to your exception list.");
+                }
             }
             } 
         catch (error) {
@@ -130,7 +140,7 @@ export default function UserList({data}){
                     <div className="row justify-content-end p-2 border-top">
                             <button type="button" className="btn btn-outline-info mr-2" onClick={pdfcreate}> Get Profile</button>
                             {data.resume !== 'null'?<div>
-                                {profile_2.downloadedResumes.includes(data.link_id) ?
+                                {!btnFun?
                                 <a className="btn btn-outline-info" title={`${fetch.part2.firstName}`} target="_blank"  rel="noopener noreferrer"
                                 download href={`${API_URL}/profile/profileResumes/${data.resume}`}> Download</a>:
                                 <button type="button" className="btn btn-outline-info" onClick={selectResume}> Select Resume</button>

@@ -65,13 +65,11 @@ export default function Resumes(){
             doc.text(60, 130, `${fetch.part1.jobTitle}`);   
             doc.text(20, 150, 'Qualifications: ');    
             (fetch.part1.qualifications).forEach(e=>{
-                doc.text(x,y,`${e.qualification}`); 
-                doc.text(130,y,`${e.percentage} Percentage`);
+                doc.text(x,y,`${e.qualification} -  ${e.percentage} Percentage`); 
                 y=y+10})    
             doc.text(20, 200, 'Skills: '); 
             (fetch.part1.techQualifications).forEach(e=>{
-                doc.text(x,a,`${e.skill}`); 
-                doc.text(130,a,`${e.experience} Years`);
+                doc.text(x,a,`${e.skill} -  ${e.experience} Years`); 
                 a=a+10}) 
             doc.save(`${fetch.part2.firstName}.pdf`); 
         }
@@ -120,7 +118,7 @@ export default function Resumes(){
                                             </div>
                                             ))}
                                         </td>  */}
-                                        <td>{item.part1.techQualifications.map((item,i)=>(
+                                        <td>{item.part1.techQualifications.slice(0,load).map((item,i)=>(
                                             <div key={i} className="row d-flex">
                                                 <h6 className="col" >{item.skill} <small className="text-muted">({item.experience}Yrs)</small></h6>
                                             </div>
