@@ -12,6 +12,7 @@ export default function Resumes(){
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [seeker, setseeker] = useState('')
+    const [load, setload] =useState(2)
     const ids =  profile_2.downloadedResumes
 
     useEffect(() => {
@@ -124,6 +125,9 @@ export default function Resumes(){
                                                 <h6 className="col" >{item.skill} <small className="text-muted">({item.experience}Yrs)</small></h6>
                                             </div>
                                             ))}
+                                            {load<item.part1.techQualifications.length ?<button className="btn btn-link" onClick={()=>{
+                                                    setload(item.part1.techQualifications.length)
+                                            }} type="button" >More...</button>:<></>}
                                         </td> 
                                         <td>{item.part1.resume !== 'null'?
                                             <a className="btn btn-outline-info m-2" title={`${item.part2.firstName}`} target="_blank" rel="noopener noreferrer"

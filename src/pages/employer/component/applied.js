@@ -16,6 +16,7 @@ export default function Applied(){
     const [getdata, setGetdata] = useState({})
     const [seeker, setseeker] = useState()
     const [mess,setMess] = useState({message: "",style:""})
+    const [load, setload] =useState(2)
 
     useEffect(() => {
         getuser()
@@ -156,11 +157,14 @@ export default function Applied(){
                                             </div>
                                             ))}
                                         </td> 
-                                        <td>{item.part1.techQualifications.map((item,i)=>(
+                                        <td>{item.part1.techQualifications.slice(0,load).map((item,i)=>(
                                             <div key={i} className="row d-flex">
                                                 <h6 className="col" >{item.skill} <small className="text-muted">({item.experience}Yrs)</small></h6>
                                             </div>
                                             ))}
+                                             {load<item.part1.techQualifications.length ?<button className="btn btn-link" onClick={()=>{
+                                                    setload(item.part1.techQualifications.length)
+                                            }} type="button" >More...</button>:<></>}
                                         </td> 
                                         <td>
                                             <button className="btn btn-outline-info mr-2" value={item.part2._id} onClick={ (e)=>downloadpdf(e)}>Download</button>

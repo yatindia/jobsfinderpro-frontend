@@ -58,7 +58,7 @@ function Jobs(){
                                     <h6 className="text-muted">{data.jobCity}</h6>
                                 </div>
                                 <div className="col-sm">
-                                    <p className="font-weight-bold">Deadline On</p>
+                                    <p className="font-weight-bold">Deadline</p>
                                     <h6 className="text-muted">{data.jobApplyEnd}</h6>
                                 </div>
                                 <div className="col-sm">

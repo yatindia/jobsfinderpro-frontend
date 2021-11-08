@@ -95,7 +95,7 @@ export default function UserList({data}){
                                 <small> ( {data.jobTitle} )</small></h5>
                         <h6 className={`${mess.style} p-2`}><small>{mess.message}</small></h6>
                     </div>
-                    <div className="row m-2">
+                    <div className="row m-2 p-1">
                         <div className="col-sm">
                             <p className="font-weight-bold">Location</p>
                             <h6 className="text-muted ">{data.city}, {data.state}</h6>
@@ -117,7 +117,7 @@ export default function UserList({data}){
                         <div className="col-sm">
                             <p className="font-weight-bold">Skills</p>
                             {data.techQualifications.slice(0,load).map((item,i)=>(
-                            <div key={i} id="content" className="row d-flex">
+                            <div key={i} className="row d-flex">
                                 <h6 className="col text-muted d-inline" >{item.skill} <i>({item.experience} Yrs)</i></h6>
                             </div>
                             ))}

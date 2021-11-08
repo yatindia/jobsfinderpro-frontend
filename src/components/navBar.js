@@ -71,6 +71,7 @@ export default function NavBar (){
                         {islogEmp === true ? <>
                         <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                             <NavDropdown.Item href="/employers/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
+                            <NavDropdown.Item href="/employers/dashboard/search" id="nav-dropdown-item"><i className="fa fa-search"></i> Resume Search</NavDropdown.Item>
                             <NavDropdown.Item href="/employers/dashboard/newjobs" id="nav-dropdown-item"><i className="fa fa-check"></i>  Post Job</NavDropdown.Item>
                             <NavDropdown.Item href="/employers/dashboard/jobs" id="nav-dropdown-item"><i className="fa fa-briefcase"></i> Posted Jobs</NavDropdown.Item>
                             <NavDropdown.Item href="/employers/dashboard/payment" id="nav-dropdown-item"><i className="fa fa-shopping-cart"></i> Payments</NavDropdown.Item>
