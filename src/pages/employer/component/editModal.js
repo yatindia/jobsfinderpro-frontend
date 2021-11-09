@@ -220,7 +220,7 @@ const changeCate =(e)=>{
                     <div className="buttons row">
                         <button onClick={updateJob} className="btn btn-findJob m-3">Update Job</button>
                         <button onClick={removeJob} className="btn btn-outline-danger m-3">Remove Job</button>
-                        <a href="/employers/dashboard/jobs" className="btn btn-outline-info m-3">Cancel</a>
+                        <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard/jobs" >Back to Posted Jobs</a>
                     </div>
                 </div>
             </div>
