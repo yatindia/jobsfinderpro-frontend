@@ -182,7 +182,7 @@ const changeCate =(e)=>{
                     </div>
                     <div className="buttons row d-flex">
                         <button onClick={postJob} className="btn btn-findJob mr-3" disabled={btn}>Post Job</button>
-                        <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard/jobs" >Posted Jobs</a>
+                        <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
                     </div>
                 </div>
             </div>

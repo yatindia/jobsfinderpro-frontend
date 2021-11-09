@@ -242,7 +242,7 @@ return (<>
             </div>
             <div className ="col ml-auto text-right">
                 <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
-                <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
+                <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
             </div>
         </div>
     </div>
@@ -309,7 +309,7 @@ return (<>
                 </div>
                 <div className ="col ml-auto text-right">
                     <button className="btn btn-outline-success m-2" type="button" onClick={profileUpdate}>Update</button>
-                    <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
+                    <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
                 </div>
             </div>
         </div>

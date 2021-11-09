@@ -265,6 +265,7 @@
   border: none !important;
   cursor: pointer;
   margin: auto;
+  text-decoration: none !important;
 }
 .btn-upload:hover{
   color: #8d2d05;

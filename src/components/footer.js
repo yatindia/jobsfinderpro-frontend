@@ -11,12 +11,10 @@ export default class Footer extends Component {
           <div className="row justify-content-center text-center">  
             <div className="col footer-links">
               <h4>Our Social Networks</h4>
-              <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+              <p>Follow Us on..</p>
               <div className="social-links mt-3">
                 <a href="/" ><i className="fa fa-twitter"></i></a>
                 <a href="/" ><i className="fa fa-facebook"></i></a>
-                <a href="/" ><i className="fa fa-instagram"></i></a>
-                <a href="/" ><i className="fa fa-skype"></i></a>
                 <a href="/" ><i className="fa fa-linkedin"></i></a>
               </div>
             </div>
