@@ -46,12 +46,12 @@ const Login =()=> {
       try {
         setErr({message:"Loading..",style:'text-primary'})
         const res = await axios.post(`${API_URL}/account/login`,inputs)
+        console.log(res)
         if(res.data.error===false){
           const datas = res.data.data
           const userDetails = {job_email: inputs.email, Role_Type: datas.type, userdp:'', dpName:'',
               Auth_token:datas.authToken, job_fname:datas.firstName,job_lname:datas.lastName, job_id:datas.authid}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
-          console.log(userDetails)
             if(datas.type === "employer"){
               history.push('/employers/dashboard');
               window.location.reload()

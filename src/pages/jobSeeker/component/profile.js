@@ -313,7 +313,7 @@ useEffect(()=>{
                 </div>
                 <div className ="col ml-auto text-right">
                     <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
-                    <a className="btn btn-outline-danger m-2" type="button"  href="/users/dashboard" >Cancel</a>
+                    <a className="btn btn-upload m-2" type="button"  href="/users/dashboard" >Back to Dashboard</a>
                 </div>
             </div>
         </div>
@@ -494,7 +494,7 @@ useEffect(()=>{
                 </div>
                 <div className ="col ml-auto text-right">
                     <button className="btn btn-outline-success m-2" type="button" onClick={detailUpdate}>Update</button>
-                    <a className="btn btn-outline-danger m-2" type="button"  href="/users/dashboard" >Cancel</a>
+                    <a className="btn btn-upload m-2" type="button"  href="/users/dashboard" >Back to Dashboard</a>
                 </div>
             </div>
         </div>

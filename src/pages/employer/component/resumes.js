@@ -138,7 +138,7 @@ export default function Resumes(){
                         :<label>No data</label>} 
                     </div>
                     <div className='row justify-content-center'>
-                        <a href="/employers/dashboard" className=" text-right btn btn-outline-secondary m-3">Back</a>
+                    <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
                     </div>
                 </div>
             </div>

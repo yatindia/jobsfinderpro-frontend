@@ -180,8 +180,9 @@ const changeCate =(e)=>{
                     <div className='row'>
                         <label className={errs.style}>{errs.message}</label>
                     </div>
-                    <div className="buttons row">
+                    <div className="buttons row d-flex">
                         <button onClick={postJob} className="btn btn-findJob mr-3" disabled={btn}>Post Job</button>
+                        <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard/jobs" >Posted Jobs</a>
                     </div>
                 </div>
             </div>

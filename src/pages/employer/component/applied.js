@@ -178,7 +178,7 @@ export default function Applied(){
                              </table></div>
                         :<label>No data</label>} 
                     </div>
-                <a href="/employers/dashboard/jobs" className=" text-right btn btn-outline-info m-3">Back</a>
+                    <a className="btn btn-upload m-2" type="button"  href="/employers/dashboard/jobs" >Back to Posted Jobs</a>
                 </div>
             </div>
              </div>
