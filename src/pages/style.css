@@ -184,6 +184,13 @@
     }
   }
 
+  
+  @media only screen and (max-width: 680px) {
+    .imglogo {
+      height: 100px;
+      width:100px;
+    }
+  }
 
   /* -------------input image ----- */
   .dragBox {

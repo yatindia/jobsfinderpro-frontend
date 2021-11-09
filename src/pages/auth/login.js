@@ -107,9 +107,8 @@ const Login =()=> {
       try {
         setErr({title:'',message:'Loading..',style:'text-primary'})
         const res = await axios.post(`${API_URL}/account/reconfirm/${inputs.email}`,{email:inputs.email})
-        console.log(res)
         if(res.data.error===false){
-          setErr({title:'Verify E-mail',message:'Check Your mail for new Verification link',style:'text-success'})
+          setErr({title:'Verify E-mail',message:'Check Your mail for new Verification link, Valid only for 4 Hours',style:'text-success'})
           setDialogShow(true)
         }
         else{setErr({message:res.data.Message,style:'text-danger'})}
