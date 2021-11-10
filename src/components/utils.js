@@ -95,6 +95,12 @@ export const empformValid =(values)=>{
   if(!values.orgPhone){
       return{error:"*Enter Contact Number.", valid:false}
   }
+  if(!values.gstin){
+    return{error:"*Enter GSTIN.", valid:false}
+}
+  if(values.gstin.length<15){
+    return{error:"*Enter Valid GSTIN.", valid:false}
+}
 if(!pattern.test(values.orgPhone)){
   return{error:"*Enter Valid Contact Number.", valid:false}
 }

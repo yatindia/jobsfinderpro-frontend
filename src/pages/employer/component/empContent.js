@@ -76,6 +76,16 @@ const PostData =(data)=>{
                     <div className='col border justify-content-center'>
                         <div className='row'>
                             <div className="skills">
+                                PAN:<b> {part_2.pan}</b>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className="skills">
+                                GSTIN:<b> {part_2.gstin}</b>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className="skills">
                                 <i className="fa fa-phone text-success"/><b> {part_2.orgPhone}</b>
                             </div>
                         </div>

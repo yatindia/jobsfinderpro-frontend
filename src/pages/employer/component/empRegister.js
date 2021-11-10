@@ -23,6 +23,8 @@ const EmpRegister = ({show, title, dialogClose}) => {
         orgAddress: "",
         orgWebsite :"",
         orgCountry: "",
+        pan:"",
+        gstin:""
       })
     const [errs,setErr] = useState({
         title: "",
@@ -165,6 +167,16 @@ const updateProfile=async(event)=>{
                                     {/* <label>Organization Contact Number</label>  */}
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization Contact Number" name="orgPhone"
                                         value={inputs.orgPhone} onChange={changeHandle} required/>
+                                </Form.Group>
+                                <Form.Group as={Col} md="6"  controlId="validationCustom12" className="formField">
+                                    {/* <label>Organization Contact Number</label>  */}
+                                    <input type="text" className="form-control formFieldInput" placeholder="Organization Pan Number" name="pan"
+                                        value={inputs.pan} onChange={changeHandle} required/>
+                                </Form.Group>
+                                <Form.Group as={Col} md="6"  controlId="validationCustom13" className="formField">
+                                    {/* <label>Organization Contact Number</label>  */}
+                                    <input type="text" className="form-control formFieldInput" placeholder="Organization GSTIN" name="gstin"
+                                        value={inputs.gstin} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom07" className="formField">
                                     {/* <label>Organization Wesite</label>  */}

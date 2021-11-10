@@ -43,6 +43,8 @@ function EmpProfile() {
     orgAddress: profile_2.orgAddress,
     orgWebsite :profile_2.orgWebsite,
     orgCountry: profile_2.orgCountry,
+    gstin:profile_2.gstin,
+    pan:profile_2.pan
     })
 
 //-------Input change-----------
@@ -287,6 +289,16 @@ return (<>
                                    placeholder="Enter Organization Phone" value={profile.orgPhone} onChange={changeHandle} />
                             </div>
                             <div className="form-group">
+                                <label>Organization PAN Number</label>
+                                <input type="text" className=" formFieldInput" name="pan"
+                                   placeholder="Enter Organization PAN" value={profile.pan} onChange={changeHandle} />
+                            </div>
+                            <div className="form-group">
+                                <label>Organization GSTIN Number</label>
+                                <input type="text" className=" formFieldInput" name="gstin"
+                                   placeholder="Enter Organization GSTIN" value={profile.gstin} onChange={changeHandle} />
+                            </div>
+                            <div className="form-group">
                                 <label>Organization Wesite</label>
                                 <input type="text" className=" formFieldInput"  name="orgWebsite"
                                    placeholder="Enter Organization Wesite" value={profile.orgWebsite} onChange={changeHandle} />
@@ -303,7 +315,7 @@ return (<>
                     </div>
                 </div>
             </div>
-            <div className ='row'>
+            <div className ='row mt-4'>
                 <div className='col ml-auto text-center'>
                     <label className={err2.style}>{err2.message}</label>
                 </div>
