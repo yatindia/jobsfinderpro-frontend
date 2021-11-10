@@ -172,15 +172,15 @@ const changeCate =(e)=>{
                         </div>
                     </div>
                 </div>
-                <div className="section p-2">
+                <div className="section pt-2">
                     <label className='row align-items-center m-auto'>
                         <input className="m-2 formFieldCheckbox" type="checkbox" name="hasAgreed" onClick = {handleCheck}/>{"  "}
-                            I agree to your <a href="none"> Terms of Conditions.</a>
+                            I agree to your <a href="none" className="ml-2"> Terms of Conditions.</a>
                     </label>
-                    <div className='row'>
+                    <div className='row mt-3'>
                         <label className={errs.style}>{errs.message}</label>
                     </div>
-                    <div className="buttons row d-flex">
+                    <div className="buttons row d-flex mt-2">
                         <button onClick={postJob} className="btn btn-findJob mr-3" disabled={btn}>Post Job</button>
                         <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
                     </div>

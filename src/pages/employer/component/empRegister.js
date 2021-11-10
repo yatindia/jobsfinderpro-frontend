@@ -23,8 +23,8 @@ const EmpRegister = ({show, title, dialogClose}) => {
         orgAddress: "",
         orgWebsite :"",
         orgCountry: "",
-        pan:"NA",
-        gstin:""
+        pan:"",
+        gstin:"NIL"
       })
     const [errs,setErr] = useState({
         title: "",
@@ -154,42 +154,42 @@ const updateProfile=async(event)=>{
                             </Row>
                             <Row>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom04" className="formField">
-                                    {/* <label>Organization Name</label>  */}
+                                    <label>Organization Name</label> 
                                     <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Organization Name" name="orgName"
                                         value={inputs.orgName} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
-                                    {/* <label>Organization E-Mail</label>  */}
+                                    <label>E-Mail</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization E-mail" name="orgEmail"
                                         value={inputs.orgEmail} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom06" className="formField">
-                                    {/* <label>Organization Contact Number</label>  */}
+                                    <label>Contact Number</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization Contact Number" name="orgPhone"
                                         value={inputs.orgPhone} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom12" className="formField">
-                                    {/* <label>Organization Contact Number</label>  */}
+                                    <label>PAN Number</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization Pan Number" name="pan"
                                         value={inputs.pan} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom13" className="formField">
-                                    {/* <label>Organization Contact Number</label>  */}
+                                    <label>GSTIN Number</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization GSTIN" name="gstin"
                                         value={inputs.gstin} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom07" className="formField">
-                                    {/* <label>Organization Wesite</label>  */}
+                                    <label>Wesite</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization Wesite" name="orgWebsite"
                                         value={inputs.orgWebsite} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom09" className="formField">
-                                    {/* <label>Organization Address</label>  */}
+                                    <label>Address</label> 
                                     <textarea type="text" className="form-control text-capitalize formFieldInput" placeholder="Organization Address" row="4" name="orgAddress"
                                         value={inputs.orgAddress} onChange={changeHandle} required/>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6"  controlId="validationCustom08" className="formField">
-                                    {/* <label>Organization Location</label>  */}
+                                    <label>Location</label> 
                                     <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Organization Landmark" name="orgCountry"
                                         value={inputs.orgCountry} onChange={changeHandle} required/>
                                 </Form.Group>

@@ -60,7 +60,7 @@ export default function JobList({data}){
                         <h6 className="text-muted">{data.job.jobApplyEnd}</h6>
                     </div>
                     <div className="col-sm">
-                        <p className="font-weight-bold">Contract type</p>
+                        <p className="font-weight-bold">Job Level</p>
                         <h6 className="text-muted">{data.job.jobType}</h6>
                     </div>
                     <div className="col-lg">

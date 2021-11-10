@@ -282,7 +282,6 @@ color: #eb5d1e;
   }
 
   #footer .footer-top input {
-    all:unset;
     width:100%;
     min-height:7vh;
     border:none;
@@ -292,7 +291,6 @@ color: #eb5d1e;
   }
 
   #footer .footer-top .contacts {
-    margin-top: 50px;
     display: table-row
   }
   #footer .footer-top .contacts h3 {

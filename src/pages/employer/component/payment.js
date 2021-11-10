@@ -102,7 +102,7 @@ export default function Payment (){
                     </div>
                     <div className="content">
                         <ul>
-                            <li>Yearly Package Rs 25000</li>
+                            {/* <li>Yearly Package Rs 25000</li> */}
                             <li>Post Unlimited Job</li>
                             <li>50 Point Resume Download</li>
                         </ul>
