@@ -23,7 +23,7 @@ const EmpRegister = ({show, title, dialogClose}) => {
         orgAddress: "",
         orgWebsite :"",
         orgCountry: "",
-        pan:"",
+        pan:"NA",
         gstin:""
       })
     const [errs,setErr] = useState({
