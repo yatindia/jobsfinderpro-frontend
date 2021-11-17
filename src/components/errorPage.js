@@ -15,8 +15,8 @@ function ErrorPage () {
             <span className="num3">4</span>
         </div>
         <h2 className="display-4 text-center text-light">PAGE NOT FOUND</h2>
-        <div className="row justify-content-center">
-            <a className="btn btn-style" href="/">Home</a>
+        <div className="row justify-content-center mt-4">
+            <a className=" btn-style" href="/">Home</a>
         </div>
     </div>
    

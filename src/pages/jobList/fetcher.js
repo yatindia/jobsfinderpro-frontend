@@ -5,6 +5,8 @@ import '../style.css'
 
 import { API_URL } from "../../components/utils";
 import Listing from "./listing";
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
 
 export default function Featcher ({location}) {
 
@@ -91,6 +93,7 @@ export default function Featcher ({location}) {
     )})
 
     return (<>
+    <NavBar/>
     <div >
         {/* -----Search Bar------ */}
         <div className="container m-auto row justify-content-center" >
@@ -156,5 +159,6 @@ export default function Featcher ({location}) {
         </div>
 
     </div>
+    <Footer/>
     </>);
 }

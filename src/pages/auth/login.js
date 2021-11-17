@@ -11,6 +11,9 @@ import axios from 'axios'
 
 import { API_URL } from "../../components/utils";
 import DialogBox from '../../components/dialogBox'
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
+
 import { validateMail } from "./validating";
 
 const Login =()=> {
@@ -124,6 +127,7 @@ const Login =()=> {
 
   return (<>
   <DialogBox show={dialogShow} title={errs.title} detail={errs.message} dialogClose={dialogClose}/>
+  <NavBar/>
   <div className="App d-flex p-4">
       <div className="appForm mx-auto shadow align-center">
           <div label="Sign-In">
@@ -184,6 +188,7 @@ const Login =()=> {
           </div>
       </div>
     </div>
+    <Footer/>
   </>);
 }
 

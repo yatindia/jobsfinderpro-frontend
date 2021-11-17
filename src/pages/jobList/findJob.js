@@ -4,6 +4,8 @@ import ReactPaginate from "react-paginate";
 import '../style.css'
 
 import { API_URL } from "../../components/utils";
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
 import Listing from "./listing";
 
 export default function FindJobs ({location}) {
@@ -35,7 +37,24 @@ export default function FindJobs ({location}) {
         const loc = param.get('kwds');
         if(loc !== ''){
             setSearch({...search,jobTitle:loc})
-            getJob()
+            async function getJobs(){
+                try {
+                    const res = await axios.post(`${API_URL}/job/search`,{...search,jobTitle:loc},{headers:header})
+                    if (res.data.error===false){
+                        setfetch(res.data.data[0])
+                        setCount(res.data.data[1])
+                        setTotalpge(Math.ceil(res.data.data[1])/perpage)
+                        if(perpage<res.data.data[1]){
+                            setLoadBtn(true)
+                        }
+                        else{setLoadBtn(false)}
+                    }else{
+                        document.getElementById("succ").innerText = res.data.message
+                    }
+                } catch (error) {        
+                }
+            }
+            getJobs()
         }
         setSearch({...search,jobTitle:loc,skip:skip,limit:limit})
     },[skip,limit])
@@ -92,6 +111,7 @@ export default function FindJobs ({location}) {
     )})
 
     return (<>
+    <NavBar/>
     <div >
         <div className="container m-auto row justify-content-center" >
             <div className="col m-3 p-2">
@@ -158,5 +178,6 @@ export default function FindJobs ({location}) {
         </div>
         </div>
     </div>
+    <Footer/>
     </>);
 }

@@ -6,6 +6,8 @@ import { API_URL,resizeFile,dataURIToBlob, userDp } from "../../components/utils
 import TabView from "../../components/tabView";
 import { validating } from "./validating";
 import DialogBox from '../../components/dialogBox'
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
 
 export default function Register() {
   const [imgData, setImgData] = useState(null);
@@ -149,6 +151,7 @@ useEffect(()=>{
 },[inputs,emp,imgName])
 
   return (<>
+  <NavBar/>
     <div className="App d-flex p-4">
       <div className="appForm mx-auto align-center shadow">
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
@@ -308,5 +311,6 @@ useEffect(()=>{
         </TabView>
       </div>
     </div>
+    <Footer/>
  </> );
 }

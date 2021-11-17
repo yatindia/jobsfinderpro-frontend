@@ -14,6 +14,9 @@ import EditJob from "./component/editModal";
 import Payment from './component/payment'
 import Resumes from "./component/resumes";
 
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
+
 import {API_URL, userDp} from '../../components/utils'
 
 
@@ -72,6 +75,7 @@ const dialogClose=()=>{
   }
 
     return (<>
+	<NavBar/>
     <section className="container p-1">
 	<EmpRegister show={dialogShow} title="Complete Organization Profile" dialogClose={dialogClose} button="success"/>
 		<div className="container-fluid">
@@ -132,6 +136,7 @@ const dialogClose=()=>{
 			</div>
 		</div>
 	</section>
+	<Footer/>
     </>);
 }
 

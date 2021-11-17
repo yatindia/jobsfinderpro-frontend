@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import './style.css'
 
 import cate from '../../components/asserts/category.json'
+import NavBar from "../../components/navBar";
+import Footer from "../../components/footer";
 
 const SearchCate=()=>{
 
@@ -14,7 +16,7 @@ const SearchCate=()=>{
             history.push('/login');
           }else{
             if(e !== ""){
-                history.push('/search?kwds='+e+'&key=');
+                history.push('/categories/search?kwds='+e+'&key=');
             }else{
                history.push('/')
             }
@@ -22,7 +24,8 @@ const SearchCate=()=>{
     }
 
 return (<>
-         <div className="container text-center m-auto p-3 border">
+        <NavBar/>
+         <div className="container text-center m-auto pt-3 border">
              <h5 className="text-secondary">Categories </h5>
              <div className="row border-top">
                  <div className="col-sm p-3">
@@ -31,7 +34,7 @@ return (<>
                  </div>
              </div>
         </div> 
-
+        <Footer/>
   </>);
 
 }

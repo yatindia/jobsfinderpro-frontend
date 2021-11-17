@@ -1,50 +1,82 @@
-import React,{useState} from "react";
+import React, {useEffect, useState } from "react";
+import './style.css'
+import { useHistory } from "react-router-dom";
 
-const Selector=({...props})=>{
+import welo from '../components/asserts/hero-img.svg'
+import TopHiring from "./home/topHire";
+import SearchCate from "./home/searchCate";
 
-    const [search, setSearch] = useState({
-        jobs: "",
-        location: "",
-    })
 
-    const changeHandle = (e) => {
-        setSearch({...search,[e.target.name]: e.target.value})
+const selec =()=> {
+
+  const [search, setSearch] = useState({
+    jobs: "",
+    jobTitle: "",})
+
+  const history = useHistory();
+
+
+  const changeHandle = (e) => {
+      setSearch({...search,[e.target.name]: e.target.value})
+  }
+
+  useEffect(()=>{
+  
+  },[])
+
+
+  const handleSubmit=()=>{
+    const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
+    if(!profile_1){
+      history.push('/login');
+    }else if(search.jobTitle !== ''){
+      history.push('/jobs?kwds='+search.jobTitle+'&loc=');
+    }else{
+      document.getElementById('errs').innerHTML = "** Enter search Query"
     }
-    
-    const handleSubmit=()=>{
-        props.getSearch(search)
-    }
+  }
 
-return (<>
-         <div className="container-flex">
-          <div className="row d-flex justify-content-center">
-              <div className="col-lg">
-                  <div className="row">
-                       <div className="col-lg col-md col-sm p-1 input-group">
-                      <input className="form-control selector border"  type="text" name="jobs"
-                        onChange={changeHandle}  placeholder="Company, Title, Keywords " list="browsers"/>
-                        <span className="input-group-append">
-                            <div className="input-group-text"><i className="fa fa-search text-info"></i></div>
-                        </span>
-                      </div> 
-                      <div className="col-lg col-md col-sm p-1 input-group">
-                      <input className="form-control selector border"  type="text" name="location"
-                        onChange={changeHandle} placeholder="Job Location" list="browsers1"/>
-                        <span className="input-group-append">
-                            <div className="input-group-text"><i className="fa fa-map-marker text-info"></i></div>
-                        </span>
-                      </div>
-                      <div className="col-sm-2 mt-1">
-                        <button className="btn btn-findJob form-control" onClick={handleSubmit}>Find Jobs</button>
-                      </div>
-                  </div>
-              </div>
+
+    return (<>
+    {/* {active === "top" ? */}
+    <div>
+      <div id="welcome">
+        <div className="container-flex">
+            <div className="row justify-content-center align-items-center">
+                <div className="col-lg-6 p-5 m-2 text-center order-2">
+                    <div className='row justify-content-center'>
+                      <h1>Better digital experience with Ninestars</h1>
+                      <h2>We are team of talented designers making websites with Bootstrap</h2>
+                    </div>
+                    <div className='row justify-content-center m-4'>
+                        <div className="col-lg  p-2">
+                        <input className=" formFieldInput text-capitalize"  type="text" name="jobTitle"
+                          onChange={changeHandle} placeholder="Job Title ..." list="locate"/>
+                        </div>
+                        <div className="col-sm-2 p-2 align-items-center m-auto">
+                          <button className="btn border-0 effect" onClick={handleSubmit}><b>Search</b></button>
+                        </div>
+                    </div>
+                    <div className='row justify-content-center m-4'>
+                      <h5 className='text-info' id = "errs"></h5>
+                    </div>
+                </div>
+                <div className="col-lg-5 order-1 m-3 welcome-img">
+                    <img src={welo} className="img-fluid animated" alt="ff"/> 
+                </div>
             </div>
-          </div> 
-
+        </div>
+    </div>
+    <div>
+      <TopHiring></TopHiring>
+      {/* <Trending ></Trending> */}
+      <div className='mt-5 pt-4'>
+      <SearchCate></SearchCate>
+      </div>
+    </div>
+  </div>
+  {/* :""} */}
   </>);
-
 }
 
-
-export default Selector;
+export default selec;

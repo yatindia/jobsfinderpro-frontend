@@ -43,7 +43,8 @@ export const resizeFile = (file) =>
   }
   
 // ----Validation for Seeker Profile---
-var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
+var regPhone = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
+var regGst = /^([0][1-9]|[1-2][0-9]|[3][0-9])([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/;
 
   export const formValid =(values)=>{
     if(values.qualifications.length<=0){
@@ -58,7 +59,7 @@ var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])
     if(!values.mobile){
        return{error:"*Enter Contact number.", valid:false}
     }
-    if(!pattern.test(values.mobile)){
+    if(!regPhone.test(values.mobile)){
       return{error:"*Enter Valid Contact Number.", valid:false}
     }
     if(!values.dateOfBirth){
@@ -100,15 +101,13 @@ export const empformValid =(values)=>{
 }
 
 if(values.gstin.toLowerCase() !== 'nil'){
-  if(values.gstin.length< 15){
-    return{error:"*Enter Valid GSTIN / Enter NIL.", valid:false}
+  let test = regGst.test(values.gstin)
+  if(test === false){
+    return{error:`*Enter Valid 15-digit GSTIN / Enter NIL.`, valid:false}
+  }
 }
-if(values.gstin.length> 15){
-  return{error:"*Enter Valid GSTIN / Enter NIL.", valid:false}
-}
- 
-}
-if(!pattern.test(values.orgPhone)){
+
+if(!regPhone.test(values.orgPhone)){
   return{error:"*Enter Valid Contact Number.", valid:false}
 }
   if(!values.orgWebsite){

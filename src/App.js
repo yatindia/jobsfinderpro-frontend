@@ -6,13 +6,12 @@ import './components/style.css'
 import Lander from "./pages/mainLander";
 import UserLander from './pages/jobSeeker/userLander'
 import EmpLander from './pages/employer/empLander'
-import NavBar from "./components/navBar";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
-import Footer from "./components/footer";
 import Fetcher from "./pages/jobList/fetcher";
 import FindJobs from "./pages/jobList/findJob";
 import ErrorPage from "./components/errorPage";
+import SearchCate from "./pages/home/searchCate";
 
 function App () {
 
@@ -36,18 +35,19 @@ useEffect(()=>{
 
     return (
       <Router>
-        <NavBar></NavBar>
+        {/* <NavBar></NavBar> */}
         <Switch>
             <Route active exact path="/" component={Lander}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             {userRoute===true?<Route path="/users/dashboard/" component={UserLander}/>:''}
-            {empRoute===true?<Route path="/employers/dashboard" component={EmpLander}/>:''}            
-            <Route exact path="/search" component={Fetcher}/>
+            {empRoute===true?<Route path="/employers/dashboard" component={EmpLander}/>:''}   
+            <Route exact path="/categories" component={SearchCate}/>         
+            <Route exact path="/categories/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
             <Route path ="*" exact={true} component={ErrorPage}/>
           </Switch>
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
       </Router>
     );
 }

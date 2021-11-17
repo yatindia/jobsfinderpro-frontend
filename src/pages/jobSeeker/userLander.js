@@ -6,6 +6,8 @@ import UserProfile from "./component/profile";
 import UserContent from "./component/userContent";
 import MyJobs from "./component/myJobs";
 import Registration from "./component/register";
+import NavBar from "../../components/navBar";
+import Footer from '../../components/footer'
 
 import {API_URL} from '../../components/utils'
 
@@ -65,6 +67,7 @@ const dialogClose=()=>{
 
 
     return (<>
+	<NavBar/>
     <section className="container">
 		<div className="container-fluid">
 		<Registration show={dialogShow} title="Complete Your Profile" dialogClose={dialogClose} button="success"/>
@@ -119,6 +122,7 @@ const dialogClose=()=>{
 			</div>
 		</div>
 	</section>
+	<Footer/>
     </>);
   }
 
