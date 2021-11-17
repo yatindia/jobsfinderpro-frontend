@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Navbar, Nav, Form,NavDropdown} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 
-import Logo from './asserts/logo.png'
+import Logo from './asserts/logo.svg'
 import { tokenCheck } from './utils';
 
 export default function NavBar (){
@@ -45,6 +45,10 @@ export default function NavBar (){
         window.location.reload()
     };
 
+    const postJob=()=>{
+        history.push({pathname:"/register", tab: 'employer' })
+      }
+
         return(
             <>         
             <Navbar expand="lg" className="navbar shadow rounded-lg">
@@ -57,7 +61,7 @@ export default function NavBar (){
 
                         {islogged === false ?<> <Nav.Link   href="/login"  >Login</Nav.Link>
                         <Nav.Link exact='True' className="mr-1 " href="/register">/  Register</Nav.Link>
-                        <Nav.Link  href="/login">Post Job</Nav.Link></> :""}
+                        <Nav.Link  onClick={postJob}>Post Job</Nav.Link></> :""}
                         {isseeker === true ?  <>
                             <NavDropdown title="Profile" id="nav-dropdown" renderMenuOnMount={true}> 
                                 <NavDropdown.Item href="/users/dashboard" id="nav-dropdown-item"><i className="fa fa-home"></i>  Dashboard</NavDropdown.Item>
@@ -77,7 +81,7 @@ export default function NavBar (){
                             <NavDropdown.Item href="/employers/dashboard/payment" id="nav-dropdown-item"><i className="fa fa-shopping-cart"></i> Payments</NavDropdown.Item>
                             <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link exact='True' className="mr-1 " href="/employers/dashboard/newjobs">Post Job</Nav.Link>
+                        <Nav.Link exact='True' className="mr-1 " onClick={postJob}>Post Job</Nav.Link>
                         </>:""}
 
                     </Nav>

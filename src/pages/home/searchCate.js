@@ -25,15 +25,17 @@ const SearchCate=()=>{
 
 return (<>
         <NavBar/>
-         <div className="container text-center m-auto pt-3 border">
-             <h5 className="text-secondary">Categories </h5>
-             <div className="row border-top">
-                 <div className="col-sm p-3">
-                    {cate.map((level,i)=>
-                        (<button key={i} className="btn btn-trending" value={level} onClick={(e) => handleClick(e.target.value)}>{level}</button>))}
-                 </div>
-             </div>
-        </div> 
+        <div className='mt-4'> 
+            <div className="container text-center m-auto border">
+                <h5 className="text-secondary p-2">Categories </h5>
+                <div className="row border-top">
+                    <div className="col-sm p-3">
+                        {cate.map((level,i)=>
+                            (<button key={i} className="btn btn-trending" value={level} onClick={(e) => handleClick(e.target.value)}>{level}</button>))}
+                    </div>
+                </div>
+            </div> 
+        </div>
         <Footer/>
   </>);
 

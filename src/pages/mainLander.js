@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef } from "react";
 import './style.css'
 import { useHistory } from "react-router-dom";
 
-import Logo from '../components/asserts/logo.png'
+import Logo from '../components/asserts/logo.svg'
 import cate from '../components/asserts/category.json'
 import profile from '../components/asserts/profile.svg'
 import dashboard from '../components/asserts/dashboard.svg'
@@ -10,6 +10,7 @@ import jobs from '../components/asserts/jobs.svg'
 import pay from '../components/asserts/pay.svg'
 import post from '../components/asserts/post.svg'
 import rSearch from '../components/asserts/search.svg'
+import datas from '../components/asserts/data.svg'
 
 import { tokenCheck } from "../components/utils";
 
@@ -21,11 +22,11 @@ const Lander =()=> {
     const [islogged,setislogged] = useState(false)
     const [islogEmp,setislogEmp] = useState(false)
     const [isseeker,setisseeker] = useState(false)
+    const [show,setshow] = useState(false)
 
   const history = useHistory();
   const input1 = useRef(null);
   const  [place, setPlace] =  useState('Job Title ....')
-
 
   const changeHandle = (e) => {
       setSearch({...search,[e.target.name]: e.target.value})
@@ -91,6 +92,11 @@ const handleLogout=()=> {
   window.location.reload()
 };
 
+const postJob=()=>{
+  history.push({pathname:"/register", tab: 'employer' })
+}
+
+
     return (<>
     <div>
       <div id="welcome">
@@ -99,11 +105,12 @@ const handleLogout=()=> {
         {islogged === false ?<>
           <div className="container-fluid row justify-content-center align-items-center p-1">
               <div className="col m-auto text-right footerTop">
-                    <a href="/login">Sign-In</a>
-                    <a href="/register">Sign-Up</a>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                    <button className="btn" onClick={postJob}>Post a Job</button>
                   </div>
             </div>
-          <div className="container-fluid row justify-content-center align-items-center homeContent2 ">
+          <div className="container-fluid row justify-content-center align-items-center homeContent ">
             <div className="col">
               <div className='row justify-content-center logo'>
                 <img src={Logo} alt='Yat Jobs'/>
@@ -118,7 +125,33 @@ const handleLogout=()=> {
                 </div>
               </div>
             </div>
-          </div></>:""}
+          </div>
+
+          <div className="container-fluid row justify-content-center align-items-center">
+          <div className='col m-auto text-center'>
+            <button className=" row btn btn-upload" onClick={()=>setshow(true)}><b>For Recruiters</b></button>
+             {show ?
+             <div  className="row text-center mt-2">
+                  <div className='col boxx'>
+                      <div className='icon2'><img src={post} alt='profile'/></div>
+                     <h5>Post Jobs for Free</h5>
+                     <p>Reach desired job seekers with a job posting. Get started today!</p>
+                  </div>
+                  <div className='col boxx'>
+                    <div className='icon2'><img src={rSearch} alt='profile'/></div>
+                     <h5>Transparent Search</h5>
+                     <p>Access our database and find relevant candidates with most transparent keyword-search.</p>
+                  </div>
+                  <div className='col boxx'>
+                      <div className='icon2'><img src={datas} alt='profile'/></div>
+                     <h5>Resumes Diversity </h5>
+                     <p>Get The Right Candidates with Accurate Contact Data and Save resources with Better Insights.</p>
+                  </div>
+              </div>:''
+             }
+          </div>
+        </div>
+          </>:""}
 
           {/* ---------- Seeker User--------- */}
       {isseeker === true ?
@@ -128,25 +161,21 @@ const handleLogout=()=> {
                     <a href="/" type="button" onClick={handleLogout}><i className="fa fa-sign-out text-danger"></i> Logout</a>
                 </div>
           </div>
-          <div className="container-fluid row justify-content-center align-items-center homeContent">
-            <div className="col-sm-3">
-              <div className='row m-3 p-3'></div>
-
-              <div className='row justify-content-center logo2'>
-                  <img src={Logo} alt='Yat Jobs'/>
-                </div>
-            </div>
+          <div className="container-fluid row justify-content-center align-items-center homeContent2">
             <div className='col'>
               <div className ='row justify-content-center d-flex p-3'>
-                <div className='col icon'>
+                <div className='col-sm-3 logo2'>
+                    <img src={Logo} alt='Yat Jobs'/>
+                </div>
+                <div className='col icon text-center'>
                     <a href="/users/dashboard"><img src={profile} alt='profile'/>
                     <p className="m-auto">Dashboard</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/users/dashboard/profile"><img src={dashboard} alt='dashboard'/>
                     <p className="m-auto">Profile</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/users/dashboard/myjobs"><img src={jobs} alt='jobs'/>
                     <p className="m-auto">My Jobs</p></a>
                   </div>
@@ -172,37 +201,38 @@ const handleLogout=()=> {
                     <a href="/" type="button" onClick={handleLogout}><i className="fa fa-sign-out text-danger"></i> Logout</a>
                 </div>
           </div>
-          <div className="container-fluid row justify-content-center align-items-center homeContent">
-            <div className="col-sm-3">
-              <div className='row m-3 p-3'></div>
-
+          <div className="container-fluid row justify-content-center align-items-center homeContent2">
+            {/* <div className="col-sm-3">
               <div className='row justify-content-center logo2'>
                   <img src={Logo} alt='Yat Jobs'/>
-                </div>
-            </div>
+              </div>
+            </div> */}
             <div className='col'>
               <div className ='row justify-content-center d-flex p-3'>
-                <div className='col icon'>
+                <div className='col-sm-3 '>
+                    <img src={Logo} alt='Yat Jobs'/>
+                </div>
+                <div className='col icon text-center'>
                     <a href="/employers/dashboard"><img src={profile} alt='profile'/>
                     <p className="m-auto">Dashboard</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/employers/dashboard/profile"><img src={dashboard} alt='dashboard'/>
                     <p className="m-auto">Profile</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/employers/dashboard/search"><img src={rSearch} alt='jobs'/>
                     <p className="m-auto">Resumes</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/employers/dashboard/newjobs"><img src={post} alt='jobs'/>
                     <p className="m-auto">Post Job</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/employers/dashboard/jobs"><img src={jobs} alt='jobs'/>
                     <p className="m-auto">Jobs</p></a>
                   </div>
-                  <div className='col icon'>
+                  <div className='col icon text-center'>
                     <a href="/employers/dashboard/payment"><img src={pay} alt='jobs'/>
                     <p className="m-auto">Buy Points</p></a>
                   </div>
@@ -220,7 +250,8 @@ const handleLogout=()=> {
           </div>
         </>:""}
 
-          <div className="container-fluid row justify-content-center align-items-center homeContent">
+
+          <div className="container-fluid row justify-content-center align-items-center homeContent2">
              <div className="row">
                  <div className="col-md-10 text-center m-auto p-3 footerCenter">
                  <button className="btn btn-text btnCat" disabled={true}><b>Categories:</b> </button>

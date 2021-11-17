@@ -13,11 +13,9 @@ export default class TabView extends Component {
       activeTab: this.props.children[0].props.label,
     };
   }
-
   onClickTabItem = (tab) => {
     this.setState({ activeTab: tab });
   };
-
   render() {
     const {
       onClickTabItem,

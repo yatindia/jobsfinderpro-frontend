@@ -1,0 +1,17 @@
+  /*********** Tab Bar **********/
+    .nav-tabs .nav-link  {
+      color: #4e1801!important;
+      background-color: #fff;
+      font-weight: 600;
+      margin: 10px;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #611e01;
+}
+  
+  .nav-tabs .nav-link:hover, .nav-link.active{
+    color: #eb5d1e !important;
+    /* background-color: #eb5d1e !important; */
+    font-weight: 600;
+  }

@@ -29,18 +29,27 @@
 #welcome .icon img{
   height:60px;
   width: 60px;
-  cursor: pointer;
 }
 
-#welcome .icon{
-  cursor: pointer;
+#welcome .icon2 img{
+  height:70px;
+  width: 70px;
+  border-radius: 20%;
+  padding: 5px;
+  box-shadow: 0 0 40px rgb(0 0 0 / 10%);
+  border: 2px solid rgba(14, 3, 0, 0.171);
+}
+
+#welcome .icon img:hover{
+  padding: 5px;
+  transition: .5s ease;
 }
 
 #welcome .icon a{
   text-decoration: none !important;
 }
 
-#welcome .icon:hover{
+#welcome .icon a:hover{
   font-weight: bold;
 }
 
@@ -51,21 +60,19 @@
 }
 
 #welcome .logo img{
-  height: 100%;
-  width: auto;
+  width: 50%;
 }
 
 #welcome .logo2 img{
-  height: 80%;
-  width: auto;
+  width: 100%;
 }
 
 .homeContent{
-  padding-top: 25%;
+  padding-top: 15%;
 }
 
 .homeContent2{
-  padding-top: 30%;
+  padding-top: 25%;
 }
 
 
@@ -101,15 +108,20 @@
   border: 2px solid #eb5d1e;
 }
 
-.footerTop a{
+.footerTop a, .footerTop button{
   text-decoration: none;
   color: rgba(51, 51, 51, 0.747);
   margin: 10px;
   font-size: 15px;
   font-weight: 500;
+  outline: none ;
   }
-  
-  .footerTop a:hover{
+  .footerTop button:focus{
+border-color: transparent;
+outline: none;
+  }
+
+  .footerTop a:hover, .footerTop button:hover{
     color: #eb5d1e;
     }
   
@@ -142,6 +154,21 @@ font-size: small;
 #welcome .animated {
   animation: up-down 2s ease-in-out infinite alternate-reverse both;
 }
+
+.boxx{
+  box-shadow: 0 0 40px rgb(0 0 0 / 10%);
+  display: inline-block;
+  padding: 30px;
+  height: auto;
+  color: rgb(100, 97, 97);
+  background: #fff;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+  margin: 10px;
+}
+
 
 @media (min-width: 1024px) {
   #welcome {
@@ -186,7 +213,7 @@ font-size: small;
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 675px) {
   #welcome .welcome-img img {
     width: 80%;
   }
@@ -195,8 +222,8 @@ font-size: small;
   }
 
   #welcome .logo img{
-    height: 40%;
-    width: 40%;
+    height: 50%;
+    width: 50%;
   }
 
   .formInput {

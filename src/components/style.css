@@ -25,21 +25,10 @@ color: #eb5d1e;
 }
 
 .navbar .navbar-brand {
-    color: #000000;
-    font-size: 30px;
-    line-height: 0px;
-    font-weight: 200;
-}
-
-.navbar .navbar-brand:hover {
-    color: #000000b2;
-    font-size: 30px;
-    transition: .2s ease-in-out;
-    font-weight: bold;
+  width: 140px;
 }
 
 .navbar .navbar-brand img {
-    max-height: 40px;
 }
 
 .navbar .navbar-nav .nav-link{

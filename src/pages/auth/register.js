@@ -1,9 +1,10 @@
 import React,{useState, useEffect} from "react";
-import { Form,Col,Row} from "react-bootstrap";
+import { Form,Col,Row, Tab, Tabs} from "react-bootstrap";
+import { useLocation } from 'react-router-dom';
 import axios from 'axios'
+import './style.css'
 
 import { API_URL,resizeFile,dataURIToBlob, userDp } from "../../components/utils";
-import TabView from "../../components/tabView";
 import { validating } from "./validating";
 import DialogBox from '../../components/dialogBox'
 import NavBar from "../../components/navBar";
@@ -16,6 +17,8 @@ export default function Register() {
   const [imgName, setImgName] = useState('default.jpg');
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
+
+  const [key, setKey] = useState('seeker');
   
   const [inputs, setInputs] = useState({
     firstName: "",
@@ -44,6 +47,8 @@ export default function Register() {
   }
 
   const dialogClose=()=>{ setDialogShow(false)}
+  const location = useLocation();
+
 
   // ----- Job Seeker Register ----
   const seekerSubmit = async (event) => {
@@ -146,6 +151,16 @@ const imageUpload= async ()=>{
 }
 
 useEffect(()=>{
+  const getTab = location.tab
+  if(getTab === undefined || getTab ===''){
+    setKey('seeker')
+  }else if(getTab === 'employer'){
+    setKey('employer')
+  }
+},[])
+
+useEffect(()=>{
+  
   setInputs({...inputs,profileImage:imgName})
   setEmp({...emp,profileImage:imgName})
 },[inputs,emp,imgName])
@@ -155,8 +170,10 @@ useEffect(()=>{
     <div className="App d-flex p-4">
       <div className="appForm mx-auto align-center shadow">
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
-        <TabView>
-          <div label="Job Seeker">
+
+      <Tabs  id="controlled-tab-example"activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+        <Tab eventKey="seeker" title="Seeker" >
+        <div label="Job Seeker" >
               <Form noValidate validated={validated}>
               <Row className="mb-3 formCenter" >
                 <Col>
@@ -204,7 +221,7 @@ useEffect(()=>{
                       </div>
                       <div className="col mt-4">
                         <div className="dragBox btn" >Pick Image
-                          <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
+                          <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile1"  />
                         </div>
                         <div>
                           <button className="row dragBox btn m-2" type="button" onClick={imageUpload}>Upload</button>
@@ -231,23 +248,25 @@ useEffect(()=>{
               </Row>
             </Form>
           </div>
+        </Tab>
 
 
-          <div label="Employer">
+        <Tab eventKey="employer" title="Employer">
+        <div label="Employer">
           <Form noValidate validated={validated}>
               <Row className="mb-3 formCenter" >
                 <Col>
                   <Form.Group as={Row} md="6"  controlId="validationCustom11" className="formField">
                     {/* <Form.Label className="formFieldLabel">First name</Form.Label> */}
                     <Form.Control
-                      className="formFieldInput " required type="text" placeholder="First name" 
+                      className="formFieldInput " required type="text" placeholder="Employer First Name" 
                       name="firstName" value={emp.firstName} onChange={changeHandle}
                     />
                   </Form.Group>
                   <Form.Group as={Row} md="6"  controlId="validationCustom12" className="formField">
                     {/* <Form.Label className="formFieldLabel">Last name</Form.Label> */}
                     <Form.Control
-                      className="formFieldInput " required type="text" placeholder="Last Name"
+                      className="formFieldInput " required type="text" placeholder="Employer Last Name"
                       name="lastName" value={emp.lastName} onChange={changeHandle}
                     />
                   </Form.Group>
@@ -268,7 +287,7 @@ useEffect(()=>{
                 <Form.Group as={Row} md="6" controlId="validationCustom15" className="formField">
                   {/* <Form.Label className="formFieldLabel">Email</Form.Label> */}
                   <Form.Control
-                    className="formFieldInput " required type="email" placeholder="E-mail"
+                    className="formFieldInput " required type="email" placeholder="Employer E-mail"
                     name="email" value={emp.email} onChange={changeHandle}
                   />
                 </Form.Group>
@@ -308,7 +327,8 @@ useEffect(()=>{
               </Row>
             </Form>
             </div>
-        </TabView>
+        </Tab>
+      </Tabs>
       </div>
     </div>
     <Footer/>
