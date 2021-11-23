@@ -175,7 +175,7 @@ const changeCate =(e)=>{
                 <div className="section pt-2">
                     <label className='row align-items-center m-auto'>
                         <input className="m-2 formFieldCheckbox" type="checkbox" name="hasAgreed" onClick = {handleCheck}/>{"  "}
-                            I agree to your <a href="none" className="ml-2"> Terms of Conditions.</a>
+                            I agree to your <a href="#" className="ml-2"> Terms of Conditions.</a>
                     </label>
                     <div className='row mt-3'>
                         <label className={errs.style}>{errs.message}</label>

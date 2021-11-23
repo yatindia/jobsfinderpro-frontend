@@ -81,7 +81,7 @@ export default function NavBar (){
                             <NavDropdown.Item href="/employers/dashboard/payment" id="nav-dropdown-item"><i className="fa fa-shopping-cart"></i> Payments</NavDropdown.Item>
                             <NavDropdown.Item onClick={handleLogout} id="nav-dropdown-item"><i className="fa fa-sign-out"></i>  Logout</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link exact='True' className="mr-1 " onClick={postJob}>Post Job</Nav.Link>
+                        <Nav.Link exact='True' className="mr-1 " href="/employers/dashboard/newjobs">Post Job</Nav.Link>
                         </>:""}
 
                     </Nav>

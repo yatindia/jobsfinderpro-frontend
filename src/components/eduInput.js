@@ -38,7 +38,7 @@ useEffect(()=>{
                  <div className="form-group d-flex">
                 <input type="text" className="form-control mr-2" placeholder="Qualification" name="qualification"
                     value={item.qualification} onChange={e=>changeHandle(idx,e)}/> 
-                <input type="text" className="form-control" placeholder="University / Institution" name="percentage"
+                <input type="number" className="form-control" placeholder="Percentage" name="percentage"
                     value={item.percentage} onChange={e=>changeHandle(idx,e)}/> 
                 <button className="btn btn-findJob" type="button" onClick={()=>remove(idx)}>X</button>
                 </div>

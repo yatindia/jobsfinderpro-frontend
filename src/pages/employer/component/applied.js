@@ -151,7 +151,7 @@ export default function Applied(){
                                         <td>{item.part1.jobTitle}</td>
                                         <td>{item.part1.qualifications.map((item,i)=>(
                                             <div key={i} className="row d-flex">
-                                                <h6 className="col" >{item.qualification} <small className="text-muted">({item.percentage})</small></h6>
+                                                <h6 className="col" >{item.qualification} <small className="text-muted">({item.percentage} Pct)</small></h6>
                                             </div>
                                             ))}
                                         </td> 

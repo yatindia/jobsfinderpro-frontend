@@ -87,7 +87,7 @@ const PostData = (data) => {
                                 <ul>
                                 {part_2.qualifications.map((item, i)=>(<div className='border ml-2 row d-flex' key={i}>
                                     <li className="col"><b>{item.qualification}</b> </li>
-                                    <li className="col "><b>{item.percentage} </b><small></small></li>
+                                    <li className="col "><b>{item.percentage} </b><small>Percentage</small></li>
                                </div> ))}
                             </ul>
                         </div>):<></>} 

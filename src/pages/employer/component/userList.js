@@ -132,7 +132,7 @@ export default function UserList({data}){
                             <p className="font-weight-bold">Qualification</p>
                             {data.qualifications.map((item,i)=>(
                             <div key={i} id="content" className="row d-flex">
-                                <h6 className="col text-muted d-inline" >{item.qualification} <i>({item.percentage})</i></h6>
+                                <h6 className="col text-muted d-inline" >{item.qualification} <i>({item.percentage} Pct)</i></h6>
                             </div>
                             ))}
                         </div>

@@ -348,7 +348,7 @@ useEffect(()=>{
                         <div className="row">
                             <div className='d-flex m-2'>
                                 <input className="form-control mr-1" name="qualification" placeholder="Qualification" onChange={changeEdu}/>
-                                <input className="form-control" name="percentage" placeholder="University / Institution" onChange={changeEdu}/>
+                                <input className="form-control" name="percentage" placeholder="Percentage" onChange={changeEdu} type="number"/>
                                 <button className="btn btn-findJob" onClick={eduAdd}><i className="fa fa-plus"/></button>
                             </div>
                         </div>
