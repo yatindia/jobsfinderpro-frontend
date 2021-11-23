@@ -129,7 +129,7 @@ const postJob=()=>{
 
           <div className="container-fluid row justify-content-center align-items-center">
           <div className='col m-auto text-center'>
-            <button className=" row btn btn-upload" onClick={()=>setshow(true)}><b>For Recruiters</b></button>
+            <button className=" row btn btn-upload" onClick={()=>setshow(!show)}><b>For Recruiters</b></button>
              {show ?
              <div  className="row text-center mt-2">
                   <div className='col boxx'>

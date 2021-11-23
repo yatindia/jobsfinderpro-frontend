@@ -89,29 +89,29 @@ const dialogClose=()=>{
 							</div>
 						</div>
 						</div>
-						<div className="nav flex-column nav-pills mb-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<div className="nav flex-column nav-pills mb-4" aria-orientation="vertical">
 							{/* <p className='text-center'>Balance Points: # {points}</p> */}
-							<a className="nav-link" id="account-tab" data-toggle="pill" href="/employers/dashboard" role="tab" aria-controls="account" aria-selected="true">
+							<a className="nav-link" href="/employers/dashboard">
 								<i className="fa fa-home text-center mr-1"></i> 
 								Dashboard
 							</a>
-							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/payment" role="tab" aria-controls="security" aria-selected="false">
+							<a className="nav-link" href="/employers/dashboard/payment">
 								<i className="fa fa-shopping-cart text-center mr-1"></i> 
 								Payments
 							</a>
-							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/newjobs" role="tab" aria-controls="security" aria-selected="false">
+							<a className="nav-link" href="/employers/dashboard/newjobs">
 								<i className="fa fa-check text-center mr-1"></i> 
 								Post Job
 							</a>
-							<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/jobs" role="tab" aria-controls="security" aria-selected="false">
+							<a className="nav-link" href="/employers/dashboard/jobs">
 								<i className="fa fa-briefcase text-center mr-1"></i> 
 								Posted Jobs
 							</a>
-              					<a className="nav-link" id="security-tab" data-toggle="pill" href="/employers/dashboard/search" role="tab" aria-controls="security" aria-selected="false">
+              					<a className="nav-link" href="/employers/dashboard/search">
 								<i className="fa fa-search text-center mr-1"></i> 
 								Resume Search
 							</a>
-							<a className="nav-link" id="security-tab" data-toggle="pill" href="/" onClick={handleLogout} role="tab" aria-controls="security" aria-selected="false">
+							<a className="nav-link" href="/" onClick={handleLogout}>
 								<i className="fa fa-sign-out text-center mr-1"></i> 
 								Logout
 							</a>
