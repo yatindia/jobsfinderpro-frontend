@@ -25,8 +25,8 @@ export default class Footer extends Component {
             </div>
             <div className ="row m-2 p-2 container-fluid">
               <div className="col m-auto text-right footerEnd">
-                <a className="btn-upload mr-2" href="/">Disclaimer </a>
-                <a className="btn-upload " href="/">Privacy Policy</a>
+                <a className="btn-upload mr-2" href="/terms">Terms of Use </a>
+                <a className="btn-upload " href="/privacy_policy">Privacy Policy</a>
               </div>
           </div>
           </div>

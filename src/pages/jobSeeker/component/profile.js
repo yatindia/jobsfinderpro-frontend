@@ -357,7 +357,7 @@ useEffect(()=>{
                             {profile.qualifications.map((item, i)=>(
                             <div key={i} className="d-flex m-2">
                                 <input className="form-control mr-1" name="qualification" value={item.qualification} onChange={(e)=>eduChange(i,e)}/>
-                                <input className="form-control" name="percentage" value={item.percentage} onChange={(e)=>eduChange(i,e)}/>
+                                <input className="form-control" name="percentage" value={item.percentage} onChange={(e)=>eduChange(i,e)} type="number"/>
                                 <button className="btn btn-outline-danger" value={i} onClick={(e)=>deleteEdu(e)}>X</button>
                             </div>
                             ))}

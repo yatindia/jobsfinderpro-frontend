@@ -269,8 +269,8 @@ const postJob=()=>{
                   <a href="/"><i className="fa fa-linkedin"></i></a>
                   <a href="/">About Us </a>
                   <a href="/">Contact Us </a>
-                  <a href="/">Disclaimer </a>
-                  <a href="/">Privacy Policy</a>
+                  <a href="/terms">Terms of Use</a>
+                  <a href="/privacy_policy">Privacy Policy</a>
                   &copy;<span>Copyright</span>
                 </div>
           </div>

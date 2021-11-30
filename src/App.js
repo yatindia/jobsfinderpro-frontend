@@ -12,6 +12,8 @@ import Fetcher from "./pages/jobList/fetcher";
 import FindJobs from "./pages/jobList/findJob";
 import ErrorPage from "./components/errorPage";
 import SearchCate from "./pages/home/searchCate";
+import Terms from "./components/terms";
+import Policies from "./components/policies";
 
 function App () {
 
@@ -45,6 +47,8 @@ useEffect(()=>{
             <Route exact path="/categories" component={SearchCate}/>         
             <Route exact path="/categories/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
+            <Route exact path="/privacy_policy" component={Policies}/>
+            <Route exact path="/terms" component={Terms}/>
             <Route path ="*" exact={true} component={ErrorPage}/>
           </Switch>
           {/* <Footer></Footer> */}
