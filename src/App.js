@@ -14,6 +14,7 @@ import ErrorPage from "./components/errorPage";
 import SearchCate from "./pages/home/searchCate";
 import Terms from "./components/terms";
 import Policies from "./components/policies";
+import About from "./components/about";
 
 function App () {
 
@@ -49,6 +50,7 @@ useEffect(()=>{
             <Route exact path="/jobs" component={FindJobs}/>
             <Route exact path="/privacy_policy" component={Policies}/>
             <Route exact path="/terms" component={Terms}/>
+            <Route exact path="/about_us" component={About}/>
             <Route path ="*" exact={true} component={ErrorPage}/>
           </Switch>
           {/* <Footer></Footer> */}

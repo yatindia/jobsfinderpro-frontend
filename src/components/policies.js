@@ -12,7 +12,7 @@ export default class Policies extends Component {
           <div className="container p-2">
               <h5 className="text-center mb-3"><u>Privacy Policy</u>:</h5>
               <div>
-              <p>This page informs you of our policies regarding the collection, use and disclosure of Personal Information when you use our Service.</p>
+              <p>&emsp;&emsp;This page informs you of our policies regarding the collection, use and disclosure of Personal Information when you use our Service.</p>
               <p>We will not use or share your information with anyone except as described in this Privacy Policy.</p>
               <p>We use your Personal Information for providing and improving the Service. By using the Service, 
                   you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, 
