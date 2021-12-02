@@ -9,6 +9,7 @@ import { validating } from "./validating";
 import DialogBox from '../../components/dialogBox'
 import NavBar from "../../components/navBar";
 import Footer from "../../components/footer";
+import PopUp from "./popupTerms";
 
 export default function Register() {
   const [imgData, setImgData] = useState(null);
@@ -17,6 +18,8 @@ export default function Register() {
   const [imgName, setImgName] = useState('default.jpg');
   const [validated, setValidated] = useState(false);
   const [dialogShow, setDialogShow] = useState(false);
+  const [popShow, setPopShow] = useState(false);
+  const [agree, setAgree] = useState(false);
 
   const [key, setKey] = useState('seeker');
   
@@ -61,20 +64,23 @@ export default function Register() {
       setValidated(true);  
       const erro = validating(inputs)
       if(erro.valid===true){
-        setErr({message:''})
-        // console.log(inputs)
-        try {
-          setErr({message:'Loading..',style:'text-primary'})
-          const res = await axios.post(API_URL+"/account/signup",inputs)
-          // console.log(res)
-          if(res.data.error===false){
-            setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
-            setDialogShow(true)
-          }else{
-            setErr({message:res.data.error,style:'text-danger'})
+        if(agree === true){
+          setErr({message:''})
+          try {
+            setErr({message:'Loading..',style:'text-primary'})
+            const res = await axios.post(API_URL+"/account/signup",inputs)
+            if(res.data.error===false){
+              setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
+              setDialogShow(true)
+            }else{
+              setErr({message:res.data.error,style:'text-danger'})
+            }
+          } catch (ex) {
+            setErr({message:'Network Error',style:'text-warning'})
           }
-        } catch (ex) {
-          setErr({message:'Network Error',style:'text-warning'})
+        }else{
+          setErr({message:''})
+          setPopShow(true)
         }
       }else{
         setErr({message:erro.error,style:'text-danger'})
@@ -92,21 +98,24 @@ export default function Register() {
       setValidated(true);  
       const erro = validating(emp)
       if(erro.valid===true){
-        setErr({message:''})
-        // console.log(emp)
-        try {
-          setErr({message:'Loading..',style:'text-primary'})
-          const res = await axios.post(API_URL+"/account/signup",emp)
-          // console.log(res);
-          if(res.data.error===false){
-            setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
-            setDialogShow(true)
+        if(agree === true){
+          setErr({message:''})
+          try {
+            setErr({message:'Loading..',style:'text-primary'})
+            const res = await axios.post(API_URL+"/account/signup",emp)
+            if(res.data.error===false){
+              setErr({title:'Sign-Up Success',message:'Verify your E-mail before Login..',style:'text-success'})
+              setDialogShow(true)
+            }else{
+              setErr({message:res.data.error,style:'text-danger'})
+            }
+            } catch (ex) {
+              setErr({message:'Network Error',style:'text-warning'})
+            }
           }else{
-            setErr({message:res.data.error,style:'text-danger'})
+            setErr({message:''})
+            setPopShow(true)
           }
-        } catch (ex) {
-          setErr({message:'Network Error',style:'text-warning'})
-        }
       }else{
         setErr({message:erro.error,style:'text-danger'})
       }
@@ -165,11 +174,18 @@ useEffect(()=>{
   setEmp({...emp,profileImage:imgName})
 },[inputs,emp,imgName])
 
+const popClose=()=>{
+  console.log(key)
+  setAgree(true)
+  setPopShow(false)
+}
+
   return (<>
   <NavBar/>
     <div className="App d-flex p-4">
       <div className="appForm mx-auto align-center shadow">
       <DialogBox show={dialogShow} title={errs.title} detail= {errs.message} dialogClose={dialogClose}/>
+      <PopUp show={popShow} popClose={popClose}/>
 
       <Tabs  id="controlled-tab-example"activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
         <Tab eventKey="seeker" title="Seeker" >
@@ -230,12 +246,18 @@ useEffect(()=>{
                     </div>
                   </Form.Group>
               </Row>
-              
-              <Form.Group className="mb-3 formField">
-                <span className={errs.style}>{errs.message}</span>
-              </Form.Group>
-
-              {/* <Form.Group className="mb-3 formField">
+              <Row>
+                <Form.Group className="mb-3 formField">
+                  <span className={errs.style}>{errs.message}</span>
+                </Form.Group>
+              </Row>
+              <Row>
+              {agree ?<label>
+                <input type="checkbox" disabled={true}  checked={agree}/> I Agreed Terms of Use <span className="text-secondary">(Sign-Up Now)</span></label>:
+                <label><span className="text-secondary">Submit and agree Terms of Use</span></label> }
+              </Row>
+  
+                {/* <Form.Group className="mb-3 formField">
                 <Form.Check
                   required
                   label="Agree to terms and conditions"
@@ -243,7 +265,7 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><button className="btn formFieldButton effect"  onClick={seekerSubmit} type="button">Sign-Up</button></Col>
+                <Col md="6"><button className="btn formFieldButton effect"  onClick={seekerSubmit} type="button">{agree ? 'Sign-Up':'Submit'}</button></Col>
                 <Col md="6"><Form.Label className="links m-3">Already Registered <a href="/login">Sign-In</a> here.</Form.Label></Col>
               </Row>
             </Form>
@@ -309,10 +331,16 @@ useEffect(()=>{
                     </div>
                   </Form.Group>
               </Row>
-              
-              <Form.Group className="mb-3 formField">
-                <span className={errs.style}>{errs.message}</span>
-              </Form.Group>
+              <Row>
+                <Form.Group className="mb-3 formField">
+                  <span className={errs.style}>{errs.message}</span>
+                </Form.Group>
+              </Row>
+              <Row>
+              {agree ?<label>
+                <input type="checkbox" disabled={true}  checked={agree}/> I Agreed Terms of Use <span className="text-secondary">( Sign-Up Now)</span></label>:
+                <label><span className="text-secondary">Submit and agree Terms of Use</span></label> }
+              </Row>
 
               {/* <Form.Group className="mb-3 formField">
                 <Form.Check
@@ -322,7 +350,9 @@ useEffect(()=>{
                 />
               </Form.Group> */}
               <Row>
-                <Col md="6"><button className="btn formFieldButton effect" onClick={employerSubmit} type="button">Sign-Up</button></Col>
+                <Col md="6">
+                  <button className="btn formFieldButton effect" onClick={employerSubmit} type="button">{agree ? 'Sign-Up':'Submit'}</button>
+                </Col>
                 <Col md="6"><Form.Label className="links m-2">Already Registered <a href="/login">Sign-In</a> here.</Form.Label></Col>
               </Row>
             </Form>

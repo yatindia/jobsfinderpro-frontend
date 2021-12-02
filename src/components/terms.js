@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React,{ useState } from "react";
 import NavBar from "./navBar";
 import Footer from "./footer";
 
-export default class Terms extends Component {
- 
-    render()
-    {
+
+const Terms =()=> {
+
+        
       return (<>
       <NavBar/>
       <div className="mt-5 py-4">
@@ -15,7 +15,6 @@ export default class Terms extends Component {
                 These Terms apply to all visitors, customers, and others who access or use the Service. 
                 By accessing or using the Service you agree to be bound by these Terms. 
                 If you disagree with any part of the terms then you may not access or use the Service.</p>
-
                 <div className="bg-white border p-3">
                   <p>
                       <strong>The Website and Services:</strong>
@@ -567,4 +566,5 @@ export default class Terms extends Component {
       <Footer/>
       </>);
     }
-  }
+
+export default Terms;
