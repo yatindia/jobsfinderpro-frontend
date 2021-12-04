@@ -95,7 +95,12 @@ const handleLogout=()=> {
 const postJob=()=>{
   history.push({pathname:"/register", tab: 'employer' })
 }
-
+const regFree=()=>{
+  history.push({pathname:"/register", tab: 'seeker' })
+}
+const uploadResume=()=>{
+  history.push("/login")
+}
 
     return (<>
     <div>
@@ -115,6 +120,9 @@ const postJob=()=>{
               <div className='row justify-content-center logo'>
                 <img src={Logo} alt='Yat Jobs'/>
               </div>
+              <div className='row justify-content-start'>
+                <h4 className="search-header">Find A Job at India's No.1 Job Site</h4>
+              </div>
               <div className='row justify-content-center  d-flex'>
                 <div className="input-group mb-3">
                   <input type="text" className="formInput form-control" name="jobTitle"
@@ -127,28 +135,62 @@ const postJob=()=>{
             </div>
           </div>
 
-          <div className="container-fluid row justify-content-center align-items-center">
-          <div className='col m-auto text-center'>
-            <button className=" row btn btn-upload" onClick={()=>setshow(!show)}><b>For Recruiters</b></button>
-             {show ?
-             <div  className="row text-center mt-2">
+          <div className="container-fluid mt-3">
+          <div className='row mt-2 rounded-lg bg-light shadow'>
+            <div className ="col">
+              <div className="row">
+                <div className='col boxx'>
+                     <h5>Create Account </h5>
+                     <p>Create a Free account today. Get Personalised Jobs !!</p>
+                     <div className="row justify-content-center">
+                       <button className="btn btn-findJob m-2" onClick={regFree}>Register Free</button>
+                     </div>
+                  </div>
                   <div className='col boxx'>
-                      <div className='icon2'><img src={post} alt='profile'/></div>
+                     <h5>Upload Details</h5>
+                     <p>Build your profile and let recruiters find you !!</p>
+                     <div className="row justify-content-center">
+                       <button className="btn resume-button m-2" onClick={uploadResume}>Upload Resume</button>
+                     </div>
+                  </div>
+                  <div className='col boxx align-content-center '>
+                     <h5>Get Job </h5>
+                     <p>Tell us what kind of a job you are looking out for and stay updated with latest opportunities.</p>
+                  </div>
+                  <div className="col d-flex align-items-center justify-content-center">
+                  <h5 className="p-2 content-header" ><b>Are you Seeker ?</b></h5>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div className='row mt-2 rounded-lg bg-light shadow '>
+            <div className ="col">
+              <div className="row">
+                <div className="col d-flex align-items-center justify-content-center">
+                    <h5 className=" p-2 content-header" ><b>Are you Recruiter ?</b></h5>
+                </div>
+                <div className='col boxx'>
+                      {/* <div className='icon2'><img src={post} alt='profile'/></div> */}
                      <h5>Post Jobs for Free</h5>
                      <p>Reach desired job seekers with a job posting. Get started today!</p>
+                     <button className="btn btn-findJob m-2" onClick={postJob}>Register Free</button>
                   </div>
                   <div className='col boxx'>
-                    <div className='icon2'><img src={rSearch} alt='profile'/></div>
-                     <h5>Transparent Search</h5>
-                     <p>Access our database and find relevant candidates with most transparent keyword-search.</p>
+                    {/* <div className='icon2'><img src={rSearch} alt='profile'/></div> */}
+                    <div className="my-auto pt-4">
+                      <h5>Transparent Search</h5>
+                      <p>Access our database and find relevant candidates with most transparent keyword-search.</p>
+                     </div>
                   </div>
                   <div className='col boxx'>
-                      <div className='icon2'><img src={datas} alt='profile'/></div>
+                      {/* <div className='icon2'><img src={datas} alt='profile'/></div> */}
+                      <div className="my-auto pt-3">
                      <h5>Resumes Diversity </h5>
                      <p>Get The Right Candidates with Accurate Contact Data and Save resources with Better Insights.</p>
+                     </div>
                   </div>
-              </div>:''
-             }
+              </div>
+            </div>
           </div>
         </div>
           </>:""}

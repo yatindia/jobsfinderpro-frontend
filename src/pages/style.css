@@ -68,13 +68,33 @@
 }
 
 .homeContent{
-  padding-top: 15%;
+  padding-top: 8%;
 }
 
 .homeContent2{
-  padding-top: 25%;
+  padding-top: 8%;
 }
 
+.search-header{
+color: #442964;
+}
+.content-header{
+  color: #bd0505e5;
+  vertical-align: middle;
+  }
+  
+
+.resume-button{
+  color: #442964;
+  border: 2px solid #442964;
+  border-radius: 5px;
+  }
+  .resume-button:hover{
+    background-color: #0a1b3fe0;
+    border: 2px solid #442964;
+    color: white;
+    border-radius: 5px;
+    }
 
 .formInput {
   width: 100%;
@@ -158,12 +178,13 @@ font-size: small;
 .boxx{
   box-shadow: 0 0 40px rgb(0 0 0 / 10%);
   display: inline-block;
-  padding: 30px;
+  padding: 20px;
   height: auto;
   color: rgb(100, 97, 97);
   background: #fff;
   box-sizing: border-box;
   text-align: center;
+  vertical-align: middle;
   border-radius: 5px;
   width: 100%;
   margin: 10px;
