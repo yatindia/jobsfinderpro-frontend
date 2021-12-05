@@ -11,6 +11,10 @@ import pay from '../components/asserts/pay.svg'
 import post from '../components/asserts/post.svg'
 import rSearch from '../components/asserts/search.svg'
 import datas from '../components/asserts/data.svg'
+import register from '../components/asserts/register.png'
+import getJob from '../components/asserts/getJob.png'
+import arrow from '../components/asserts/arrow.svg'
+import up from '../components/asserts/up.png'
 
 import { tokenCheck } from "../components/utils";
 
@@ -98,9 +102,6 @@ const postJob=()=>{
 const regFree=()=>{
   history.push({pathname:"/register", tab: 'seeker' })
 }
-const uploadResume=()=>{
-  history.push("/login")
-}
 
     return (<>
     <div>
@@ -121,7 +122,7 @@ const uploadResume=()=>{
                 <img src={Logo} alt='Yat Jobs'/>
               </div>
               <div className='row justify-content-start'>
-                <h4 className="search-header">Find A Job at India's No.1 Job Site</h4>
+                <h4 className="search-header">Find A Job at India's Best Job Site</h4>
               </div>
               <div className='row justify-content-center  d-flex'>
                 <div className="input-group mb-3">
@@ -135,64 +136,62 @@ const uploadResume=()=>{
             </div>
           </div>
 
-          <div className="container-fluid mt-3">
-          <div className='row mt-2 rounded-lg bg-light shadow'>
-            <div className ="col">
-              <div className="row">
-                <div className='col boxx'>
-                     <h5>Create Account </h5>
-                     <p>Create a Free account today. Get Personalised Jobs !!</p>
-                     <div className="row justify-content-center">
-                       <button className="btn btn-findJob m-2" onClick={regFree}>Register Free</button>
-                     </div>
+          <div className="container-cs pt-3 justify-content-center">
+
+          <div className="container-sub boxx">
+              <h5 className="text-center">Upload Resume</h5>
+                <div className="img-arr text-center">
+                  <div className="slide-cs">
+                      <p>Create <br/> Account</p>
+                      <img src={register} alt=""/>
                   </div>
-                  <div className='col boxx'>
-                     <h5>Upload Details</h5>
-                     <p>Build your profile and let recruiters find you !!</p>
-                     <div className="row justify-content-center">
-                       <button className="btn resume-button m-2" onClick={uploadResume}>Upload Resume</button>
-                     </div>
+                  <div className="arrow">
+                      <img src={arrow} alt="arr"/> 
                   </div>
-                  <div className='col boxx align-content-center '>
-                     <h5>Get Job </h5>
-                     <p>Tell us what kind of a job you are looking out for and stay updated with latest opportunities.</p>
+                  <div className="slide-cs">
+                      <p>Upload <br/> Details</p>
+                      <img src={up} alt=""/>
                   </div>
-                  <div className="col d-flex align-items-center justify-content-center">
-                  <h5 className="p-2 content-header" ><b>Are you Seeker ?</b></h5>
+                  <div className="arrow">
+                  <img src={arrow} alt="arr"/>  
+                  </div>
+                  <div className="slide-cs">
+                      <p>Get your <br/>Dream Job</p>
+                      <img src={getJob} alt=""/>
                   </div>
               </div>
-            </div>
+              <div className="">
+                  <button className="resume-button" onClick={regFree}>Register</button>
+              </div>
           </div>
-          <div className='row mt-2 rounded-lg bg-light shadow '>
-            <div className ="col">
-              <div className="row">
-                <div className="col d-flex align-items-center justify-content-center">
-                    <h5 className=" p-2 content-header" ><b>Are you Recruiter ?</b></h5>
-                </div>
-                <div className='col boxx'>
-                      {/* <div className='icon2'><img src={post} alt='profile'/></div> */}
-                     <h5>Post Jobs for Free</h5>
-                     <p>Reach desired job seekers with a job posting. Get started today!</p>
-                     <button className="btn btn-findJob m-2" onClick={postJob}>Register Free</button>
+
+          <div className="container-sub boxx">
+              <h5 className="text-center">For Recruiter</h5>
+              <div className="img-arr text-center">
+                  <div className="slide-cs">
+                      <p>Post Jobs <br/>for Free</p>
+                      <img src={post} alt=""/>  
                   </div>
-                  <div className='col boxx'>
-                    {/* <div className='icon2'><img src={rSearch} alt='profile'/></div> */}
-                    <div className="my-auto pt-4">
-                      <h5>Transparent Search</h5>
-                      <p>Access our database and find relevant candidates with most transparent keyword-search.</p>
-                     </div>
+                  <div className="arrow">
+                    <img src={arrow} alt="arr"/> 
                   </div>
-                  <div className='col boxx'>
-                      {/* <div className='icon2'><img src={datas} alt='profile'/></div> */}
-                      <div className="my-auto pt-3">
-                     <h5>Resumes Diversity </h5>
-                     <p>Get The Right Candidates with Accurate Contact Data and Save resources with Better Insights.</p>
-                     </div>
+                  <div className="slide-cs">
+                      <p>Transparent Search</p>
+                      <img src={rSearch} alt=""/>
+                  </div>
+                  <div className="arrow">
+                    <img src={arrow} alt="arr"/> 
+                  </div>
+                  <div className="slide-cs">
+                      <p>Resumes Diversity</p>
+                      <img src={datas} alt=""/>
                   </div>
               </div>
-            </div>
+              <div className="">
+                  <button className="resume-button" onClick={postJob}>Post Job</button>
+              </div>
           </div>
-        </div>
+          </div>
           </>:""}
 
           {/* ---------- Seeker User--------- */}
@@ -294,8 +293,8 @@ const uploadResume=()=>{
 
 
           <div className="container-fluid row justify-content-center align-items-center homeContent2">
-             <div className="row">
-                 <div className="col-md-10 text-center m-auto p-3 footerCenter">
+             <div className="">
+                 <div className="col text-center m-auto p-2 footerCenter">
                  <button className="btn btn-text btnCat" disabled={true}><b>Categories:</b> </button>
                  <a className="btn btnCat" href="/categories"><b>All</b> </a>
                     {cate.slice(0,6).map((level,i)=>
@@ -303,22 +302,24 @@ const uploadResume=()=>{
                  </div>
              </div>
           </div>
-
-          <div className="container-fluid row justify-content-center align-items-center ">
-              <div className="col m-auto text-center footerEnd">
-                  <a href="/"><i className="fa fa-twitter"></i></a>
-                  <a href="/"><i className="fa fa-facebook"></i></a>
-                  <a href="/"><i className="fa fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div className="container-fluid row justify-content-center m-auto bg-light p-3 border shadow">
+              <div className="col footerEnd">
+                  <a href="/"><i className="fa fa-twitter fa-lg"></i></a>
+                  <a href="/"><i className="fa fa-facebook fa-lg"></i></a>
+                  <a href="/"><i className="fa fa-linkedin fa-lg"></i></a>
+              </div>
+              <div className="col text-center footerEnd">
+                  &copy;<span>Copyright</span>
+              </div>
+              <div className="col ml-auto text-right footerEnd">
                   <a href="/about_us">About Us </a>
                   <a href="/">Contact Us </a>
                   <a href="/terms">Terms of Use</a>
                   <a href="/privacy_policy">Privacy Policy</a>
-                  &copy;<span>Copyright</span>
-                </div>
+              </div>
           </div>
-
-        </div>
-      </div>
   </div>
   </>);
 }
