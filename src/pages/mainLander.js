@@ -192,6 +192,7 @@ const regFree=()=>{
               </div>
           </div>
           </div>
+          <div className="homeContent"></div>
           </>:""}
 
           {/* ---------- Seeker User--------- */}
@@ -232,6 +233,7 @@ const regFree=()=>{
               </div>
             </div>
           </div>
+          <div className="homeContent2"></div>
         </>:""}
 
          {/* ---------- Employer User--------- */}
@@ -289,10 +291,10 @@ const regFree=()=>{
               </div>
             </div>
           </div>
+          <div className="homeContent2"></div>
         </>:""}
 
-
-          <div className="container-fluid row justify-content-center align-items-center homeContent2">
+          <div className="container-fluid row justify-content-center align-items-center">
              <div className="">
                  <div className="col text-center m-auto p-2 footerCenter">
                  <button className="btn btn-text btnCat" disabled={true}><b>Categories:</b> </button>
