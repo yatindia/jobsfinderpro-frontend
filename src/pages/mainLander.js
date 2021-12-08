@@ -30,7 +30,7 @@ const Lander =()=> {
 
   const history = useHistory();
   const input1 = useRef(null);
-  const  [place, setPlace] =  useState('Job Title ....')
+  const  [place, setPlace] =  useState('Job Title...')
 
   const changeHandle = (e) => {
       setSearch({...search,[e.target.name]: e.target.value})
@@ -121,15 +121,16 @@ const regFree=()=>{
               <div className='row justify-content-center logo'>
                 <img src={Logo} alt='Yat Jobs'/>
               </div>
-              <div className='row justify-content-start'>
-                <h4 className="search-header">Find A Job at India's Best Job Site</h4>
+              <div className='justify-content-start'>
+                <h4 className="search-header">Find your next job here, fast.</h4>
+                <h4 className="search-header-sub">Search by Job Title, Skills. Any Industry. One-click apply.</h4>
               </div>
               <div className='row justify-content-center  d-flex'>
                 <div className="input-group mb-3">
                   <input type="text" className="formInput form-control" name="jobTitle"
                     onChange={changeHandle} placeholder={place}   ref={input1} onKeyPress={e => { if (e.key === "Enter"){  handleSubmit();  }  }}/>
                   <div className="input-group-append">
-                    <button className="btn formButton effect" type="button" onClick={handleSubmit}>Search</button>
+                    <button className="btn formButton effect" type="button" onClick={handleSubmit}>Search Jobs</button>
                   </div>
                 </div>
               </div>
@@ -307,19 +308,18 @@ const regFree=()=>{
         </div>
       </div>
       <div className="container-fluid row justify-content-center m-auto bg-light p-3 border shadow">
-              <div className="col footerEnd">
+              <div className="col-sm-5 footerEnd text-center">
                   <a href="/"><i className="fa fa-twitter fa-lg"></i></a>
                   <a href="/"><i className="fa fa-facebook fa-lg"></i></a>
                   <a href="/"><i className="fa fa-linkedin fa-lg"></i></a>
               </div>
-              <div className="col text-center footerEnd">
-                  &copy;<span>Copyright</span>
+              <div className="col-sm-2 text-center footerEnd">
+                  &copy;<span>JobsFinderPro</span>
               </div>
-              <div className="col ml-auto text-right footerEnd">
+              <div className="col-sm-5 m-auto text-center footerEnd p-2">
                   <a href="/about_us">About Us </a>
-                  <a href="/">Contact Us </a>
-                  <a href="/terms">Terms of Use</a>
-                  <a href="/privacy_policy">Privacy Policy</a>
+                  <a href="/terms" >Terms of Use</a>
+                  <a href="/privacy_policy" >Privacy Policy</a>
               </div>
           </div>
   </div>
