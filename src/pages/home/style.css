@@ -1,4 +1,11 @@
-.top-company img{max-width:40px}
+.company img{max-width:200px;
+max-height: auto;
+padding: 20px;
+}
+
+.slide{
+  display: flex;
+}
 .company-btn{
     color:#2196f3;
     background-color:rgba(33,150,243,0.1);

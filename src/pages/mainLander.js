@@ -16,6 +16,8 @@ import getJob from '../components/asserts/getJob.png'
 import arrow from '../components/asserts/arrow.svg'
 import up from '../components/asserts/up.png'
 
+import TopHiring from './home/topHire'
+
 import { tokenCheck } from "../components/utils";
 
 const Lander =()=> {
@@ -139,59 +141,63 @@ const regFree=()=>{
 
           <div className="container-cs pt-3 justify-content-center">
 
-          <div className="container-sub boxx">
-              <h5 className="text-center">Upload Resume</h5>
+            <div className="container-sub boxx">
+                <h5 className="text-center">Upload Resume</h5>
+                  <div className="img-arr text-center">
+                    <div className="slide-cs">
+                        <p>Create <br/> Account</p>
+                        <img src={register} alt=""/>
+                    </div>
+                    <div className="arrow">
+                        <img src={arrow} alt="arr"/> 
+                    </div>
+                    <div className="slide-cs">
+                        <p>Upload <br/> Details</p>
+                        <img src={up} alt=""/>
+                    </div>
+                    <div className="arrow">
+                    <img src={arrow} alt="arr"/>  
+                    </div>
+                    <div className="slide-cs">
+                        <p>Get your <br/>Dream Job</p>
+                        <img src={getJob} alt=""/>
+                    </div>
+                </div>
+                <div className="">
+                    <button className="resume-button" onClick={regFree}>Register</button>
+                </div>
+            </div>
+
+            <div className="container-sub boxx">
+                <h5 className="text-center">For Recruiter</h5>
                 <div className="img-arr text-center">
-                  <div className="slide-cs">
-                      <p>Create <br/> Account</p>
-                      <img src={register} alt=""/>
-                  </div>
-                  <div className="arrow">
+                    <div className="slide-cs">
+                        <p>Post Jobs <br/>for Free</p>
+                        <img src={post} alt=""/>  
+                    </div>
+                    <div className="arrow">
                       <img src={arrow} alt="arr"/> 
-                  </div>
-                  <div className="slide-cs">
-                      <p>Upload <br/> Details</p>
-                      <img src={up} alt=""/>
-                  </div>
-                  <div className="arrow">
-                  <img src={arrow} alt="arr"/>  
-                  </div>
-                  <div className="slide-cs">
-                      <p>Get your <br/>Dream Job</p>
-                      <img src={getJob} alt=""/>
-                  </div>
-              </div>
-              <div className="">
-                  <button className="resume-button" onClick={regFree}>Register</button>
-              </div>
+                    </div>
+                    <div className="slide-cs">
+                        <p>Transparent Search</p>
+                        <img src={rSearch} alt=""/>
+                    </div>
+                    <div className="arrow">
+                      <img src={arrow} alt="arr"/> 
+                    </div>
+                    <div className="slide-cs">
+                        <p>Resumes Diversity</p>
+                        <img src={datas} alt=""/>
+                    </div>
+                </div>
+                <div className="">
+                    <button className="resume-button" onClick={postJob}>Post Job</button>
+                </div>
+            </div>
           </div>
 
-          <div className="container-sub boxx">
-              <h5 className="text-center">For Recruiter</h5>
-              <div className="img-arr text-center">
-                  <div className="slide-cs">
-                      <p>Post Jobs <br/>for Free</p>
-                      <img src={post} alt=""/>  
-                  </div>
-                  <div className="arrow">
-                    <img src={arrow} alt="arr"/> 
-                  </div>
-                  <div className="slide-cs">
-                      <p>Transparent Search</p>
-                      <img src={rSearch} alt=""/>
-                  </div>
-                  <div className="arrow">
-                    <img src={arrow} alt="arr"/> 
-                  </div>
-                  <div className="slide-cs">
-                      <p>Resumes Diversity</p>
-                      <img src={datas} alt=""/>
-                  </div>
-              </div>
-              <div className="">
-                  <button className="resume-button" onClick={postJob}>Post Job</button>
-              </div>
-          </div>
+          <div className="container-fluid row justify-content-center">
+            <TopHiring/>
           </div>
           <div className="homeContent"></div>
           </>:""}
