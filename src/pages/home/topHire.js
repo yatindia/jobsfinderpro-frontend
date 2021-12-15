@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Carousel } from "react-bootstrap";
-import '../style.css'
+import './style.css'
 
 import sam1 from '../../components/asserts/sam1.png'
 import sam2 from '../../components/asserts/sam2.png'
@@ -10,11 +10,57 @@ export default class TopHiring extends Component {
   render() 
   {
     return (<>
-            <div className="mt-5 p-3">
+            <div className="mt-4 pt-3 container company">
                 <div className="text-center">
                     <h5 className="mb-0 text-secondary">Top Hiring Companies</h5>
                 </div>
-                <div className="row company mt-3 border">
+                <div className="slider">
+                    <div className="slide-track">
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam2} alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src={sam1} alt="" />
+                        </div>
+                    </div>
+                </div>
+                {/* <div className="row company mt-3 border">
                     <Carousel>
                     <Carousel.Item interval={2000}>
                         <div className="slide">
@@ -81,7 +127,7 @@ export default class TopHiring extends Component {
                     </div>
                     </Carousel.Item>
                     </Carousel>
-                    {/* <div className="col-lg-4 col-md-6 mb-2">
+                     <div className="col-lg-4 col-md-6 mb-2">
                         <div className="card text-dark border-color-light-black h-100">
                             <div className="card-body p-2">
                                 <div className="d-flex align-items-center">
@@ -96,8 +142,8 @@ export default class TopHiring extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div> */}
-                </div>
+                    </div> 
+                </div> */}
             </div>
     </>);
   }
