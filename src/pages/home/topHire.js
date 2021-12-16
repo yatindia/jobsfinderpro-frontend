@@ -10,9 +10,9 @@ export default class TopHiring extends Component {
   render() 
   {
     return (<>
-            <div className="mt-4 pt-3 container company">
+            <div className="mt-4 pt-3 container company border">
                 <div className="text-center">
-                    <h5 className="mb-0 text-secondary">Top Hiring Companies</h5>
+                    <h5 className="search-header-sub border-bottom">Top Hiring Companies</h5>
                 </div>
                 <div className="slider">
                     <div className="slide-track">

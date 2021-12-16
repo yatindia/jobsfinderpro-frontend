@@ -1,5 +1,8 @@
 import React from 'react'
+import Swal from 'sweetalert2';
 import {Modal, Button} from 'react-bootstrap';
+import '../style.css'
+import { WEB_URL } from '../../components/utils';
 
 // import ApplyBtn from './applyBtn';
 
@@ -8,6 +11,17 @@ const ViewJob = ({show, data,  dialogClose}) => {
 
     const job = data.job
     const org = data.org
+
+    const copyLink =async()=>{
+        await navigator.clipboard.writeText(`${WEB_URL}/job/view/${job._id}`);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Link is copied to clipboard, Share Now!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }
 
     if(!show){
         return <> </>
@@ -22,9 +36,15 @@ const ViewJob = ({show, data,  dialogClose}) => {
             <Modal.Body>
             <div className="col">
                     <div className="form-group row"> 
-                      <div className='col text-center'>
-                      <p>Requirement For: <b className='text-muted'>{job.jobTitle}</b></p>
-                      </div>
+                        <div className='col text-center'>
+                        <p>Requirement For: <b className='text-muted'>{job.jobTitle}</b></p>
+                        </div>
+                        <div className='ml-auto float-right mr-5'>
+                        <button className="btn floatBtn" onClick={copyLink}>
+                            <i className="fa fa-share my-float"></i>
+                        </button>
+                        <span className="tooltiptext">Copy Link</span>
+                        </div>
                     </div>   
                     <div className="form-group row border p-2 m-1">
                         <div className="col border-right">
@@ -38,10 +58,9 @@ const ViewJob = ({show, data,  dialogClose}) => {
                         </div>
                         <div className="col">
                             <div className="">
-                                <p> <i className="fa fa-map-marker text-primary"></i>{org.orgAddress}, {org.orgCountry}</p>
-                                <p><i className="fa fa-envelope text-danger"></i> {org.orgEmail}</p>
-                                <p><i className="fa fa-phone text-success"></i> {org.orgPhone}</p>
-                                <p><i className="fa fa-link text-info"></i> {org.orgWebsite}</p>
+                                <p> <i className="fa fa-map-marker text-primary fa-lg"></i> {org.orgAddress}, {org.orgCountry}</p>
+                                <p><i className="fa fa-phone text-success fa-lg"></i> {org.orgPhone}</p>
+                                <p><i className="fa fa-link text-info fa-lg"></i> {org.orgWebsite}</p>
                             </div>
                         </div>
                     </div>

@@ -278,11 +278,11 @@ return (<>
                                 <input type="text" className=" formFieldInput text-capitalize"  name="orgName"
                                    placeholder="Enter Organization Name"  value={profile.orgName} onChange={changeHandle} />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Organization E-mail</label>
                                 <input type="text" className=" formFieldInput"  name="orgEmail"
                                     placeholder="Enter Organization Mail"value={profile.orgEmail} onChange={changeHandle} />
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <label>Organization Contact Number</label>
                                 <input type="text" className=" formFieldInput" name="orgPhone"

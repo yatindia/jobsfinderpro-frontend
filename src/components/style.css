@@ -82,7 +82,7 @@ color: #eb5d1e;
     background-color: #fff;
     z-index: 1000000;
     opacity: 0;
-    animation: hide404 1s ease;
+    animation: hide404 10s ease;
   }  
   @keyframes hide404 {
     0% {

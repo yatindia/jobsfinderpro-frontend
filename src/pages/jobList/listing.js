@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from "react"
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import ApplyBtn from "./applyBtn"
 import ViewJob from "./viewJob";
-import { API_URL } from "../../components/utils";
+import { API_URL, WEB_URL } from "../../components/utils";
 
 
 export default function Listing({data}){
@@ -35,6 +36,17 @@ export default function Listing({data}){
     const viewjob=()=>{
         setDialogShow(true) 
      }
+     
+     const copyLink =async()=>{
+        await navigator.clipboard.writeText(`${WEB_URL}/job/view/${data._id}`);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Link is copied to clipboard, Share Now!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }
 
     return(<>
             <div className="row z-depth-3 border p-3 " key={data._id}>
@@ -50,6 +62,12 @@ export default function Listing({data}){
                 </div>
                 <div className="col-md bg-white rounded-right">
                         <h5 className="mt-3 text-start">{fetch.org.orgName}</h5>
+                        <div className='ml-auto float-right mr-5'>
+                        <button className="btn floatBtn" onClick={copyLink}>
+                            <i className="fa fa-share my-float"></i>
+                        </button>
+                        <span className="tooltiptext">Copy Link</span>
+                        </div>
                         <p className="mt-3 text-muted">Job Position:  <b>{fetch.job.jobTitle}</b></p>
                         <div className='row mb-2'>
                             <div className="col">

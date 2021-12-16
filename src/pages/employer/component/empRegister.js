@@ -19,7 +19,7 @@ const EmpRegister = ({show, title, dialogClose}) => {
         orgPhone: "",
         orgLogo:"",
         orgName:"",
-        orgEmail: "",
+        orgEmail: "null",
         orgAddress: "",
         orgWebsite :"",
         orgCountry: "",
@@ -158,11 +158,11 @@ const updateProfile=async(event)=>{
                                     <input type="text" className="form-control text-capitalize formFieldInput" placeholder="Organization Name" name="orgName"
                                         value={inputs.orgName} onChange={changeHandle} required/>
                                 </Form.Group>
-                                <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
+                                {/* <Form.Group as={Col} md="6"  controlId="validationCustom05" className="formField">
                                     <label>E-Mail</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization E-mail" name="orgEmail"
                                         value={inputs.orgEmail} onChange={changeHandle} required/>
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Form.Group as={Col} md="6"  controlId="validationCustom06" className="formField">
                                     <label>Contact Number</label> 
                                     <input type="text" className="form-control formFieldInput" placeholder="Organization Contact Number" name="orgPhone"

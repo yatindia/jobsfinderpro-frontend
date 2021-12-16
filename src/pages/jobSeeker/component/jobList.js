@@ -1,8 +1,9 @@
 import React, { useState} from "react"
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import ViewJob from "../../jobList/viewJob";
-import { API_URL } from "../../../components/utils";
+import { API_URL,WEB_URL } from "../../../components/utils";
 
 
 export default function JobList({data}){
@@ -33,6 +34,17 @@ export default function JobList({data}){
         }
       }
 
+      const copyLink =async()=>{
+        await navigator.clipboard.writeText(`${WEB_URL}/job/view/${data.job._id}`);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Link is copied to clipboard, Share Now!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    }
+
     return(<>
             <div className="row z-depth-3 p-2 m-2 border">
                 <div className="col-sm-3 bg-info rounded-left">
@@ -45,12 +57,18 @@ export default function JobList({data}){
                     </div>
                 </div>
                 <div className="col-md bg-white rounded-right" key={data.job._id}>
-                <h5 className="mt-3 text-start">{data.org.orgName}</h5>
-                <div className='row'>
+                    <div className='ml-auto float-right mr-5'>
+                        <button className="btn floatBtn" onClick={copyLink}>
+                            <i className="fa fa-share my-float"></i>
+                        </button>
+                        <span className="tooltiptext">Copy Link</span>
+                    </div>
+                <h5 className=" text-start">{data.org.orgName}</h5>
+                <div className='row mt-2'>
                     <p className="col mt-3 text-muted">Job Position:  <b>{data.job.jobTitle}</b></p>
                     <p className="col mt-3 text-muted">Category:  <b>{data.job.jobCategory}</b></p>
                 </div>
-                <div className="row border-top ">
+                <div className="row border-top pt-2">
                     <div className="col-sm">
                         <p className="font-weight-bold">Location</p>
                         <h6 className="text-muted">{data.job.jobCity}</h6>
@@ -63,10 +81,10 @@ export default function JobList({data}){
                         <p className="font-weight-bold">Job Level</p>
                         <h6 className="text-muted">{data.job.jobType}</h6>
                     </div>
-                    <div className="col-lg">
-                    <button className="btn btn-outline-danger" value={data.job._id} onClick={(e)=>unapply(e)}> Remove</button>
-                    <button type="button" className="btn btn-findJob m-2" value={data.job._id} onClick={viewjob}> View</button>
-                    {dialogShow === true? <ViewJob show={dialogShow} data={data}  dialogClose={dialogClose}/> :''}
+                    <div className="col-lg ">
+                        <button className="btn btn-outline-danger" value={data.job._id} onClick={(e)=>unapply(e)}> Remove</button>
+                        <button type="button" className="btn btn-findJob m-2" value={data.job._id} onClick={viewjob}> View</button>
+                        {dialogShow === true? <ViewJob show={dialogShow} data={data}  dialogClose={dialogClose}/> :''}
                     </div>
                 </div>
             </div>

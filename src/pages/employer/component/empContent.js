@@ -71,7 +71,7 @@ const PostData =(data)=>{
                         <p>{part_2.orgName}</p>
                         <h6><i className="fa fa-map-marker text-primary"/>  {part_2.orgAddress},</h6>
                         <h6>{part_2.orgCountry}</h6>
-                        <h6><i className="fa fa-envelope text-danger"/>  <b>{part_1.email}</b></h6>
+                        <h6><i className="fa fa-envelope-o text-danger"/>  <b>{part_1.email}</b></h6>
                     </div>
                     <div className='col border justify-content-center'>
                         <div className='row'>
@@ -94,11 +94,11 @@ const PostData =(data)=>{
                                 <i className="fa fa-link text-info"/><b> {part_2.orgWebsite}</b>
                             </div>
                         </div>
-                        <div className='row'>
+                        {/* <div className='row'>
                             <div className="skills">
                                 <i className="fa fa-envelope-o text-danger"/><b> {part_2.orgEmail}</b>
                             </div>
-                        </div>
+                        </div> */}
                         <div className='row justify-content-center'>
                             <div className="buttons m-3 text-center">
                                 <a className="btn primary" href="/employers/dashboard/profile">Edit Profile</a>

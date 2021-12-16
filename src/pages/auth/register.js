@@ -175,7 +175,6 @@ useEffect(()=>{
 },[inputs,emp,imgName])
 
 const popClose=()=>{
-  console.log(key)
   setAgree(true)
   setPopShow(false)
 }
