@@ -1,5 +1,7 @@
 import React, {useState, useEffect } from "react";
 import axios from 'axios'
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 
 import { API_URL, formPostJob } from "../../../components/utils";
 import cities from '../../../components/asserts/ind_cities.json'
@@ -11,6 +13,7 @@ const PostJobs =()=> {
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
     const [tags, setTags] =useState([])
+    const history = useHistory();
 
     const [btn,setbtn] = useState(true)
     const [subIn,setSubIn] = useState(false)
@@ -52,6 +55,20 @@ const postJob =async()=>{
         try {
             const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
             if(res.data.error === false){
+                Swal.fire({
+                    icon:"success",
+                    title: 'Job Post Success ! ',
+                    showDenyButton: true,
+                    confirmButtonText: 'Post New Job',
+                    denyButtonText: `Cancel`,
+                  }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                      window.location.reload()
+                    } else if (result.isDenied) {
+                        history.push('/employers/dashboard/jobs');
+                    }
+                  })
                 setErr({message:res.data.message,style:'text-success'})
             }else{
                 setErr({message:res.data.message,style:'text-danger'})
@@ -198,11 +215,11 @@ const tagAdd = (e) => {
                             <label>Job Description</label>
                             <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    rows="6" value={inputs.jobDescription} onChange={changeHandle} id="valid" onKeyUp={validating}/>
+                                    rows="6" value={inputs.jobDescription} onChange={changeHandle} id="valid" />
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-md-12">
-                            <label>Skill Requirement</label>
+                            <label>Skill Requirement <small className="ml-5 text-primary"> Type and Press "Enter" to add Skills</small></label>
                             {/* <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
                                    rows="3" value={inputs.jobRequirement} onChange={changeHandle}/>

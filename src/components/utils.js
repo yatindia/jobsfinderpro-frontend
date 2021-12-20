@@ -145,7 +145,7 @@ if(!regPhone.test(values.orgPhone)){
         return{error:"*Enter the Salary Details.", valid:false}
     }
     if(!values.jobRequirement){
-        return{error:"*Enter the Job Requirement.", valid:false}
+        return{error:"*Enter the Skill Requirement.", valid:false}
     }
     if(!values.jobType){
       return{error:"*Enter Job Type.", valid:false}
