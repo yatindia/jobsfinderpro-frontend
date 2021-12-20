@@ -19,7 +19,7 @@ const JobView = ({ match }) => {
 useEffect(()=>{
     const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
     if(!userDetils){
-        history.push('/login');
+        history.push('/login?kwds='+id);
       }else{
         const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
         const getjob =async ()=>{
@@ -74,14 +74,14 @@ useEffect(()=>{
                         <div className="col">
                             <label>Job Description</label>
                             <textarea type="text"  rows="8"
-                            value={fetch.job.jobDescription} className="form-control border-0" readOnly/>
+                            value={fetch.job.jobDescription} className="form-control bg-light border-0" readOnly/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col">
-                            <label>Job Requirement</label>
-                            <textarea type="text" rows="4"
-                            value={fetch.job.jobRequirement} className="form-control border-0" readOnly/>
+                            <label>Skill Requirement</label>
+                            <textarea type="text" 
+                            value={fetch.job.jobRequirement} className="form-control bg-light border-0" readOnly/>
                         </div>
                     </div>
                     <small className="text-right m-auto"><b>Posted On: </b>{date.split("T")[0]}</small>
@@ -91,7 +91,7 @@ useEffect(()=>{
                 <ApplyBtn job={fetch.job}></ApplyBtn> 
             </div> 
         </div>
-         ):<h5 className="pt-4 homeContent2 text-info text-center m-auto">No Job Found...</h5>} 
+         ):<h5 className="pt-4 homeContent2 text-info text-center m-auto">Loading...</h5>} 
          <TopHiring/>
         </div>
         <Footer/>

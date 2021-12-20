@@ -275,7 +275,7 @@ const popClose=()=>{
         <Tab eventKey="employer" title="Employer">
         <div label="Employer">
           <Form noValidate validated={validated}>
-              <Row className="mb-3 formCenter" >
+              <Row className="mb-3 formCenter justify-content-center " >
                 <Col>
                   <Form.Group as={Row} md="6"  controlId="validationCustom11" className="formField">
                     {/* <Form.Label className="formFieldLabel">First name</Form.Label> */}
@@ -292,28 +292,28 @@ const popClose=()=>{
                     />
                   </Form.Group>
                   <Form.Group as={Row} md="6"  controlId="validationCustom13" className="formField">
-                  {/* <Form.Label className="formFieldLabel">Password</Form.Label> */}
-                  <Form.Control
-                    className="formFieldInput " required type="password" placeholder="Password"
-                    name="password" value={emp.password} onChange={changeHandle}
-                  />
-                </Form.Group>
-                <Form.Group as={Row} md="6"  controlId="validationCustom14" className="formField">
-                  {/* <Form.Label className="formFieldLabel">Confirm Password</Form.Label> */}
-                  <Form.Control
-                    className="formFieldInput " required type="password" placeholder="Confirm Password"
-                    name="cpassword" value={emp.cpassword} onChange={changeHandle}
-                  />
-                </Form.Group>
-                <Form.Group as={Row} md="6" controlId="validationCustom15" className="formField">
-                  {/* <Form.Label className="formFieldLabel">Email</Form.Label> */}
-                  <Form.Control
-                    className="formFieldInput " required type="email" placeholder="Employer E-mail"
-                    name="email" value={emp.email} onChange={changeHandle}
-                  />
-                </Form.Group>
+                    {/* <Form.Label className="formFieldLabel">Password</Form.Label> */}
+                    <Form.Control
+                      className="formFieldInput " required type="password" placeholder="Password"
+                      name="password" value={emp.password} onChange={changeHandle}
+                    />
+                  </Form.Group>
+                  <Form.Group as={Row} md="6"  controlId="validationCustom14" className="formField">
+                    {/* <Form.Label className="formFieldLabel">Confirm Password</Form.Label> */}
+                    <Form.Control
+                      className="formFieldInput " required type="password" placeholder="Confirm Password"
+                      name="cpassword" value={emp.cpassword} onChange={changeHandle}
+                    />
+                  </Form.Group>
+                  <Form.Group as={Row} md="6" controlId="validationCustom15" className="formField">
+                    {/* <Form.Label className="formFieldLabel">Email</Form.Label> */}
+                    <Form.Control
+                      className="formFieldInput " required type="email" placeholder="Employer E-mail"
+                      name="email" value={emp.email} onChange={changeHandle}
+                    />
+                  </Form.Group>
                 </Col>
-                <Form.Group as={Col} md="6" controlId="validationCustom16" className="formField">
+                 <Form.Group as={Col} md="6" controlId="validationCustom16" className="formField">
                   <Form.Label className="formFieldLabel">Employer Profile Image</Form.Label>
                     <div className="d-flex flex-column align-items-center text-center">
                       <div className="row img-circle">

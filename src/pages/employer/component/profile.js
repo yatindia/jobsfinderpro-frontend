@@ -26,10 +26,15 @@ function EmpProfile() {
     const [inputs, setInputs] = useState({
         firstName: profile_1.job_fname,
         lastName: profile_1.job_lname,
-        password: "",
-        cpassword: "",
         email: profile_1.job_email,
         profileImage:profile_1.dpName,
+        type:'employer'
+      })
+
+      const [pwd, setPwd] = useState({
+        email: profile_1.job_email,
+        oldPassword:"",
+        password:"",
         type:'employer'
       })
 
@@ -50,6 +55,7 @@ function EmpProfile() {
 //-------Input change-----------
 const changeHandle = async e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
+    setPwd({...pwd,[e.target.name]: e.target.value})
     setProfile({...profile,[e.target.name]: e.target.value})
     }
 
@@ -105,9 +111,8 @@ const imageUpload= async ()=>{
 }
 
 const baseUpdate =async()=>{
-    //console.log(inputs)
-    const erro = validating(inputs)
-    if(erro.valid === true){
+    if(inputs.firstName!=='' && inputs.lastName !==''){
+        // console.log(inputs)
         setErr({message:'Loading',style:'text-info'})
         try {
             const res = await axios.post(`${API_URL}/profile/updateprofile1`,inputs,{headers:header})
@@ -122,7 +127,7 @@ const baseUpdate =async()=>{
             
         }
     }else{
-        setErr({message:erro.error,style:'text-danger'})
+        setErr({message:'** Enter Name',style:'text-danger'})
       }
 }
 
@@ -182,17 +187,79 @@ const profileUpdate =async()=>{
       }
 }
 
+const pswdUpdate=async()=>{
+    if(pwd.oldPassword !== '' && pwd.password !== ''){
+        document.getElementById('pswd').innerText="Loading.."
+        try {
+            const res = await axios.post(`${API_URL}/profile/updatepassword`,pwd,{headers:header})
+            if(res.data.error === true){
+                document.getElementById('pswd').innerText=res.data.status
+                getUser()
+            }else{
+                document.getElementById('pswd').innerText=res.data.status
+            }
+        } catch (error) {
+            document.getElementById('pswd').innerText= "Network Error"
+        }
+    }else{
+        document.getElementById('pswd').innerText= "Enter the credentials"
+      }
+}
+
 useEffect(()=>{
     setInputs({...inputs,profileImage:imgName||profile_1.dpName})
     setProfile({...profile,orgLogo:logoName||profile_2.orgLogo})
-},[inputs,profile,imgName,profile_1.dpName,logoName,profile_2.orgLogo])
+},[pwd,inputs,profile,imgName,profile_1.dpName,logoName,profile_2.orgLogo])
 
 return (<>
 <div className="container-flex m-3 border p-2">
     <div className="tab-pane active " id="password" role="tabpanel">
     <h3 className="mb-4 p-2 text-secondary"><small>Profile Update</small></h3>
-        <div className='row border-top'>
+        <div className='row border-top justify-content-center m-auto pt-4'>
             <div className ="col-md-4 align-items-center text-center">
+                <div className="mb-2 p-2">
+                    <div className="d-flex flex-column align-items-center text-center">
+                        <div className="row img-circle">
+                        {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="userImage"/>:
+                            <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
+                        </div>
+                        <div className="col mt-4">
+                            <div className="dragBox btn" >Pick Image
+                                <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
+                            </div>
+                            <div>
+                                <button className="btn dragBox mt-2" onClick={imageUpload}>Upload</button>
+                                <label className="m-auto text-info" id="message"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="col m-4">
+                <div className="row">
+                    <label>First Name</label>
+                    <input type="text" className=" formFieldInput" name ="firstName" 
+                        placeholder="Enter First Name" value={inputs.firstName} onChange={changeHandle}/>
+                </div>
+                <div className="row form-group">
+                    <label>Last Name</label>
+                    <input type="text" className=" formFieldInput" name ="lastName"  
+                        placeholder="Enter Last Name"  value={inputs.lastName} onChange={changeHandle}/>
+                </div>
+                <div className ='row'>
+                    <div className='col m-auto text-center'>
+                        <label className={errs.style}>{errs.message}</label>
+                    </div>
+                    <div className ="col ml-auto text-right">
+                        <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div className="row ml-auto text-right float-end">
+            <a className="btn-upload " type="button"  href="/employers/dashboard" >Back to Dashboard</a>
+        </div>
+            {/* <div className ="col-md-4 align-items-center text-center">
                 <div className="mb-2 p-2">
                     <div className="d-flex flex-column align-items-center text-center">
                         <div className="row img-circle">
@@ -210,109 +277,95 @@ return (<>
                         </div>
                     </div>
                 </div>
+            </div> */}
+        <div className="pt-4 border-top">
+            <h4 className="p-2 text-secondary"><small><u>Security Change</u></small></h4>
+        </div>
+        <div className='row justify-content-center m-auto'>
+            <div className="col form-group">
+                <label>Existing Password</label>
+                <input type="password" className="formFieldInput" name ="oldPassword"
+                    placeholder="Existing Password" value={pwd.oldPassword} onChange={changeHandle}/>
             </div>
-            <div className="col-md-6 p-2 mt-3">
-                <div className="row">
-                    <div className="col">
-                        <div className="form-group">
-                            <label>First Name</label>
-                            <input type="text" className=" formFieldInput" name ="firstName" 
-                                placeholder="Enter First Name" value={inputs.firstName} onChange={changeHandle}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Last Name</label>
-                            <input type="text" className=" formFieldInput" name ="lastName"  
-                                placeholder="Enter Last Name"  value={inputs.lastName} onChange={changeHandle}/>
-                        </div>
-                        <div className="form-group">
-                        <label>Change Password</label>
-                            <input type="password" className="formFieldInput" name ="password"
-                                placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Confirm Password</label> 
-                            <input type="password" className=" formFieldInput" name ="cpassword"
-                                placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
+            <div className="col form-group">
+                <label>New Password</label> 
+                <input type="password" className=" formFieldInput" name ="password"
+                    placeholder="New Password" value={pwd.password} onChange={changeHandle}/>
+            </div>  
+        </div>   
         <div className ='row'>
             <div className='col ml-auto text-center'>
-                <label className={errs.style}>{errs.message}</label>
+                <label className="m-auto text-info" id="pswd"></label>
             </div>
             <div className ="col ml-auto text-right">
-                <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
-                <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
+                <button className="btn btn-outline-success m-2" type="button" onClick={pswdUpdate}>Update</button>
             </div>
-        </div>
+        </div> 
     </div>
     <div className="tab-pane fade show active border-top p-3">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Organization Profile Update</small></h3>
             <div className='row'>
-                <div className='col-md-4'>
-                    <div className="mb-2 p-2">
-                        <div className="d-flex flex-column align-items-center text-center">
-                            <div className="row img-circle">
-                                {logoBtn?<img src={`${API_URL}/profile/profileImages/${profile_2.orgLogo}`}  className="shadow" alt="Logo"/>:
-                                <img src={logoShow} className="shadow"  alt="ProfileImage"/>}
-                            </div>
-                            <div className="col mt-4">
-                                <div className="dragBox btn" >Pick Logo
-                                    <input type="file"  accept="image/*" onChange={onLogoChange} id="uploadFile"  />
-                                </div>
-                                <div>
-                                    <button className="row btn dragBox m-2" onClick={logoUpload}>Upload</button>
-                                    <label className="m-auto text-info" id="mess"></label>
-                                </div>
-                            </div>
+                <div className="mb-2 p-2 col">
+                    <div className="d-flex flex-column align-items-center text-center">
+                        <div className="row img-circle">
+                            {logoBtn?<img src={`${API_URL}/profile/profileImages/${profile_2.orgLogo}`}  className="shadow" alt="Logo"/>:
+                            <img src={logoShow} className="shadow"  alt="ProfileImage"/>}
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6">                 
-                    <div className='row'>
-                        <div className="col">
-                            <div className="form-group">
-                            <label>Organization Name</label>
-                                <input type="text" className=" formFieldInput text-capitalize"  name="orgName"
-                                   placeholder="Enter Organization Name"  value={profile.orgName} onChange={changeHandle} />
-                            </div>
-                            {/* <div className="form-group">
-                                <label>Organization E-mail</label>
-                                <input type="text" className=" formFieldInput"  name="orgEmail"
-                                    placeholder="Enter Organization Mail"value={profile.orgEmail} onChange={changeHandle} />
-                            </div> */}
-                            <div className="form-group">
-                                <label>Organization Contact Number</label>
-                                <input type="text" className=" formFieldInput" name="orgPhone"
-                                   placeholder="Enter Organization Phone" value={profile.orgPhone} onChange={changeHandle} />
-                            </div>
-                            <div className="form-group">
-                                <label>Organization PAN Number</label>
-                                <input type="text" className=" formFieldInput" name="pan"
-                                   placeholder="Enter Organization PAN" value={profile.pan} onChange={changeHandle} />
-                            </div>
-                            <div className="form-group">
-                                <label>Organization GSTIN Number</label>
-                                <input type="text" className=" formFieldInput" name="gstin"
-                                   placeholder="Enter Organization GSTIN" value={profile.gstin} onChange={changeHandle} />
-                            </div>
-                            <div className="form-group">
-                                <label>Organization Wesite</label>
-                                <input type="text" className=" formFieldInput"  name="orgWebsite"
-                                   placeholder="Enter Organization Wesite" value={profile.orgWebsite} onChange={changeHandle} />
-                            </div>
-                            <div className="form-group">
-                                <label>Organization Address</label>
-                                <textarea type="text" className="formFieldInput text-capitalize"  row="4" name="orgAddress"
-                                placeholder="Enter Organization Address"value={profile.orgAddress} onChange={changeHandle} />
-                            </div>
-                            <label>Organization Country</label>
-                            <input type="text" className="formFieldInput text-capitalize "  name="orgCountry"
-                               placeholder="Enter Organization Country" value={profile.orgCountry} onChange={changeHandle}/>
+                <div className="col mt-4">
+                    <div className="bottom">
+                        <div className="dragBox btn" >Pick Logo
+                            <input type="file"  accept="image/*" onChange={onLogoChange} id="uploadFile"  />
+                        </div>
+                        <button className="btn dragBox mt-2" onClick={logoUpload}>Upload</button>
+                        <div className="row mt-2">
+                            <label className="text-info" id="mess"></label>
                         </div>
                     </div>
+                </div>
+            </div>   
+
+            <div className='row mt-4'>
+                <div className="col-md-10">
+                    <div className="form-group">
+                    <label>Organization Name</label>
+                        <input type="text" className=" formFieldInput text-capitalize"  name="orgName"
+                            placeholder="Enter Organization Name"  value={profile.orgName} onChange={changeHandle} />
+                    </div>
+                    {/* <div className="form-group">
+                        <label>Organization E-mail</label>
+                        <input type="text" className=" formFieldInput"  name="orgEmail"
+                            placeholder="Enter Organization Mail"value={profile.orgEmail} onChange={changeHandle} />
+                    </div> */}
+                    <div className="form-group">
+                        <label>Organization Contact Number</label>
+                        <input type="text" className=" formFieldInput" name="orgPhone"
+                            placeholder="Enter Organization Phone" value={profile.orgPhone} onChange={changeHandle} />
+                    </div>
+                    <div className="form-group">
+                        <label>Organization PAN Number</label>
+                        <input type="text" className=" formFieldInput" name="pan"
+                            placeholder="Enter Organization PAN" value={profile.pan} onChange={changeHandle} />
+                    </div>
+                    <div className="form-group">
+                        <label>Organization GSTIN Number</label>
+                        <input type="text" className=" formFieldInput" name="gstin"
+                            placeholder="Enter Organization GSTIN" value={profile.gstin} onChange={changeHandle} />
+                    </div>
+                    <div className="form-group">
+                        <label>Organization Wesite</label>
+                        <input type="text" className=" formFieldInput"  name="orgWebsite"
+                            placeholder="Enter Organization Wesite" value={profile.orgWebsite} onChange={changeHandle} />
+                    </div>
+                    <div className="form-group">
+                        <label>Organization Address</label>
+                        <textarea type="text" className="formFieldInput text-capitalize"  row="4" name="orgAddress"
+                        placeholder="Enter Organization Address"value={profile.orgAddress} onChange={changeHandle} />
+                    </div>
+                    <label>Organization Country</label>
+                    <input type="text" className="formFieldInput text-capitalize "  name="orgCountry"
+                        placeholder="Enter Organization Country" value={profile.orgCountry} onChange={changeHandle}/>
                 </div>
             </div>
             <div className ='row mt-4'>

@@ -3,9 +3,9 @@ import axios from "axios";
 import user from './asserts/user.jpg';
 import moment from 'moment';
 
-// export const API_URL = 'http://172.105.53.14:5300' 
-// export const API_URL = 'http://127.0.0.1:5300'
-export const API_URL = 'https://api.jobsfinderpro.com'
+//  export const API_URL = 'https://271f-2405-201-e031-7045-3ecb-bd85-62cd-4881.ngrok.io' 
+export const API_URL = 'http://127.0.0.1:5300'
+// export const API_URL = 'https://api.jobsfinderpro.com'
 
 export const WEB_URL = 'http://localhost:3000'
 // export const WEB_URL = 'https://jobsfinderpro.com'

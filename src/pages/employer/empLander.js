@@ -40,7 +40,7 @@ useEffect(() =>{
 			const res = await axios.post(`${API_URL}/profile/getprofile`,formData,{headers:header})
 			if(res.data.error === false){
 				const datas = res.data.data
-				setimgname(datas.part1.profileImage)
+				setimgname(datas.part2.orgLogo)
 				// setPoints(datas.part2.resumePoints)
 				localStorage.setItem('userInfo', JSON.stringify(datas.part2));
 				addToLocalStorageObject('userDetails','dpName',datas.part1.profileImage)
@@ -85,7 +85,7 @@ const dialogClose=()=>{
 						<div className="mb-3">
 						<div className="d-flex flex-column align-items-center text-center">
 							<div className="row img-circle">
-							<img src={`${API_URL}/profile/profileImages/${imgname}` || userDp}  className="shadow" alt="imagess"/>
+							<img src={`${API_URL}/profile/profileImages/${imgname}` || userDp}  className="shadow" alt="OrgLogo"/>
 							</div>
 						</div>
 						</div>

@@ -68,14 +68,14 @@ const ViewJob = ({show, data,  dialogClose}) => {
                         <div className="col">
                             <label>Job Description</label>
                             <textarea type="text"  rows="8"
-                            value={job.jobDescription} className="form-control border-0" readOnly/>
+                            value={job.jobDescription} className="form-control border-0 bg-light" readOnly/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <div className="col">
-                            <label>Job Requirement</label>
+                            <label>Skill Requirement</label>
                             <textarea type="text" rows="4"
-                            value={job.jobRequirement} className="form-control border-0" readOnly/>
+                            value={job.jobRequirement} className="form-control bg-light border-0"  readOnly/>
                         </div>
                     </div>
                     <small className="text-right m-auto"><b>Posted On: </b>{job.dateOfAdd.split("T")[0]}</small>

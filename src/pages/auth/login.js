@@ -9,15 +9,17 @@ import { useHistory } from "react-router-dom";
 
 import axios from 'axios'
 
-import { API_URL } from "../../components/utils";
+import { API_URL, WEB_URL } from "../../components/utils";
 import DialogBox from '../../components/dialogBox'
 import NavBar from "../../components/navBar";
 import Footer from "../../components/footer";
 
 import { validateMail } from "./validating";
 
-const Login =()=> {
+const Login =({location})=> {
 
+  const param = new URLSearchParams(location.search);
+  const loc = param.get('kwds')|| 'login';
   const [dialogShow, setDialogShow] = useState(false);
   const [errs,setErr] = useState({
     title: "",
@@ -39,8 +41,8 @@ const Login =()=> {
   // -----Login function----
     const validateemail = validateMail(inputs)
 
-    const handleSubmit= async(e) =>{
-      e.preventDefault();
+  const handleSubmit= async(e) =>{
+  e.preventDefault();
       if(validateemail.valid===false){
         setErr({message:"*"+ validateemail.error,style:'text-danger'})
       }
@@ -54,6 +56,10 @@ const Login =()=> {
           const userDetails = {job_email: inputs.email, Role_Type: datas.type, userdp:'', dpName:'',
               Auth_token:datas.authToken, job_fname:datas.firstName,job_lname:datas.lastName, job_id:datas.authid}
           localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+          if(loc !== 'login'){
+            window.open( `${WEB_URL}/job/view/${loc}`,"_self")
+          }else{
             if(datas.type === "employer"){
               history.push('/employers/dashboard');
               window.location.reload()
@@ -64,7 +70,7 @@ const Login =()=> {
             }
             else{window.location.reload()
             }
-
+          }
           setBtnVerify(false)
         }else if(res.data.error===true && res.data.message==="Please confirm your verification e-mail"){
           setBtnVerify(true)
@@ -79,7 +85,7 @@ const Login =()=> {
         setErr({message:'**Network Error',style:'text-warning'})
       }
       }
-    }
+   }
 
 // -----Reset Password function----
  const forgetPassword=async()=>{

@@ -29,10 +29,15 @@ function UserProfile() {
     const [inputs, setInputs] = useState({
         firstName: profile_1.job_fname,
         lastName:profile_1.job_lname,
-        password: "",
-        cpassword: "",
         email: profile_1.job_email,
         profileImage:profile_1.dpName,
+        type:'seeker'
+      })
+
+      const [pwd, setPwd] = useState({
+        email: profile_1.job_email,
+        oldPassword:"",
+        password:"",
         type:'seeker'
       })
 
@@ -53,6 +58,7 @@ function UserProfile() {
       
 //-------Input change-----------
     const changeHandle = async e => {
+        setPwd({...pwd,[e.target.name]: e.target.value})
         setInputs({...inputs,[e.target.name]: e.target.value})
         setProfile({...profile,[e.target.name]: e.target.value})
       }
@@ -108,9 +114,7 @@ function UserProfile() {
 
 //-------Profile Update-----------
 const baseUpdate =async()=>{
-    // console.log(inputs)
-    const erro = validating(inputs)
-    if(erro.valid === true){
+    if(inputs.firstName!=='' && inputs.lastName !==''){
         setErr({message:'Loading',style:'text-info'})
         try {
             const res = await axios.post(`${API_URL}/profile/updateprofile1`,inputs,{headers:header})
@@ -125,9 +129,29 @@ const baseUpdate =async()=>{
             
         }
     }else{
-        setErr({message:erro.error,style:'text-danger'})
+        setErr({message:'** Enter Name',style:'text-danger'})
       }
  }
+
+// -----Pasword Update----------
+const pswdUpdate=async()=>{
+    if(pwd.oldPassword !== '' && pwd.password !== ''){
+        document.getElementById('pswd').innerText="Loading.."
+        try {
+            const res = await axios.post(`${API_URL}/profile/updatepassword`,pwd,{headers:header})
+            if(res.data.error === true){
+                document.getElementById('pswd').innerText=res.data.status
+                getUser()
+            }else{
+                document.getElementById('pswd').innerText=res.data.status
+            }
+        } catch (error) {
+            document.getElementById('pswd').innerText= "Network Error"
+        }
+    }else{
+        document.getElementById('pswd').innerText= "Enter the credentials"
+      }
+}
 
 //-------Profile 2 Update-----------
 const detailUpdate =async()=>{
@@ -254,66 +278,83 @@ const eduChange=(i,e)=>{
 useEffect(()=>{
     setInputs({...inputs,profileImage:imgName})
     setProfile({...profile,qualifications:[...profile.qualifications],techQualifications:[...profile.techQualifications],resume:resumeName,})
-},[inputs,profile,imgName,resumeName])
+},[pwd,inputs,profile,imgName,resumeName])
 
     return (<>
     <div className="conatiner-flex m-3 p-2 border tab-content">
         <div className="tab-pane fade show active m-2">
             <h3 className="mb-4 p-2 border-bottom text-secondary"><small>Profile Update</small></h3>
             <div className='row'>
-                <div className ='col-md-4'>
+                <div className ='col'>
                     <div className="mb-2 p-2">
                         <div className="d-flex flex-column align-items-center text-center">
                             <div className="row img-circle">
                             {imgBtn?<img src={`${API_URL}/profile/profileImages/${profile_1.dpName}`}  className="shadow" alt="Profile"/>:
                                 <img src={imgShow} className="shadow"  alt="ProfileImage"/>}
                             </div>
-                            <div className="col mt-4">
-                                <div className="dragBox btn" >Change Image
-                                    <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile"  />
-                                </div>
-                                <div>
-                                    <button className="row dragBox btn m-2" onClick={imageUpload}>Upload</button>
-                                    <label className="row text-info" id="message"></label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-7 p-2 mt-3">
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label className="formFieldLabel">First Name</label>
-                                <input type="text" className="formFieldInput" name ="firstName" 
-                                    placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
-                            </div>
-                            <div className="form-group">
-                                <label className="formFieldLabel">Last Name</label>
-                                <input type="text" className="formFieldInput" name ="lastName"  
-                                    placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
-                            </div>
-                            <div className="form-group">
-                            <label className="formFieldLabel">Change Password</label>
-                                <input type="password" className="formFieldInput" name ="password"
-                                    placeholder="New Password" value={inputs.password} onChange={changeHandle}/>
-                            </div>
-                            <div className="form-group">
-                                <label className="formFieldLabel">Confirm Password</label> 
-                                <input type="password" className="formFieldInput" name ="cpassword"
-                                    placeholder="Confirm Password" value={inputs.cpassword} onChange={changeHandle}/>
-                            </div>
+                <div className="col mt-2 p-2">
+                    <div className="bottom">
+                        <div className="row dragBox btn" >Change Image
+                            <input type="file"  accept="image/*" onChange={onImageChange} id="uploadFile" />
+                        </div>
+                        <div className="row mt-2">
+                            <button className="dragBox btn " onClick={imageUpload}>Upload</button>
+                        </div>
+                        <div className="row mt-2">
+                            <label className="text-info" id="message"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className ='row'>
-                <div className='col ml-auto text-center'>
+
+            <div className="row">
+                <div className="col">
+                        <label className="formFieldLabel">First Name</label>
+                        <input type="text" className="formFieldInput" name ="firstName" 
+                            placeholder={profile_1.job_fname} value={inputs.firstName} onChange={changeHandle}/>
+                </div>
+                <div className="col">
+                    <label className="formFieldLabel">Last Name</label>
+                    <input type="text" className="formFieldInput" name ="lastName"  
+                        placeholder={profile_1.job_lname} value={inputs.lastName} onChange={changeHandle}/>
+                </div>
+            </div>
+            <div className ='row mt-2'>
+                <div className='col m-auto text-center'>
                     <label className={errs.style}>{errs.message}</label>
                 </div>
                 <div className ="col ml-auto text-right">
                     <button className="btn btn-outline-success m-2" type="button" onClick={baseUpdate}>Update</button>
-                    <a className="btn-upload m-2" type="button"  href="/users/dashboard" >Back to Dashboard</a>
+                </div>
+            </div>
+            <div className="row ml-auto text-right">
+                <a className="btn-upload" type="button"  href="/users/dashboard" >Back to Dashboard</a>
+            </div>
+
+            <div className="pt-4 border-top">
+                <h4 className="p-2 text-secondary"><small><u>Security Change</u></small></h4>
+            </div>
+            <div className='row justify-content-center m-auto'>
+                <div className="col form-group">
+                    <label>Existing Password</label>
+                    <input type="password" className="formFieldInput" name ="oldPassword"
+                        placeholder="Existing Password" value={pwd.oldPassword} onChange={changeHandle}/>
+                </div>
+                <div className="col form-group">
+                    <label>New Password</label> 
+                    <input type="password" className=" formFieldInput" name ="password"
+                        placeholder="New Password" value={pwd.password} onChange={changeHandle}/>
+                </div>  
+            </div> 
+            <div className ='row'>
+                <div className='col ml-auto text-center'>
+                    <label className="m-auto text-info" id="pswd"></label>
+                </div>
+                <div className ="col ml-auto text-right">
+                    <button className="btn btn-outline-success m-2" type="button" onClick={pswdUpdate}>Update</button>
                 </div>
             </div>
         </div>

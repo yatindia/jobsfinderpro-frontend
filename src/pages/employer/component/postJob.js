@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState, useEffect } from "react";
 import axios from 'axios'
 
 import { API_URL, formPostJob } from "../../../components/utils";
@@ -10,7 +10,10 @@ const PostJobs =()=> {
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
+    const [tags, setTags] =useState([])
+
     const [btn,setbtn] = useState(true)
+    const [subIn,setSubIn] = useState(false)
     const [cat,setcat] = useState()
     const [inputs, setInputs] = useState({
         authid: profile_1.job_id,
@@ -25,6 +28,8 @@ const PostJobs =()=> {
         jobSubCategory:''
     })
     const [errs,setErr] = useState({title: "",message: "",style:""})
+
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
 const changeHandle = e => {
     setInputs({...inputs,[e.target.name]: e.target.value})
@@ -41,33 +46,41 @@ const handleCheck=(e)=>{
    
 // ----Post Job-----------
 const postJob =async()=>{
-    const validate = formPostJob(inputs)
-    setErr({title: "",message:"Loading..",style:"text-primary"})
-    // console.log(inputs)
-    if (validate.valid===true){
-        try {
-            const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
-            if(res.data.error === false){
-                setErr({message:res.data.message,style:'text-success'})
-            }else{
-                setErr({message:res.data.message,style:'text-danger'})
-            }
-        } catch (error) {
+    
+    // const validate = formPostJob(inputs)
+    // setErr({title: "",message:"Loading..",style:"text-primary"})
+    console.log(inputs)
+    // if (validate.valid===true){
+    //     try {
+    //         const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
+    //         if(res.data.error === false){
+    //             setErr({message:res.data.message,style:'text-success'})
+    //         }else{
+    //             setErr({message:res.data.message,style:'text-danger'})
+    //         }
+    //     } catch (error) {
             
-        }
-    }
-    else{
-        setErr({title: "",message:validate.error,style:"text-danger"})
-    }
+    //     }
+    // }
+    // else{
+    //     setErr({title: "",message:validate.error,style:"text-danger"})
+    // }
 }
+useEffect(()=>{
+    const string = tags.toString()
+    setInputs({...inputs,jobRequirement:string})
+},[tags])
 
 const changeCate =(e)=>{
     const cate = e.target.value
     setInputs({...inputs,jobCategory:cate})
     if(e==='Select..' || e ===''){
         setcat('')
+        setSubIn(false)
     }
+    // else if(cate ==='Others'){setSubIn(true)}
     else{
+        setSubIn(false)
         try {
             let subData = require('../../../components/asserts/subCategory/'+cate+'.json');
             setcat(subData)
@@ -77,6 +90,29 @@ const changeCate =(e)=>{
         }
     }
 }
+const  removeTag = (i) => {
+    const newTags = [ ...tags ];
+    newTags.splice(i, 1);
+    setTags(newTags);
+  }
+
+const tagAdd = (e) => {
+    const val = e.target.value;
+    if (e.key === 'Enter' && val) {
+      if (tags.find(tag => tag.toLowerCase() === val.toLowerCase())) {
+        return;
+      }
+      setTags( [...tags, val]);
+      document.getElementById('myInput').value = ''
+    } else if (e.key === 'Backspace' && !val) {
+      removeTag(tags.length - 1);
+    }
+  }
+
+  const validating = () => {
+    // var element = document.getElementById('valid');
+    // element.value = element.value.replace(/(\d{6}[a-zA-Z ])/, '');
+  }
 
     return (<>
     <div className="container-flex m-2 p-2 ">
@@ -107,12 +143,16 @@ const changeCate =(e)=>{
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
+                                    {!subIn ?<>
                                     <select type="text" className="inputStyle text-capitalize" placeholder="Category" name="jobSubCategory" id="cat" onChange={changeHandle}>
                                         <option value=''>Select Category</option>
                                         {!cat ? <></>:
                                         cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}       
                                     </select>
                                     <p><small className='ml-2 text-muted'>{inputs.jobSubCategory}</small></p>
+                                    </>:
+                                    <input type="text" className="inputStyle" placeholder="Sub-Category" name="jobSubCategory" 
+                                    value="Other" onBlur={changeHandle} readOnly/>}
                                 </div>
                             </div>
                         </div>
@@ -160,15 +200,28 @@ const changeCate =(e)=>{
                             <label>Job Description</label>
                             <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    rows="6" value={inputs.jobDescription} onChange={changeHandle}/>
+                                    rows="6" value={inputs.jobDescription} onChange={changeHandle} id="valid" onKeyUp={validating}/>
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-md-12">
-                            <label>Job Requirement</label>
-                            <div className="form-group">
+                            <label>Skill Requirement</label>
+                            {/* <div className="form-group">
                                 <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
                                    rows="3" value={inputs.jobRequirement} onChange={changeHandle}/>
-                            </div>
+                            </div> */}
+                                 <div className="input-tag">
+                                    <ul className="input-tag__tags">
+                                        { tags.map((tag, i) => (
+                                            <li key={tag}>
+                                            {tag}
+                                            <button type="button" onClick={() => {removeTag(i); }}>X</button>
+                                            </li>
+                                        ))}
+                                        <li className="input-tag__tags__input">
+                                            <input type="text" onKeyDown={tagAdd} id="myInput" placeholder='Press "Enter" to add Skills'/>
+                                        </li>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -180,7 +233,7 @@ const changeCate =(e)=>{
                     <div className='row mt-3'>
                         <label className={errs.style}>{errs.message}</label>
                     </div>
-                    <div className="buttons row d-flex mt-2">
+                    <div className="buttons row d-flex m-auto ">
                         <button onClick={postJob} className="btn btn-findJob mr-3" disabled={btn}>Post Job</button>
                         <a className="btn-upload m-2" type="button"  href="/employers/dashboard" >Back to Dashboard</a>
                     </div>

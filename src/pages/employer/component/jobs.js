@@ -7,7 +7,7 @@ import { API_URL,WEB_URL } from "../../../components/utils";
 function Jobs(){
 
     const [jobData, setJobData] = useState('');
-    const [jobId, setJobId] = useState('');
+    const [load, setLoad] = useState(true);
 
     const profile_1 = JSON.parse(localStorage.getItem( 'userDetails'));
     const profile_2 = JSON.parse(localStorage.getItem( 'userInfo'))
@@ -20,6 +20,7 @@ function Jobs(){
                 try {
                     const res = await axios.post(`${API_URL}/job/getjobs`,formData,{headers:header})
                     if(res.data.error === false){
+                        setLoad(false)
                         //console.log(res)
                         setJobData(res.data.data)
                     }
@@ -34,8 +35,6 @@ function Jobs(){
             getuser()
       },[]);
 
-useEffect(()=>{
-},[jobId])
 
     const copyLink =value=>async()=>{
         await navigator.clipboard.writeText(`${WEB_URL}/job/view/${value}`);
@@ -52,6 +51,7 @@ useEffect(()=>{
 
     return (<>
           <div className="container-flex">
+              {!load ?<>
               {jobData.length>0 ?(
               <div>
              {jobData.map((data,id)=>(
@@ -124,6 +124,7 @@ useEffect(()=>{
              ))}  
              </div>):<div><h4 className="text-info text-center mt-5">Job not Posted Yet </h4>
              <h4 className="text-info text-center"><a className="btnPost" href='/employers/dashboard/newjobs'>Post a Job</a></h4></div>}
+             </> :<h4 className="text-primary mt-5">Loading....</h4>}
         </div>
    </> )
 }

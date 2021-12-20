@@ -16,6 +16,8 @@ const EditJob = () => {
 
     const header = {'authorization': `<Bearer> ${profile_1.Auth_token}`}
 
+    const [subIn,setSubIn] = useState(false)
+    const [tags, setTags] =useState([])
     const [cat,setcat] = useState()
     const [inputs, setInputs] = useState({
         authid: profile_1.job_id,
@@ -59,6 +61,10 @@ useEffect(() => {
                     jobCategory: datas.jobCategory,
                     jobSubCategory: datas.jobSubCategory
                 })
+                setTags((datas.jobRequirement).split(","))
+                if(datas.jobCategory === 'Others')
+                {  setSubIn(true) }
+                else{setSubIn(false)}
             }
         } catch (error) {
             console.log(error)
@@ -69,6 +75,12 @@ useEffect(() => {
 },[]);
    
 // ----Update Job-----------
+
+useEffect(()=>{
+    const string = tags.toString()
+    setInputs({...inputs,jobRequirement:string})
+},[tags])
+
 const updateJob =async(event)=>{
     event.preventDefault();
     setErr({title: "",message:"Loading..",style:"text-primary"})
@@ -106,9 +118,11 @@ const changeCate =(e)=>{
     const cate = e.target.value
     setInputs({...inputs,jobCategory:cate})
     if(e==='Select..' || e ===''){
-        setcat('')
+        setcat(''); setSubIn(false)
     }
+    // else if(cate ==='Others'){ setSubIn(true)}
     else{
+        setSubIn(false)
         try {
             let subData = require('../../../components/asserts/subCategory/'+cate+'.json');
             setcat(subData)
@@ -118,7 +132,24 @@ const changeCate =(e)=>{
         }
     }
 }
+const  removeTag = (i) => {
+    const newTags = [ ...tags ];
+    newTags.splice(i, 1);
+    setTags(newTags);
+  }
 
+const tagAdd = (e) => {
+    const val = e.target.value;
+    if (e.key === 'Enter' && val) {
+      if (tags.find(tag => tag.toLowerCase() === val.toLowerCase())) {
+        return;
+      }
+      setTags( [...tags, val]);
+      document.getElementById('myInput').value = ''
+    } else if (e.key === 'Backspace' && !val) {
+      removeTag(tags.length - 1);
+    }
+  }
 
     return(<>
    <div className="container-flex m-2 p-2">
@@ -149,18 +180,15 @@ const changeCate =(e)=>{
                             <label>Sub Category</label>
                             <div className="form-group">
                                 <div className="form-group">
+                                {!subIn ?<>
                                     <select type="text" className="form-control text-capitalize" placeholder="Category" name="jobSubCategory" onChange={changeHandle}>
                                         {!cat ? <option value={inputs.jobSubCategory}>{inputs.jobSubCategory}</option>:cat.map((name,i)=>(<option key={i} value={name}>{name}</option>))}    
                                     </select>
                                     <p><small className='ml-2 text-muted'>{inputs.jobSubCategory}</small></p>
+                                    </>:
+                                    <input type="text" className="form-control " placeholder="Sub-Category" name="jobSubCategory" 
+                                    value={inputs.jobSubCategory} onChange={changeHandle}/>}
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-md-10 col-sm">
-                            <label>Job Description</label>
-                            <div className="form-group">
-                                <textarea type="text" className="form-control" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    value={inputs.jobDescription} onChange={changeHandle}/>
                             </div>
                         </div>
 
@@ -184,10 +212,26 @@ const changeCate =(e)=>{
                             </div>
                         </div>
                         <div className="col-md-10 col-sm">
-                            <label>Job Requirement</label>
+                            <label>Job Description</label>
                             <div className="form-group">
-                                <textarea type="text" className="form-control" placeholder="Write few lines about the Job Requirement"name="jobRequirement" 
-                                    value={inputs.jobRequirement} onChange={changeHandle}/>
+                                <textarea type="text" className="form-control" placeholder="Write few lines about the Job Discription"name="jobDescription" 
+                                    value={inputs.jobDescription} onChange={changeHandle} rows={8}/>
+                            </div>
+                        </div>
+                        <div className="col-md-10 col-sm">
+                            <label>Skill Requirement</label>
+                            <div className="input-tag form-group">
+                                <ul className="input-tag__tags">
+                                    { tags.map((tag, i) => (
+                                        <li key={tag}>
+                                        {tag}
+                                        <button type="button" onClick={() => {removeTag(i); }}>X</button>
+                                        </li>
+                                    ))}
+                                    <li className="input-tag__tags__input">
+                                        <input type="text" onKeyDown={tagAdd} id="myInput" placeholder='Press "Enter" to add Skills'/>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div className="col-md-5 col-sm">

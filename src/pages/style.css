@@ -574,6 +574,11 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
       background: #ffffff;
       border:2px solid #eb5d1e;
     }
+
+    .bottom{
+      position:absolute;                 
+      bottom:10%;                         
+    }
 /* -------------input resume ----- */
 .resume-container {
   width: 100%;
@@ -623,6 +628,72 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 .btn-upload:hover{
   color: #8d2d05;
   transition: ease;
+}
+
+/* ---------input tabs---------- */
+
+.input-tag {
+  background: white;
+  border: 1px solid #eb5d1e;
+  border-radius: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 5px 0;
+}
+
+.input-tag input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #290d01;
+    outline: none;
+    font-weight: 400;
+}
+
+.input-tag__tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.input-tag__tags li {
+  align-items: center;
+  background: #eb5d1e;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  font-weight: 500;
+  list-style: none;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px 10px;
+}
+
+.input-tag__tags li button {
+  align-items: center;
+  appearance: none;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  color: rgb(131, 6, 6);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: bold;
+  height: 18px;
+  justify-content: center;
+  line-height: 0;
+  margin-left: 8px;
+  padding: 0;
+  width: 18px;
+}
+
+.input-tag__tags li.input-tag__tags__input {
+  background: none;
+  flex-grow: 1;
+  padding: 0;
 }
 
   /********** Login/Register***********/
@@ -681,6 +752,7 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
     font-weight: 400;
     padding-bottom: 10px;
     margin-top: 10px;
+    margin-bottom: 0px;
   }
   .formFieldInput:focus {
     background-color: transparent;
