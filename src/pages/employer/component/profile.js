@@ -315,10 +315,12 @@ return (<>
                 </div>
                 <div className="col mt-4">
                     <div className="bottom">
-                        <div className="dragBox btn" >Pick Logo
+                        <div className="row dragBox btn" >Pick Logo
                             <input type="file"  accept="image/*" onChange={onLogoChange} id="uploadFile"  />
                         </div>
-                        <button className="btn dragBox mt-2" onClick={logoUpload}>Upload</button>
+                        <div className="row mt-2">
+                            <button className="btn dragBox mt-2" onClick={logoUpload}>Upload</button>
+                        </div>
                         <div className="row mt-2">
                             <label className="text-info" id="mess"></label>
                         </div>
