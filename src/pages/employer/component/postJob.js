@@ -45,26 +45,24 @@ const handleCheck=(e)=>{
    }
    
 // ----Post Job-----------
-const postJob =async()=>{
-    
-    // const validate = formPostJob(inputs)
-    // setErr({title: "",message:"Loading..",style:"text-primary"})
-    console.log(inputs)
-    // if (validate.valid===true){
-    //     try {
-    //         const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
-    //         if(res.data.error === false){
-    //             setErr({message:res.data.message,style:'text-success'})
-    //         }else{
-    //             setErr({message:res.data.message,style:'text-danger'})
-    //         }
-    //     } catch (error) {
+const postJob =async()=>{ 
+    const validate = formPostJob(inputs)
+    setErr({title: "",message:"Loading..",style:"text-primary"})
+    if (validate.valid===true){
+        try {
+            const res = await axios.post(`${API_URL}/job/create`,inputs,{headers:header})
+            if(res.data.error === false){
+                setErr({message:res.data.message,style:'text-success'})
+            }else{
+                setErr({message:res.data.message,style:'text-danger'})
+            }
+        } catch (error) {
             
-    //     }
-    // }
-    // else{
-    //     setErr({title: "",message:validate.error,style:"text-danger"})
-    // }
+        }
+    }
+    else{
+        setErr({title: "",message:validate.error,style:"text-danger"})
+    }
 }
 useEffect(()=>{
     const string = tags.toString()
