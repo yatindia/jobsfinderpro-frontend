@@ -47,7 +47,7 @@ export default function JobList({data}){
 
     return(<>
             <div className="row z-depth-3 p-2 m-2 border">
-                <div className="col-sm-3 bg-info rounded-left">
+                <div className="col-sm-3 bg-info rounded">
                     <div className="card-block text-center text-white mt-3">
                         <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${data.org.orgLogo}`} alt="sample"></img>
                         {/* <h2 className="font-weight-bold mt-2"></h2> */}
@@ -56,7 +56,7 @@ export default function JobList({data}){
                         <i className="far-fa-edit fa-2x mb-2"></i>
                     </div>
                 </div>
-                <div className="col-md bg-white rounded-right" key={data.job._id}>
+                <div className="col-sm bg-white rounded-right" key={data.job._id}>
                     <div className='ml-auto float-right mr-5'>
                         <button className="btn floatBtn" onClick={copyLink}>
                             <i className="fa fa-share my-float"></i>

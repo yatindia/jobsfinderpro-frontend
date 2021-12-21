@@ -234,7 +234,7 @@ const regFree=()=>{
                     <input type="text" className="formInput form-control " name="jobTitle"
                       onChange={changeHandle} placeholder={place}   ref={input1} onKeyPress={e => { if (e.key === "Enter"){  handleSubmit();  }  }}/>
                     <div className="input-group-append">
-                      <button className="btn formButton effect " type="button" onClick={handleSubmit}>Search</button>
+                      <button className="btn formButton effect " type="button" onClick={handleSubmit}>Search Jobs</button>
                     </div>
                   </div>
               </div>
@@ -292,7 +292,7 @@ const regFree=()=>{
                     <input type="text" className="formInput form-control " name="jobTitle"
                       onChange={changeHandle} placeholder={place}   ref={input1} onKeyPress={e => { if (e.key === "Enter"){  handleSubmit();  }  }}/>
                     <div className="input-group-append">
-                      <button className="btn formButton effect " type="button" onClick={handleSubmit}>Search</button>
+                      <button className="btn formButton effect " type="button" onClick={handleSubmit}>Search Jobs</button>
                     </div>
                   </div>
               </div>

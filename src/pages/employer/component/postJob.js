@@ -84,7 +84,7 @@ const postJob =async()=>{
 useEffect(()=>{
     const string = tags.toString()
     setInputs({...inputs,jobRequirement:string})
-},[tags])
+},[tags,inputs])
 
 const changeCate =(e)=>{
     const cate = e.target.value
@@ -112,6 +112,9 @@ const  removeTag = (i) => {
   }
 
 const tagAdd = (e) => {
+    var element = document.getElementById('myInput');
+    element.value = element.value.replace(/[^a-zA-Z ]/, '');
+    element.value = element.value.replace(/\w+@\w+(\.\w+)?|\w+ at \w+ dot \w+/ig, "");
     const val = e.target.value;
     if (e.key === 'Enter' && val) {
       if (tags.find(tag => tag.toLowerCase() === val.toLowerCase())) {
@@ -124,9 +127,17 @@ const tagAdd = (e) => {
     }
   }
 
-  const validating = () => {
-    // var element = document.getElementById('valid');
-    // element.value = element.value.replace(/(\d{6}[a-zA-Z ])/, '');
+  function validating  (e)  {
+    const inputText = e.target.value
+    // let email = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", 'i')
+    // let phone = new RegExp("[6-9]{1}[0-9]{9}", 'i')
+    // email.test(inputText.replace(/\s/g, ""));
+    // phone.test(inputText.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s/g, ""))
+     var element = document.getElementById('valid');
+     element.value = element.value.replace(/\w+@\w+(\.\w+)?|\w+ at \w+ dot \w+/ig, "");
+     element.value = element.value.replace(/[6-9]{1}[0-9]{9}/ig, "");
+     element.value = element.value.replace(/\d{4}/ig, "");
+    //  element.value = element.value.replace(/[^a-zA-Z .]/, ''); (/\d{4}/ig,"")
   }
 
     return (<>
@@ -212,10 +223,10 @@ const tagAdd = (e) => {
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-md-12">
-                            <label>Job Description</label>
+                            <label>Job Description<small className="ml-5 text-primary">E-mail and Phone number Not Allowed</small></label>
                             <div className="form-group">
-                                <textarea type="text" className="inputStyle" placeholder="Write few lines about the Job Discription"name="jobDescription" 
-                                    rows="6" value={inputs.jobDescription} onChange={changeHandle} id="valid" />
+                                <textarea type="text" className=" borderTxt" placeholder="Write few lines about the Job Discription"name="jobDescription" 
+                                    rows="6" value={inputs.jobDescription} onChange={changeHandle} id="valid" onInput={validating}/>
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-12 col-md-12">

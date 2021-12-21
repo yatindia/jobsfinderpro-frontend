@@ -7,12 +7,16 @@ import { API_URL } from "../../components/utils";
 import NavBar from '../../components/navBar';
 import Footer from '../../components/footer';
 import TopHiring from '../home/topHire';
+import ViewJob from './viewJob';
 
 const JobView = ({ match }) => {
 
     const [fetch, setfetch] = useState({job:{},org:{}})
     const [date, setDate] = useState("")
     const [datas, setDatas] = useState(true)
+    const [view, setView] = useState(true)
+    const [dialogShow, setDialogShow] = useState(false);
+
     const history = useHistory()
     const id = match.params.jobId
 
@@ -37,63 +41,72 @@ useEffect(()=>{
       }
 },[])
 
+const dialogClose=()=>{
+    setDialogShow(false)
+  }
+
+const viewjob=()=>{
+    setDialogShow(true) 
+ }
+
     return(<>
     <NavBar/>
-        <div className="container bg-white m-auto rounded-lg justify-content-center pt-4">
+        <div className="pt-4 container m-auto justify-content-center">
             {!datas ?( 
-           <div className='container border p-2'>
+           <div className='col border'>
+            <div className='row m-auto justify-content-center border-bottom'>
+                <h5 className="text-center search-header-sub p-2"><u>{fetch.org.orgName} Recruiting</u></h5>
+            </div>
             <div className='row p-3'>
-                <h5 className="text-center h5">{fetch.org.orgName} Recruiting</h5>
-            </div>
-            <div className='row container'>
-            <div className="col">
-                    <div className="form-group row"> 
-                      <div className='col text-center'>
-                      <p>Requirement For: <b className='text-muted'>{fetch.job.jobTitle}</b></p>
-                      </div>
-                    </div>   
-                    <div className="form-group row border p-2 m-1">
-                        <div className="col border-right">
-                            <div className=" ">
-                                <p>Location:<i className="text-info">    {fetch.job.jobCity}</i></p>
-                                <p>Level:<i className="text-info">   {fetch.job.jobType}</i></p>
-                                <p>Dead Line: <i className="text-info">  {fetch.job.jobApplyEnd}</i></p>
-                                <p>Salary: <i className="text-info">{    `₹ ${fetch.job.jobSalary}`}</i></p>
-                                <p>Category: <i className="text-info">{fetch.job.jobCategory} , {fetch.job.jobSubCategory}</i></p>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="">
-                                <p> <i className="fa fa-map-marker fa-lg text-primary"></i> {fetch.org.orgAddress}, {fetch.org.orgCountry}</p>
-                                <p><i className="fa fa-phone fa-lg text-success"></i> {fetch.org.orgPhone}</p>
-                                <p><i className="fa fa-link fa-lg text-info"></i> {fetch.org.orgWebsite}</p>
-                            </div>
-                        </div>
+            <div className="col-sm-3 bg-info rounded-left">
+                    <div className="text-center text-white align-items-center mt-3">
+                        <img className="mt-2 img-fluid imglogo" src={`${API_URL}/profile/profileImages/${fetch.org.orgLogo}`} alt="sample"></img>
+                        {/* <h2 className="font-weight-bold mt-2"></h2> */}
+                        {fetch.job.dateOfAdd !== undefined ? 
+                            <p className="p-2">Posted On: <b>{fetch.job.dateOfAdd.split('T')[0]}</b></p>
+                                :<p>Posted On</p>}
+                        <i className="far-fa-edit fa-2x mb-2"></i>
                     </div>
-                    <div className="form-group row">
-                        <div className="col">
-                            <label>Job Description</label>
-                            <textarea type="text"  rows="8"
-                            value={fetch.job.jobDescription} className="form-control bg-light border-0" readOnly/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col">
-                            <label>Skill Requirement</label>
-                            <textarea type="text" 
-                            value={fetch.job.jobRequirement} className="form-control bg-light border-0" readOnly/>
-                        </div>
-                    </div>
-                    <small className="text-right m-auto"><b>Posted On: </b>{date.split("T")[0]}</small>
                 </div>
-            </div>
-            <div className='border-top p-2 ml-auto float-end'>
-                <ApplyBtn job={fetch.job}></ApplyBtn> 
+                <div className="col-md bg-white rounded-right">
+                        <p className="mt-3 text-muted">Job Position:  <b>{fetch.job.jobTitle}</b></p>
+                        <div className='row mb-2'>
+                            <div className="col">
+                                <h6 className="text-muted">{fetch.job.jobCategory} / {fetch.job.jobSubCategory}</h6>
+                            </div>
+                        </div>
+                        <div className="row border-top p-2">
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Location</p>
+                                <h6 className="text-muted">{fetch.job.jobCity}</h6>
+                            </div>
+                            <div className="col-md">
+                                <p className="font-weight-bold">Deadline</p>
+                                <h6 className="text-muted">{fetch.job.jobApplyEnd}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Job Level</p>
+                                <h6 className="text-muted">{fetch.job.jobType}</h6>
+                            </div>
+                            <div className="col-sm">
+                                <p className="font-weight-bold">Salary</p>
+                                <h6 className="text-muted">₹ {fetch.job.jobSalary}</h6>
+                            </div>
+                            <div className="col-md">
+                                <ApplyBtn job={fetch.job}></ApplyBtn>
+                                {view ? <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>:
+                                <button type="button" className="btn btn-upload m-2" onClick={viewjob}> Login to View</button>}
+                                
+                                <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> 
+                            </div>
+                        </div>
+                    <hr className="bg-primary"/>
+                </div>
             </div> 
         </div>
          ):<h5 className="pt-4 homeContent2 text-info text-center m-auto">Loading...</h5>} 
-         <TopHiring/>
         </div>
+        <TopHiring/>
         <Footer/>
    </> ) 
 }

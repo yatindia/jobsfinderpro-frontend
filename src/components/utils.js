@@ -7,8 +7,8 @@ import moment from 'moment';
 // export const API_URL = 'http://127.0.0.1:5300'
  export const API_URL = 'https://api.jobsfinderpro.com'
 
-// export const WEB_URL = 'http://localhost:3000'
-export const WEB_URL = 'https://jobsfinderpro.com'
+ export const WEB_URL = 'http://localhost:3000'
+// export const WEB_URL = 'https://jobsfinderpro.com'
 
 export const userDp = user
 
