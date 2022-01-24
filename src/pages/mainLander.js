@@ -15,6 +15,7 @@ import register from '../components/asserts/register.png'
 import getJob from '../components/asserts/getJob.png'
 import arrow from '../components/asserts/arrow.svg'
 import up from '../components/asserts/up.png'
+import Helmet from "react-helmet";
 
 import TopHiring from './home/topHire'
 
@@ -106,6 +107,12 @@ const regFree=()=>{
 }
 
     return (<>
+    <Helmet>
+      <title>Welcome to JobsFinderPro - India's New OneStop Career Solution</title>
+      <meta property="og:title" content="JobsFinderPro.com" />
+      <meta property="og:description" content="India's New OneStop Career Solution" />
+      <meta property="og:image" content="http://localhost:3000/static/media/logo.ea0e8d5b.svg" />
+    </Helmet>
     <div>
       <div id="welcome">
         <div className="container">
