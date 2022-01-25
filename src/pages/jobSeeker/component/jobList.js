@@ -35,7 +35,7 @@ export default function JobList({data}){
       }
 
       const copyLink =async()=>{
-        await navigator.clipboard.writeText(`${WEB_URL}/job/view/${data.job._id}`);
+        await navigator.clipboard.writeText(`${WEB_URL}/guest/view/${data.job._id}`);
         Swal.fire({
             position: 'center',
             icon: 'success',
