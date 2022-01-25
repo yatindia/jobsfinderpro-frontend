@@ -2,33 +2,29 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { useHistory} from 'react-router-dom';
 
-import ApplyBtn from './applyBtn';
 import { API_URL } from "../../components/utils";
 import NavBar from '../../components/navBar';
 import Footer from '../../components/footer';
 import TopHiring from '../home/topHire';
-import ViewJob from './viewJob';
 import Helmet from 'react-helmet';
 
-const JobView = ({ match }) => {
+const GuestJobView = ({ match }) => {
 
     const [fetch, setfetch] = useState({job:{},org:{}})
     const [date, setDate] = useState("")
     const [datas, setDatas] = useState(true)
-    const [view, setView] = useState(true)
-    const [dialogShow, setDialogShow] = useState(false);
+
+
 
     const history = useHistory()
     const id = match.params.jobId
 
 useEffect(()=>{
     const userDetils = JSON.parse(localStorage.getItem( 'userDetails'));
-    if(!userDetils){
-        history.push('/login?kwds='+id);
-      }else{
-        const header = {'authorization': `<Bearer> ${userDetils.Auth_token}`}
+ 
         const getjob =async ()=>{
-            const  res = await axios.post(`${API_URL}/job/searchone`,{jobid:id},{headers:header})
+            const  res = await axios.post(`${API_URL}/guest/searchone`,{jobid:id})
+          console.log(res);
             setfetch({
                 job:res.data.data.job,
                 org:res.data.data.org
@@ -39,16 +35,14 @@ useEffect(()=>{
             }
         }
       getjob()
-      }
+      
 },[])
 
-const dialogClose=()=>{
-    setDialogShow(false)
+const login=()=>{
+    history.push('/login?kwds='+id)
   }
 
-const viewjob=()=>{
-    setDialogShow(true) 
- }
+
 
     return(<>
     
@@ -107,11 +101,7 @@ const viewjob=()=>{
                                 <h6 className="text-muted">₹ {fetch.job.jobSalary}</h6>
                             </div>
                             <div className="col-md">
-                                <ApplyBtn job={fetch.job}></ApplyBtn>
-                                {view ? <button type="button" className="btn btn-findJob m-2" onClick={viewjob}> View</button>:
-                                <button type="button" className="btn btn-upload m-2" onClick={viewjob}> Login to View</button>}
-                                
-                                <ViewJob show={dialogShow} data={fetch} dialogClose={dialogClose}/> 
+                              <button onClick={()=>login()} className='btn btn-danger'>Login to apply</button>
                             </div>
                         </div>
                     <hr className="bg-primary"/>
@@ -124,4 +114,4 @@ const viewjob=()=>{
         <Footer/>
    </> ) 
 }
-export default JobView
+export default GuestJobView

@@ -58,9 +58,9 @@ const ViewJob = ({show, data,  dialogClose}) => {
                         </div>
                         <div className="col">
                             <div className="">
-                                <p> <i className="fa fa-map-marker text-primary fa-lg"></i> {org.orgAddress}, {org.orgCountry}</p>
+                                {/* <p> <i className="fa fa-map-marker text-primary fa-lg"></i> {org.orgAddress}, {org.orgCountry}</p>
                                 <p><i className="fa fa-phone text-success fa-lg"></i> {org.orgPhone}</p>
-                                <p><i className="fa fa-link text-info fa-lg"></i> {org.orgWebsite}</p>
+                                <p><i className="fa fa-link text-info fa-lg"></i> {org.orgWebsite}</p> */}
                             </div>
                         </div>
                     </div>

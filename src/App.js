@@ -16,7 +16,7 @@ import Terms from "./components/terms";
 import Policies from "./components/policies";
 import About from "./components/about";
 import JobView from "./pages/jobList/jobView";
-
+import GuestJobView from "./pages/jobList/GuestJobView"
 function App () {
 
 const [userRoute,setUserRoute]=useState(false)
@@ -50,6 +50,7 @@ useEffect(()=>{
             <Route exact path="/categories/search" component={Fetcher}/>
             <Route exact path="/jobs" component={FindJobs}/>
             <Route exact path="/job/view/:jobId" component={JobView}/>
+            <Route exact path="/guest/view/:jobId" component={GuestJobView}/>
             <Route exact path="/privacy_policy" component={Policies}/>
             <Route exact path="/terms" component={Terms}/>
             <Route exact path="/about_us" component={About}/>
