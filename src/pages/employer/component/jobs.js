@@ -37,7 +37,7 @@ function Jobs(){
 
 
     const copyLink =value=>async()=>{
-        await navigator.clipboard.writeText(`${WEB_URL}/job/view/${value}`);
+        await navigator.clipboard.writeText(`${WEB_URL}/guest/view/${value}`);
         Swal.fire({
             position: 'center',
             icon: 'success',
