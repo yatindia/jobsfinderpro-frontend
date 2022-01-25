@@ -56,11 +56,11 @@ const login=()=>{
                 <title>{fetch.org.orgName} JobsFinderPro</title>
                 <meta property="og:title" content={`${fetch.org.orgName} Recruiting`} />
                 <meta property="og:description" content={`Become a ${fetch.job.jobTitle} in ${fetch.job.jobCity}`} />
-                <meta property="og:image" content="https://jobsfinderpro.com/static/media/logo.ea0e8d5b.svg" />
+                <meta property="og:image" content="https://scontent-hkt1-1.xx.fbcdn.net/v/t39.30808-6/272588859_118580827357899_6938190485475406914_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=_0UJjtgz8nwAX-dMkmM&_nc_ht=scontent-hkt1-1.xx&oh=00_AT8uUOLOGGhDeko8UBpNDzsbgRZl6dwfCPEmdiMf66Y2XA&oe=61F558D1" />
 
                 <meta property="title" content={`${fetch.org.orgName} Recruiting`} />
                 <meta property="description" content={`Become a ${fetch.job.jobTitle} in ${fetch.job.jobCity}`} />
-                <meta property="image" content="https://jobsfinderpro.com/static/media/logo.ea0e8d5b.svg" />
+                <meta property="image" content="https://scontent-hkt1-1.xx.fbcdn.net/v/t39.30808-6/272588859_118580827357899_6938190485475406914_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=_0UJjtgz8nwAX-dMkmM&_nc_ht=scontent-hkt1-1.xx&oh=00_AT8uUOLOGGhDeko8UBpNDzsbgRZl6dwfCPEmdiMf66Y2XA&oe=61F558D1" />
                </Helmet>
             <div className='row m-auto justify-content-center border-bottom'>
                 <h5 className="text-center search-header-sub p-2"><u>{fetch.org.orgName} Recruiting</u></h5>
