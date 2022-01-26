@@ -38,7 +38,7 @@ export default function Listing({data}){
      }
      
      const copyLink =async()=>{
-        await navigator.clipboard.writeText(`${WEB_URL}/guest/view/${data._id}`);
+        await navigator.clipboard.writeText(`https://api.jobsfinderpro.com/guest/view/${data._id}`);
         Swal.fire({
             position: 'center',
             icon: 'success',

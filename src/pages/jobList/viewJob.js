@@ -13,7 +13,7 @@ const ViewJob = ({show, data,  dialogClose}) => {
     const org = data.org
 
     const copyLink =async()=>{
-        await navigator.clipboard.writeText(`${WEB_URL}/guest/view/${job._id}`);
+        await navigator.clipboard.writeText(`https://api.jobsfinderpro.com/guest/view/${job._id}`);
         Swal.fire({
             position: 'center',
             icon: 'success',
