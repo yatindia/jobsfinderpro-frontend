@@ -322,9 +322,9 @@ const regFree=()=>{
       </div>
       <div className="container-fluid row justify-content-center m-auto bg-light p-3 border shadow">
               <div className="col-sm-5 footerEnd text-center">
-                  <a href="/"><i className="fa fa-twitter fa-lg"></i></a>
-                  <a href="/"><i className="fa fa-facebook fa-lg"></i></a>
-                  <a href="/"><i className="fa fa-linkedin fa-lg"></i></a>
+                  <a target="_blank" href="https://www.instagram.com/jobsfinderpro/"><i className="fa fa-instagram fa-lg"></i></a>
+                  <a target="_blank" href="https://www.facebook.com/jobsfinderpro"><i className="fa fa-facebook fa-lg"></i></a>
+                  <a target="_blank" href="https://www.linkedin.com/company/jobsfinderpro"><i className="fa fa-linkedin fa-lg"></i></a>
               </div>
               <div className="col-sm-2 text-center footerEnd">
                   &copy;<span>JobsFinderPro</span>
